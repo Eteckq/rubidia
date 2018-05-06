@@ -7,8 +7,7 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.duels.RDuel;
 import me.pmilon.RubidiaCore.handlers.TradingHandler;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaGuilds.guilds.Permission;
@@ -53,8 +52,8 @@ public class PlayerMenu extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.PLAYER_MENU;
+	public String getType() {
+		return "PLAYER_MENU";
 	}
 
 	@Override
@@ -68,7 +67,7 @@ public class PlayerMenu extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
@@ -138,12 +137,12 @@ public class PlayerMenu extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		if(e.isShiftClick())e.setCancelled(true);
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 		//not listening
 	}
 

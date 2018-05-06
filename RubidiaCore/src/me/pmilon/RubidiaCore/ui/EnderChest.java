@@ -13,8 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
 public class EnderChest extends UIHandler{
 
@@ -26,8 +25,8 @@ public class EnderChest extends UIHandler{
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.ENDER_CHEST;
+	public String getType() {
+		return "ENDER_CHEST";
 	}
 
 	@Override
@@ -40,15 +39,15 @@ public class EnderChest extends UIHandler{
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 		if(block.getType().toString().contains("CHEST"))this.changeChestState(block.getLocation(), false);
 		for(int i = 0;i < this.getMenu().getSize();i++){
 			rp.getLoadedSPlayer().getEnderchest().put(i, this.getMenu().getItem(i));

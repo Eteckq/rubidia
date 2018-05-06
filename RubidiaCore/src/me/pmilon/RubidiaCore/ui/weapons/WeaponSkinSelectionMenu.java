@@ -7,8 +7,7 @@ import java.util.List;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
-import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -76,12 +75,12 @@ public class WeaponSkinSelectionMenu extends ListMenuUIHandler<Integer> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.WEAPON_SKIN_MENU;
+	public String getType() {
+		return "WEAPON_SKIN_MENU";
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 	@Override

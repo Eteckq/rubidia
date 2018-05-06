@@ -11,8 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+
 
 public abstract class ConfirmationUI extends UIHandler {
 
@@ -29,8 +28,8 @@ public abstract class ConfirmationUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.CONFIRMATION;
+	public String getType() {
+		return "CONFIRMATION_MENU";
 	}
 
 	@Override
@@ -59,7 +58,7 @@ public abstract class ConfirmationUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			e.setCancelled(true);
 			int slot = e.getRawSlot();
@@ -69,11 +68,11 @@ public abstract class ConfirmationUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 		if(this.defaultNo)no();
 	}
 	

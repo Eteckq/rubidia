@@ -7,8 +7,7 @@ import me.pmilon.RubidiaCore.ritems.weapons.Set;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.ritems.weapons.WeaponUse;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.Utils;
 
@@ -36,8 +35,8 @@ public class WeaponEditionMenu extends UIHandler{
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.WEAPONS_EDITION_MENU;
+	public String getType() {
+		return "WEAPONS_EDITION_MENU";
 	}
 
 	@Override
@@ -108,7 +107,7 @@ public class WeaponEditionMenu extends UIHandler{
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			e.setCancelled(true);
 			int slot = e.getRawSlot();
@@ -175,11 +174,11 @@ public class WeaponEditionMenu extends UIHandler{
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 	@Override

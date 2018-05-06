@@ -9,8 +9,7 @@ import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.handlers.EconomyHandler;
 import me.pmilon.RubidiaCore.ritems.general.RItem;
 import me.pmilon.RubidiaCore.ritems.weapons.REnchantment;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 
 import org.bukkit.Bukkit;
@@ -44,8 +43,8 @@ public class EnchantmentUI extends UIHandler {
 	}
 	
 	@Override
-	public UIType getType(){
-		return UIType.ENCHANTMENT;
+	public String getType(){
+		return "ENCHANTMENT_MENU";
 	}
 
 	@Override
@@ -87,7 +86,7 @@ public class EnchantmentUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
 				RPlayer rp = RPlayer.get(p);
@@ -148,7 +147,7 @@ public class EnchantmentUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 		//nothing to do here ??
 	}
 
@@ -158,7 +157,7 @@ public class EnchantmentUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		if(e.isShiftClick() || e.getCurrentItem().equals(p.getEquipment().getItemInMainHand()))e.setCancelled(true);
 	}
 	

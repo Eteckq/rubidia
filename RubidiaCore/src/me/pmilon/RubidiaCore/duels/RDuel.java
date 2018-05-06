@@ -74,11 +74,12 @@ public class RDuel {
 	
 	public void request(){
 		this.getChallenger().getDuels().add(this);
+		final RDuel instance = this;
 		this.setRequestTimeout(new BukkitTask(Core.instance){
 
 			@Override
 			public void run() {
-				getChallenger().getDuels().remove(this);
+				getChallenger().getDuels().remove(instance);
 				getChallenger().sendMessage("§4" + getChallenged().getName() + "§c has not answered your duel request in time...", "§4" + getChallenged().getName() + "§c n'a pas répondu à votre invitation en duel à temps...");
 				getChallenged().sendMessage("§cYou have not answered §4" + getChallenger().getName() + "§c's duel request in time...", "§cVous n'avez pas répondu à l'invitation en duel de §4" + getChallenger().getName() + "§c à temps...");
 			}

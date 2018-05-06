@@ -3,7 +3,6 @@ package me.pmilon.RubidiaCore.ui.abstracts;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.ui.managers.UIManager;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 
 import org.bukkit.entity.Player;
@@ -59,9 +58,9 @@ public abstract class UIHandler {
 		this.keepWindowAfterEditMode = keepWindowAfterEditMode;
 	}
 	
-	public abstract UIType getType();
+	public abstract String getType();
 	
-	protected boolean openWindow(String message){
+	public boolean openWindow(String message){
 		this.message = message;
 		if(this.getUIManager().tempSessions.containsKey(this.getHolder()))this.getUIManager().tempSessions.remove(this.getHolder());
 		return this.openWindow();
@@ -73,11 +72,11 @@ public abstract class UIHandler {
 		return this.getHolder().equals(inv.getHolder()) && inv.getName().equals(this.menu.getName()) && inv.getSize() == this.menu.getSize() && inv.getType().equals(this.menu.getType());
 	}
 	
-	protected abstract void onInventoryClick(InventoryClickEvent e, Player p);
+	public abstract void onInventoryClick(InventoryClickEvent e, Player p);
 	
-	protected abstract void onGeneralClick(InventoryClickEvent e, Player p);
+	public abstract void onGeneralClick(InventoryClickEvent e, Player p);
 	
-	protected abstract void onInventoryClose(InventoryCloseEvent e, Player p);
+	public abstract void onInventoryClose(InventoryCloseEvent e, Player p);
 	
 	public void close(boolean temporary, int... listeningId){
 		if(temporary){

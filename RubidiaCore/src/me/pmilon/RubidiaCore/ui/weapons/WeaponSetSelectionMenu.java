@@ -10,8 +10,7 @@ import me.pmilon.RubidiaCore.ritems.weapons.Rarity;
 import me.pmilon.RubidiaCore.ritems.weapons.Set;
 import me.pmilon.RubidiaCore.ritems.weapons.Sets;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
-import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaCore.utils.Configs;
 
 import org.bukkit.Material;
@@ -87,12 +86,12 @@ public class WeaponSetSelectionMenu extends ListMenuUIHandler<Set> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.WEAPONS_SET_MENU;
+	public String getType() {
+		return "WEAPONS_SET_MENU";
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 	public Weapon getWeapon() {

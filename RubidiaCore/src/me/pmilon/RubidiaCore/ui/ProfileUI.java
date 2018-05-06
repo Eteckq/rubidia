@@ -6,8 +6,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import me.pmilon.RubidiaCore.RManager.Gender;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -34,8 +33,8 @@ public class ProfileUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.PROFILE;
+	public String getType() {
+		return "PROFILE_MENU";
 	}
 
 	@Override
@@ -63,7 +62,7 @@ public class ProfileUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			e.setCancelled(true);
 			int slot = e.getRawSlot();
@@ -86,11 +85,11 @@ public class ProfileUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 	@Override

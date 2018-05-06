@@ -5,8 +5,7 @@ import java.util.Arrays;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.handlers.TeleportHandler;
 import me.pmilon.RubidiaCore.scrolls.Scroll;
-import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -29,12 +28,12 @@ public class FriendCallUI extends ListMenuUIHandler<Player> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.FRIEND_CALL;
+	public String getType() {
+		return "FRIEND_CALL_MENU";
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 		if(cancel){
 			this.getScroll().cancel(this.getHolder());
 		}

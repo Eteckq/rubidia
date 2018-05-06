@@ -9,8 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.RManager.SPlayer;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
@@ -38,8 +37,8 @@ public class RPlayerManagerMenu extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.RPLAYER_MANAGER;
+	public String getType() {
+		return "RPLAYER_MANAGER_MENU";
 	}
 
 	@Override
@@ -50,16 +49,16 @@ public class RPlayerManagerMenu extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 	private ItemStack getHead(){

@@ -2,8 +2,7 @@ package me.pmilon.RubidiaCore.handlers;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RClass;
-import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaQuests.ui.bank.SafeUI;
 
@@ -67,7 +66,7 @@ public class EconomyHandler {
 	public static int withdrawFromBank(Player p, int cost){
 		RPlayer rp = RPlayer.get(p);
 		if(!rp.isOp() && cost > 0){
-			if(!Core.uiManager.hasActiveSession(p) || !Core.uiManager.getSession(p).getUIHandler().getType().equals(UIType.SAFE)){
+			if(!Core.uiManager.hasActiveSession(p) || !Core.uiManager.getSession(p).getUIHandler().getType().equals("SAFE_MENU")){
 				int maxSlot = rp.isVip() ? 18 : 9;
 				for(int i = 0;i < 2;i++){
 					for(int slot = maxSlot-1;slot >= 0;slot--){
@@ -164,7 +163,7 @@ public class EconomyHandler {
 	public static int getBankBalance(Player p){
 		RPlayer rp = RPlayer.get(p);
 		if(Core.uiManager.hasActiveSession(p)){
-			if(Core.uiManager.getSession(p).getUIHandler().getType().equals(UIType.SAFE)){
+			if(Core.uiManager.getSession(p).getUIHandler().getType().equals("SAFE_MENU")){
 				((SafeUI)Core.uiManager.getSession(p).getUIHandler()).getBalance();
 			}
 		}
@@ -238,7 +237,7 @@ public class EconomyHandler {
 	public static int addBalanceInBank(Player p, int amount){
 		RPlayer rp = RPlayer.get(p);
 		if(amount > 0){
-			if(!Core.uiManager.hasActiveSession(p) || !Core.uiManager.getSession(p).getUIHandler().getType().equals(UIType.SAFE)){
+			if(!Core.uiManager.hasActiveSession(p) || !Core.uiManager.getSession(p).getUIHandler().getType().equals("SAFE_MENU")){
 				int maxSlot = rp.isVip() ? 18 : 9;
 				for(int slot = maxSlot-1;slot >= 0;slot--){
 					if(amount > 0){

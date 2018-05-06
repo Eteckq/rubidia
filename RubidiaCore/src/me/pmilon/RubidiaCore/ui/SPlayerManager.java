@@ -3,8 +3,7 @@ package me.pmilon.RubidiaCore.ui;
 import java.util.Arrays;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaGuilds.ui.GCreateMenuUI;
 import me.pmilon.RubidiaGuilds.ui.GMenuUI;
 import me.pmilon.RubidiaQuests.ui.PlayerQuestList;
@@ -26,8 +25,8 @@ public class SPlayerManager extends UIHandler{
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.SPLAYER_MANAGEMENT_MENU;
+	public String getType() {
+		return "SPLAYER_MANAGEMENT_MENU";
 	}
 
 	@Override
@@ -43,7 +42,7 @@ public class SPlayerManager extends UIHandler{
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
 				e.setCancelled(true);
@@ -68,11 +67,11 @@ public class SPlayerManager extends UIHandler{
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 	@Override

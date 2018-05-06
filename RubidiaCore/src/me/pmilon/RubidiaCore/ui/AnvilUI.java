@@ -6,7 +6,6 @@ import java.util.Random;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.handlers.EconomyHandler;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
 import me.pmilon.RubidiaCore.utils.Utils;
 
 import org.bukkit.Bukkit;
@@ -43,8 +42,8 @@ public class AnvilUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.ANVIL;
+	public String getType() {
+		return "ANVIL_MENU";
 	}
 
 	@Override
@@ -90,7 +89,7 @@ public class AnvilUI extends UIHandler {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			int slot = e.getRawSlot();
 			if(slot == FINAL_ITEM_SLOT || slot == FINAL_ITEM_SLOT-1 || slot == FINAL_ITEM_SLOT+1){
@@ -121,12 +120,12 @@ public class AnvilUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		if(e.isShiftClick())e.setCancelled(true);
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, final Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, final Player p) {
 		if(!DONE){
 			if(ITEM_0 != null)p.getInventory().addItem(ITEM_0);
 			if(ITEM_1 != null)p.getInventory().addItem(ITEM_1);

@@ -5,8 +5,7 @@ import java.util.Arrays;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.books.BookUtils;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
 
@@ -31,8 +30,8 @@ public class DistinctionsMenu extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.DISTINCTIONS_MENU;
+	public String getType() {
+		return "DISTINCTIONS_MENU";
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class DistinctionsMenu extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
 				e.setCancelled(true);
@@ -101,11 +100,11 @@ public class DistinctionsMenu extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 	@Override

@@ -12,8 +12,7 @@ import java.util.concurrent.TimeUnit;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.Gender;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
@@ -99,12 +98,12 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.RPLAYER_LIST;
+	public String getType() {
+		return "RPLAYERS_LIST_MENU";
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 	@Override

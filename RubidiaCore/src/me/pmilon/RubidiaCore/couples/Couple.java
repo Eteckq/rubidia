@@ -7,8 +7,7 @@ import org.bukkit.Sound;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
 public class Couple {
 
@@ -105,7 +104,7 @@ public class Couple {
 		if(rp.isOnline()){
 			if(Core.uiManager.hasActiveSession(rp.getPlayer())){
 				UIHandler handler = Core.uiManager.getSession(rp.getPlayer()).getUIHandler();
-				if(handler.getType().equals(UIType.COUPLE_MENU))handler.close(false);
+				if(handler.getType().equals("COUPLE_MENU"))handler.close(false);
 			}
 			rp.getPlayer().playSound(rp.getPlayer().getLocation(), Sound.BLOCK_ANVIL_BREAK, 1, .5F);
 			rp.getPlayer().sendMessage(" ");

@@ -223,7 +223,7 @@ public class JobsHandler implements Listener {
 														}
 													}
 												}
-												brewed.remove(p);
+												brewed.remove(brewinginventoryopen.get(p));
 												brewinginventory.remove(p);
 												brewinginventoryopen.remove(p);
 											}

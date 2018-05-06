@@ -2,8 +2,7 @@ package me.pmilon.RubidiaCore.ui;
 
 import java.util.Arrays;
 
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaMusics.SongManager;
 
 import org.bukkit.Bukkit;
@@ -73,8 +72,8 @@ public class PrefsUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.PREFS;
+	public String getType() {
+		return "PREFS_MENU";
 	}
 
 	@Override
@@ -85,7 +84,7 @@ public class PrefsUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		int slot = e.getRawSlot();
 		ItemStack is = e.getCurrentItem();
 		e.setCancelled(true);
@@ -156,12 +155,12 @@ public class PrefsUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		if(e.isShiftClick())e.setCancelled(true);
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 		//not listening
 	}
 

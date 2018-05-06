@@ -15,8 +15,7 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.REvents.Event;
 import me.pmilon.RubidiaCore.REvents.Events;
 import me.pmilon.RubidiaCore.REvents.Event.EventType;
-import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 
 public class EventListUI extends ListMenuUIHandler<Event> {
 
@@ -71,12 +70,12 @@ public class EventListUI extends ListMenuUIHandler<Event> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.EVENT_LIST;
+	public String getType() {
+		return "EVENT_LIST_MENU";
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 }

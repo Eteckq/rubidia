@@ -8,8 +8,7 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.REvents.Event;
 import me.pmilon.RubidiaCore.REvents.Events;
 import me.pmilon.RubidiaCore.REvents.Event.EventType;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 
 import org.bukkit.Bukkit;
@@ -41,8 +40,8 @@ public class EventManager extends UIHandler {
 	}
 	
 	@Override
-	public UIType getType() {
-		return UIType.EVENT_MANAGER;
+	public String getType() {
+		return "EVENT_MANAGER_MENU";
 	}
 	
 	@Override
@@ -91,7 +90,7 @@ public class EventManager extends UIHandler {
 	}
 	
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			e.setCancelled(true);
 			int slot = e.getRawSlot();
@@ -118,11 +117,11 @@ public class EventManager extends UIHandler {
 	}
 	
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 	}
 	
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 	
 	@Override

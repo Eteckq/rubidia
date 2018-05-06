@@ -12,7 +12,6 @@ import me.pmilon.RubidiaCore.couples.CBuff;
 import me.pmilon.RubidiaCore.couples.Couple;
 import me.pmilon.RubidiaCore.couples.Couples;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -37,8 +36,8 @@ public class CoupleMenu extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.COUPLE_MENU;
+	public String getType() {
+		return "COUPLE_MENU";
 	}
 
 	@Override
@@ -71,7 +70,7 @@ public class CoupleMenu extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			e.setCancelled(true);
 			int slot = e.getRawSlot();
@@ -80,11 +79,11 @@ public class CoupleMenu extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 	@Override

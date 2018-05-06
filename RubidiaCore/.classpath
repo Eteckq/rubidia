@@ -4,7 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/EffectLib.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/ProtocolLib.jar"/>
-	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaGuilds-1.12.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaManager-1.12.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaMonsters-1.12.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaPets-1.12.jar"/>
@@ -14,5 +13,6 @@
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/WorldGuard.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/spigot.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaMusics-1.12.jar"/>
+	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaGuilds-1.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

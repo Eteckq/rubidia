@@ -5,8 +5,7 @@ import java.util.Arrays;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.SPlayer;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Configs;
 import net.md_5.bungee.api.ChatColor;
 
@@ -34,16 +33,16 @@ public class SPlayerDeletionMenu extends UIHandler {
 	}
 	
 	@Override
-	public UIType getType() {
-		return UIType.SPLAYER_DELETION_MENU;
+	public String getType() {
+		return "SPLAYER_DELETION_MENU";
 	}
 	
 	@Override
-	protected void onGeneralClick(InventoryClickEvent arg0, Player arg1) {
+	public void onGeneralClick(InventoryClickEvent arg0, Player arg1) {
 	}
 	
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player arg1) {
+	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
 		if(e.getCurrentItem() != null){
 			e.setCancelled(true);
 			int slot = e.getRawSlot();
@@ -60,7 +59,7 @@ public class SPlayerDeletionMenu extends UIHandler {
 	}
 	
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 		if(!rp.isVip() && rp.getLastLoadedSPlayerId() == 3){
 			new BukkitTask(Core.instance){
 

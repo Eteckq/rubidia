@@ -8,8 +8,7 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.SPlayer;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaCore.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
@@ -32,8 +31,8 @@ public class SPlayerSelectionMenu extends UIHandler{
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.SPLAYER_SELECTION_MENU;
+	public String getType() {
+		return "SPLAYER_SELECTION_MENU";
 	}
 
 	@Override
@@ -70,7 +69,7 @@ public class SPlayerSelectionMenu extends UIHandler{
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			e.setCancelled(true);
 			ItemStack item = e.getCurrentItem();
@@ -106,12 +105,12 @@ public class SPlayerSelectionMenu extends UIHandler{
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 		if(force && !rp.isVip() && rp.getLastLoadedSPlayerId() == 3){
 			new BukkitTask(Core.instance){
 

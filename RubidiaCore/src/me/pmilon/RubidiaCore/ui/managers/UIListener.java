@@ -100,15 +100,15 @@ public class UIListener implements Listener {
 
 	@EventHandler
 	public void onRequestDuel(RPlayerRequestDuelEvent e){
-		if(this.uiManager.hasActiveSession(e.getOpponent().getPlayer()))if(this.uiManager.getSession(e.getOpponent().getPlayer()).getUIHandler().getType().equals(UIType.PLAYER_MENU))((PlayerMenu)this.uiManager.getSession(e.getOpponent().getPlayer()).getUIHandler()).updateDuel();
+		if(this.uiManager.hasActiveSession(e.getOpponent().getPlayer()))if(this.uiManager.getSession(e.getOpponent().getPlayer()).getUIHandler().getType().equals("PLAYER_MENU"))((PlayerMenu)this.uiManager.getSession(e.getOpponent().getPlayer()).getUIHandler()).updateDuel();
 	}
 	@EventHandler
 	public void onRequestTrade(RPlayerRequestedPlayerTradeEvent e){
-		if(this.uiManager.hasActiveSession(e.getTrading()))if(this.uiManager.getSession(e.getTrading()).getUIHandler().getType().equals(UIType.PLAYER_MENU))((PlayerMenu)this.uiManager.getSession(e.getTrading()).getUIHandler()).updateTrade();
+		if(this.uiManager.hasActiveSession(e.getTrading()))if(this.uiManager.getSession(e.getTrading()).getUIHandler().getType().equals("PLAYER_MENU"))((PlayerMenu)this.uiManager.getSession(e.getTrading()).getUIHandler()).updateTrade();
 	}
 	@EventHandler
 	public void onGuildInvite(GuildInviteGMemberEvent e){
-		if(this.uiManager.hasActiveSession(e.getGMember().getPlayer()))if(this.uiManager.getSession(e.getGMember().getPlayer()).getUIHandler().getType().equals(UIType.PLAYER_MENU))((PlayerMenu)this.uiManager.getSession(e.getGMember().getPlayer()).getUIHandler()).updateInvite();
+		if(this.uiManager.hasActiveSession(e.getGMember().getPlayer()))if(this.uiManager.getSession(e.getGMember().getPlayer()).getUIHandler().getType().equals("PLAYER_MENU"))((PlayerMenu)this.uiManager.getSession(e.getGMember().getPlayer()).getUIHandler()).updateInvite();
 	}
 	@EventHandler
 	public void onGuildRelationsChange(GuildRelationsChangeEvent e){
@@ -116,7 +116,7 @@ public class UIListener implements Listener {
 			RPlayer rp = RPlayer.get(member);
 			if(rp.isOnline()){
 				if(this.uiManager.hasActiveSession(rp.getPlayer())){
-					if(this.uiManager.getSession(rp.getPlayer()).getUIHandler().getType().equals(UIType.GUILD_RELATIONS)){
+					if(this.uiManager.getSession(rp.getPlayer()).getUIHandler().getType().equals("GUILD_RELATIONS_MENU")){
 						final GRelationsUI ui = ((GRelationsUI)this.uiManager.getSession(rp.getPlayer()).getUIHandler());
 						new BukkitTask(Core.instance){
 							public void run(){
@@ -136,7 +136,7 @@ public class UIListener implements Listener {
 			RPlayer rp = RPlayer.get(member);
 			if(rp.isOnline()){
 				if(this.uiManager.hasActiveSession(rp.getPlayer())){
-					if(this.uiManager.getSession(rp.getPlayer()).getUIHandler().getType().equals(UIType.GUILD_RELATIONS)){
+					if(this.uiManager.getSession(rp.getPlayer()).getUIHandler().getType().equals("GUILD_RELATIONS_MENU")){
 						final GRelationsUI ui = ((GRelationsUI)this.uiManager.getSession(rp.getPlayer()).getUIHandler());
 						new BukkitTask(Core.instance){
 							public void run(){

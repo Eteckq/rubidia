@@ -11,8 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.ritems.general.RItemStack;
 import me.pmilon.RubidiaCore.ritems.general.RItemStacks;
-import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 
 public class ItemListUI extends ListMenuUIHandler<RItemStack> {
 
@@ -58,12 +57,12 @@ public class ItemListUI extends ListMenuUIHandler<RItemStack> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.ITEM_LIST;
+	public String getType() {
+		return "ITEM_LIST_MENU";
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 }

@@ -1,8 +1,7 @@
 package me.pmilon.RubidiaCore.ui;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -25,8 +24,8 @@ public class InspectUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.INSPECTION;
+	public String getType() {
+		return "INSPECTION_MENU";
 	}
 
 	@Override
@@ -51,16 +50,16 @@ public class InspectUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 	}
 
 	@Override

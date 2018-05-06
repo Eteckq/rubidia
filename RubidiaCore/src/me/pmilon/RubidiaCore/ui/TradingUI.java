@@ -6,8 +6,7 @@ import java.util.Collections;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 
 import org.bukkit.Bukkit;
@@ -39,8 +38,8 @@ public class TradingUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.TRADE;
+	public String getType() {
+		return "TRADING_MENU";
 	}
 
 	@Override
@@ -62,7 +61,7 @@ public class TradingUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			Collections.sort(slots1);
 			Collections.sort(slots2);
@@ -132,12 +131,12 @@ public class TradingUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		if(e.isShiftClick())e.setCancelled(true);
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 		if(triggerCloseEvent){
 			this.getTraderUI().close(false, false);
 			this.close(true, false);

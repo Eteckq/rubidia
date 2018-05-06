@@ -3,7 +3,6 @@ package me.pmilon.RubidiaCore.ui;
 import me.pmilon.RubidiaCore.ritems.backpacks.BackPack;
 import me.pmilon.RubidiaCore.ritems.general.RItem;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.ui.managers.UIType;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,8 +21,8 @@ public class BackpackUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.BACKPACK;
+	public String getType() {
+		return "BACKPACK";
 	}
 
 	@Override
@@ -35,11 +34,11 @@ public class BackpackUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			RItem rItem = new RItem(e.getCurrentItem());
 			if(rItem.isBackPack()){
@@ -49,7 +48,7 @@ public class BackpackUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 		this.getBackPack().getContent().clear();
 		for(int i = 0;i < this.getMenu().getSize();i++){
 			this.getBackPack().getContent().put(i, this.getMenu().getItem(i));
