@@ -12,8 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.ritems.general.SpawnEgg;
-import me.pmilon.RubidiaCore.ui.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaPets.pets.Pearl;
 import me.pmilon.RubidiaPets.pets.Pet;
@@ -98,8 +97,8 @@ public class PetsUI extends ListMenuUIHandler<Pet> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.PETS_LIST;
+	public String getType() {
+		return "PETS_LIST_MENU";
 	}
 
 	@Override

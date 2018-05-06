@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaPets.pets.Pet;
 import net.md_5.bungee.api.ChatColor;
 
@@ -57,8 +56,8 @@ public class PetUI extends UIHandler{
 	}
 	
 	@Override
-	public UIType getType() {
-		return UIType.PET_SETTINGS;
+	public String getType() {
+		return "PET_SETTINGS_MENU";
 	}
 	
 	@Override

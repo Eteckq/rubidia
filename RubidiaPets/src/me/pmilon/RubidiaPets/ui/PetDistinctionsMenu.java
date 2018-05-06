@@ -4,8 +4,7 @@ import java.util.Arrays;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaPets.pets.Pet;
 import me.pmilon.RubidiaPets.utils.Settings;
@@ -34,8 +33,8 @@ public class PetDistinctionsMenu extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.PET_DISTINCTIONS_MENU;
+	public String getType() {
+		return "PET_DISTINCTIONS_MENU";
 	}
 
 	@Override
