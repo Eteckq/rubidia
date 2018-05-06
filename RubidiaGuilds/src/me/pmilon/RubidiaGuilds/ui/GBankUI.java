@@ -6,8 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
@@ -28,8 +27,8 @@ public class GBankUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.GUILD_BANK;
+	public String getType() {
+		return "GUILD_BANK_MENU";
 	}
 
 	@Override

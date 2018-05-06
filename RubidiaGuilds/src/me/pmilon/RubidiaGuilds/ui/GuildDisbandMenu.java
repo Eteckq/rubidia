@@ -11,12 +11,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaGuilds.events.GMemberDisbandGuildEvent;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
 
-public class GuildDisbandMenu extends UIHandler{
+public class GuildDisbandMenu extends UIHandler {
 
 	private Guild guild;
 	public GuildDisbandMenu(Player p, Guild guild) {
@@ -31,8 +30,8 @@ public class GuildDisbandMenu extends UIHandler{
 	}
 	
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "GUILD_DISBAND_MENU";
 	}
 	
 	@Override

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.ui.ConfirmationUI;
+import me.pmilon.RubidiaCore.ui.abstracts.ConfirmationUI;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
 import me.pmilon.RubidiaGuilds.guilds.Rank;

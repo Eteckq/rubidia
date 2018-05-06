@@ -17,8 +17,7 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause.RTeleportType;
 import me.pmilon.RubidiaCore.handlers.TeleportHandler;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaGuilds.claims.Claim;
 import me.pmilon.RubidiaGuilds.guilds.GHome;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
@@ -41,8 +40,8 @@ public class GHomeListUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.GUILD_HOME_LIST;
+	public String getType() {
+		return "GUILD_HOME_LIST_MENU";
 	}
 
 	@Override

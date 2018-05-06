@@ -13,8 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
 import me.pmilon.RubidiaGuilds.guilds.Permission;
 import me.pmilon.RubidiaGuilds.guilds.Rank;
@@ -95,8 +94,8 @@ public class GRankPrefsUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.GUILD_RANKS_PREFS;
+	public String getType() {
+		return "GUILD_RANKS_PREFS_MENU";
 	}
 
 	@Override

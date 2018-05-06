@@ -16,8 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ui.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
@@ -105,8 +104,8 @@ public class GuildsUI extends ListMenuUIHandler<Guild> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.GUILDS;
+	public String getType() {
+		return "GUILDS_LIST_MENU";
 	}
 
 	@Override

@@ -10,8 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import me.pmilon.RubidiaCore.ui.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
 
@@ -42,8 +41,8 @@ public class GMembersUI extends ListMenuUIHandler<GMember> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.GUILD_MEMBERS;
+	public String getType() {
+		return "GUILD_MEMBERS_LIST_MENU";
 	}
 
 	@Override

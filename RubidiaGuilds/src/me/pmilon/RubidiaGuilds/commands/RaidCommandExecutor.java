@@ -1,7 +1,7 @@
 package me.pmilon.RubidiaGuilds.commands;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.PlayerCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerCommandExecutor;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause.RTeleportType;
 import me.pmilon.RubidiaCore.handlers.TeleportHandler;

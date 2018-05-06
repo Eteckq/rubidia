@@ -20,8 +20,7 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
 import me.pmilon.RubidiaGuilds.claims.Claim;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
@@ -52,7 +51,7 @@ public class MapUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
+	public String getType() {
 		return null;
 	}
 
