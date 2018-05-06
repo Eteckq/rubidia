@@ -1,0 +1,23 @@
+name: RubidiaGuilds
+author: pmilon
+version: 1.2
+description: The Guild plugin of Rubidia.
+main: me.pmilon.RubidiaGuilds.GuildsPlugin
+commands:
+  guild:
+    description: Main command.
+    aliases: g
+  guilds:
+    description: See guilds
+    aliases: gs
+  ghome:
+    description: Takes you to your guild's home.
+    aliases: [gh, pr]
+  gclaim:
+    description: Claims the territory you are in for your guild.
+    aliases: gc
+  raid:
+    description: Raids the territory in.
+    aliases: rd
+  map:
+    description: Get a map of nearby claims.

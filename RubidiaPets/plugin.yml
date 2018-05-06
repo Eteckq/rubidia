@@ -1,0 +1,10 @@
+name: RubidiaPets
+version: 1.4
+main: me.pmilon.RubidiaPets.PetsPlugin
+author: pmilon
+commands:
+  pet:
+    description: Give a pet to a player.
+  pets:
+    aliases: p
+    description: See your pets and their statistics.

@@ -1,0 +1,14 @@
+name: RubidiaMonsters
+author: pmilon
+version: 2.0
+description: The mob management system of Rubidia server.
+main: me.pmilon.RubidiaMonsters.RubidiaMonstersPlugin
+softdepend: [RubidiaQuests]
+loadbefore: [RubidiaCore]
+commands:
+  killall:
+    description: Kills all the monsters loaded
+    aliases: ka
+  regions:
+    description: Opens regions menu
+    aliases: rgs

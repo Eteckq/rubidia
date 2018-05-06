@@ -1,0 +1,8 @@
+name: RubidiaSecretPaths
+version: 1.0
+main: me.pmilon.RubidiaSecretPaths.SecretPathsManager
+author: pmilon
+depend: [WorldEdit, RubidiaCore]
+commands:
+  portal:
+    description: Creates a portal with your worldedit selection.

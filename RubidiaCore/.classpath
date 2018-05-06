@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/ProtocolLib.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/spigot.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/WorldEdit.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/WorldGuard.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/MultiverseCore.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/EffectLib.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaGuilds-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaManager-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaMonsters-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaMusics-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaPets-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaQuests-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaRandomChests-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaSecretPaths-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaWG-1.12.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

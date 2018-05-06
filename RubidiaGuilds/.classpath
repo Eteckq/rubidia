@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/spigot.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/EffectLib.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaMonsters-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaPets-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaCore-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/RubidiaWG-1.12.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/WorldGuard.jar"/>
+	<classpathentry kind="lib" path="E:/Romain/Desktop/Minecraft/Rubidia/RubidiaTestServer/plugins/WorldEdit.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
