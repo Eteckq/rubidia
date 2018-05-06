@@ -25,12 +25,16 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.onarandombox.MultiverseCore.MultiverseCore;
+
 public class RubidiaManagerPlugin extends JavaPlugin {
 
 	public static ConsoleCommandSender console;
 	private static WorldRegenHandler regenerator;
 	private static ChunkColl chunkColl;
 	private static ChunkHandler chunkHandler;
+	
+	public static MultiverseCore multiverseCore;
 	
 	private static File savesFolder;
 	
@@ -41,6 +45,7 @@ public class RubidiaManagerPlugin extends JavaPlugin {
 	public void onEnable(){
 		instance = this;
 		console = Bukkit.getConsoleSender();
+		multiverseCore = (MultiverseCore) this.getServer().getPluginManager().getPlugin("Multiverse-Core");
 		
 		this.getConfig().options().copyDefaults(true);
 		Configs.getChunksConfig().options().copyDefaults(true);

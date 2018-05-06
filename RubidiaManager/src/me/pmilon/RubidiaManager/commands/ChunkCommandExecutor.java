@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import me.pmilon.RubidiaCore.commands.HybridAdminCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.HybridAdminCommandExecutor;
 import me.pmilon.RubidiaGuilds.claims.Claim;
 import me.pmilon.RubidiaManager.RubidiaManagerPlugin;
 import me.pmilon.RubidiaManager.chunks.Chunk;

@@ -2,7 +2,6 @@ package me.pmilon.RubidiaManager.tasks;
 
 import com.onarandombox.MultiverseCore.utils.WorldManager;
 
-import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaManager.RubidiaManagerPlugin;
 
 public class NetherRegenTask extends AbstractTask {
@@ -14,7 +13,7 @@ public class NetherRegenTask extends AbstractTask {
 	@Override
 	public void runTaskSynchronously() {
 		RubidiaManagerPlugin.console.sendMessage("§eREGENERATING §6NETHER...");
-		WorldManager worldManager = new WorldManager(Core.multiverseCore);
+		WorldManager worldManager = new WorldManager(RubidiaManagerPlugin.multiverseCore);
 		if(worldManager.regenWorld("Rubidia_nether", true, true, null))RubidiaManagerPlugin.console.sendMessage("§6NETHER §eREGENERATED");
 		else RubidiaManagerPlugin.console.sendMessage("§cCOULDNT REGENERATE §4NETHER");
 	}

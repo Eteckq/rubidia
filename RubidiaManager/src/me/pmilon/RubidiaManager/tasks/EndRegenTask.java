@@ -9,7 +9,6 @@ import org.bukkit.entity.LivingEntity;
 
 import com.onarandombox.MultiverseCore.utils.WorldManager;
 
-import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaManager.RubidiaManagerPlugin;
 
 public class EndRegenTask extends AbstractTask {
@@ -23,7 +22,7 @@ public class EndRegenTask extends AbstractTask {
 		if(this.getPlugin().getConfig().contains("regenEnd")){
 			if(this.getPlugin().getConfig().getBoolean("regenEnd")){
 				this.getPlugin().getConfig().set("regenEnd", false);
-				WorldManager worldManager = new WorldManager(Core.multiverseCore);
+				WorldManager worldManager = new WorldManager(RubidiaManagerPlugin.multiverseCore);
 				if(worldManager.regenWorld("Rubidia_the_end", true, true, null)){
 					World world = Bukkit.getWorld("Rubidia_the_end");
 					if(world != null){
