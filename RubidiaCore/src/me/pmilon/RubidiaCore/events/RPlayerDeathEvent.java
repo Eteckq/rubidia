@@ -6,6 +6,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.events.abstracts.RPlayerEvent;
 
 public class RPlayerDeathEvent extends RPlayerEvent {
 

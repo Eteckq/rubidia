@@ -2,7 +2,7 @@ package me.pmilon.RubidiaCore.commands;
 
 import me.pmilon.RubidiaCore.RChat.RChatFixDisplay;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.executors.HybridCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.HybridCommandExecutor;
 import me.pmilon.RubidiaCore.utils.Settings;
 
 import org.bukkit.command.CommandSender;

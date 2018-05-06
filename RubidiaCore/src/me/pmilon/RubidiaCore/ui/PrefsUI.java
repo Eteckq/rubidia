@@ -2,6 +2,8 @@ package me.pmilon.RubidiaCore.ui;
 
 import java.util.Arrays;
 
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
+import me.pmilon.RubidiaCore.ui.managers.UIType;
 import me.pmilon.RubidiaMusics.SongManager;
 
 import org.bukkit.Bukkit;

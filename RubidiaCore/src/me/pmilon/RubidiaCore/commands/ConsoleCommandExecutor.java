@@ -1,7 +1,7 @@
 package me.pmilon.RubidiaCore.commands;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.executors.HybridCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.HybridCommandExecutor;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

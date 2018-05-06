@@ -1,6 +1,8 @@
 package me.pmilon.RubidiaCore.ui;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
+import me.pmilon.RubidiaCore.ui.managers.UIType;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.events;
+package me.pmilon.RubidiaCore.events.abstracts;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 

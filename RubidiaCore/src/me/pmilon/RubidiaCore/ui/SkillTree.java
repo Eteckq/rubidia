@@ -11,6 +11,8 @@ import me.pmilon.RubidiaCore.abilities.AbilitiesAPI;
 import me.pmilon.RubidiaCore.abilities.Ability;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSetSlot;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
+import me.pmilon.RubidiaCore.ui.managers.UIType;
 import me.pmilon.RubidiaCore.utils.Utils;
 
 import org.bukkit.Bukkit;

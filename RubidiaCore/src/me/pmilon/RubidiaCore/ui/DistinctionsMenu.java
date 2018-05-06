@@ -5,6 +5,8 @@ import java.util.Arrays;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.books.BookUtils;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
+import me.pmilon.RubidiaCore.ui.managers.UIType;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
 

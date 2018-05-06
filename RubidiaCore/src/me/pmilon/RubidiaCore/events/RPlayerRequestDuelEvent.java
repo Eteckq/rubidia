@@ -3,6 +3,7 @@ package me.pmilon.RubidiaCore.events;
 import org.bukkit.event.Cancellable;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.events.abstracts.RPlayerEvent;
 
 public class RPlayerRequestDuelEvent extends RPlayerEvent implements Cancellable{
 

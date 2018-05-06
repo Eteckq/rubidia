@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.ui;
+package me.pmilon.RubidiaCore.ui.managers;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
@@ -6,6 +6,8 @@ import me.pmilon.RubidiaCore.events.RPlayerPreChatMessageEvent;
 import me.pmilon.RubidiaCore.events.RPlayerRequestDuelEvent;
 import me.pmilon.RubidiaCore.events.RPlayerRequestedPlayerTradeEvent;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
+import me.pmilon.RubidiaCore.ui.PlayerMenu;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaGuilds.events.GuildInviteGMemberEvent;
 import me.pmilon.RubidiaGuilds.events.GuildRelationsChangeEvent;
 import me.pmilon.RubidiaGuilds.guilds.GMember;

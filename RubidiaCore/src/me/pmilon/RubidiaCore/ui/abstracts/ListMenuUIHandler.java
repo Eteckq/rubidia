@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.ui;
+package me.pmilon.RubidiaCore.ui.abstracts;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,6 @@
-package me.pmilon.RubidiaCore.ui;
+package me.pmilon.RubidiaCore.ui.managers;
+
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
 public class UISession {
 

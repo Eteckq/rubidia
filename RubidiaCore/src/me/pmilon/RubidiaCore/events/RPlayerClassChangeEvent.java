@@ -2,6 +2,7 @@ package me.pmilon.RubidiaCore.events;
 
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.events.abstracts.RPlayerEvent;
 
 import org.bukkit.event.Cancellable;
 

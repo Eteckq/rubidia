@@ -4,6 +4,7 @@ import org.bukkit.event.Cancellable;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.abilities.Ability;
+import me.pmilon.RubidiaCore.events.abstracts.RPlayerEvent;
 
 public class RPlayerAbilityEvent extends RPlayerEvent implements Cancellable {
 

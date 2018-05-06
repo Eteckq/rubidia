@@ -1,7 +1,9 @@
-package me.pmilon.RubidiaCore.ui;
+package me.pmilon.RubidiaCore.ui.abstracts;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.ui.managers.UIManager;
+import me.pmilon.RubidiaCore.ui.managers.UIType;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 
 import org.bukkit.entity.Player;

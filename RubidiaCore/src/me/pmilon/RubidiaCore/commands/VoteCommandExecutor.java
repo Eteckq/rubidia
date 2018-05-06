@@ -2,7 +2,7 @@ package me.pmilon.RubidiaCore.commands;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.executors.PlayerCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerCommandExecutor;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaCore.votes.Vote;
 import me.pmilon.RubidiaCore.votes.Votes;

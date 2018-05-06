@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.ui;
+package me.pmilon.RubidiaCore.ui.managers;
 
 public enum UIType {
 

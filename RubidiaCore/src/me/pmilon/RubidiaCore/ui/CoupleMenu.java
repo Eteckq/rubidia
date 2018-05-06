@@ -11,6 +11,8 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.couples.CBuff;
 import me.pmilon.RubidiaCore.couples.Couple;
 import me.pmilon.RubidiaCore.couples.Couples;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
+import me.pmilon.RubidiaCore.ui.managers.UIType;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;

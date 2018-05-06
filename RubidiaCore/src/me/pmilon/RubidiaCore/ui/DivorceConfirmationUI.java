@@ -3,6 +3,7 @@ package me.pmilon.RubidiaCore.ui;
 import java.util.Arrays;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.ui.abstracts.ConfirmationUI;
 
 public class DivorceConfirmationUI extends ConfirmationUI {
 

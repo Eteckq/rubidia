@@ -1,8 +1,9 @@
-package me.pmilon.RubidiaCore.ui;
+package me.pmilon.RubidiaCore.ui.managers;
 
 import java.util.HashMap;
 
 import me.pmilon.RubidiaCore.Core;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

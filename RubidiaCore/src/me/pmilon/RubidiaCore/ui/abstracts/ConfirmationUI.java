@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.ui;
+package me.pmilon.RubidiaCore.ui.abstracts;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +11,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import me.pmilon.RubidiaCore.ui.managers.UIType;
 
 public abstract class ConfirmationUI extends UIHandler {
 

@@ -2,6 +2,8 @@ package me.pmilon.RubidiaCore.ui;
 
 import me.pmilon.RubidiaCore.ritems.backpacks.BackPack;
 import me.pmilon.RubidiaCore.ritems.general.RItem;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
+import me.pmilon.RubidiaCore.ui.managers.UIType;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

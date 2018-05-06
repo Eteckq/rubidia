@@ -5,7 +5,7 @@ import java.util.List;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.executors.PlayerAdminCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerAdminCommandExecutor;
 import me.pmilon.RubidiaCore.ui.ItemListUI;
 import me.pmilon.RubidiaCore.utils.Utils;
 import net.md_5.bungee.api.ChatColor;

@@ -3,6 +3,7 @@ package me.pmilon.RubidiaCore.events;
 import org.bukkit.event.Cancellable;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.events.abstracts.RPlayerEvent;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 
 public class RPlayerUseWeaponEvent extends RPlayerEvent implements Cancellable{

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Date;
 
 import me.pmilon.RubidiaCore.RManager.Gender;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
+import me.pmilon.RubidiaCore.ui.managers.UIType;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

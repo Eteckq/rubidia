@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.commands.executors;
+package me.pmilon.RubidiaCore.commands.abstracts;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 
