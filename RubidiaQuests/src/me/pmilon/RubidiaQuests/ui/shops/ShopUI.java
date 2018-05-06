@@ -123,7 +123,7 @@ public class ShopUI extends ListMenuUIHandler<ItemStack>{
 	}
 	
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 		this.getShop().getBuyers().remove(this.getHolder());
 		if(this.getShop() instanceof PlayerShop){
 			((PlayerShop)this.getShop()).getHolder().sendMessage("§6§l[-] §e" + this.getHolder().getName());

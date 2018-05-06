@@ -46,7 +46,7 @@ public class GExpMenuUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, final Player p) {
+	public void onGeneralClick(InventoryClickEvent e, final Player p) {
 		if(e.getCurrentItem() != null){
 			if(e.isShiftClick()){
 				if(!LevelUtils.loots.contains(e.getCurrentItem().getType()) && !e.getCurrentItem().getType().equals(Material.AIR)){
@@ -65,7 +65,7 @@ public class GExpMenuUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, final Player p) {
+	public void onInventoryClick(InventoryClickEvent e, final Player p) {
 		if(e.getCurrentItem() != null){
 			int slot = e.getRawSlot();
 			if(slot < this.SLOT_INFOS){
@@ -120,7 +120,7 @@ public class GExpMenuUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent e, Player arg1) {
 		this.empty();
 	}
 

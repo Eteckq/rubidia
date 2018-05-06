@@ -36,12 +36,12 @@ public abstract class DialogsEditionMenu extends UIHandler {
 	}
 	
 	@Override
-	protected void onGeneralClick(InventoryClickEvent arg0, Player arg1) {
+	public void onGeneralClick(InventoryClickEvent arg0, Player arg1) {
 		//
 	}
 	
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			e.setCancelled(true);
 			int slot = e.getRawSlot();
@@ -57,7 +57,7 @@ public abstract class DialogsEditionMenu extends UIHandler {
 	}
 	
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 		//
 	}
 	

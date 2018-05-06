@@ -32,7 +32,7 @@ public class GBankUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player arg1) {
+	public void onGeneralClick(InventoryClickEvent e, Player arg1) {
 		if(e.getCurrentItem() != null){
 			if(e.isShiftClick()){
 				if(!e.getCurrentItem().getType().equals(Material.EMERALD) && !e.getCurrentItem().getType().equals(Material.EMERALD_BLOCK) && !e.getCurrentItem().getType().equals(Material.AIR)){
@@ -59,7 +59,7 @@ public class GBankUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(final InventoryClickEvent e, Player p) {
+	public void onInventoryClick(final InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
 			if(!e.getCursor().getType().equals(Material.EMERALD) && !e.getCursor().getType().equals(Material.EMERALD_BLOCK) && !e.getCursor().getType().equals(Material.AIR)){
 				e.setCancelled(true);
@@ -87,7 +87,7 @@ public class GBankUI extends UIHandler {
 					public void run(){
 						bankUI.save();
 						for(GBankUI bankHandler : bankUI.getGuild().banks){
-							if(!bankHandler.equals(this))bankHandler.update();
+							if(!bankHandler.equals(bankUI))bankHandler.update();
 						}
 					}
 				}, 1);
@@ -96,7 +96,7 @@ public class GBankUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent e, Player p) {
+	public void onInventoryClose(InventoryCloseEvent e, Player p) {
 		this.getGuild().banks.remove(this);
 	}
 

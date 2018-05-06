@@ -56,16 +56,16 @@ public class MapUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent arg0, Player arg1) {
+	public void onGeneralClick(InventoryClickEvent arg0, Player arg1) {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player arg1) {
+	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
 		e.setCancelled(true);
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 	}
 
 	@Override

@@ -106,7 +106,7 @@ public class MonstersUI extends ListMenuUIHandler<Monster> {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 	}
 
 	public Region getRegion() {

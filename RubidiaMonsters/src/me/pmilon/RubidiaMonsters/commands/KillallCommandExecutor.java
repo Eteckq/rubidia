@@ -20,10 +20,6 @@ public class KillallCommandExecutor extends HybridAdminCommandExecutor {
 		for(Monster monster : monsters){
 			monster.kill(true);
 		}
-		for(Monster monster : monsters){
-			monster.getRegisteredRegion().entities.remove(monster);
-			Monsters.entities.remove(monster);
-		}
 		sender.sendMessage("§eAll monsters have been removed!");
 	}
 

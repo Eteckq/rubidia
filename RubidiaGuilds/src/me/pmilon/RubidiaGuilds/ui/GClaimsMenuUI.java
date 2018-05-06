@@ -95,12 +95,12 @@ public class GClaimsMenuUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player arg1) {
+	public void onGeneralClick(InventoryClickEvent e, Player arg1) {
 		if(e.isShiftClick())e.setCancelled(true);
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
@@ -149,7 +149,7 @@ public class GClaimsMenuUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 		//not listening
 	}
 

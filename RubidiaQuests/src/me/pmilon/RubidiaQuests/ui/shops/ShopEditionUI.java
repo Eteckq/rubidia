@@ -55,7 +55,7 @@ public class ShopEditionUI extends UIHandler{
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		if(e.getClickedInventory() != null){
 			if(e.getClickedInventory().equals(p.getOpenInventory().getBottomInventory())){
 				if(e.getCurrentItem() != null){
@@ -92,7 +92,7 @@ public class ShopEditionUI extends UIHandler{
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
@@ -146,7 +146,7 @@ public class ShopEditionUI extends UIHandler{
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 		if(this.getShop() instanceof PlayerShop){
 			final PlayerShop shop = (PlayerShop)this.getShop();
 			if(shop.isStart() && !Core.uiManager.isInTempSession(this.getHolder())){

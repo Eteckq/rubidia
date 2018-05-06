@@ -168,7 +168,7 @@ public class RegionsUI extends ListMenuUIHandler<Region>{
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 	}
 
 	@Override

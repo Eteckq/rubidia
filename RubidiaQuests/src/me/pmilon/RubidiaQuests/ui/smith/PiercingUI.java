@@ -83,7 +83,7 @@ public class PiercingUI extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent e, Player p) {
+	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		if(this.endTask != null){
 			e.setCancelled(true);
 			return;
@@ -153,7 +153,7 @@ public class PiercingUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClick(final InventoryClickEvent e, Player p) {
+	public void onInventoryClick(final InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
 		if(e.getCurrentItem() != null){
 			ItemStack item = e.getCurrentItem();
@@ -269,7 +269,7 @@ public class PiercingUI extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 		if(this.endTask != null){
 			endTask.run();
 		}else{

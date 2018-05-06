@@ -102,7 +102,7 @@ public class PetsUI extends ListMenuUIHandler<Pet> {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 	}
 
 }

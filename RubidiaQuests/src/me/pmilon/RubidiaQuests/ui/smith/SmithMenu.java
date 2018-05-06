@@ -34,11 +34,11 @@ public class SmithMenu extends UIHandler {
 	}
 
 	@Override
-	protected void onGeneralClick(InventoryClickEvent arg0, Player arg1) {
+	public void onGeneralClick(InventoryClickEvent arg0, Player arg1) {
 	}
 
 	@Override
-	protected void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		int slot = e.getRawSlot();
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
@@ -49,7 +49,7 @@ public class SmithMenu extends UIHandler {
 	}
 
 	@Override
-	protected void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
+	public void onInventoryClose(InventoryCloseEvent arg0, Player arg1) {
 	}
 
 	@Override
