@@ -2,8 +2,8 @@ package me.pmilon.RubidiaMonsters.commands;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.PlayerAdminCommandExecutor;
-import me.pmilon.RubidiaMonsters.ui.RegionsUI;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerAdminCommandExecutor;
+import me.pmilon.RubidiaMonsters.ui.regions.RegionsUI;
 
 import org.bukkit.entity.Player;
 

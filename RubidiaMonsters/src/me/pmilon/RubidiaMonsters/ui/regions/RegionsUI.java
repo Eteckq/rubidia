@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaMonsters.ui;
+package me.pmilon.RubidiaMonsters.ui.regions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +23,7 @@ import me.pmilon.RubidiaCore.handlers.TeleportHandler;
 import me.pmilon.RubidiaCore.ritems.weapons.Rarity;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
-import me.pmilon.RubidiaCore.ui.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaCore.utils.Locations;
 import me.pmilon.RubidiaGuilds.utils.LevelUtils;
 import me.pmilon.RubidiaMonsters.regions.Monster;
@@ -164,8 +163,8 @@ public class RegionsUI extends ListMenuUIHandler<Region>{
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "REGIONS_LIST_MENU";
 	}
 
 	@Override

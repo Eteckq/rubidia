@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaMonsters.ui;
+package me.pmilon.RubidiaMonsters.ui.regions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Locations;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaMonsters.RubidiaMonstersPlugin;
@@ -42,8 +41,8 @@ public class RegionManager extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "REGION_MANAGER_MENU";
 	}
 
 	@Override

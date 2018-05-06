@@ -3,7 +3,7 @@ package me.pmilon.RubidiaMonsters.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.pmilon.RubidiaCore.commands.HybridAdminCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.HybridAdminCommandExecutor;
 import me.pmilon.RubidiaMonsters.regions.Monster;
 import me.pmilon.RubidiaMonsters.regions.Monsters;
 

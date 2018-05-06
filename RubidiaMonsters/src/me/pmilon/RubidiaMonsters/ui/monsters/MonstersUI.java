@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaMonsters.ui;
+package me.pmilon.RubidiaMonsters.ui.monsters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.ritems.general.SpawnEgg;
-import me.pmilon.RubidiaCore.ui.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaMonsters.attacks.AbstractAttack;
 import me.pmilon.RubidiaMonsters.regions.Drop;
@@ -23,6 +22,7 @@ import me.pmilon.RubidiaMonsters.regions.Monster;
 import me.pmilon.RubidiaMonsters.regions.Monsters;
 import me.pmilon.RubidiaMonsters.regions.Region;
 import me.pmilon.RubidiaMonsters.regions.Regions;
+import me.pmilon.RubidiaMonsters.ui.regions.RegionMonstersEditMenu;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.quests.QEvent;
 import me.pmilon.RubidiaQuests.quests.Quest;
@@ -101,8 +101,8 @@ public class MonstersUI extends ListMenuUIHandler<Monster> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "MONSTERS_LIST_MENU";
 	}
 
 	@Override

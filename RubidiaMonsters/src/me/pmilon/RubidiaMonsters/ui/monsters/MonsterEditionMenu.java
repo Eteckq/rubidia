@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaMonsters.ui;
+package me.pmilon.RubidiaMonsters.ui.monsters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.ritems.general.SpawnEgg;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaMonsters.attacks.AbstractAttack;
 import me.pmilon.RubidiaMonsters.attacks.AbstractAttack.AttackType;
@@ -47,8 +46,8 @@ public class MonsterEditionMenu extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "MONSTER_EDITION_MENU";
 	}
 
 	@Override
