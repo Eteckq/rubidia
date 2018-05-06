@@ -190,7 +190,6 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
-import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.domains.DefaultDomain;
@@ -206,7 +205,6 @@ public class Core extends JavaPlugin implements Listener {
 	
 	public static WorldEditPlugin we;
 	public static WorldGuardPlugin wg;
-	public static MultiverseCore multiverseCore;
 	
 	public static UIManager uiManager;
 	public static HealthBarHandler barHandler;
@@ -1727,7 +1725,6 @@ public class Core extends JavaPlugin implements Listener {
 		
 		wg = (WorldGuardPlugin) this.getServer().getPluginManager().getPlugin("WorldGuard");
 		we = (WorldEditPlugin) this.getServer().getPluginManager().getPlugin("WorldEdit");
-		multiverseCore = (MultiverseCore) this.getServer().getPluginManager().getPlugin("Multiverse-Core");
 		
 		instance = this;
 		uiManager = new UIManager(this);

@@ -5,6 +5,7 @@ import me.pmilon.RubidiaCore.RManager.Gender;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.RManager.SPlayer;
+import me.pmilon.RubidiaCore.commands.executors.HybridAdminCommandExecutor;
 import me.pmilon.RubidiaCore.ranks.Ranks;
 import me.pmilon.RubidiaCore.utils.Utils;
 
