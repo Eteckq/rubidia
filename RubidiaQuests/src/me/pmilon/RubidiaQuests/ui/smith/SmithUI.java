@@ -31,8 +31,7 @@ import me.pmilon.RubidiaCore.scrolls.Scroll;
 import me.pmilon.RubidiaCore.scrolls.ScrollType;
 import me.pmilon.RubidiaCore.scrolls.ScrollType.ScrollUsage;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 
@@ -69,8 +68,8 @@ public class SmithUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.ENHANCEMENT;
+	public String getType() {
+		return "ENHANCEMENT_MENU";
 	}
 
 	@Override

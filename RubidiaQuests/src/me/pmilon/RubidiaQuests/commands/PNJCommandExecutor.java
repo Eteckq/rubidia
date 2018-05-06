@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.PlayerAdminCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerAdminCommandExecutor;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.pnjs.BankPNJ;
 import me.pmilon.RubidiaQuests.pnjs.InhabitantPNJ;

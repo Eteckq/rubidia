@@ -16,8 +16,7 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.Mastery;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RJob;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaQuests.pnjs.PNJHandler;
 import me.pmilon.RubidiaQuests.pnjs.PNJHandler.PNJType;
 import me.pmilon.RubidiaQuests.pnjs.QuestPNJ;
@@ -45,8 +44,8 @@ public class RequiredsEditionUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "REQUIREDS_MENU";
 	}
 
 	@Override

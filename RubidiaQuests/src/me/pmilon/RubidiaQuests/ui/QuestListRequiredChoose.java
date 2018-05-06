@@ -16,8 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ui.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.pnjs.PNJHandler;
 import me.pmilon.RubidiaQuests.quests.Objective;
@@ -94,8 +93,8 @@ public class QuestListRequiredChoose extends ListMenuUIHandler<Quest> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.QUESTS_REQUIRED_CHOOSE;
+	public String getType() {
+		return "REQUIRED_QUEST_SELECTION_MENU";
 	}
 
 	@Override

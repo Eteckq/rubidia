@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
-import me.pmilon.RubidiaCore.commands.HybridAdminCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.HybridAdminCommandExecutor;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.quests.Quest;
 

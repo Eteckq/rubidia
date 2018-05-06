@@ -114,8 +114,9 @@ public class PNJListener implements Listener {
 						if(stand != null)stand.remove(true);
 						villager.remove();
 						
-						if(handler.getEntity() != null)Core.entityHider.showEntity(player, handler.getEntity());
-						for(ArmorStand tag : handler.getTag().getDisplays())Core.entityHider.showEntity(player, tag);
+						//TODO
+						//if(handler.getEntity() != null)Core.entityHider.showEntity(player, handler.getEntity());
+						//for(ArmorStand tag : handler.getTag().getDisplays())Core.entityHider.showEntity(player, tag);
 					}
 				}
 			}
@@ -141,8 +142,9 @@ public class PNJListener implements Listener {
 						if(stand != null)stand.remove(true);
 						villager.remove();
 						
-						if(handler.getEntity() != null)Core.entityHider.showEntity(player, handler.getEntity());
-						for(ArmorStand tag : handler.getTag().getDisplays())Core.entityHider.showEntity(player, tag);
+						//TODO
+						//if(handler.getEntity() != null)Core.entityHider.showEntity(player, handler.getEntity());
+						//for(ArmorStand tag : handler.getTag().getDisplays())Core.entityHider.showEntity(player, tag);
 					}
 					PNJManager.pnjTokillTemps.remove(player);
 				}

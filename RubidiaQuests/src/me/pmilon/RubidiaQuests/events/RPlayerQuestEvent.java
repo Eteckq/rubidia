@@ -1,7 +1,7 @@
 package me.pmilon.RubidiaQuests.events;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.events.RPlayerEvent;
+import me.pmilon.RubidiaCore.events.abstracts.RPlayerEvent;
 import me.pmilon.RubidiaQuests.quests.Quest;
 
 import org.bukkit.event.Cancellable;

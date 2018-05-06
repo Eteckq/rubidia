@@ -18,8 +18,7 @@ import me.pmilon.RubidiaCore.RChat.ChatType;
 import me.pmilon.RubidiaCore.RChat.RChatMessage;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.tags.TagStand;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.shops.PlayerShop;
 import me.pmilon.RubidiaQuests.shops.Shop;
@@ -51,8 +50,8 @@ public class ShopEditionUI extends UIHandler{
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.SHOP_EDITION;
+	public String getType() {
+		return "SHOP_EDITION_MENU";
 	}
 
 	@Override

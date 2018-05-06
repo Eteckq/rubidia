@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.PlayerCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerCommandExecutor;
 import me.pmilon.RubidiaQuests.shops.PlayerShop;
 import me.pmilon.RubidiaQuests.ui.shops.ShopEditionUI;
 

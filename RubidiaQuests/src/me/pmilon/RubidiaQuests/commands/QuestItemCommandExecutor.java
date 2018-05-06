@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.PlayerAdminCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerAdminCommandExecutor;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

@@ -15,8 +15,7 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.Mastery;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RJob;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.utils.LevelUtils;
 import me.pmilon.RubidiaQuests.pnjs.QuestPNJ;
@@ -65,13 +64,12 @@ public class RewardEditionMenu extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "REWARD_EDITION_MENU";
 	}
 
 	@Override
 	protected void onGeneralClick(InventoryClickEvent arg0, Player arg1) {
-		//
 	}
 
 	@Override

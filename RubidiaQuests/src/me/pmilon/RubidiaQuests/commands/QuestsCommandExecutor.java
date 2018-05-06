@@ -2,7 +2,7 @@ package me.pmilon.RubidiaQuests.commands;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.PlayerCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerCommandExecutor;
 import me.pmilon.RubidiaQuests.ui.PlayerQuestList;
 
 import org.bukkit.entity.Player;

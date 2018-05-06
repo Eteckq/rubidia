@@ -1,7 +1,7 @@
 package me.pmilon.RubidiaQuests.commands;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.PlayerCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerCommandExecutor;
 import me.pmilon.RubidiaQuests.dialogs.DialogManager;
 import me.pmilon.RubidiaQuests.quests.Quest;
 

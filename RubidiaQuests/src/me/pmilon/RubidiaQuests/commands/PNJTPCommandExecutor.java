@@ -1,7 +1,7 @@
 package me.pmilon.RubidiaQuests.commands;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.PlayerAdminCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerAdminCommandExecutor;
 import me.pmilon.RubidiaQuests.pnjs.PNJHandler;
 import me.pmilon.RubidiaQuests.pnjs.PNJManager;
 

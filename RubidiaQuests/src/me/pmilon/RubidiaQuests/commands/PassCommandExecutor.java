@@ -3,7 +3,7 @@ package me.pmilon.RubidiaQuests.commands;
 import org.bukkit.entity.Player;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.commands.PlayerCommandExecutor;
+import me.pmilon.RubidiaCore.commands.abstracts.PlayerCommandExecutor;
 import me.pmilon.RubidiaQuests.dialogs.DialogManager;
 import me.pmilon.RubidiaQuests.pnjs.PNJHandler;
 import me.pmilon.RubidiaQuests.pnjs.PNJManager;

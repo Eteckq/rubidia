@@ -21,8 +21,7 @@ import com.sk89q.worldedit.bukkit.selections.Selection;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.ritems.general.SpawnEgg;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaMonsters.regions.Monster;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.pnjs.QuestPNJ;
@@ -74,8 +73,8 @@ public class QEventEditionMenu extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "QEVENT_EDITION_MENU";
 	}
 
 	@Override

@@ -16,8 +16,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaMonsters.regions.Monsters;
 import me.pmilon.RubidiaQuests.pnjs.QuestPNJ;
 import me.pmilon.RubidiaQuests.quests.QEvent;
@@ -43,8 +42,8 @@ public class QEventsEditionUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "QEVENTS_MENU";
 	}
 
 	@Override

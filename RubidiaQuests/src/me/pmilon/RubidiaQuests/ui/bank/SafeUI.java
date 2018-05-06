@@ -4,8 +4,7 @@ import java.util.Arrays;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.ui.UIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -23,8 +22,8 @@ public class SafeUI extends UIHandler {
 	}
 
 	@Override
-	public UIType getType(){
-		return UIType.SAFE;
+	public String getType(){
+		return "SAFE_MENU";
 	}
 	
 	@Override

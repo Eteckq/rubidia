@@ -11,8 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.ritems.general.SpawnEgg;
-import me.pmilon.RubidiaCore.ui.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaMonsters.regions.Monster;
 import me.pmilon.RubidiaMonsters.regions.Monsters;
 import me.pmilon.RubidiaMonsters.regions.Region;
@@ -86,8 +85,8 @@ public class QEventMonsterSelectMenu extends ListMenuUIHandler<Monster>{
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "QEVENT_MONSTER_SELECTION_MENU";
 	}
 
 	@Override

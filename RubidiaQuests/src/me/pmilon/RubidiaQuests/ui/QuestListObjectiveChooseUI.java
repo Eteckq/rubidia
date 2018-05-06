@@ -16,8 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ui.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.ui.UIType;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.pnjs.QuestPNJ;
 import me.pmilon.RubidiaQuests.quests.Objective;
@@ -92,8 +91,8 @@ public class QuestListObjectiveChooseUI extends ListMenuUIHandler<Quest> {
 	}
 
 	@Override
-	public UIType getType() {
-		return UIType.UNKNOWN;
+	public String getType() {
+		return "OBJECTIVE_QUEST_SELECTION_MENU";
 	}
 
 	@Override
