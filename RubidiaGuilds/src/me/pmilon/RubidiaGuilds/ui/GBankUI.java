@@ -6,7 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
+
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
@@ -33,15 +34,29 @@ public class GBankUI extends UIHandler {
 
 	@Override
 	public void onGeneralClick(InventoryClickEvent e, Player arg1) {
+		/*
+		// MODIF ETECK
+		//
+		// Pour que je m'y retrouve un peu mieux, j'ai remplacer les fonctions que tu appelles souvent
+		// dans des variables, ici "e.getCurrentItem().getType()" -> variable "itemType"
+		//
+		// Je le fais seulement ici, et si Ã§a te dÃ©range pas je le ferai peut Ãªtre ailleurs
+		// Je change rien d'autre pour l'instant, j'attends ton accord ^^
+		// (Je n'ai bien sÃ»r rien changÃ© au fonctionnement du code, Ã§a me parait juste plus lisible !)
+		//
+		*/
+		
+		Material itemType = e.getCurrentItem().getType();
+		
 		if(e.getCurrentItem() != null){
 			if(e.isShiftClick()){
-				if(!e.getCurrentItem().getType().equals(Material.EMERALD) && !e.getCurrentItem().getType().equals(Material.EMERALD_BLOCK) && !e.getCurrentItem().getType().equals(Material.AIR)){
+				if(!itemType.equals(Material.EMERALD) && !itemType.equals(Material.EMERALD_BLOCK) && !itemType.equals(Material.AIR)){
 					e.setCancelled(true);
-					rp.sendMessage("§cThis is a bank, not a storage!", "§cC'est une banque, pas un coffre !");
+					rp.sendMessage("Â§cThis is a bank, not a storage!", "Â§cC'est une banque, pas un coffre !");
 				}else{
 					if(!gm.getPermission(Permission.BANK_WITHDRAW)){
 						e.setCancelled(true);
-						rp.sendMessage("§cYou don't have permission to withdraw emeralds from your guild's bank!", "§cVous n'avez pas la permission de retirer des émeraudes de la banque de votre guilde !");
+						rp.sendMessage("Â§cYou don't have permission to withdraw emeralds from your guild's bank!", "Â§cVous n'avez pas la permission de retirer des Ã©meraudes de la banque de votre guilde !");
 					}
 					
 					final GBankUI bankUI = this;
@@ -63,22 +78,22 @@ public class GBankUI extends UIHandler {
 		if(e.getCurrentItem() != null){
 			if(!e.getCursor().getType().equals(Material.EMERALD) && !e.getCursor().getType().equals(Material.EMERALD_BLOCK) && !e.getCursor().getType().equals(Material.AIR)){
 				e.setCancelled(true);
-				rp.sendMessage("§cThis is a bank, not a storage!", "§cC'est une banque, pas un coffre !");
+				rp.sendMessage("Â§cThis is a bank, not a storage!", "Â§cC'est une banque, pas un coffre !");
 			}else{
 				if(e.getCursor().getType().equals(Material.EMERALD) || e.getCursor().getType().equals(Material.EMERALD_BLOCK)){
 					if(e.isRightClick()){
 						if(!gm.getPermission(Permission.BANK_WITHDRAW)){
 							e.setCancelled(true);
-							rp.sendMessage("§cYou don't have permission to withdraw emeralds from your guild's bank!", "§cVous n'avez pas la permission de retirer des émeraudes de la banque de votre guilde !");
+							rp.sendMessage("Â§cYou don't have permission to withdraw emeralds from your guild's bank!", "Â§cVous n'avez pas la permission de retirer des Ã©meraudes de la banque de votre guilde !");
 						}
 					}else if(!gm.getPermission(Permission.BANK_DEPOSIT)){
 						e.setCancelled(true);
-						rp.sendMessage("§cYou don't have permission to depose emeralds in your guild's bank!", "§cVous n'avez pas la permission de déposer des émeraudes dans la banque de votre guilde !");
+						rp.sendMessage("Â§cYou don't have permission to depose emeralds in your guild's bank!", "Â§cVous n'avez pas la permission de dÃ©poser des Ã©meraudes dans la banque de votre guilde !");
 					}
 				}else if(e.getCursor().getType().equals(Material.AIR)){
 					if(!gm.getPermission(Permission.BANK_WITHDRAW)){
 						e.setCancelled(true);
-						rp.sendMessage("§cYou don't have permission to withdraw emeralds from your guild's bank!", "§cVous n'avez pas la permission de retirer des émeraudes de la banque de votre guilde !");
+						rp.sendMessage("Â§cYou don't have permission to withdraw emeralds from your guild's bank!", "Â§cVous n'avez pas la permission de retirer des Ã©meraudes de la banque de votre guilde !");
 					}
 				}
 				
