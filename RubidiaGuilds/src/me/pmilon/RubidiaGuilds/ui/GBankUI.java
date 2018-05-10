@@ -46,9 +46,12 @@ public class GBankUI extends UIHandler {
 		//
 		*/
 		
-		Material itemType = e.getCurrentItem().getType();
+		
 		
 		if(e.getCurrentItem() != null){
+			
+			Material itemType = e.getCurrentItem().getType();
+			
 			if(e.isShiftClick()){
 				if(!itemType.equals(Material.EMERALD) && !itemType.equals(Material.EMERALD_BLOCK) && !itemType.equals(Material.AIR)){
 					e.setCancelled(true);
