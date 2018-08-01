@@ -15,18 +15,18 @@ public class SongManager {
 	
 	public enum Song {
 		
-		TAVERN(Material.RECORD_3, "tavern"),
-		FOREST_2(Material.RECORD_4, "forest2"),
-		MEARWOODEN_EXIT(Material.RECORD_5, "mearwood_exit"),
-		FANTASTIC(Material.RECORD_6, "fantastic"),
-		FIELDS(Material.RECORD_7, "fields"),
-		NULL(Material.RECORD_8, "null"),//empty song
-		DUNGEON(Material.RECORD_9, "dungeon"),
-		AERO_TRAVEL(Material.RECORD_10, "aeroplane"),
-		RUBIDIA_THEME(Material.RECORD_11, "principal"),
-		BOAT_TRAVEL(Material.RECORD_12, "boat"),
-		MOUNTAIN(Material.GOLD_RECORD, "mountain"),
-		FOREST(Material.GREEN_RECORD, "forest");
+		TAVERN(Material.MUSIC_DISC_BLOCKS, "tavern"),
+		FOREST_2(Material.MUSIC_DISC_CHIRP, "forest2"),
+		MEARWOODEN_EXIT(Material.MUSIC_DISC_FAR, "mearwood_exit"),
+		FANTASTIC(Material.MUSIC_DISC_MALL, "fantastic"),
+		FIELDS(Material.MUSIC_DISC_MELLOHI, "fields"),
+		NULL(Material.MUSIC_DISC_STAL, "null"),//empty song
+		DUNGEON(Material.MUSIC_DISC_STRAD, "dungeon"),
+		AERO_TRAVEL(Material.MUSIC_DISC_WARD, "aeroplane"),
+		RUBIDIA_THEME(Material.MUSIC_DISC_11, "principal"),
+		BOAT_TRAVEL(Material.MUSIC_DISC_WAIT, "boat"),
+		MOUNTAIN(Material.MUSIC_DISC_13, "mountain"),
+		FOREST(Material.MUSIC_DISC_CAT, "forest");
 		
 		private final Material material;
 		private final String name;
