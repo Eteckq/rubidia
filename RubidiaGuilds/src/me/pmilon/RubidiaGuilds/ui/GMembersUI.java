@@ -1,7 +1,9 @@
 package me.pmilon.RubidiaGuilds.ui;
 
 import java.util.Arrays;
+import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -27,10 +29,10 @@ public class GMembersUI extends ListMenuUIHandler<GMember> {
 
 	@Override
 	protected ItemStack getItem(GMember membr) {
-		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
 		SkullMeta meta = (SkullMeta) skull.getItemMeta();
 		meta.setDisplayName("§r§6" + membr.getName());
-		meta.setOwner(membr.getName());
+		meta.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(membr.getUniqueId())));
 		skull.setItemMeta(meta);
 		return skull;
 	}

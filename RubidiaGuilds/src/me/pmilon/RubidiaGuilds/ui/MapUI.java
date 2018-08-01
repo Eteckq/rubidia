@@ -95,50 +95,58 @@ public class MapUI extends UIHandler {
 			int z = this.center.getZ() + (p == 1 ? i-2 : (p == 2 ? j-4 : (p == 3 ? 2-i : 4-j )));
 			Chunk chunk = this.center.getWorld().getChunkAt(x, z);
 			Claim claim = Claim.get(chunk);
-			ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1);
-			ItemMeta meta = item.getItemMeta();
+			ItemStack item = null;
+			ItemMeta meta = null;
 			List<String> lore = new ArrayList<String>();
 			if(claim == null){
 				ProtectedCuboidRegion region = new ProtectedCuboidRegion("temp", new BlockVector(x*16,0,z*16), new BlockVector(x*16+15,255,z*16+15));
 				RegionManager mng = WorldGuardPlugin.inst().getRegionManager(chunk.getWorld());
 				ApplicableRegionSet set = mng.getApplicableRegions(region);
 				if(set.testState(null,Flags.CLAIM)){
-					item.setDurability((short)7);
+					item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
+					meta = item.getItemMeta();
 					meta.setDisplayName("§f§l" + rp.translateString("Free territory", "Territoire libre"));
 					item.setItemMeta(meta);
 				}else{
-					item.setDurability((short)1);
+					item = new ItemStack(Material.ORANGE_STAINED_GLASS_PANE, 1);
+					meta = item.getItemMeta();
 					meta.setDisplayName("§6§l" + rp.translateString("Protected territory", "Territoire protégé"));
 					item.setItemMeta(meta);
 				}
 			}else{
 				Guild claimGuild = claim.getGuild();
 				if(claimGuild.isPeaceful()){
-					item.setDurability((short)4);
+					item = new ItemStack(Material.YELLOW_STAINED_GLASS_PANE, 1);
+					meta = item.getItemMeta();
 					meta.setDisplayName("§6§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
 					lore.add("§e§o" + rp.translateString("by","par") + " " + claimGuild.getName());
 				}else{
 					if(gm.hasGuild()){
 						Guild guild = gm.getGuild();
 						if(guild.getRelationTo(claimGuild).equals(Relation.ALLY)){
-							item.setDurability((short)2);
+							item = new ItemStack(Material.MAGENTA_STAINED_GLASS_PANE, 1);
+							meta = item.getItemMeta();
 							meta.setDisplayName("§5§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
 							lore.add("§d§o" + rp.translateString("by","par") + " " + claimGuild.getName());
 						}else if(guild.getRelationTo(claimGuild).equals(Relation.ENEMY)){
-							item.setDurability((short)14);
+							item = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
+							meta = item.getItemMeta();
 							meta.setDisplayName("§4§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
 							lore.add("§c§o" + rp.translateString("by","par") + " " + claimGuild.getName());
 						}else if(guild.getRelationTo(claimGuild).equals(Relation.MEMBER)){
-							item.setDurability((short)5);
+							item = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
+							meta = item.getItemMeta();
 							meta.setDisplayName("§2§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
 							lore.add("§a§o" + rp.translateString("by","par") + " " + claimGuild.getName());
 						}else if(guild.getRelationTo(claimGuild).equals(Relation.NEUTRAL)){
-							item.setDurability((short)11);
+							item = new ItemStack(Material.BLUE_STAINED_GLASS_PANE, 1);
+							meta = item.getItemMeta();
 							meta.setDisplayName("§9§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
 							lore.add("§b§o" + rp.translateString("by","par") + " " + claimGuild.getName());
 						}
 					}else{
-						item.setDurability((short)11);
+						item = new ItemStack(Material.BLUE_STAINED_GLASS_PANE, 1);
+						meta = item.getItemMeta();
 						meta.setDisplayName("§9§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
 						lore.add("§b§o" + rp.translateString("by","par") + " " + claimGuild.getName());
 					}
@@ -146,7 +154,7 @@ public class MapUI extends UIHandler {
 			}
 
 			if(i == 2 && j == 4){
-				item.setDurability((short)12);
+				item = new ItemStack(Material.BROWN_STAINED_GLASS_PANE, 1);
 				lore.add("");
 				lore.add("§7" + rp.translateString("You are here","Vous êtes ici"));
 			}

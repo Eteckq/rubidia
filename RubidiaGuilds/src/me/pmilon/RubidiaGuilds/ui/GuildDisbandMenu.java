@@ -65,8 +65,8 @@ public class GuildDisbandMenu extends UIHandler {
 	
 	@Override
 	protected boolean openWindow() {
-		ItemStack ok = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)5);
-		ItemStack notok = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)14);
+		ItemStack ok = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
+		ItemStack notok = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = ok.getItemMeta();
 		meta.setDisplayName(rp.translateString("§2§lDISBAND GUILD", "§2§lDISSOUDRE LA GUILDE"));
 		meta.setLore(Arrays.asList(rp.translateString("§aDisband guild and lose all its progression", "§aDissoudre la guilde et perdre toute sa progression")));

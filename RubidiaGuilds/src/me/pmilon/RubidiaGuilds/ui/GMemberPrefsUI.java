@@ -27,28 +27,28 @@ public class GMemberPrefsUI extends UIHandler {
 	
 	private ItemStack ITEM_BACK = new ItemStack(Material.MELON, 1);
 	private ItemStack ITEM_KICK = new ItemStack(Material.BARRIER, 1);
-	private ItemStack ITEM_CLAIMS = new ItemStack(Material.FENCE, 1);
+	private ItemStack ITEM_CLAIMS = new ItemStack(Material.OAK_FENCE, 1);
 	private ItemStack ITEM_HOMES = new ItemStack(Material.COMPASS, 1);
 	private ItemStack ITEM_INVITE = new ItemStack(Material.CAKE, 1);
 	private ItemStack ITEM_BUILD = new ItemStack(Material.ENDER_CHEST, 1);
-	private ItemStack ITEM_USEDOORS = new ItemStack(Material.SPRUCE_DOOR_ITEM, 1);
+	private ItemStack ITEM_USEDOORS = new ItemStack(Material.SPRUCE_DOOR, 1);
 	private ItemStack ITEM_USECHESTS = new ItemStack(Material.CHEST, 1);
 	private ItemStack ITEM_NEXT = new ItemStack(Material.ARROW, 1);
 	private ItemStack ITEM_NAME = new ItemStack(Material.PAPER, 1);
-	private ItemStack ITEM_DESC = new ItemStack(Material.EMPTY_MAP, 1);
+	private ItemStack ITEM_DESC = new ItemStack(Material.MAP, 1);
 	private ItemStack ITEM_CLAIMSPREFS = new ItemStack(Material.DARK_OAK_FENCE, 1);
 	private ItemStack ITEM_RANKSPREFS = new ItemStack(Material.LADDER, 1);
-	private ItemStack ITEM_MEMBERSPREFS = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
-	private ItemStack ITEM_RELATIONS = new ItemStack(Material.WATCH, 1);
+	private ItemStack ITEM_MEMBERSPREFS = new ItemStack(Material.PLAYER_HEAD, 1);
+	private ItemStack ITEM_RELATIONS = new ItemStack(Material.CLOCK, 1);
 	private ItemStack ITEM_LEADERSHIP = new ItemStack(Material.REDSTONE_BLOCK, 1);
 	private ItemStack ITEM_BANK = new ItemStack(Material.ENDER_CHEST, 1);
-	private ItemStack ITEM_OFFER = new ItemStack(Material.EXP_BOTTLE, 1);
-	private ItemStack ITEM_MOBSDAMAGE = new ItemStack(Material.MONSTER_EGG, 1);
+	private ItemStack ITEM_OFFER = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
+	private ItemStack ITEM_MOBSDAMAGE = new ItemStack(Material.EGG, 1);
 	
-	ItemStack ITEM_DISABLED = new ItemStack(Material.INK_SACK, 1, (short)8);
-	ItemStack ITEM_RANKINFO = new ItemStack(Material.INK_SACK, 1, (short)9);
-	ItemStack ITEM_ENABLED = new ItemStack(Material.INK_SACK, 1, (short)10);
-	ItemStack ITEM_INFO = new ItemStack(Material.INK_SACK, 1, (short)13);
+	ItemStack ITEM_DISABLED = new ItemStack(Material.GRAY_DYE, 1);
+	ItemStack ITEM_RANKINFO = new ItemStack(Material.PINK_DYE, 1);
+	ItemStack ITEM_ENABLED = new ItemStack(Material.LIME_DYE, 1);
+	ItemStack ITEM_INFO = new ItemStack(Material.MAGENTA_DYE, 1);
 	
 	private int SLOT_BACK = 0;
 	private int SLOT_NEXT = 8;

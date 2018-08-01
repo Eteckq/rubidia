@@ -23,7 +23,7 @@ import me.pmilon.RubidiaGuilds.utils.LevelUtils;
 public class GExpMenuUI extends UIHandler {
 
 	private ItemStack ITEM_BACK = new ItemStack(Material.MELON, 1);
-	private ItemStack ITEM_INFOS = new ItemStack(Material.EXP_BOTTLE, 1);
+	private ItemStack ITEM_INFOS = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
 	
 	private Guild guild;
 	
@@ -182,20 +182,20 @@ public class GExpMenuUI extends UIHandler {
 			if(stack != null){
 				if(stack.getType().equals(Material.ROTTEN_FLESH))value += .15*stack.getAmount();
 				else if(stack.getType().equals(Material.STRING))value += .19*stack.getAmount();
-				else if(stack.getType().equals(Material.SULPHUR))value += .23*stack.getAmount();
+				else if(stack.getType().equals(Material.GUNPOWDER))value += .23*stack.getAmount();
 				else if(stack.getType().equals(Material.BONE))value += .18*stack.getAmount();
 				else if(stack.getType().equals(Material.BLAZE_ROD))value += .34*stack.getAmount();
 				else if(stack.getType().equals(Material.SPIDER_EYE))value += .2*stack.getAmount();
 				else if(stack.getType().equals(Material.ENDER_PEARL))value += .27*stack.getAmount();
 				//else if(stack.getType().equals(Material.NETHER_STAR))value += 1.82*stack.getAmount();
 				else if(stack.getType().equals(Material.DRAGON_EGG))value += 5.23*stack.getAmount();
-				else if(stack.getType().equals(Material.NETHER_WARTS))value += .01*stack.getAmount();
+				else if(stack.getType().equals(Material.NETHER_WART))value += .01*stack.getAmount();
 				else if(stack.getType().equals(Material.WHEAT))value += .008*stack.getAmount();
-				else if(stack.getType().equals(Material.CARROT_ITEM))value += .012*stack.getAmount();
-				else if(stack.getType().equals(Material.MELON))value += .005*stack.getAmount();
+				else if(stack.getType().equals(Material.CARROT))value += .012*stack.getAmount();
+				else if(stack.getType().equals(Material.MELON_SLICE))value += .005*stack.getAmount();
 				else if(stack.getType().equals(Material.PUMPKIN))value += .015*stack.getAmount();
-				else if(stack.getType().equals(Material.POTATO_ITEM))value += .012*stack.getAmount();
-				else if(stack.getType().equals(Material.MELON_BLOCK))value += .03*stack.getAmount();
+				else if(stack.getType().equals(Material.POTATO))value += .012*stack.getAmount();
+				else if(stack.getType().equals(Material.MELON))value += .03*stack.getAmount();
 				else if(stack.getType().equals(Material.SUGAR_CANE))value += .01*stack.getAmount();
 			}
 		}

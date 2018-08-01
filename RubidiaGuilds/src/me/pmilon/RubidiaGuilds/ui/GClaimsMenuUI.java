@@ -25,22 +25,22 @@ public class GClaimsMenuUI extends UIHandler {
 
 	private ItemStack ITEM_BACK = new ItemStack(Material.MELON, 1);
 	private ItemStack ITEM_CLAIMER = new ItemStack(Material.CHEST, 1);
-	private ItemStack ITEM_CLAIMNAME = new ItemStack(Material.EMPTY_MAP, 1);
+	private ItemStack ITEM_CLAIMNAME = new ItemStack(Material.MAP, 1);
 	private ItemStack ITEM_HOMES = new ItemStack(Material.COMPASS, 1);
 	private ItemStack ITEM_BUILDABLE = new ItemStack(Material.ENDER_CHEST, 1);
-	private ItemStack ITEM_DOORS_USABLE = new ItemStack(Material.SPRUCE_DOOR_ITEM, 1);
+	private ItemStack ITEM_DOORS_USABLE = new ItemStack(Material.SPRUCE_DOOR, 1);
 	private ItemStack ITEM_CHESTS_USABLE = new ItemStack(Material.CHEST, 1);
-	private ItemStack ITEM_MOBS_DAMAGEABLE = new ItemStack(Material.MONSTER_EGG, 1);
+	private ItemStack ITEM_MOBS_DAMAGEABLE = new ItemStack(Material.EGG, 1);
 	
-	private ItemStack ITEM_DISABLED = new ItemStack(Material.INK_SACK, 1, (short)8);
-	private ItemStack ITEM_ENABLED = new ItemStack(Material.INK_SACK, 1, (short)10);
-	private ItemStack ITEM_INFO = new ItemStack(Material.INK_SACK, 1, (short)13);
+	private ItemStack ITEM_DISABLED = new ItemStack(Material.GRAY_DYE, 1);
+	private ItemStack ITEM_ENABLED = new ItemStack(Material.LIME_DYE, 1);
+	private ItemStack ITEM_INFO = new ItemStack(Material.MAGENTA_DYE, 1);
 	private ItemStack ITEM_CLAIMED;
 	private ItemStack ITEM_NOT_CLAIMED;
-	private ItemStack ITEM_SET = new ItemStack(Material.INK_SACK, 1, (short)13);
-	private ItemStack ITEM_NOTSET = new ItemStack(Material.INK_SACK, 1, (short)8);
+	private ItemStack ITEM_SET = new ItemStack(Material.MAGENTA_DYE, 1);
+	private ItemStack ITEM_NOTSET = new ItemStack(Material.GRAY_DYE, 1, (short)8);
 	private ItemStack ITEM_UNAVAILABLE = new ItemStack(Material.BARRIER, 1);
-	private ItemStack ITEM_STARTRAID = new ItemStack(Material.GOLD_SWORD, 1);
+	private ItemStack ITEM_STARTRAID = new ItemStack(Material.GOLDEN_SWORD, 1);
 	
 	private int SLOT_BACK = 0;
 	private int SLOT_CLAIMER = 1;

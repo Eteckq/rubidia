@@ -114,7 +114,7 @@ public class GColl extends Database<String,Guild>{
 	public Guild addDefault(String name, String description, GMember leader, boolean peaceful){
 		List<String> members = new ArrayList<String>();
 		members.add(leader.getUniqueId());
-		ItemStack cape = new ItemStack(Material.BANNER, 1, (short)10);
+		ItemStack cape = new ItemStack(Material.ORANGE_BANNER, 1);
 		ItemMeta meta = cape.getItemMeta();
 		meta.setDisplayName("§fCape de " + name);
 		cape.setItemMeta(meta);

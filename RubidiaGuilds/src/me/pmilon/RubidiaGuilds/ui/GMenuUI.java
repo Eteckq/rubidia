@@ -23,7 +23,7 @@ public class GMenuUI extends UIHandler {
 	
 	private ItemStack ITEM_BANK = new ItemStack(Material.ENDER_CHEST, 1);
 	private ItemStack ITEM_CLAIMS = new ItemStack(Material.CHEST, 1);
-	private ItemStack ITEM_MEMBERS = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
+	private ItemStack ITEM_MEMBERS = new ItemStack(Material.PLAYER_HEAD, 1);
 	private ItemStack ITEM_RANKS = new ItemStack(Material.LADDER, 1);
 	private ItemStack ITEM_LEAVE = new ItemStack(Material.REDSTONE_BLOCK, 1);
 	private ItemStack ITEM_DISBAND = new ItemStack(Material.BARRIER, 1);

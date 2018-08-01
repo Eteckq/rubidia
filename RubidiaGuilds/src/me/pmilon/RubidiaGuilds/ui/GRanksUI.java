@@ -25,9 +25,9 @@ public class GRanksUI extends UIHandler {
 	
 	private ItemStack ITEM_BACK = new ItemStack(Material.MELON, 1);
 	
-	ItemStack ITEM_INFO = new ItemStack(Material.INK_SACK, 1, (short)7);
-	ItemStack ITEM_OPEN = new ItemStack(Material.INK_SACK, 1, (short)13);
-	ItemStack ITEM_RANKINFO = new ItemStack(Material.INK_SACK, 1, (short)9);
+	ItemStack ITEM_INFO = new ItemStack(Material.LIGHT_GRAY_DYE, 1);
+	ItemStack ITEM_OPEN = new ItemStack(Material.MAGENTA_DYE, 1);
+	ItemStack ITEM_RANKINFO = new ItemStack(Material.PINK_DYE, 1);
 
 	private int SLOT_BACK = 0;
 	private int SLOT_RANK = 1;

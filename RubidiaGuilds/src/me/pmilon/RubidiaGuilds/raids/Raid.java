@@ -149,7 +149,7 @@ public class Raid {
 
 						@Override
 						public void run() {
-							if(rp.isOnline())rp.getPlayer().playSound(rp.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, .5F);
+							if(rp.isOnline())rp.getPlayer().playSound(rp.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, .5F);
 						}
 
 						@Override
@@ -192,7 +192,7 @@ public class Raid {
 						public void run() {
 							for(RPlayer rp : getRPlayers()){
 								rp.sendTitle("§a" + index + "...", "§6§l" + getOffensive().getName() + "  §e!§6§l  " + getDefensive().getName(), 0, 10, 10);
-								if(rp.isOnline())rp.getPlayer().playSound(rp.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+								if(rp.isOnline())rp.getPlayer().playSound(rp.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 							}
 							index--;
 						}
@@ -221,7 +221,7 @@ public class Raid {
 		this.setStarted(true);
 		for(RPlayer rp : this.getRPlayers()){
 			if(rp.isOnline()){
-				rp.getPlayer().playSound(rp.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 2F);
+				rp.getPlayer().playSound(rp.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 2F);
 			}
 		}
 		for(GMember member : this.getGMembers()){

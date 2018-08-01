@@ -22,8 +22,8 @@ public class GRelationsUI extends UIHandler {
 
 	private Guild guild;
 	private ItemStack ITEM_ENEMY = new ItemStack(Material.TNT, 1);
-	private ItemStack ITEM_INFO = new ItemStack(Material.WATCH, 1);
-	private ItemStack ITEM_ALLY = new ItemStack(Material.GOLD_SPADE, 1);
+	private ItemStack ITEM_INFO = new ItemStack(Material.CLOCK, 1);
+	private ItemStack ITEM_ALLY = new ItemStack(Material.GOLDEN_SHOVEL, 1);
 	
 	private int SLOT_ENEMY = 1;
 	private int SLOT_INFO = 4;

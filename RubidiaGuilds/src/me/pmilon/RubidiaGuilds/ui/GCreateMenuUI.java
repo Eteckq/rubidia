@@ -22,8 +22,8 @@ import me.pmilon.RubidiaGuilds.guilds.Guild;
 public class GCreateMenuUI extends UIHandler {
 	
 	private ItemStack ITEM_NAME = new ItemStack(Material.PAPER, 1);
-	private ItemStack ITEM_DESC = new ItemStack(Material.EMPTY_MAP, 1);
-	private ItemStack ITEM_CREATE = new ItemStack(Material.BOOK_AND_QUILL, 1);
+	private ItemStack ITEM_DESC = new ItemStack(Material.MAP, 1);
+	private ItemStack ITEM_CREATE = new ItemStack(Material.WRITABLE_BOOK, 1);
 	
 	private int SLOT_NAME = 1;
 	private int SLOT_DESC = 2;
@@ -139,7 +139,7 @@ public class GCreateMenuUI extends UIHandler {
 		return ITEM_DESC;
 	}
 	private ItemStack getPeace(){
-		ItemStack stack = new ItemStack(Material.INK_SACK, 1, (short) (this.isPeaceful() ? 10 : 8));
+		ItemStack stack = new ItemStack(this.isPeaceful() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta paperm = stack.getItemMeta();
 		paperm.setDisplayName((this.isPeaceful() ? "§a§l" : "§c§l") + rp.translateString("Peaceful Guild", "Guilde en paix"));
 		paperm.setLore(Arrays.asList(rp.translateString("§7Peaceful guilds are invulnerable to TNT,", "§7Les guildes en paix sont invulnérables à la TNT,"), rp.translateString("§7skills and damages in general EVERYWHERE.", "§7aux compétences et aux dégâts en général de PARTOUT."), rp.translateString("§7It's a way to disable PVP and play with your friends!", "§7C'est un moyen de désactiver le PVP tout en jouant avec vos amis !"), rp.translateString("§7Their territories can't be claimed by other guilds", "§7Leurs territoires ne peuvent être conquis par d'autres guildes"), rp.translateString("§7and they can't be declared as enemy to any guild.", "§7et ne peuvent être déclarées ennemies à aucune guilde.")));

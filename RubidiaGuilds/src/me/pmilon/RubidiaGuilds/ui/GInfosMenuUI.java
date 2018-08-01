@@ -28,8 +28,8 @@ public class GInfosMenuUI extends UIHandler {
 
 	private ItemStack ITEM_BACK = new ItemStack(Material.MELON, 1);
 	private ItemStack ITEM_NAME = new ItemStack(Material.PAPER, 1);
-	private ItemStack ITEM_DESC = new ItemStack(Material.EMPTY_MAP, 1);
-	private ItemStack ITEM_OFFER = new ItemStack(Material.EXP_BOTTLE, 1);
+	private ItemStack ITEM_DESC = new ItemStack(Material.MAP, 1);
+	private ItemStack ITEM_OFFER = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
 	
 	private int SLOT_BACK = 0;
 	private int SLOT_NAME = 2;
@@ -133,7 +133,7 @@ public class GInfosMenuUI extends UIHandler {
 					if(Utils.isInteger(this.getMessage())){
 						this.getGuild().setCapeCost(Integer.valueOf(this.getMessage()));
 						ItemStack item = this.getHolder().getInventory().getItemInMainHand();
-						if(item.getType().equals(Material.BANNER)){
+						if(item.getType().toString().contains("_BANNER")){
 							ItemMeta meta = item.getItemMeta();
 							meta.setDisplayName("§fCape de " + this.getGuild().getName());
 							meta.setLore(new ArrayList<String>());
@@ -142,7 +142,7 @@ public class GInfosMenuUI extends UIHandler {
 							ItemStack cape = item.clone();
 							cape.setAmount(1);
 							this.getGuild().setCape(cape);
-						}
+						}else rp.sendMessage("§cYou can only use a banner as your guild's cape!","§cVous ne pouvez utiliser qu'une bannière en tant que cape de votre guilde !");
 					}
 				}
 			}
@@ -188,9 +188,8 @@ public class GInfosMenuUI extends UIHandler {
 		return this.getGuild().isGlowing() ? Utils.setGlowingWithoutAttributes(infos) : infos;
 	}
 	private ItemStack getGlowing(){
-		ItemStack ITEM_GLOWING = new ItemStack(Material.INK_SACK, 1);
-		if(this.getGuild().isGlowing())ITEM_GLOWING.setDurability((short)10);
-		else ITEM_GLOWING.setDurability((short)8);
+		ItemStack ITEM_GLOWING = new ItemStack(Material.GRAY_DYE, 1);
+		if(this.getGuild().isGlowing())ITEM_GLOWING = new ItemStack(Material.LIME_DYE, 1);
 		ItemMeta META = ITEM_GLOWING.getItemMeta();
 		META.setDisplayName((this.getGuild().isGlowing() ? "§a§l" : "§c§l") + rp.translateString("Glowing item", "Item brillant"));
 		META.setLore(Arrays.asList(rp.translateString("§7Enable or disable glowing effect", "§7Activer ou désactiver l'effet brillant"), rp.translateString("§7on your representative item.", "§7de votre item de guilde.")));

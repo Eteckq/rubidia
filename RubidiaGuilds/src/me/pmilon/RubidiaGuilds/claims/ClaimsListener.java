@@ -237,7 +237,7 @@ public class ClaimsListener implements Listener {
 						if(guild != null){
 							if(guild.isActive()){
 								String type = block.getType().toString();
-								List<Material> restricted = Arrays.asList(Material.CHEST, Material.HOPPER, Material.FURNACE, Material.ANVIL, Material.ENCHANTMENT_TABLE, Material.CAULDRON, Material.WORKBENCH, Material.DROPPER, Material.ENDER_PORTAL, Material.BEACON, Material.BREWING_STAND, Material.DISPENSER);
+								List<Material> restricted = Arrays.asList(Material.CHEST, Material.HOPPER, Material.FURNACE, Material.ANVIL, Material.ENCHANTING_TABLE, Material.CAULDRON, Material.CRAFTING_TABLE, Material.DROPPER, Material.END_PORTAL, Material.BEACON, Material.BREWING_STAND, Material.DISPENSER);
 								if(member.hasGuild()){
 									if(member.getGuild().equals(guild)){
 										if((type.contains("DOOR") || type.contains("GATE") || type.contains("PLATE") || type.contains("BUTTON")) && !member.getPermission(Permission.USE_DOORS)){

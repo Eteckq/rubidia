@@ -1,6 +1,7 @@
 package me.pmilon.RubidiaGuilds.ui;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -92,7 +93,7 @@ public class HomePermissionsUI extends UIHandler {
 	}
 	
 	private ItemStack getCanHome(int index){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, (short)(this.getSubject().canHome(index) ? 10 : 8));
+		ItemStack item = new ItemStack(this.getSubject().canHome(index) ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName((this.getSubject().canHome(index) ? "§a§l" : "§c§l") + rp.translateString("Use permission", "Permission d'utilisation"));
 		String name = this.getGuild().getHomes()[index] != null ? " (§f§l" + this.getGuild().getHomes()[index].getName() + "§7)" : "";
@@ -101,7 +102,7 @@ public class HomePermissionsUI extends UIHandler {
 		return item;
 	}
 	private ItemStack getCanSetHome(int index){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, (short)(this.getSubject().canSetHome(index) ? 10 : 8));
+		ItemStack item = new ItemStack(this.getSubject().canSetHome(index) ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName((this.getSubject().canSetHome(index) ? "§a§l" : "§c§l") + rp.translateString("Set permission", "Permission de définition"));
 		String name = this.getGuild().getHomes()[index] != null ? " (§f§l" + this.getGuild().getHomes()[index].getName() + "§7)" : "";
@@ -120,10 +121,10 @@ public class HomePermissionsUI extends UIHandler {
 	private ItemStack getHead(){
 		ItemStack item = null;
 		if(this.isGMember()){
-			item = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
+			item = new ItemStack(Material.PLAYER_HEAD, 1);
 			SkullMeta meta = (SkullMeta) item.getItemMeta();
 			meta.setDisplayName("§f" + this.getName());
-			meta.setOwner(this.getName());
+			meta.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(((GMember)this.getSubject()).getUniqueId())));
 			item.setItemMeta(meta);
 		}else{
 			item = ((Rank)this.getSubject()).getItemStack();
