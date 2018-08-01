@@ -105,7 +105,7 @@ public class WeaponSetBuffEditionMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getLevel(){
-		ItemStack item = new ItemStack(Material.EXP_BOTTLE, this.getBuff().getLevel() > 0 ? (this.getBuff().getLevel() > 64 ? 64 : this.getBuff().getLevel()) : 1);
+		ItemStack item = new ItemStack(Material.EXPERIENCE_BOTTLE, this.getBuff().getLevel() > 0 ? (this.getBuff().getLevel() > 64 ? 64 : this.getBuff().getLevel()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(String.valueOf(this.getBuff().getLevel()));
 		item.setItemMeta(meta);

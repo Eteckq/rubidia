@@ -26,7 +26,7 @@ public class ItemMessage {
 	private static final String DEF_FORMAT_1 = "%s";
 	private static final String DEF_FORMAT_2 = " %s ";
 	private static final String[] formats = new String[] { DEF_FORMAT_1, DEF_FORMAT_2 };
-	private static final Material emptyHandReplacement = Material.STAINED_GLASS_PANE;
+	private static final Material emptyHandReplacement = Material.LIGHT_GRAY_STAINED_GLASS_PANE;
 
 	private static final HashMap<Player, NamerTask> namerTasks = new HashMap<Player, NamerTask>();
 	
@@ -121,7 +121,7 @@ public class ItemMessage {
 			if (stack0 == null || stack0.getType() == Material.AIR) {
 				// an empty slot can't display any custom item name, so we need to fake an item
 				// a snow layer is a good choice, since it's visually quite unobtrusive
-				stack = new ItemStack(emptyHandReplacement, 1, (short) 8);
+				stack = new ItemStack(emptyHandReplacement, 1);
 			} else {
 				stack = new ItemStack(stack0.getType(), stack0.getAmount(), stack0.getDurability());
 			}

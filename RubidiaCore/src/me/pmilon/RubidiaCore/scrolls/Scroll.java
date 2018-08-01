@@ -37,7 +37,7 @@ public class Scroll {
 	}
 	
 	public ItemStack getNewItemStack(RPlayer rp){
-		ItemStack item = new ItemStack(Material.EMPTY_MAP, 1);
+		ItemStack item = new ItemStack(Material.MAP, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6§o" + (this.getType().equals(ScrollType.CITYTP) ? this.getArg() : "") + rp.translateString(this.getType().getNameEn(), this.getType().getNameFr()));
 		List<String> lore = new ArrayList<String>();

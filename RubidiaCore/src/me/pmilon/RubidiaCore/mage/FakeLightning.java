@@ -40,7 +40,7 @@ public class FakeLightning {
 				packet.sendPacket(player);
 			}
 		}
-		location.getWorld().playSound(location, Sound.ENTITY_LIGHTNING_IMPACT, 1, 1);
+		location.getWorld().playSound(location, Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 1, 1);
 		if(this.isFire())location.getBlock().setType(Material.FIRE);
 	}
 	

@@ -20,7 +20,7 @@ import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Sound;
 import org.bukkit.Note.Tone;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_13_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -142,7 +142,7 @@ public class SkillTree extends UIHandler {
 	}
 	
 	private ItemStack getSkp(){
-		ItemStack item = new ItemStack(rp.getSkillPoints() > 0 ? Material.BOOK : Material.BOOK_AND_QUILL, rp.getSkillPoints() > 64  || rp.getSkillPoints() < 1 ? 1 : rp.getSkillPoints());
+		ItemStack item = new ItemStack(rp.getSkillPoints() > 0 ? Material.BOOK : Material.WRITABLE_BOOK, rp.getSkillPoints() > 64  || rp.getSkillPoints() < 1 ? 1 : rp.getSkillPoints());
 		ItemMeta meta = item.getItemMeta();
 		String color = (rp.getSkillPoints() > 0 ? "§2" : "§4");
 		String ccolor = (rp.getSkillPoints() > 0 ? "§a" : "§c");

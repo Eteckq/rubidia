@@ -20,23 +20,23 @@ public class PrefsUI extends UIHandler {
 
 	static ItemStack ITEM_BACK = new ItemStack(Material.MELON, 1);
 	static ItemStack ITEM_NEXT = new ItemStack(Material.ARROW, 1);
-	static ItemStack ITEM_CHATSETTINGS = new ItemStack(Material.EMPTY_MAP, 1);
+	static ItemStack ITEM_CHATSETTINGS = new ItemStack(Material.MAP, 1);
 	static ItemStack ITEM_CHAT = new ItemStack(Material.SHULKER_SHELL, 1);
-	static ItemStack ITEM_COMBAT = new ItemStack(Material.SKULL_ITEM, 1, (short)1);
-	static ItemStack ITEM_NOTIFJOIN = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
+	static ItemStack ITEM_COMBAT = new ItemStack(Material.SKELETON_SKULL, 1);
+	static ItemStack ITEM_NOTIFJOIN = new ItemStack(Material.PLAYER_HEAD, 1);
 	static ItemStack ITEM_CLICKSOUND = new ItemStack(Material.DISPENSER, 1);
-	static ItemStack ITEM_EFFECTS = new ItemStack(Material.FIREWORK, 1);
+	static ItemStack ITEM_EFFECTS = new ItemStack(Material.FIREWORK_ROCKET, 1);
 	static ItemStack ITEM_INVOCATION = new ItemStack(Material.BLAZE_POWDER, 1);
 	static ItemStack ITEM_TELEPORTATION = new ItemStack(Material.ENDER_PEARL, 1);
 	static ItemStack ITEM_MUSIC = new ItemStack(Material.NOTE_BLOCK, 1);
 	static ItemStack ITEM_TEXTURES = new ItemStack(Material.TNT, 1);
 	static ItemStack ITEM_CYCLE = new ItemStack(Material.MAGMA_CREAM, 1);
 	
-	static ItemStack ITEM_DISABLED = new ItemStack(Material.INK_SACK, 1, (short)8);
-	static ItemStack ITEM_ENABLED = new ItemStack(Material.INK_SACK, 1, (short)10);
-	static ItemStack ITEM_INFO = new ItemStack(Material.INK_SACK, 1, (short)13);
-	static ItemStack ITEM_CHOOSE = new ItemStack(Material.INK_SACK, 1, (short)13);
-	static ItemStack ITEM_RANKINFO = new ItemStack(Material.INK_SACK, 1, (short)9);
+	static ItemStack ITEM_DISABLED = new ItemStack(Material.GRAY_DYE, 1);
+	static ItemStack ITEM_ENABLED = new ItemStack(Material.LIME_DYE, 1);
+	static ItemStack ITEM_INFO = new ItemStack(Material.MAGENTA_DYE);
+	static ItemStack ITEM_CHOOSE = new ItemStack(Material.MAGENTA_DYE);
+	static ItemStack ITEM_RANKINFO = new ItemStack(Material.PINK_DYE, 1);
 
 	static int SLOT_BACK = 0;
 	static int SLOT_NEXT = 8;
@@ -219,7 +219,7 @@ public class PrefsUI extends UIHandler {
 		SkullMeta META_NOTIFJOIN = (SkullMeta) ITEM_NOTIFJOIN.getItemMeta();
 		META_NOTIFJOIN.setDisplayName((rp.getNotifOnFriendJoin() ? "§a" : "§c") + rp.translateString("§lLogin notification", "§lNotification de connexion"));
 		META_NOTIFJOIN.setLore(Arrays.asList(rp.translateString("§7Get notified when a team mate logs in", "§7Soyez notifié de la connexion d'un équipier"), rp.translateString("§7by a little sound and a chat message!", "§7par un doux son et un message !"), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
-		META_NOTIFJOIN.setOwner(this.getHolder().getName());
+		META_NOTIFJOIN.setOwningPlayer(Bukkit.getOfflinePlayer(this.getHolder().getUniqueId()));
 		ITEM_NOTIFJOIN.setItemMeta(META_NOTIFJOIN);
 		return ITEM_NOTIFJOIN;
 	}

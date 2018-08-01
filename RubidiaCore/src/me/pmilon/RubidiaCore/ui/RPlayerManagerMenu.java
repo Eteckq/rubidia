@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
@@ -62,7 +63,7 @@ public class RPlayerManagerMenu extends UIHandler {
 	}
 
 	private ItemStack getHead(){
-		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
 		SkullMeta meta = (SkullMeta) skull.getItemMeta();
 		meta.setDisplayName((rpp.isOnline() ? "§2[✔] §a" : "§4[✘] §c") + rpp.getName() + (rpp.isVip() ? " §8[§6§lVIP§8]" : ""));
 		List<String> lore = new ArrayList<String>();
@@ -88,7 +89,7 @@ public class RPlayerManagerMenu extends UIHandler {
 		Date date = new Date(rpp.getLastConnectionDate());
 		lore.addAll(Arrays.asList("§8" + rp.translateString("Last connected on ", "Dernière connexion le "), "§7" + new SimpleDateFormat("dd/MM/yyyy").format(date) + rp.translateString("§8,§7 ", " §8à§7 ") + new SimpleDateFormat("HH:mm").format(date)));
 		meta.setLore(lore);
-		meta.setOwner(rpp.getName());
+		meta.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rpp.getUniqueId())));
 		skull.setItemMeta(meta);
 		return skull;
 	}

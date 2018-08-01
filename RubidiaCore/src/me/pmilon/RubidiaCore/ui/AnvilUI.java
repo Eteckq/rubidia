@@ -61,7 +61,7 @@ public class AnvilUI extends UIHandler {
 	}
 
 	private ItemStack getFinalInfos() {
-		ItemStack is = new ItemStack(Material.STAINED_GLASS_PANE, 1,(short)5);
+		ItemStack is = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = is.getItemMeta();
 		meta.setDisplayName(rp.translateString("§aFinal item", "§aItem final"));
 		meta.setLore(Arrays.asList("§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-", rp.translateString("§7Confirm your item forging", "§7Confirmez la modification"), rp.translateString("§7by clicking it.", "§7en cliquant dessus."), rp.translateString("§cCost: §4" + COST + "§c Emeralds", "§cCoût : §4" + COST + "§c émeraudes"), "§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-"));
@@ -70,7 +70,7 @@ public class AnvilUI extends UIHandler {
 	}
 
 	private ItemStack getItemInfos() {
-		ItemStack is = new ItemStack(Material.STAINED_GLASS_PANE, 1,(short)14);
+		ItemStack is = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = is.getItemMeta();
 		meta.setDisplayName(rp.translateString("§4Base items", "§4Items de base"));
 		meta.setLore(Arrays.asList(rp.translateString("§cUsed items for the item forging", "§cItems utilisés pour la modification")));
@@ -79,7 +79,7 @@ public class AnvilUI extends UIHandler {
 	}
 
 	private ItemStack getInfos() {
-		ItemStack is = new ItemStack(Material.STAINED_GLASS_PANE, 1,(short)7);
+		ItemStack is = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = is.getItemMeta();
 		meta.setDisplayName(rp.translateString("§8Anvil", "§8Forge"));
 		meta.setLore(Arrays.asList(rp.translateString("§7Validation menu", "§7Menu de validation")));
@@ -98,7 +98,7 @@ public class AnvilUI extends UIHandler {
 					EconomyHandler.withdrawBalanceITB(this.getHolder(), COST);
 					p.getInventory().addItem(INHAND);
 					p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 3, 3);
-					Random r = new Random();
+					/*Random r = new Random();
 					if(r.nextInt(4) == 0){
 						if(ANVIL.getData()+4 < 12){
 							ANVIL.setData((byte) (ANVIL.getData()+4));
@@ -106,7 +106,7 @@ public class AnvilUI extends UIHandler {
 							ANVIL.setType(Material.AIR);
 							p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_BREAK, 3, 3);
 						}
-					}
+					}*/
 					DONE = true;
 				}else{
 					p.sendMessage(rp.translateString("§cYou don't have enough emeralds!", "§cVous n'avez pas assez d'émeraudes !"));

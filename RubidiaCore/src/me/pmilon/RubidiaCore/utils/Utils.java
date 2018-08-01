@@ -38,7 +38,7 @@ public class Utils {
 		String m = item.getType().toString();
 		RPlayer rp = RPlayer.get(p);
 		int DCOST = (rp.isVip() ? 47 : 59)+level*8;
-		if(m.contains("WOOD_")){
+		if(m.contains("WOODEN_")){
 			for(Enchantment enchant : REnchantment.values()){
 				if(enchantms.containsKey(enchant)){
 					if(rp.isVip())DCOST += level*(enchantms.get(enchant));
@@ -143,7 +143,7 @@ public class Utils {
 	}
 
 	public static ItemStack setGlowingWithoutAttributes(ItemStack is){
-        /*net.minecraft.server.v1_12_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(is);
+        /*net.minecraft.server.v1_13_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(is);
         NBTTagCompound tag = null;
         if (!nmsStack.hasTag()) {
             tag = new NBTTagCompound();

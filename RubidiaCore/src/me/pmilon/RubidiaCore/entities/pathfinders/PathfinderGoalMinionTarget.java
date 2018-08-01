@@ -1,6 +1,6 @@
 package me.pmilon.RubidiaCore.entities.pathfinders;
 
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_13_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -11,9 +11,9 @@ import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaQuests.pnjs.PNJManager;
-import net.minecraft.server.v1_12_R1.EntityCreature;
-import net.minecraft.server.v1_12_R1.EntityLiving;
-import net.minecraft.server.v1_12_R1.PathfinderGoalTarget;
+import net.minecraft.server.v1_13_R1.EntityCreature;
+import net.minecraft.server.v1_13_R1.EntityLiving;
+import net.minecraft.server.v1_13_R1.PathfinderGoalTarget;
 
 public class PathfinderGoalMinionTarget extends PathfinderGoalTarget {
 

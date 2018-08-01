@@ -2,12 +2,12 @@ package me.pmilon.RubidiaMonsters.pathfinders;
 
 import org.bukkit.entity.LivingEntity;
 
-import net.minecraft.server.v1_12_R1.Entity;
-import net.minecraft.server.v1_12_R1.EntityCreature;
-import net.minecraft.server.v1_12_R1.EntityLiving;
-import net.minecraft.server.v1_12_R1.PathEntity;
-import net.minecraft.server.v1_12_R1.PathfinderGoal;
-import net.minecraft.server.v1_12_R1.World;
+import net.minecraft.server.v1_13_R1.Entity;
+import net.minecraft.server.v1_13_R1.EntityCreature;
+import net.minecraft.server.v1_13_R1.EntityLiving;
+import net.minecraft.server.v1_13_R1.PathEntity;
+import net.minecraft.server.v1_13_R1.PathfinderGoal;
+import net.minecraft.server.v1_13_R1.World;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class PathfinderGoalMeleeAttack extends PathfinderGoal {

@@ -61,7 +61,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import net.minecraft.server.v1_13_R1.NBTTagCompound;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -73,7 +73,7 @@ import org.bukkit.Sound;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
@@ -668,11 +668,11 @@ public class RPlayer {
 			if(!this.isOp()){
 				ItemStack stack = this.getPlayer().getInventory().getItem(8);
 				if(stack != null){
-					if(!stack.getType().equals(Material.STAINED_GLASS_PANE) || stack.getDurability() != 15){
+					if(!stack.getType().equals(Material.BLACK_STAINED_GLASS_PANE)){
 						int slot = this.getPlayer().getInventory().firstEmpty();
 						if(slot == -1)this.getPlayer().getWorld().dropItem(this.getPlayer().getLocation(), stack);
 						else this.getPlayer().getInventory().setItem(slot, stack);
-						ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE,1,(short)15);
+						ItemStack item = new ItemStack(Material.BLACK_STAINED_GLASS_PANE,1);
 						ItemMeta meta = item.getItemMeta();
 						meta.setDisplayName("nrj");
 						item.setItemMeta(meta);
@@ -800,16 +800,16 @@ public class RPlayer {
 		for(int i = 0;i < partsm.length;i++){
 			if(partsm[i].contains("%item")){
 				if(!inHand.getType().equals(Material.AIR)){
-				    net.minecraft.server.v1_12_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(inHand);
+				    net.minecraft.server.v1_13_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(inHand);
 					BaseComponent[] hoverItem;
 					HoverEvent hoverEvent;
 					if(inHand.hasItemMeta()){
-					    net.minecraft.server.v1_12_R1.NBTTagCompound compound = new NBTTagCompound();
+					    net.minecraft.server.v1_13_R1.NBTTagCompound compound = new NBTTagCompound();
 					    if(nmsItemStack.hasTag())compound = nmsItemStack.save(compound);
 					    hoverItem = new BaseComponent[]{new TextComponent(compound.toString())};
 					    hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_ITEM, hoverItem);
 					}else{
-					    hoverItem = new BaseComponent[]{new TextComponent(nmsItemStack.getName())};
+					    hoverItem = new BaseComponent[]{new TextComponent(nmsItemStack.getName().getString())};
 					    hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverItem);
 					}
 					TextComponent item = new TextComponent("§9[" + nmsItemStack.getName() + "§9]");
@@ -1679,13 +1679,13 @@ public class RPlayer {
 		this.vanished = vanished;
 		if(vanished){
 			for(RPlayer rp : RPlayer.getOnlines()){
-				if(!rp.isOp() && !rp.equals(this))rp.getPlayer().hidePlayer(this.getPlayer());
+				if(!rp.isOp() && !rp.equals(this))rp.getPlayer().hidePlayer(Core.instance, this.getPlayer());
 				rp.getChat().addInfo("§6[-] §e" + this.getName() + rp.translateString(" left the game", " vient de se déconnecter"));
 				rp.getChat().update();
 			}
 		}else{
 			for(RPlayer rp : RPlayer.getOnlines()){
-				if(!rp.isOp() && !rp.equals(this))rp.getPlayer().showPlayer(this.getPlayer());
+				if(!rp.isOp() && !rp.equals(this))rp.getPlayer().showPlayer(Core.instance, this.getPlayer());
 				rp.getChat().addInfo("§6[+] §e" + this.getName() + rp.translateString(" joined the game", " vient de se connecter"));
 				rp.getChat().update();
 			}

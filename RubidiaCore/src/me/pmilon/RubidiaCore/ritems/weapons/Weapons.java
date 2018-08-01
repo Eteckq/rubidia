@@ -20,9 +20,9 @@ public class Weapons {
 		return type.equals(Material.BOW) ? .024 : (type.toString().contains("_HOE") ? .035 : .05);
 	}
 	public static int getSkinAmount(Material type){
-		if(type.equals(Material.WOOD_AXE))return 10;
+		if(type.equals(Material.WOODEN_AXE))return 10;
 		else if(type.toString().contains("_HOE"))return 18;
-		else if(type.equals(Material.WOOD_SWORD))return 10;
+		else if(type.equals(Material.WOODEN_SWORD))return 10;
 		else if(type.equals(Material.BOW))return 39;
 		else if(type.equals(Material.STONE_AXE))return 17;
 		else if(type.equals(Material.STONE_SWORD))return 18;
@@ -30,8 +30,8 @@ public class Weapons {
 		else if(type.equals(Material.IRON_SWORD))return 18;
 		else if(type.equals(Material.DIAMOND_AXE))return 17;
 		else if(type.equals(Material.DIAMOND_SWORD))return 18;
-		else if(type.equals(Material.GOLD_AXE))return 15;
-		else if(type.equals(Material.GOLD_SWORD))return 14;
+		else if(type.equals(Material.GOLDEN_AXE))return 15;
+		else if(type.equals(Material.GOLDEN_SWORD))return 14;
 		else if(type.toString().contains("LEATHER_")){
 			if(type.equals(Material.LEATHER_HELMET))return 18;
 			else return 19;

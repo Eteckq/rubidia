@@ -4,9 +4,12 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
+
+import me.pmilon.RubidiaCore.Core;
 
 public class REnchantment {
 
@@ -18,7 +21,7 @@ public class REnchantment {
 															Enchantment.LOOT_BONUS_MOBS,
 															Enchantment.LUCK);
 	
-	public static Enchantment SOUL_BIND = new Enchantment(120){
+	public static Enchantment SOUL_BIND = new Enchantment(new NamespacedKey(Core.instance, "Soul Bind")){
 
 		@Override
 		public boolean canEnchantItem(ItemStack item) {

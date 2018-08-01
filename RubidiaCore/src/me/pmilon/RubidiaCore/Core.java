@@ -149,6 +149,7 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryAction;
@@ -166,7 +167,6 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.event.server.ServerListPingEvent;
@@ -232,7 +232,7 @@ public class Core extends JavaPlugin implements Listener {
 	public static List<Player> drunk = new ArrayList<Player>();
 	public static List<Player> glitch = new ArrayList<Player>();
 	public static HashMap<Player, List<BukkitTask>> pesanteur = new HashMap<Player, List<BukkitTask>>();
-	public static List<Material> pesTypes = Arrays.asList(Material.LADDER, Material.LAVA, Material.STATIONARY_LAVA, Material.STATIONARY_WATER, Material.WATER);
+	public static List<Material> pesTypes = Arrays.asList(Material.LADDER, Material.LAVA, Material.WATER);
 	public static boolean restarting = false;
 	private static int playersMax = 1;
 
@@ -268,7 +268,7 @@ public class Core extends JavaPlugin implements Listener {
 				public void onCancel() {
 				}
 			}.runTaskLater(1);
-			p.getInventory().addItem(new ItemStack(Material.WOOD_SWORD, 1));
+			p.getInventory().addItem(new ItemStack(Material.WOODEN_SWORD, 1));
 			p.getInventory().addItem(new ItemStack(Material.EMERALD, 20));
 			p.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 4));
 			Scrolls.newScroll(p, ScrollType.WILDTP, "");
@@ -363,7 +363,7 @@ public class Core extends JavaPlugin implements Listener {
 		if(rp.isVanished()){
 			rp.sendMessage("§7§oYou are vanished!","§7§oVous êtes invisible !");
 			for(RPlayer rpp : RPlayer.getOnlines()){
-				if(!rpp.isOp() && !rpp.equals(rp))rpp.getPlayer().hidePlayer(p);
+				if(!rpp.isOp() && !rpp.equals(rp))rpp.getPlayer().hidePlayer(this, p);
 			}
 		}
 		
@@ -487,7 +487,7 @@ public class Core extends JavaPlugin implements Listener {
 										p.setWalkSpeed(0);
 										p.setVelocity(new Vector(0,0,0));
 										for(Player player : Bukkit.getOnlinePlayers()){
-											player.hidePlayer(p);
+											player.hidePlayer(this, p);
 										}
 										p.playSound(p.getLocation(), Sound.ENTITY_WITHER_SPAWN, 2, 1);
 										rp.setResurrectionTask(new BukkitTask(this){
@@ -495,7 +495,7 @@ public class Core extends JavaPlugin implements Listener {
 
 											@Override
 											public void run() {
-												p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 5, .8F);
+												p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 5, .8F);
 												rp.sendTitle(rp.translateString("§6Use your resurrection scroll!", "§6Utilisez votre parchemin de résurrection !"), (step > 3 ? "§e" : (step > 1 ? "§c" : "§4")) + step + "...", 0, 25, 0);
 												step--;
 											}
@@ -518,7 +518,7 @@ public class Core extends JavaPlugin implements Listener {
 						p.setFlySpeed(.1F);
 						p.setWalkSpeed(.2F);
 						for(Player player : Bukkit.getOnlinePlayers()){
-							player.showPlayer(p);
+							player.showPlayer(this, p);
 						}
 						p.removePotionEffect(PotionEffectType.BLINDNESS);
 						rp.getResurrectionTask().cancel();
@@ -547,11 +547,11 @@ public class Core extends JavaPlugin implements Listener {
 		final Player p = e.getPlayer();
 		RPlayer rp = RPlayer.get(p);
 		
-		if(p.getInventory().contains(Material.STORAGE_MINECART)){
+		if(p.getInventory().contains(Material.CHEST_MINECART)){
 			int amount = 0;
 			for(int slot = 0;slot < 36;slot++){
 				if(p.getInventory().getItem(slot) != null){
-					if(p.getInventory().getItem(slot).getType().equals(Material.STORAGE_MINECART)){
+					if(p.getInventory().getItem(slot).getType().equals(Material.CHEST_MINECART)){
 						if(p.getInventory().getItem(slot).hasItemMeta()){
 							if(p.getInventory().getItem(slot).getItemMeta().getDisplayName().contains("§6BackPack") || p.getInventory().getItem(slot).getItemMeta().getDisplayName().contains("§6Sac à dos"))amount += 1;
 							if(amount > 1){
@@ -703,13 +703,13 @@ public class Core extends JavaPlugin implements Listener {
 				}
 			}
 			
-			if(ie.getSlotType().equals(SlotType.ARMOR) && ie.getCurrentItem().getType().equals(Material.SKULL_ITEM) && Smiley.isSmileying(p))ie.setCancelled(true);
+			if(ie.getSlotType().equals(SlotType.ARMOR) && ie.getCurrentItem().getType().equals(Material.PLAYER_HEAD) && Smiley.isSmileying(p))ie.setCancelled(true);
 		}
 		if(!rp.isOp() && ie.getClickedInventory() != null){
 			if(ie.getAction().equals(InventoryAction.HOTBAR_SWAP)){
 				if(ie.getCursor() != null){
 					ItemStack item = ie.getCursor();
-					if(item.getType().equals(Material.STAINED_GLASS_PANE) && item.getDurability() == 15 && item.hasItemMeta()){
+					if(item.getType().equals(Material.BLACK_STAINED_GLASS_PANE) && item.hasItemMeta()){
 						ItemMeta meta = item.getItemMeta();
 						if(meta.hasDisplayName()){
 							if(meta.getDisplayName().equals("nrj")){
@@ -1124,7 +1124,7 @@ public class Core extends JavaPlugin implements Listener {
 					
 					if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 						final Block clicked = e.getClickedBlock();
-						if(clicked.getType().equals(Material.ENCHANTMENT_TABLE)){
+						if(clicked.getType().equals(Material.ENCHANTING_TABLE)){
 							if(!e.isCancelled()){
 								e.setCancelled(true);
 								ApplicableRegionSet set = wg.getRegionManager(clicked.getWorld()).getApplicableRegions(clicked.getLocation());
@@ -1244,27 +1244,29 @@ public class Core extends JavaPlugin implements Listener {
 	}
 	
 	@EventHandler
-	public void onPickUp(PlayerPickupItemEvent e){
-		final Player p = e.getPlayer();
-		RPlayer rp = RPlayer.get(p);
-		ItemStack pickUp = e.getItem().getItemStack();
-		RItem rItem = new RItem(pickUp);
-		if(p.getInventory().contains(Material.STORAGE_MINECART)){
-			int amount = 0;
-			for(int slot = 0;slot < 36;slot++){
-				ItemStack item = p.getInventory().getItem(slot);
-				if(item != null){
-					RItem rItem2 = new RItem(item);
-					if(rItem2.isBackPack())amount++;
-					if(amount > 1){
-						p.getWorld().dropItem(p.getLocation(), p.getInventory().getItem(slot));
-						p.getInventory().remove(item);
-						rp.sendMessage("§cYou cannot carry more than one backpack!", "§cVous ne pouvez transporter plus d'un sac à dos !");
+	public void onPickUp(EntityPickupItemEvent e){
+		if(e.getEntity() instanceof Player){
+			final Player p = (Player) e.getEntity();
+			RPlayer rp = RPlayer.get(p);
+			ItemStack pickUp = e.getItem().getItemStack();
+			RItem rItem = new RItem(pickUp);
+			if(p.getInventory().contains(Material.CHEST_MINECART)){
+				int amount = 0;
+				for(int slot = 0;slot < 36;slot++){
+					ItemStack item = p.getInventory().getItem(slot);
+					if(item != null){
+						RItem rItem2 = new RItem(item);
+						if(rItem2.isBackPack())amount++;
+						if(amount > 1){
+							p.getWorld().dropItem(p.getLocation(), p.getInventory().getItem(slot));
+							p.getInventory().remove(item);
+							rp.sendMessage("§cYou cannot carry more than one backpack!", "§cVous ne pouvez transporter plus d'un sac à dos !");
+						}
 					}
 				}
-			}
-			if(rItem.isBackPack() && amount > 1){
-				e.setCancelled(true);
+				if(rItem.isBackPack() && amount > 1){
+					e.setCancelled(true);
+				}
 			}
 		}
 	}
@@ -1278,7 +1280,7 @@ public class Core extends JavaPlugin implements Listener {
 			RPlayer rp = RPlayer.get(p);
 			
 			if(is != null){
-				if(is.getType().equals(Material.STORAGE_MINECART)){
+				if(is.getType().equals(Material.CHEST_MINECART)){
 					if(is.hasItemMeta()){
 						ItemMeta im = is.getItemMeta();
 						if(im.hasDisplayName()){
@@ -1343,7 +1345,7 @@ public class Core extends JavaPlugin implements Listener {
 		if(!e.isCancelled()){
 			if(p.getGameMode().equals(GameMode.SURVIVAL)){
 				ItemStack inHand = p.getEquipment().getItemInMainHand();
-				if(inHand.getType().equals(Material.GOLD_PICKAXE) || inHand.getType().equals(Material.IRON_PICKAXE) || inHand.getType().equals(Material.DIAMOND_PICKAXE)){
+				if(inHand.getType().equals(Material.GOLDEN_PICKAXE) || inHand.getType().equals(Material.IRON_PICKAXE) || inHand.getType().equals(Material.DIAMOND_PICKAXE)){
 					if(!inHand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)){
 						if(b.getType().equals(Material.EMERALD_ORE)){
 							Random r = new Random();
@@ -1451,7 +1453,7 @@ public class Core extends JavaPlugin implements Listener {
 		Entity entity = e.getEntity();
 		Block block = e.getBlock();
 		if(block != null){
-			if(block.getType().equals(Material.SOIL)){
+			if(block.getType().equals(Material.FARMLAND)){
 				if(entity instanceof LivingEntity){
 					EntityEquipment equipment = ((LivingEntity)entity).getEquipment();
 					ItemStack item = equipment.getBoots();
@@ -1482,13 +1484,13 @@ public class Core extends JavaPlugin implements Listener {
 						if(rp.isOp()){
 							for(RPlayer rpp : RPlayer.getOnlines()){
 								if(rpp.isVanished() && !rpp.equals(rp)){
-									player.showPlayer(rpp.getPlayer());
+									player.showPlayer(Core.instance, rpp.getPlayer());
 								}
 							}
 						}else{
 							for(RPlayer rpp : RPlayer.getOnlines()){
 								if(rpp.isVanished() && !rpp.equals(rp)){
-									player.hidePlayer(rpp.getPlayer());
+									player.hidePlayer(Core.instance, rpp.getPlayer());
 								}
 							}
 						}
@@ -1809,7 +1811,7 @@ public class Core extends JavaPlugin implements Listener {
 	    Events.onEnable(this);
 	    EntityHandler.onEnable(this);
 
-		ItemStack backpackis = new ItemStack(Material.STORAGE_MINECART, 1);
+		ItemStack backpackis = new ItemStack(Material.CHEST_MINECART, 1);
 		ItemMeta bpmeta = backpackis.getItemMeta();
 		bpmeta.setDisplayName("§fSac à dos");
 		backpackis.setItemMeta(bpmeta);

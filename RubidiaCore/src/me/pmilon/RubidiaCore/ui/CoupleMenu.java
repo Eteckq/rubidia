@@ -24,7 +24,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class CoupleMenu extends UIHandler {
 	
-	public static short[] INK_SACK_COLORS = new short[]{1, 14, 11, 10, 2, 12, 4, 5};
+	public static Material[] DYES = new Material[]{Material.ORANGE_STAINED_GLASS_PANE, Material.RED_STAINED_GLASS_PANE,
+			Material.BLUE_STAINED_GLASS_PANE, Material.PURPLE_STAINED_GLASS_PANE, Material.MAGENTA_STAINED_GLASS_PANE,
+			Material.BROWN_STAINED_GLASS_PANE, Material.YELLOW_STAINED_GLASS_PANE, Material.LIME_STAINED_GLASS_PANE};
 	public static String[] COLOR_CODES = new String[]{"4", "6", "e", "a", "2", "b", "9", "5"};
 
 	private Couple couple;
@@ -45,7 +47,7 @@ public class CoupleMenu extends UIHandler {
 		for(int i = 0;i < Couples.getBuffs().size();i++){
 			CBuff buff = Couples.getBuffs().get(i);
 			boolean locked = this.getCouple().getXPTime() < buff.getXpTime();
-			ItemStack item = new ItemStack(Material.INK_SACK, 1, locked ? (short)8 : INK_SACK_COLORS[i]);
+			ItemStack item = new ItemStack( locked ? Material.LIGHT_GRAY_STAINED_GLASS_PANE : DYES[i], 1);
 			ItemMeta meta = item.getItemMeta();
 			String[] name = buff.getName().split("-");
 			meta.setDisplayName("§" + (locked ? "7" : COLOR_CODES[i]) + "§l❤ " + rp.translateString(name[0], name[1]) + " ❤");

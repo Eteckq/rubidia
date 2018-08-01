@@ -25,8 +25,8 @@ public class TradingUI extends UIHandler {
 	final ArrayList<Integer> noslots = new ArrayList<>(Arrays.asList(4,5,6,7,8,13,14,15,16,17,22,23,24,25,26,31,32,33,34,35,40,41,42,43,44));
 	final ArrayList<Integer> slots1 = new ArrayList<>(Arrays.asList(0,1,2,3,9,10,11,12,18,19,20,21,27,28,29,30,36,37,38));
 	final ArrayList<Integer> slots2 = new ArrayList<>(Arrays.asList(5,6,7,8,14,15,16,17,23,24,25,26,32,33,34,35,41,42,43));
-	ItemStack ITEM_NONE = new ItemStack(Material.INK_SACK, 1, (short)8);
-	ItemStack ITEM_AGREE = new ItemStack(Material.INK_SACK, 1, (short)10);
+	ItemStack ITEM_NONE = new ItemStack(Material.GRAY_DYE, 1);
+	ItemStack ITEM_AGREE = new ItemStack(Material.LIME_DYE, 1);
 	boolean triggerCloseEvent = true;
 	
 	public TradingUI(Player p, Player trader, boolean newtrade) {
@@ -69,13 +69,13 @@ public class TradingUI extends UIHandler {
 				e.setCancelled(true);
 			}else if(slots1.contains(e.getRawSlot())){
 				//CANCEL TRADE ACCEPT IF TRUE
-				if((this.getMenu().getItem(39)).getDurability() == 10){
+				if(this.getMenu().getItem(39).getType().equals(Material.LIME_DYE)){
 					this.setItem(39, this.getNotReady());
 					this.getTraderUI().setItem(44, this.getTraderUI().getNotReadyTrader());
 					Utils.updateInventory(this.getHolder());
 					Utils.updateInventory(this.getTraderUI().getHolder());
 				}
-				if((this.getMenu().getItem(44)).getDurability() == 10){
+				if(this.getMenu().getItem(44).getType().equals(Material.LIME_DYE)){
 					this.setItem(44, this.getNotReadyTrader());
 					this.getTraderUI().setItem(39, this.getTraderUI().getNotReady());
 					Utils.updateInventory(this.getHolder());
@@ -95,8 +95,8 @@ public class TradingUI extends UIHandler {
 					public void onCancel() {
 					}
 				}.runTaskLater(1);
-			}else if(e.getRawSlot() == 39 && e.getCurrentItem().getType().equals(Material.INK_SACK)){
-				if((e.getCurrentItem()).getDurability() == 8){
+			}else if(e.getRawSlot() == 39){
+				if(e.getCurrentItem().getType().equals(Material.GRAY_DYE)){
 					//ACCEPT TRADE
 					e.setCurrentItem(this.getReady());
 					e.setCancelled(true);
@@ -109,11 +109,11 @@ public class TradingUI extends UIHandler {
 					Utils.updateInventory(this.getTrader());
 					
 					//TRADE END
-					if((e.getClickedInventory().getItem(44)).getDurability() == 10){
+					if(e.getClickedInventory().getItem(44).getType().equals(Material.LIME_DYE)){
 						this.getTraderUI().close(false, true);
 						this.close(false, true);
 					}
-				}else if((e.getCurrentItem()).getDurability() == 10){
+				}else if(e.getCurrentItem().getType().equals(Material.LIME_DYE)){
 					//DENY TRADE
 					e.setCurrentItem(this.getNotReady());
 					e.setCancelled(true);
@@ -208,7 +208,7 @@ public class TradingUI extends UIHandler {
 		return ITEM_AGREE;
 	}
 	private ItemStack getSeparator(){
-		ItemStack is = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)7);
+		ItemStack is = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName("§8" + rp.translateString("Inventory Separator", "Séparateur"));
 		im.setLore(Arrays.asList(rp.translateString("§7You can't access right part of this inventory", "§7Vous ne pouvez accéder à la partie droite de cet inventaire")));

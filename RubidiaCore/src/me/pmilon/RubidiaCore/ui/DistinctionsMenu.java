@@ -122,7 +122,7 @@ public class DistinctionsMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getStrength(){
-		ItemStack item = new ItemStack(Material.INK_SACK, rp.getStrength() > 0 ? (rp.getStrength() > 64 ? 64 : rp.getStrength()) : 1, (short)1);
+		ItemStack item = new ItemStack(Material.ROSE_RED, rp.getStrength() > 0 ? (rp.getStrength() > 64 ? 64 : rp.getStrength()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = rp.getStrength() > 0 ? "§2" : "§4";
 		meta.setDisplayName(color + "§l" + rp.getStrength() + color + " " + rp.translateString("strength point", "point") + (rp.getStrength() > 1 ? "s" : "") + rp.translateString("", " de force"));
@@ -131,7 +131,7 @@ public class DistinctionsMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getEndurance(){
-		ItemStack item = new ItemStack(Material.INK_SACK, rp.getEndurance() > 0 ? (rp.getEndurance() > 64 ? 64 : rp.getEndurance()) : 1, (short)10);
+		ItemStack item = new ItemStack(Material.LIME_DYE, rp.getEndurance() > 0 ? (rp.getEndurance() > 64 ? 64 : rp.getEndurance()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = rp.getEndurance() > 0 ? "§2" : "§4";
 		meta.setDisplayName(color + "§l" + rp.getEndurance() + color + " " + rp.translateString("endurance point", "point") + (rp.getEndurance() > 1 ? "s" : "") + rp.translateString("", " d'endurance"));
@@ -140,7 +140,7 @@ public class DistinctionsMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getAgility(){
-		ItemStack item = new ItemStack(Material.INK_SACK, rp.getAgility() > 0 ? (rp.getAgility() > 64 ? 64 : rp.getAgility()) : 1, (short)11);
+		ItemStack item = new ItemStack(Material.DANDELION_YELLOW, rp.getAgility() > 0 ? (rp.getAgility() > 64 ? 64 : rp.getAgility()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = rp.getAgility() > 0 ? "§2" : "§4";
 		meta.setDisplayName(color + "§l" + rp.getAgility() + color + " " + rp.translateString("agility point", "point") + (rp.getEndurance() > 1 ? "s" : "") + rp.translateString("", " d'agilité"));
@@ -149,7 +149,7 @@ public class DistinctionsMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getIntelligence(){
-		ItemStack item = new ItemStack(Material.INK_SACK, rp.getIntelligence() > 0 ? (rp.getIntelligence() > 64 ? 64 : rp.getIntelligence()) : 1, (short)12);
+		ItemStack item = new ItemStack(Material.LIGHT_BLUE_DYE, rp.getIntelligence() > 0 ? (rp.getIntelligence() > 64 ? 64 : rp.getIntelligence()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = rp.getIntelligence() > 0 ? "§2" : "§4";
 		meta.setDisplayName(color + "§l" + rp.getIntelligence() + color + " " + rp.translateString("intelligence point", "point") + (rp.getEndurance() > 1 ? "s" : "") + rp.translateString("", " d'intelligence"));
@@ -158,7 +158,7 @@ public class DistinctionsMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getPerception(){
-		ItemStack item = new ItemStack(Material.INK_SACK, rp.getPerception() > 0 ? (rp.getPerception() > 64 ? 64 : rp.getPerception()) : 1, (short)13);
+		ItemStack item = new ItemStack(Material.MAGENTA_DYE, rp.getPerception() > 0 ? (rp.getPerception() > 64 ? 64 : rp.getPerception()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = rp.getPerception() > 0 ? "§2" : "§4";
 		meta.setDisplayName(color + "§l" + rp.getPerception() + color + " " + rp.translateString("perception point", "point") + (rp.getEndurance() > 1 ? "s" : "") + rp.translateString("", " de perception"));
@@ -167,9 +167,9 @@ public class DistinctionsMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getCrc(){
-		ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
+		ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1);
 		SkullMeta meta = (SkullMeta) item.getItemMeta();
-		meta.setOwner(this.getHolder().getName());
+		meta.setOwningPlayer(Bukkit.getOfflinePlayer(this.getHolder().getUniqueId()));
 		meta.setDisplayName("§f§l" + rp.getRClass().toString());
 		meta.setLore(Arrays.asList("§7" + rp.translateString("Click to obtain detailed characteristics.", "Cliquez pour obtenir vos caractéristiques détaillées."), "§7" + rp.translateString("Attack & defense values depend", "Les valeurs d'attaque et de défense"), "§7" + rp.translateString("on your current weapon and armor.", "dépendent de votre arme et armure actuelles.")));
 		item.setItemMeta(meta);

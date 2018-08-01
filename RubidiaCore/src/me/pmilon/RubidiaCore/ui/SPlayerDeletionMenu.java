@@ -78,8 +78,8 @@ public class SPlayerDeletionMenu extends UIHandler {
 	
 	@Override
 	protected boolean openWindow() {
-		ItemStack ok = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)5);
-		ItemStack notok = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)14);
+		ItemStack ok = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
+		ItemStack notok = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = ok.getItemMeta();
 		meta.setDisplayName(rp.translateString("§2§lDELETE CHARACTER", "§2§lSUPPRIMER LE PERSONNAGE"));
 		meta.setLore(Arrays.asList(rp.translateString("§aDelete character and lose all progression", "§aSupprimer le personnage et perdre toute progression")));

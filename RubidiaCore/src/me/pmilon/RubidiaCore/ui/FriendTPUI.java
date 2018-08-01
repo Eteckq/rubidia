@@ -5,8 +5,9 @@ import java.util.Arrays;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.handlers.TeleportHandler;
 import me.pmilon.RubidiaCore.scrolls.Scroll;
-import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -34,10 +35,10 @@ public class FriendTPUI extends ListMenuUIHandler<Player> {
 
 	@Override
 	protected ItemStack getItem(Player player) {
-		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
 		SkullMeta meta = (SkullMeta) skull.getItemMeta();
 		meta.setDisplayName("§r§6" + player.getName());
-		meta.setOwner(player.getName());
+		meta.setOwningPlayer(Bukkit.getOfflinePlayer(player.getUniqueId()));
 		skull.setItemMeta(meta);
 		return skull;
 	}

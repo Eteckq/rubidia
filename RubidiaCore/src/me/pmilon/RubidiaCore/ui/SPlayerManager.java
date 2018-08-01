@@ -80,7 +80,7 @@ public class SPlayerManager extends UIHandler{
 	}
 
 	private ItemStack getSkt(){
-		ItemStack item = new ItemStack(Material.SAPLING,1,(short)3);
+		ItemStack item = new ItemStack(Material.JUNGLE_SAPLING,1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6§l" + rp.translateString("Skilltree", "Arbre des compétences"));
 		meta.setLore(Arrays.asList("§7" + rp.translateString("Upgrade your skills", "Améliorez vos compétences")));
@@ -96,7 +96,7 @@ public class SPlayerManager extends UIHandler{
 		return item;
 	}
 	private ItemStack getGuild(){
-		ItemStack item = gm.hasGuild() ? gm.getGuild().getCape() : new ItemStack(Material.ENCHANTMENT_TABLE,1);
+		ItemStack item = gm.hasGuild() ? gm.getGuild().getCape() : new ItemStack(Material.ENCHANTING_TABLE,1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6§l" + rp.translateString("Guild menu", "Menu de guilde"));
 		meta.setLore(Arrays.asList("§7" + rp.translateString("Manage your guild", "Gérez votre guilde")));
@@ -112,7 +112,7 @@ public class SPlayerManager extends UIHandler{
 		return item;
 	}
 	private ItemStack getBoosters(){
-		ItemStack item = new ItemStack(Material.EXP_BOTTLE,1);
+		ItemStack item = new ItemStack(Material.EXPERIENCE_BOTTLE,1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6§l" + rp.translateString("Boosters menu", "Menu des boosters"));
 		meta.setLore(Arrays.asList("§7" + rp.translateString("Enable or disable boosters", "Activez ou désactivez des boosters")));

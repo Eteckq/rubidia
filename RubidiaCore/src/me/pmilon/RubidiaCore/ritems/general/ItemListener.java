@@ -17,7 +17,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
@@ -85,7 +85,7 @@ public class ItemListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onPickUp(PlayerPickupItemEvent event){
+	public void onPickUp(EntityPickupItemEvent event){
 		if(event.getItem().hasMetadata("unpickable")){
 			event.setCancelled(true);
 		}

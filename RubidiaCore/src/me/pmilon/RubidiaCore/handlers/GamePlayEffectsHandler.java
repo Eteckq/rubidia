@@ -10,11 +10,12 @@ import me.pmilon.RubidiaCore.packets.WrapperPlayServerRelEntityMove;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSpawnEntityLiving;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.Utils;
-import net.minecraft.server.v1_12_R1.EntityArmorStand;
+import net.minecraft.server.v1_13_R1.ChatMessage;
+import net.minecraft.server.v1_13_R1.EntityArmorStand;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_13_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -39,7 +40,7 @@ public class GamePlayEffectsHandler implements Listener {
 					Location location = damaged.getLocation().add(new Vector(Utils.random.nextDouble(),-.5,Utils.random.nextDouble()));
 					EntityArmorStand stand1 = new EntityArmorStand(((CraftWorld)player.getWorld()).getHandle());
 					stand1.setLocation(0, 0, 0, 0, 0);
-					stand1.setCustomName("§c-" + Math.round(e.getDamages()));
+					stand1.setCustomName(new ChatMessage("§c-" + Math.round(e.getDamages())));
 					stand1.setCustomNameVisible(true);
 					stand1.setSmall(true);
 					stand1.setInvisible(true);

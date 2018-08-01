@@ -53,7 +53,7 @@ public class RItem {
 			return true;
 		}
 		
-		if(this.getItem().getType().equals(Material.STORAGE_MINECART)){
+		if(this.getItem().getType().equals(Material.CHEST_MINECART)){
 			if(this.getItem().hasItemMeta()){
 				ItemMeta meta = this.getItem().getItemMeta();
 				if(meta.hasDisplayName()){
@@ -80,7 +80,7 @@ public class RItem {
 			return true;
 		}
 
-		if(this.getItem().getType().equals(Material.EMPTY_MAP)){
+		if(this.getItem().getType().equals(Material.MAP)){
 			if(this.getItem().hasItemMeta()){
 				ItemMeta meta = this.getItem().getItemMeta();
 				if(meta.hasDisplayName()){

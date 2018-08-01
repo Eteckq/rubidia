@@ -145,21 +145,21 @@ public class EventManager extends UIHandler {
 		return item;
 	}
 	public ItemStack getSubtitle(){
-		ItemStack item = new ItemStack(Material.EMPTY_MAP,1);
+		ItemStack item = new ItemStack(Material.MAP,1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§d" + this.getEvent().getSubtitle());
 		item.setItemMeta(meta);
 		return item;
 	}
 	public ItemStack getStartDate(){
-		ItemStack item = new ItemStack(Material.WATCH,1);
+		ItemStack item = new ItemStack(Material.CLOCK,1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Start: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date(this.getEvent().getStartDate())));
 		item.setItemMeta(meta);
 		return item;
 	}
 	public ItemStack getDuration(){
-		ItemStack item = new ItemStack(Material.WATCH,1);
+		ItemStack item = new ItemStack(Material.CLOCK,1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Duration: " + new SimpleDateFormat("HH:mm").format(new Date(this.getEvent().getDuration()-1*60*60*1000L)));
 		item.setItemMeta(meta);
@@ -187,7 +187,7 @@ public class EventManager extends UIHandler {
 		return back;
 	}
 	public ItemStack getStart(){
-		ItemStack ITEM_START = new ItemStack(Material.WOOL, 1);
+		ItemStack ITEM_START = new ItemStack(Material.GREEN_WOOL, 1);
 		ItemMeta meta = ITEM_START.getItemMeta();
 		meta.setDisplayName("Start event");
 		ITEM_START.setItemMeta(meta);

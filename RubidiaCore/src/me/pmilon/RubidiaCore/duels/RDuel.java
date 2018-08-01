@@ -141,26 +141,26 @@ public class RDuel {
 			public void run(){
 				getChallenger().sendTitle("§c3...", "", 0, 10, 5);
 				getChallenged().sendTitle("§c3...", "", 0, 10, 5);
-				p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
-				p2.playSound(p2.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+				p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
+				p2.playSound(p2.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 				Bukkit.getScheduler().runTaskLater(Core.instance, new Runnable(){
 					public void run(){
 						getChallenger().sendTitle("§c2...", "", 0, 10, 5);
 						getChallenged().sendTitle("§c2...", "", 0, 10, 5);
-						p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
-						p2.playSound(p2.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+						p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
+						p2.playSound(p2.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 						Bukkit.getScheduler().runTaskLater(Core.instance, new Runnable(){
 							public void run(){
 								getChallenger().sendTitle("§41...", "", 0, 10, 5);
 								getChallenged().sendTitle("§41...", "", 0, 10, 5);
-								p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
-								p2.playSound(p2.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
+								p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
+								p2.playSound(p2.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
 								Bukkit.getScheduler().runTaskLater(Core.instance, new Runnable(){
 									public void run(){
 										getChallenger().sendTitle("§4FIGHT!", "", 0, 10, 5);
 										getChallenged().sendTitle("§4FIGHT!", "", 0, 10, 5);
-										p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 2F);
-										p2.playSound(p2.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 2F);
+										p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 2F);
+										p2.playSound(p2.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 2F);
 										setStarted(true);
 										Vector link = p2.getLocation().toVector().subtract(p1.getLocation().toVector()).multiply(.5);
 										setCenter(p1.getLocation().add(link));
@@ -233,7 +233,7 @@ public class RDuel {
 
 				@Override
 				public void run() {
-					if(p1 != null)p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1.5F);
+					if(p1 != null)p1.playSound(p1.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1.5F);
 				}
 
 				@Override
@@ -249,7 +249,7 @@ public class RDuel {
 
 				@Override
 				public void run() {
-					if(p2 != null)p2.playSound(p2.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1.5F);
+					if(p2 != null)p2.playSound(p2.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1.5F);
 				}
 
 				@Override

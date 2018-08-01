@@ -46,7 +46,7 @@ public class Smiley {
 	public static ItemStack base(String url){
 	    GameProfile profile = new GameProfile(UUID.randomUUID(), null);
 	    profile.getProperties().put("textures", new Property("textures", Base64Coder.encodeString("{textures:{SKIN:{url:\"" + url + "\"}}}")));
-		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
 		SkullMeta meta = (SkullMeta) skull.getItemMeta();
 		Field profileField = null;
         try {

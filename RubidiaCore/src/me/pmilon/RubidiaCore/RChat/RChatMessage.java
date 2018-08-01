@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.md_5.bungee.api.ChatColor;
 
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 import me.pmilon.RubidiaCore.RManager.Mastery;
@@ -185,7 +185,7 @@ public class RChatMessage {
 	
 	public String getItemMessage(){
 		if(this.getItem() != null){
-			return "[" + ChatColor.stripColor(CraftItemStack.asNMSCopy(this.getItem()).getName()) + "]";
+			return "[" + ChatColor.stripColor(CraftItemStack.asNMSCopy(this.getItem()).getName().getString()) + "]";
 		}
 		return "";
 	}

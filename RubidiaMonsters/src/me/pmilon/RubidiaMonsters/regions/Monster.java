@@ -25,13 +25,13 @@ import me.pmilon.RubidiaMonsters.entities.SDefaultEntity;
 import me.pmilon.RubidiaMonsters.events.MonsterKillEvent;
 import me.pmilon.RubidiaMonsters.events.MonsterSpawnEvent;
 import me.pmilon.RubidiaMonsters.events.MonsterTameChangeEvent;
-import net.minecraft.server.v1_12_R1.EntityInsentient;
+import net.minecraft.server.v1_13_R1.EntityInsentient;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_13_R1.entity.CraftEntity;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Creature;

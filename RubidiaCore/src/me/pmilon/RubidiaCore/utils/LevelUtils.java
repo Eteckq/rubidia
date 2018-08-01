@@ -33,7 +33,7 @@ public class LevelUtils {
 		else if(type.equals(Material.REDSTONE_ORE))return 1.15;
 		else if(type.equals(Material.LAPIS_ORE))return 2.1;
 		else if(type.equals(Material.EMERALD_ORE))return 5.4;
-		else if(type.equals(Material.QUARTZ_ORE))return 1.23;
+		else if(type.equals(Material.NETHER_QUARTZ_ORE))return 1.23;
 		else return 0.0;
 	}
 	

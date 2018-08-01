@@ -15,9 +15,9 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import net.minecraft.server.v1_13_R1.NBTTagCompound;
 
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -124,13 +124,13 @@ public class RChat {
         			line.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "> " + sender.getName() + " "));
     			}
     			if(chatMessage.getItem() != null){
-    			    net.minecraft.server.v1_12_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(chatMessage.getItem());
+    			    net.minecraft.server.v1_13_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(chatMessage.getItem());
 	    			if(chatMessage.getItem().hasItemMeta()){
-	    			    net.minecraft.server.v1_12_R1.NBTTagCompound compound = new NBTTagCompound();
+	    			    net.minecraft.server.v1_13_R1.NBTTagCompound compound = new NBTTagCompound();
 	    			    if(nmsItemStack.hasTag())compound = nmsItemStack.save(compound);
 	    				line.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new BaseComponent[]{new TextComponent(compound.toString())}));
 	    			}else{
-	    				line.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new BaseComponent[]{new TextComponent(nmsItemStack.getName())}));
+	    				line.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new BaseComponent[]{new TextComponent(nmsItemStack.getName().getString())}));
 	    			}
     			}
     			this.getPlayer().spigot().sendMessage(line);
@@ -315,13 +315,13 @@ public class RChat {
 			    			line.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "> " + message.getSender().getName() + " "));
 		    			}
 		    			if(message.getItem() != null){
-		    			    net.minecraft.server.v1_12_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(message.getItem());
+		    			    net.minecraft.server.v1_13_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(message.getItem());
 			    			if(message.getItem().hasItemMeta()){
-			    			    net.minecraft.server.v1_12_R1.NBTTagCompound compound = new NBTTagCompound();
+			    			    net.minecraft.server.v1_13_R1.NBTTagCompound compound = new NBTTagCompound();
 			    			    if(nmsItemStack.hasTag())compound = nmsItemStack.save(compound);
 			    				line.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new BaseComponent[]{new TextComponent(compound.toString())}));
 			    			}else{
-			    				line.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new BaseComponent[]{new TextComponent(nmsItemStack.getName())}));
+			    				line.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new BaseComponent[]{new TextComponent(nmsItemStack.getName().getString())}));
 			    			}
 		    			}
 			    		text.addExtra(line);
@@ -341,13 +341,13 @@ public class RChat {
 			    			line.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "> " + message.getSender().getName() + " "));
 		    			}
 		    			if(message.getItem() != null){
-		    			    net.minecraft.server.v1_12_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(message.getItem());
+		    			    net.minecraft.server.v1_13_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(message.getItem());
 			    			if(message.getItem().hasItemMeta()){
-			    			    net.minecraft.server.v1_12_R1.NBTTagCompound compound = new NBTTagCompound();
+			    			    net.minecraft.server.v1_13_R1.NBTTagCompound compound = new NBTTagCompound();
 			    			    if(nmsItemStack.hasTag())compound = nmsItemStack.save(compound);
 			    				line.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new BaseComponent[]{new TextComponent(compound.toString())}));
 			    			}else{
-			    				line.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new BaseComponent[]{new TextComponent(nmsItemStack.getName())}));
+			    				line.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new BaseComponent[]{new TextComponent(nmsItemStack.getName().getString())}));
 			    			}
 		    			}
 			    		text.addExtra(line);

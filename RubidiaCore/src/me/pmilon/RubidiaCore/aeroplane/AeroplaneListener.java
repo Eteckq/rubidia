@@ -9,12 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
@@ -80,34 +77,6 @@ public class AeroplaneListener implements Listener {
 									}.runTaskTimer(10, 0);
 								}else RPlayer.get(player).sendMessage("ßcYou cannot lift you up here!", "ßcVous ne pouvez vous Èlever ici !");
 							}else rp.sendMessage("ßcYou don't have enough energy to lift you up!", "ßcVous n'avez pas assez de vigueur pour vous Èlever !");
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	@EventHandler
-	public void onInteract(PlayerInteractEvent event){
-		Player player = event.getPlayer();
-		if(player != null){
-			if(event.getHand() != null){
-				if(event.getHand().equals(EquipmentSlot.HAND)){
-					if(event.getAction().toString().contains("RIGHT_CLICK")){
-						ItemStack inHand = player.getEquipment().getItemInMainHand();
-						if(inHand != null){
-							if(inHand.getType().equals(Material.BANNER)){
-								if(inHand.hasItemMeta()){
-									ItemMeta meta = inHand.getItemMeta();
-									if(meta.hasDisplayName()){
-										if(meta.getDisplayName().contains("Aeroplanche")){
-											meta.setDisplayName("ßf…lytres");
-											inHand.setItemMeta(meta);
-											inHand.setType(Material.ELYTRA);
-										}
-									}
-								}
-							}
 						}
 					}
 				}

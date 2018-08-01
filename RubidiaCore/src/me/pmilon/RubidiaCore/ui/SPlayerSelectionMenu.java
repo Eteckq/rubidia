@@ -47,7 +47,7 @@ public class SPlayerSelectionMenu extends UIHandler{
 			List<String> lore = new ArrayList<String>();
 			if(rp.getSaves()[i] != null){
 				SPlayer sp = rp.getSaves()[i];
-				item1 = new ItemStack(sp.getRClass().equals(RClass.VAGRANT) ? Material.WOOD_AXE : sp.getRClass().getBaseWeapon(), 1, (short) (sp.getRClass().equals(RClass.VAGRANT) ? Material.WOOD_AXE.getMaxDurability()*.67 : (sp.getRClass().equals(RClass.RANGER) ? Material.BOW.getMaxDurability()*.954 : sp.getRClass().getBaseWeapon().getMaxDurability()*.72)));
+				item1 = new ItemStack(sp.getRClass().equals(RClass.VAGRANT) ? Material.WOODEN_AXE : sp.getRClass().getBaseWeapon(), 1, (short) (sp.getRClass().equals(RClass.VAGRANT) ? Material.WOODEN_AXE.getMaxDurability()*.67 : (sp.getRClass().equals(RClass.RANGER) ? Material.BOW.getMaxDurability()*.954 : sp.getRClass().getBaseWeapon().getMaxDurability()*.72)));
 				meta1 = item1.getItemMeta();
 				meta1.setUnbreakable(true);
 				meta1.setDisplayName("§f§l" + rp.translateString(sp.getRClass().getDisplayEn(), sp.getRClass().getDisplayFr()));

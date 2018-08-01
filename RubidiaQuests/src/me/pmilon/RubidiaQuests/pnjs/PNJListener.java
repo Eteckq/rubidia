@@ -22,14 +22,14 @@ import me.pmilon.RubidiaQuests.quests.Quest;
 import me.pmilon.RubidiaQuests.quests.Reward;
 import me.pmilon.RubidiaQuests.quests.RewardType;
 import me.pmilon.RubidiaQuests.utils.Utils;
-import net.minecraft.server.v1_12_R1.EntityVillager;
-import net.minecraft.server.v1_12_R1.PathEntity;
+import net.minecraft.server.v1_13_R1.EntityVillager;
+import net.minecraft.server.v1_13_R1.PathEntity;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftVillager;
+import org.bukkit.craftbukkit.v1_13_R1.entity.CraftVillager;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;

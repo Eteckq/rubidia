@@ -24,14 +24,14 @@ import me.pmilon.RubidiaCore.utils.Locations;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaGuilds.guilds.Relation;
-import net.minecraft.server.v1_12_R1.EntityCreature;
-import net.minecraft.server.v1_12_R1.EntityHuman;
-import net.minecraft.server.v1_12_R1.PathfinderGoalFloat;
-import net.minecraft.server.v1_12_R1.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_12_R1.PathfinderGoalMoveTowardsRestriction;
-import net.minecraft.server.v1_12_R1.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_12_R1.PathfinderGoalRandomStroll;
-import net.minecraft.server.v1_12_R1.PathfinderGoalSelector;
+import net.minecraft.server.v1_13_R1.EntityCreature;
+import net.minecraft.server.v1_13_R1.EntityHuman;
+import net.minecraft.server.v1_13_R1.PathfinderGoalFloat;
+import net.minecraft.server.v1_13_R1.PathfinderGoalLookAtPlayer;
+import net.minecraft.server.v1_13_R1.PathfinderGoalMoveTowardsRestriction;
+import net.minecraft.server.v1_13_R1.PathfinderGoalRandomLookaround;
+import net.minecraft.server.v1_13_R1.PathfinderGoalRandomStroll;
+import net.minecraft.server.v1_13_R1.PathfinderGoalSelector;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -44,7 +44,7 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftCreature;
+import org.bukkit.craftbukkit.v1_13_R1.entity.CraftCreature;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
@@ -131,7 +131,7 @@ public class Abilities {
 		rp.setActiveAbility(2, true);
 		rp.addNrj(-neednrj);
 		p.setVelocity(new Vector(0, 1.5, 0));
-		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 1, 1);
+		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1, 1);
 		new BukkitTask(Abilities.getPlugin()){
 			Location lastLocation = p.getLocation().clone();
 
@@ -209,7 +209,7 @@ public class Abilities {
 				Location location = p.getLocation();
 				List<LivingEntity> around = Core.toDamageableLivingEntityList(p, p.getNearbyEntities(2.5, 2.5, 2.5), RDamageCause.ABILITY);
 				if(step < Math.floor(360/yawOffset)+1){
-					p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, .5F, 1);
+					p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, .5F, 1);
 					Location destination = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ(), p.getEyeLocation().getYaw()+yawOffset, p.getEyeLocation().getPitch());
 					p.teleport(destination);
 					Core.playAnimEffect(ParticleEffect.LAVA, p.getLocation().subtract(0,.05,0), .25F, .2F, .25F, .1F, 4);
@@ -266,7 +266,7 @@ public class Abilities {
 			packet.setRadius(0);
 			packet.setWarningDistance(Integer.MAX_VALUE);
 			packet.sendPacket(p);
-			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 1, 1);
+			p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1, 1);
 			final List<PotionEffect> effects = new ArrayList<PotionEffect>();
 			effects.addAll(Arrays.asList(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 2, true, false),
 					new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 1, true, false),
@@ -296,7 +296,7 @@ public class Abilities {
 					}
 					
 					if(step2 == 10){
-						p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 1, 1);
+						p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1, 1);
 						for(PotionEffect effect : effects){
 							p.addPotionEffect(effect, false);
 						}
@@ -608,7 +608,7 @@ public class Abilities {
 			@Override
 			public void run() {
 				Vector target = p.getEyeLocation().getDirection();
-				p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD, 1, 1);
+				p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_ATTACK_WOODEN_DOOR, 1, 1);
 				Arrow shot = p.launchProjectile(Arrow.class, target.multiply(25));
 				shot.setBounce(false);
 				shot.setCritical(true);
@@ -674,7 +674,7 @@ public class Abilities {
 						if(arrow.getLocation().getBlockX() != entity.getLocation().getBlockX() && arrow.getLocation().getBlockZ() != entity.getLocation().getBlockZ())motion = new Vector(entity.getLocation().getX()-arrow.getLocation().getX(), 0, entity.getLocation().getZ()-arrow.getLocation().getZ()).normalize().multiply(1.5);
 						else motion = new Vector(entity.getLocation().getX()-arrow.getLocation().getX(), entity.getLocation().getY()-arrow.getLocation().getY(), entity.getLocation().getZ()-arrow.getLocation().getZ()).normalize().multiply(1.5);
 						arrow.setVelocity(motion);
-						arrow.getWorld().playSound(arrow.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1.8F);
+						arrow.getWorld().playSound(arrow.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1.8F);
 						Core.playAnimEffect(ParticleEffect.BLOCK_CRACK, arrow.getLocation(), .1F, .1F, .1F, 1, 8, new BlockData(Material.REDSTONE_BLOCK, (byte)0));
 					}else this.cancel();
 				}
@@ -910,7 +910,7 @@ public class Abilities {
     	Core.playAnimEffect(ParticleEffect.FLAME, p.getLocation(), .5F, .5F, .5F, .001F, 75);
 		TeleportHandler.teleport(p, new Location(p.getWorld(), x, y+1, z, yaw, pitch));
 		p.setFallDistance(-100);
-		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 1, 1);
+		p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
     	Core.playAnimEffect(ParticleEffect.FLAME, p.getLocation(), .5F, .5F, .5F, .001F, 75);
 	    new BukkitTask(Abilities.getPlugin()){
 
@@ -970,17 +970,17 @@ public class Abilities {
 					double factor = 4 * Utils.random.nextDouble();
 					v.normalize().multiply(factor);
 					p.launchProjectile(Snowball.class, p.getEyeLocation().getDirection().multiply(1.5));
-					List<Material> transparents = Arrays.asList(Material.AIR, Material.SNOW, Material.TORCH, Material.LADDER, Material.FENCE, Material.FENCE_GATE, Material.LONG_GRASS, Material.DOUBLE_PLANT, Material.DEAD_BUSH, Material.WEB, Material.SAPLING, Material.VINE, Material.WATER_LILY, Material.STATIONARY_LAVA, Material.STATIONARY_WATER, Material.LAVA, Material.WATER, Material.YELLOW_FLOWER, Material.RED_ROSE, Material.RED_MUSHROOM, Material.BROWN_MUSHROOM);
+					List<Material> transparents = Arrays.asList(Material.AIR, Material.SNOW, Material.TORCH, Material.LADDER, Material.TALL_GRASS, Material.DEAD_BUSH, Material.COBWEB, Material.VINE, Material.LILY_PAD, Material.LAVA, Material.WATER, Material.SUNFLOWER, Material.RED_TULIP, Material.RED_MUSHROOM, Material.BROWN_MUSHROOM);
 					Block b = p.getLocation().subtract(0,1,0).getBlock();
 					Block block = p.getLocation().getBlock();
-					if(block.getType().equals(Material.AIR) && !block.getType().equals(Material.SNOW) && !(transparents.contains(b.getType()))){
+					if(block.getType().equals(Material.AIR) && !block.getType().equals(Material.SNOW) && !transparents.contains(b.getType()) && !b.getType().toString().contains("FENCE") && !b.getType().toString().contains("GATE") && !b.getType().toString().contains("PLANT") && !b.getType().toString().contains("SAPLING")){
 				        for(Player player : Bukkit.getOnlinePlayers()){
 				        	player.sendBlockChange(block.getLocation(), Material.SNOW, (byte)Utils.random.nextInt(4));
 				        }
 					}
 					for(BlockFace bf : BlockFace.values()){
 						Block relative = block.getRelative(bf);
-						if((relative.getType().equals(Material.AIR) || relative.getType().equals(Material.LONG_GRASS)) && !block.getType().equals(Material.SNOW) && !(transparents.contains(b.getRelative(bf).getType()))){
+						if((relative.getType().equals(Material.AIR) || relative.getType().equals(Material.TALL_GRASS)) && !block.getType().equals(Material.SNOW) && !(transparents.contains(b.getRelative(bf).getType()))){
 					        for(Player player : Bukkit.getOnlinePlayers()){
 					        	player.sendBlockChange(relative.getLocation(), Material.SNOW, (byte)Utils.random.nextInt(4));
 					        }
@@ -1022,7 +1022,7 @@ public class Abilities {
 
 				@Override
 				public void run() {
-					p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 10.0F, 1.91F);
+					p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10.0F, 1.91F);
 				}
 
 				@Override
@@ -1031,7 +1031,7 @@ public class Abilities {
 
 						@Override
 						public void run() {
-							p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 10.0F, 1.94F);
+							p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10.0F, 1.94F);
 						}
 
 						@Override
@@ -1040,7 +1040,7 @@ public class Abilities {
 
 								@Override
 								public void run() {
-									p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 10.0F, 1.96F);
+									p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10.0F, 1.96F);
 								}
 
 								@Override
@@ -1049,7 +1049,7 @@ public class Abilities {
 
 										@Override
 										public void run() {
-											p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 10.0F, 1.98F);
+											p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10.0F, 1.98F);
 										}
 
 										@Override
@@ -1058,7 +1058,7 @@ public class Abilities {
 
 												@Override
 												public void run() {
-													p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 10.0F, 2.0F);
+													p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 10.0F, 2.0F);
 												}
 
 												@Override
@@ -1237,7 +1237,7 @@ public class Abilities {
 			public void run() {
 				if(step < duration){
 					Core.playAnimEffect(ParticleEffect.SMOKE_LARGE, p.getLocation(), 2F, .1F, 2F, .1F, 11);
-					p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 1, step);
+					p.getWorld().playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, step);
 					if(ticks == ticksBetween){
 						if(blocks.size() > ticksStep){
 							final int id = ticksStep;
@@ -1342,7 +1342,7 @@ public class Abilities {
 					yaw = yaw+180;
 				}
 				p.getWorld().playEffect(p.getLocation().add(0, -1, 0), Effect.MOBSPAWNER_FLAMES, 1);
-				p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERMEN_TELEPORT, 1, .25F);
+				p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, .25F);
 				Location finalloc = Locations.getSafeLocation(new Location(p.getWorld(), xv, yv, zv, yaw, 0.0f));
 				TeleportHandler.teleport(p, finalloc);
 				p.getWorld().playEffect(p.getLocation().add(0, -1, 0), Effect.MOBSPAWNER_FLAMES, 1);
@@ -1366,7 +1366,7 @@ public class Abilities {
 		Core.playAnimEffect(ParticleEffect.CLOUD, p.getEyeLocation(), .5F, .5F, .5F, .1F, 100);
 		if(rp.isVanished())rp.setVanished(false);
 		for(Player player : Bukkit.getOnlinePlayers()){
-			player.hidePlayer(p);
+			player.hidePlayer(Core.instance, p);
 		}
 		final ItemStack helmet = p.getEquipment().getHelmet();
 		if(helmet != null){
@@ -1383,7 +1383,7 @@ public class Abilities {
 						Core.playAnimEffect(ParticleEffect.FLAME, p.getLocation(), .5F, .5F, .5F, .1F, 100);
 						Core.playAnimEffect(ParticleEffect.CLOUD, p.getEyeLocation(), .5F, .5F, .5F, .1F, 100);
 						for(Player player : Bukkit.getOnlinePlayers()){
-							player.showPlayer(p);
+							player.showPlayer(Core.instance, p);
 						}
 						if(helmet != null)p.getEquipment().setHelmet(helmet);
 						else p.getEquipment().setHelmet(new ItemStack(Material.AIR, 1));
@@ -1507,7 +1507,7 @@ public class Abilities {
 						Core.playAnimEffect(ParticleEffect.CLOUD, p.getLocation().add(0,1,0), 1, 1, 1, .001F, 50);
 						Core.playAnimEffect(ParticleEffect.REDSTONE, p.getLocation().add(0,1,0), 1, 1, 1, 0, 42);
 						Core.playAnimEffect(ParticleEffect.SMOKE_NORMAL, p.getLocation().add(0,1,0), 1, 1, 1, .001F, 22);
-						p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 1, 1);
+						p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1, 1);
 						
 						if(step >= 5){
 							if(rp.hasNrj(neednrj)){
@@ -1610,7 +1610,7 @@ public class Abilities {
 								if(p.isOnGround()){
 									Block block = p.getLocation().subtract(0,1,0).getBlock();
 									Core.playAnimEffect(ParticleEffect.BLOCK_CRACK, p.getLocation(), .5F, .5F, .5F, 1, 50, new BlockData(block.getType(), block.getData()));
-									p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 1, 1);
+									p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1, 1);
 									final List<LivingEntity> nearest = Core.toDamageableLivingEntityList(p, p.getNearbyEntities(2, 2, 2), RDamageCause.ABILITY);
 									if(!nearest.isEmpty()){
 										for(LivingEntity enear : nearest){

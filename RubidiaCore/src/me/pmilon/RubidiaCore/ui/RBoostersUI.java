@@ -75,7 +75,7 @@ public class RBoostersUI extends UIHandler {
 		RBooster booster = boosters[i];
 		if(booster == null)booster = new RBooster(rp, RBoosterType.values()[i]);
 		boolean active = rp.hasActiveBooster(booster.getBoosterType());
-		ItemStack item = new ItemStack(Material.INK_SACK,1,(short) (active ? 10 : 8));
+		ItemStack item = new ItemStack(active ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName((active ? "§a" : "§7") + "Booster " + booster.getBoosterType().toString());
 		meta.setLore(Arrays.asList("§8" + (booster.getBoosterType().getLevel() >= 0 ? "+" : "") + Utils.round(booster.getFactor()*100, 1) + "% " + rp.translateString(booster.getBoosterType().getType().getDisplayEn(), booster.getBoosterType().getType().getDisplayFr()), "§e" + booster.getBoosterType().getCost() + rp.translateString(" points of renown per minute", " points de renom par minute")));

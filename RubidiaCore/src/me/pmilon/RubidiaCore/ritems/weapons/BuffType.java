@@ -11,16 +11,16 @@ public enum BuffType {
 	ABILITY_DEFENSE("magical defense", "défense magique", Material.SLIME_BALL),//RPlayer
 	MELEE_DAMAGE("melee damages", "dégâts de mêlée", Material.DIAMOND_SWORD),//DamageManager.getDamages
 	RANGED_DAMAGE("ranged damages", "dégâts à distance", Material.BOW),//DamageManager.getDamages
-	MAGIC_DAMAGE("magic damages", "dégâts magiques", Material.GOLD_HOE),//DamageManager.getDamages
+	MAGIC_DAMAGE("magic damages", "dégâts magiques", Material.GOLDEN_HOE),//DamageManager.getDamages
 	DEFENSE("physical defense", "défense physique", Material.DIAMOND_CHESTPLATE),//RPlayer
 	MAX_HEALTH("max health", "vie maximale", Material.EGG),//RPlayer.getMaxHealth
-	MAX_ENERGY("max energy", "vigueur maximale", Material.CAULDRON_ITEM),//RPlayer.getMaxNrj
+	MAX_ENERGY("max energy", "vigueur maximale", Material.CAULDRON),//RPlayer.getMaxNrj
 	ENERGY_REGEN("energy regen speed", "vitesse de régénération de la vigueur", Material.CAKE),//Core.task1
 	CRITIC_DAMAGE("critical strike damages", "dégâts des coups critiques", Material.ANVIL),//RPlayer
 	CRITIC_CHANCE("critical strike chance", "chance de coup critique", Material.ANVIL),//RPlayer
 	BLOCK_CHANCE("block chance", "blocage", Material.ENCHANTED_BOOK),//RPlayer
 	LOOT_BONUS("rare loot chance", "chance de butin rare", Material.CHEST),//RlivingEntity.kill
-	XP("XP", "XP", Material.EXP_BOTTLE);//RPlayer
+	XP("XP", "XP", Material.EXPERIENCE_BOTTLE);//RPlayer
 	
 	private String displayen;
 	private String displayfr;

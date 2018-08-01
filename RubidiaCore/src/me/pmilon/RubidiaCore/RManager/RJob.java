@@ -4,12 +4,12 @@ import org.bukkit.Material;
 
 public enum RJob {
 	
-	JOBLESS(Material.IRON_SPADE, "§fNo job", "§fAucun job"),
+	JOBLESS(Material.IRON_SHOVEL, "§fNo job", "§fAucun job"),
 	MINER(Material.IRON_PICKAXE, "§aMiner", "§aMineur"),
 	LUMBERMAN(Material.IRON_AXE, "§bLumberman", "§bBûcheron"),
 	FARMER(Material.IRON_HOE, "§eFarmer", "§eAgriculteur"),
 	HUNTER(Material.IRON_SWORD, "§cHunter", "§cChasseur"),
-	ALCHEMIST(Material.BREWING_STAND_ITEM, "§dAlchemist", "§dAlchimiste");
+	ALCHEMIST(Material.BREWING_STAND, "§dAlchemist", "§dAlchimiste");
 	
 	private final Material display;
 	private final String nameEN;

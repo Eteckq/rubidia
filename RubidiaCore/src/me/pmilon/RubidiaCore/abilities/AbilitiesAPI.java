@@ -110,11 +110,11 @@ public class AbilitiesAPI {
 				if(rClass.equals(RClass.MAGE) && !weapon.getWeaponUse().equals(WeaponUse.MAGIC))return rp.getKeystroke();
 				if(rClass.equals(RClass.RANGER) && !weapon.getWeaponUse().toString().contains("RANGE"))return rp.getKeystroke();
 				if(e.getAction().equals(Action.LEFT_CLICK_BLOCK) && !rp.isInCombat()){
-					List<Material> paladin = Arrays.asList(Material.LOG, Material.LOG_2, Material.WOOD, Material.WOOD_BUTTON, Material.WOOD_DOOR, Material.WOOD_DOUBLE_STEP, Material.WOOD_STAIRS, Material.WOOD_STEP, Material.WOODEN_DOOR, Material.CHEST, Material.FENCE, Material.FENCE_GATE, Material.JUKEBOX, Material.BOOKSHELF, Material.JACK_O_LANTERN, Material.PUMPKIN, Material.SIGN, Material.SIGN_POST, Material.WALL_SIGN, Material.WOOD_PLATE, Material.COCOA);
+					List<Material> paladin = Arrays.asList(Material.CHEST, Material.JUKEBOX, Material.BOOKSHELF, Material.JACK_O_LANTERN, Material.PUMPKIN, Material.SIGN, Material.SIGN, Material.WALL_SIGN, Material.WALL_SIGN, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.COCOA);
 					if(rClass.equals(RClass.PALADIN)){
-						if(paladin.contains(e.getClickedBlock().getType()))return rp.getKeystroke();
+						if(paladin.contains(e.getClickedBlock().getType()) || e.getClickedBlock().getType().toString().contains("_LOG") || e.getClickedBlock().getType().toString().contains("WOOD") || e.getClickedBlock().getType().toString().contains("FENCE") || e.getClickedBlock().getType().toString().contains("GATE"))return rp.getKeystroke();
 					}else if(rClass.equals(RClass.ASSASSIN)){
-						if(e.getClickedBlock().getType().equals(Material.WEB))return rp.getKeystroke();
+						if(e.getClickedBlock().getType().equals(Material.COBWEB))return rp.getKeystroke();
 					}
 				}else if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 					if(rClass.equals(RClass.MAGE) && weapon.getType().toString().contains("_HOE") && !rp.isInCombat()){

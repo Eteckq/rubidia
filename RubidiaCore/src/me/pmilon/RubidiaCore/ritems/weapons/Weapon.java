@@ -11,11 +11,11 @@ import me.pmilon.RubidiaCore.ritems.general.RItem;
 import me.pmilon.RubidiaCore.ritems.weapons.Piercing.PiercingType;
 import me.pmilon.RubidiaCore.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
-import net.minecraft.server.v1_12_R1.NBTTagList;
+import net.minecraft.server.v1_13_R1.NBTTagCompound;
+import net.minecraft.server.v1_13_R1.NBTTagList;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -323,7 +323,7 @@ public class Weapon {
 			meta.setLore(lore);
 			item.setItemMeta(meta);
 			if(this.isAttack()){
-				net.minecraft.server.v1_12_R1.ItemStack it = CraftItemStack.asNMSCopy(item);
+				net.minecraft.server.v1_13_R1.ItemStack it = CraftItemStack.asNMSCopy(item);
 		        NBTTagCompound compound = (it.hasTag() ? it.getTag() : new NBTTagCompound());
 		        NBTTagList modifiers = new NBTTagList();
 		        NBTTagCompound damage = new NBTTagCompound();

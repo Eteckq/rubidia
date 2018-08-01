@@ -37,7 +37,7 @@ public class InspectUI extends UIHandler {
 		this.menu.setItem(this.SLOT_MHAND, this.getMHand());
 		this.menu.setItem(this.SLOT_OHAND, this.getOHand());
 		
-		ItemStack empty = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)7);
+		ItemStack empty = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = empty.getItemMeta();
 		meta.setDisplayName(" ");
 		empty.setItemMeta(meta);
@@ -70,7 +70,7 @@ public class InspectUI extends UIHandler {
 	public ItemStack getHelmet(){
 		ItemStack item = this.getInspected().getEquipment().getHelmet();
 		if(item == null || item.getType().equals(Material.AIR)){
-			item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)8);
+			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName("§f§l" + rp.translateString("Helmet", "Casque"));
 			item.setItemMeta(meta);
@@ -80,7 +80,7 @@ public class InspectUI extends UIHandler {
 	public ItemStack getArmor(){
 		ItemStack item = this.getInspected().getEquipment().getChestplate();
 		if(item == null || item.getType().equals(Material.AIR)){
-			item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)8);
+			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName("§f§l" + rp.translateString("Chestplate", "Plastron"));
 			item.setItemMeta(meta);
@@ -90,7 +90,7 @@ public class InspectUI extends UIHandler {
 	public ItemStack getGauntlet(){
 		ItemStack item = this.getInspected().getEquipment().getLeggings();
 		if(item == null || item.getType().equals(Material.AIR)){
-			item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)8);
+			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName("§f§l" + rp.translateString("Gloves", "Gants"));
 			item.setItemMeta(meta);
@@ -100,7 +100,7 @@ public class InspectUI extends UIHandler {
 	public ItemStack getBoots(){
 		ItemStack item = this.getInspected().getEquipment().getBoots();
 		if(item == null || item.getType().equals(Material.AIR)){
-			item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)8);
+			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName("§f§l" + rp.translateString("Boots", "Bottes"));
 			item.setItemMeta(meta);
@@ -110,7 +110,7 @@ public class InspectUI extends UIHandler {
 	public ItemStack getMHand(){
 		ItemStack item = this.getInspected().getEquipment().getItemInMainHand();
 		if(item == null || item.getType().equals(Material.AIR)){
-			item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)8);
+			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName("§f§l" + rp.translateString("Main hand", "Main droite"));
 			item.setItemMeta(meta);
@@ -120,7 +120,7 @@ public class InspectUI extends UIHandler {
 	public ItemStack getOHand(){
 		ItemStack item = this.getInspected().getEquipment().getItemInOffHand();
 		if(item == null || item.getType().equals(Material.AIR)){
-			item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)8);
+			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName("§f§l" + rp.translateString("Off hand", "Main gauche"));
 			item.setItemMeta(meta);

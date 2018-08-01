@@ -35,7 +35,7 @@ public class BackPack {
 	}
 	
 	public ItemStack getNewItemStack(){
-		ItemStack stack = new ItemStack(Material.STORAGE_MINECART,1);
+		ItemStack stack = new ItemStack(Material.CHEST_MINECART,1);
 		ItemMeta meta = stack.getItemMeta();
 		meta.setDisplayName("§fSac à dos");
 		meta.setLore(Arrays.asList("§7" + this.getBID()));

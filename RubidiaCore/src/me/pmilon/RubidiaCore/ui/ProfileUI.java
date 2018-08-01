@@ -122,7 +122,7 @@ public class ProfileUI extends UIHandler {
 		return item;
 	}
 	public ItemStack getData(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, (short)(rp.isPublicData() ? 10 : 1));
+		ItemStack item = new ItemStack(rp.isPublicData() ? Material.LIME_DYE : Material.ROSE_RED, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6§l" + rp.translateString("Confidentiality: ", "Confidentialité : ") + (rp.isPublicData() ? "§a" + rp.translateString("public", "publique") : "§c" + rp.translateString("private", "privée")));
 		meta.setLore(Arrays.asList("§7" + rp.translateString("Toggle your profile's confidentiality.", "Basculez la confidentialité de votre profil."), "§7" + rp.translateString("Private: no player can access this data", "Privée : aucun joueur ne peut accéder à ces données"), "§7" + rp.translateString("Public: anyone can access this data (/rplayers)", "Publique : tous les joueurs peuvent accéder à ces données (/rplayers)")));
@@ -130,7 +130,7 @@ public class ProfileUI extends UIHandler {
 		return item;
 	}
 	public ItemStack getUpdate(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, (short)(rp.isProfileUpdated() ? 10 : 8));
+		ItemStack item = new ItemStack(rp.isProfileUpdated() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6§l" + rp.translateString("Profile up to date", "Profil à jour"));
 		meta.setLore(Arrays.asList("§7" + rp.translateString("Enable this option once your profile is up to date.", "Activez cette option une fois votre profil mis à jour.")));

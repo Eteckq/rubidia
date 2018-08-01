@@ -185,7 +185,7 @@ public class PlayerMenu extends UIHandler {
 		return trade;
 	}
 	private ItemStack getInspect(){
-		ItemStack item = new ItemStack(Material.EYE_OF_ENDER, 1);
+		ItemStack item = new ItemStack(Material.ENDER_EYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6§l" + rp.translateString("Inspect ", "Inspecter ") + rpfrom.getName());
 		meta.setLore(Arrays.asList(rp.translateString("§7Get information about " + rpfrom.getName() + "'s equipped armor", "§7Obtenez des informations sur l'armure"), rp.translateString("§7and items in left and right hands.", "§7et les items portés par " + rpfrom.getName())));
@@ -230,7 +230,7 @@ public class PlayerMenu extends UIHandler {
 		return invite;
 	}
 	private ItemStack getMarry(){
-		ItemStack item = new ItemStack(Material.RED_ROSE, 1);
+		ItemStack item = new ItemStack(Material.ROSE_RED, 1);
 		ItemMeta meta = item.getItemMeta();
 		if(rp.getCouple() != null && this.showFiancer){
 			meta.setDisplayName("§4§l" + rp.translateString("Divorce", "Divorcer"));

@@ -1,9 +1,9 @@
 package me.pmilon.RubidiaCore.ritems.general;
 
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import net.minecraft.server.v1_13_R1.NBTTagCompound;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 public class Potion {
@@ -152,7 +152,7 @@ public class Potion {
         }else if(linger){
             item = new ItemStack(Material.LINGERING_POTION, amount);
         }
-        net.minecraft.server.v1_12_R1.ItemStack stack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_13_R1.ItemStack stack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound tagCompound = stack.getTag();
         if(tagCompound == null){
             tagCompound = new NBTTagCompound();
@@ -277,7 +277,7 @@ public class Potion {
             throw new IllegalArgumentException("item cannot be null");
         if (item.getType() != Material.POTION && !item.getType().equals(Material.SPLASH_POTION) && !item.getType().equals(Material.LINGERING_POTION))
             throw new IllegalArgumentException("item is not a potion");
-        net.minecraft.server.v1_12_R1.ItemStack stack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_13_R1.ItemStack stack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound tagCompound = stack.getTag();
         if (tagCompound != null && !tagCompound.getString("Potion").isEmpty()) {
 
@@ -433,11 +433,11 @@ public class Potion {
      */
 	public void brew(ItemStack ingredient) {
 		if(ingredient != null){
-			if(ingredient.getType().equals(Material.NETHER_WARTS)){
+			if(ingredient.getType().equals(Material.NETHER_WART)){
 				if(type.equals(PotionType.WATER)){
 					type = PotionType.AWKWARD;
 				}
-			}else if(ingredient.getType().equals(Material.SULPHUR)){
+			}else if(ingredient.getType().equals(Material.GUNPOWDER)){
 				splash = true;
 			}else if(ingredient.getType().equals(Material.GLOWSTONE_DUST)){
 				if(type.equals(PotionType.WATER)){
@@ -459,7 +459,7 @@ public class Potion {
 						extended = true;
 					}
 				}
-			}else if(ingredient.getType().equals(Material.DRAGONS_BREATH)){
+			}else if(ingredient.getType().equals(Material.DRAGON_BREATH)){
 				if(splash){
 					linger = true;
 				}
@@ -481,7 +481,7 @@ public class Potion {
 				}else if(type.equals(PotionType.AWKWARD)){
 					type = PotionType.REGEN;
 				}
-			}else if(ingredient.getType().equals(Material.SPECKLED_MELON)){
+			}else if(ingredient.getType().equals(Material.MELON_SLICE)){
 				if(type.equals(PotionType.WATER)){
 					type = PotionType.MUNDANE;
 				}else if(type.equals(PotionType.AWKWARD)){
@@ -525,7 +525,7 @@ public class Potion {
 				if(type.equals(PotionType.AWKWARD)){
 					type = PotionType.NIGHT_VISION;
 				}
-			}else if(ingredient.getType().equals(Material.RAW_FISH) && ingredient.getDurability() == 3){
+			}else if(ingredient.getType().equals(Material.PUFFERFISH)){
 				if(type.equals(PotionType.AWKWARD)){
 					type = PotionType.WATER_BREATHING;
 				}

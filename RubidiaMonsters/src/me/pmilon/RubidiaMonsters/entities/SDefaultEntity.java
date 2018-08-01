@@ -3,7 +3,7 @@ package me.pmilon.RubidiaMonsters.entities;
 import me.pmilon.RubidiaMonsters.pathfinders.PathfinderGoalCustomAttack;
 import me.pmilon.RubidiaMonsters.pathfinders.PathfinderGoalMeleeAttack;
 import me.pmilon.RubidiaMonsters.regions.Monster;
-import net.minecraft.server.v1_12_R1.*;
+import net.minecraft.server.v1_13_R1.*;
 
 public class SDefaultEntity {
 	

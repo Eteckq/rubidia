@@ -212,7 +212,7 @@ public class WeaponEditionMenu extends UIHandler{
 		return item;
 	}
 	private ItemStack getMinDmg(){
-		ItemStack item = new ItemStack(Material.WOOD_PICKAXE, 1);
+		ItemStack item = new ItemStack(Material.WOODEN_PICKAXE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(String.valueOf(this.getWeapon().getMinDamages()));
 		item.setItemMeta(meta);
@@ -233,7 +233,7 @@ public class WeaponEditionMenu extends UIHandler{
 		return item;
 	}
 	private ItemStack getLevel(){
-		ItemStack item = new ItemStack(Material.EXP_BOTTLE, 1);
+		ItemStack item = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(String.valueOf(this.getWeapon().getLevel()));
 		item.setItemMeta(meta);
@@ -254,7 +254,7 @@ public class WeaponEditionMenu extends UIHandler{
 		return item;
 	}
 	private ItemStack getSkin(){
-		ItemStack item = new ItemStack(Material.SULPHUR, 1);
+		ItemStack item = new ItemStack(Material.GUNPOWDER, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("skinId: " + this.getWeapon().getSkinId());
 		item.setItemMeta(meta);

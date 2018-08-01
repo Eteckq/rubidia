@@ -3,9 +3,9 @@ package me.pmilon.RubidiaPets.pathfindergoals;
 import org.bukkit.entity.LivingEntity;
 
 import me.pmilon.RubidiaPets.pets.Pet;
-import net.minecraft.server.v1_12_R1.EntityCreature;
-import net.minecraft.server.v1_12_R1.EntityLiving;
-import net.minecraft.server.v1_12_R1.PathfinderGoal;
+import net.minecraft.server.v1_13_R1.EntityCreature;
+import net.minecraft.server.v1_13_R1.EntityLiving;
+import net.minecraft.server.v1_13_R1.PathfinderGoal;
 
 public class PathfinderGoalAttack extends PathfinderGoal {
 

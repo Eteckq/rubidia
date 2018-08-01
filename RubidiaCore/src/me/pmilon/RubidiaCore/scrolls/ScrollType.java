@@ -51,7 +51,7 @@ public enum ScrollType {
 						int x;
 						int z;
 						Block yb;
-						List<Material> nospawn = Arrays.asList(Material.STATIONARY_LAVA, Material.STATIONARY_WATER, Material.LAVA, Material.WATER);
+						List<Material> nospawn = Arrays.asList(Material.LAVA, Material.WATER);
 
 						@Override
 						public void run() {
@@ -161,7 +161,7 @@ public enum ScrollType {
 				p.setFlySpeed(.1F);
 				p.setWalkSpeed(.2F);
 				for(Player player : Bukkit.getOnlinePlayers()){
-					player.showPlayer(p);
+					player.showPlayer(Core.instance, p);
 				}
 				p.removePotionEffect(PotionEffectType.BLINDNESS);
 				rp.sendTitle(rp.translateString("§6You have been revived!", "§6Vous avez été réanimé !"), rp.translateString("§eWith only 60% of your life", "§eAvec uniquement 60% de votre vie"), 5, 30, 15);

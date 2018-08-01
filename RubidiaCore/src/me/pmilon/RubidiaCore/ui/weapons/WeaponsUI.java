@@ -128,7 +128,7 @@ public class WeaponsUI extends ListMenuUIHandler<Weapon> {
 			if(e.isRightClick()){
 				this.close(true, this.LIST_ID_SEARCH);
 			}else{
-				Weapon weapon = new Weapon(UUID.randomUUID().toString(), "Aucun nom", Rarity.COMMON, Material.WOOD_SWORD, RClass.VAGRANT, 0.0, 0, 2, 0, "0000", WeaponUse.MELEE, 1.2, 0);
+				Weapon weapon = new Weapon(UUID.randomUUID().toString(), "Aucun nom", Rarity.COMMON, Material.WOODEN_SWORD, RClass.VAGRANT, 0.0, 0, 2, 0, "0000", WeaponUse.MELEE, 1.2, 0);
 				Weapons.weapons.add(weapon);
 				Core.uiManager.requestUI(new WeaponEditionMenu(this.getHolder(), weapon));
 			}

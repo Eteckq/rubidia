@@ -8,7 +8,7 @@ public class Event {
 
 	public enum EventType {
 		
-		XP(Material.EXP_BOTTLE),
+		XP(Material.EXPERIENCE_BOTTLE),
 		RUBIS(Material.EMERALD);
 		
 		private final Material material;

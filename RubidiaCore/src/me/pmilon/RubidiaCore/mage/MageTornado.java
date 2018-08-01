@@ -61,7 +61,7 @@ public class MageTornado extends Effect{
 			}
 		}
 		l.subtract(0, yOffset, 0);
-		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMEN_SCREAM, 1, 2);
+		player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_SCREAM, 1, 2);
 	}
 	
 	public ArrayList<Vector> createCircle(double y, double radius){

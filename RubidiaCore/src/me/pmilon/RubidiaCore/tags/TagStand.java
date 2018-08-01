@@ -2,9 +2,9 @@ package me.pmilon.RubidiaCore.tags;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import net.minecraft.server.v1_12_R1.EntityLiving;
+import net.minecraft.server.v1_13_R1.EntityLiving;
 
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_13_R1.entity.CraftEntity;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.metadata.FixedMetadataValue;

@@ -17,7 +17,7 @@ public class SongManager {
 		
 		TAVERN(Material.RECORD_3, "tavern"),
 		FOREST_2(Material.RECORD_4, "forest2"),
-		MEARWOOD_EXIT(Material.RECORD_5, "mearwood_exit"),
+		MEARWOODEN_EXIT(Material.RECORD_5, "mearwood_exit"),
 		FANTASTIC(Material.RECORD_6, "fantastic"),
 		FIELDS(Material.RECORD_7, "fields"),
 		NULL(Material.RECORD_8, "null"),//empty song

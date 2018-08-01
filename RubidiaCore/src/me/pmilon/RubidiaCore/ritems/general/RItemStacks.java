@@ -34,42 +34,42 @@ public class RItemStacks {
 		star.setItemMeta(META);
 		STAR_STONE = new RItemStack(star, 879);
 		
-		ItemStack orichalcum = new ItemStack(Material.DOUBLE_PLANT, 1);
+		ItemStack orichalcum = new ItemStack(Material.KELP_PLANT, 1);
 		META.setDisplayName("§fOrichalque");
 		orichalcum.setItemMeta(META);
 		ORICHALCUM = new RItemStack(orichalcum, 1022);
 		
-		ItemStack str = new ItemStack(Material.INK_SACK, 1, (short)1);
+		ItemStack str = new ItemStack(Material.ROSE_RED, 1);
 		META.setDisplayName("§fJoyau de §cforce");
 		str.setItemMeta(META);
 		POWDER_STRENGTH = new RItemStack(str, 4234);
 		
-		ItemStack end = new ItemStack(Material.INK_SACK, 1, (short)10);
+		ItemStack end = new ItemStack(Material.LIME_DYE, 1);
 		META.setDisplayName("§fJoyau d'§aendurance");
 		end.setItemMeta(META);
 		POWDER_ENDURANCE = new RItemStack(end, 4234);
 		
-		ItemStack agi = new ItemStack(Material.INK_SACK, 1, (short)11);
+		ItemStack agi = new ItemStack(Material.DANDELION_YELLOW, 1);
 		META.setDisplayName("§fJoyau d'§eagilité");
 		agi.setItemMeta(META);
 		POWDER_AGILITY = new RItemStack(agi, 4234);
 		
-		ItemStack intel = new ItemStack(Material.INK_SACK, 1, (short)12);
+		ItemStack intel = new ItemStack(Material.LIGHT_BLUE_DYE, 1);
 		META.setDisplayName("§fJoyau d'§bintelligence");
 		intel.setItemMeta(META);
 		POWDER_INTELLIGENCE = new RItemStack(intel, 4234);
 		
-		ItemStack per = new ItemStack(Material.INK_SACK, 1, (short)13);
+		ItemStack per = new ItemStack(Material.MAGENTA_DYE, 1);
 		META.setDisplayName("§fJoyau de §dperception");
 		per.setItemMeta(META);
 		POWDER_PERCEPTION = new RItemStack(per, 4234);
 		
-		ItemStack atq = new ItemStack(Material.INK_SACK, 1, (short)14);
+		ItemStack atq = new ItemStack(Material.ORANGE_DYE, 1);
 		META.setDisplayName("§fJoyau d'§6attaque");
 		atq.setItemMeta(META);
 		POWDER_ATTACK = new RItemStack(atq, 5367);
 		
-		ItemStack def = new ItemStack(Material.INK_SACK, 1, (short)6);
+		ItemStack def = new ItemStack(Material.CYAN_DYE, 1);
 		META.setDisplayName("§fJoyau de §3défense");
 		def.setItemMeta(META);
 		POWDER_DEFENSE = new RItemStack(def, 5367);

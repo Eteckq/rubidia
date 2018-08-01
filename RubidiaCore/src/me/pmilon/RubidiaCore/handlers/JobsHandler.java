@@ -64,7 +64,7 @@ public class JobsHandler implements Listener {
 	public HashMap<Player, Location> brewinginventoryopen = new HashMap<Player, Location>();
 	public HashMap<Player, Inventory> brewinginventory = new HashMap<Player, Inventory>();
 	
-	@EventHandler
+	/*@EventHandler
 	public void onBreakJob(BlockBreakEvent e){
 		Player p = e.getPlayer();
 		RPlayer rp = RPlayer.get(p);
@@ -103,7 +103,7 @@ public class JobsHandler implements Listener {
 			}
 		}else if(rp.getRJob().equals(RJob.FARMER)){
 			ArrayList<BlockFace> blockfaces = new ArrayList<>(Arrays.asList(BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST));
-			if(b.getType().equals(Material.CROPS)){
+			if(b.getType().equals(Material.CROP)){
 				if(b.getData() >= 7){
 					if(rp.getJobScores().containsKey(JobTask.FARM_WHEAT)){
 						rp.getJobScores().put(JobTask.FARM_WHEAT, rp.getJobScores().get(JobTask.FARM_WHEAT)+1);
@@ -151,7 +151,7 @@ public class JobsHandler implements Listener {
 				}else rp.getJobScores().put(JobTask.FARM_SUGARCANE, amount);
 			}
 		}
-	}
+	}*/
 	
 	@EventHandler
 	public void onCraftJob(CraftItemEvent e){

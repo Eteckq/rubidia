@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import me.pmilon.RubidiaCore.Core;
@@ -19,6 +20,7 @@ import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -108,7 +110,7 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 
 	@Override
 	protected ItemStack getItem(RPlayer e) {
-		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (byte)3);
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1, (byte)3);
 		SkullMeta meta = (SkullMeta) skull.getItemMeta();
 		meta.setDisplayName((e.isOnline() ? "§2[✔] §a" : "§4[✘] §c") + e.getName() + (e.isVip() ? " §8[§6§lVIP§8]" : ""));
 		List<String> lore = new ArrayList<String>();
@@ -140,7 +142,7 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 		}
 		lore.addAll(Arrays.asList("§8" + rp.translateString("Characters ", "Personnages ") + "§7" + n, "§8" + rp.translateString("Last connected on ", "Dernière connexion le "), "§7" + new SimpleDateFormat("dd/MM/yyyy").format(date) + rp.translateString("§8,§7 ", " §8à§7 ") + new SimpleDateFormat("HH:mm").format(date)));
 		meta.setLore(lore);
-		meta.setOwner(e.getName());
+		meta.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(e.getUniqueId())));
 		skull.setItemMeta(meta);
 		return skull;
 	}

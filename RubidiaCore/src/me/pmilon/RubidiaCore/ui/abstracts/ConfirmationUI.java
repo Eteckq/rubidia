@@ -34,8 +34,8 @@ public abstract class ConfirmationUI extends UIHandler {
 
 	@Override
 	protected boolean openWindow() {
-		ItemStack ok = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)5);
-		ItemStack notok = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)14);
+		ItemStack ok = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
+		ItemStack notok = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = ok.getItemMeta();
 		meta.setDisplayName(rp.translateString("§2§lYES", "§2§lOUI"));
 		if(details.length > 1)meta.setLore(Arrays.asList(details[0]));

@@ -10,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -79,9 +78,8 @@ public class Ranks {
 						sign.setLine(3, "§2§m----------");
 						sign.update(true);
 						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.SKULL)){
+						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
 							Skull skull = (Skull)blockUp.getState();
-							skull.setSkullType(SkullType.PLAYER);
 							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
 							skull.setRotation(face);
 							skull.update(true);
@@ -134,9 +132,8 @@ public class Ranks {
 						sign.setLine(3, "§2§m----------");
 						sign.update(true);
 						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.SKULL)){
+						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
 							Skull skull = (Skull)blockUp.getState();
-							skull.setSkullType(SkullType.PLAYER);
 							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
 							skull.setRotation(face);
 							skull.update(true);
@@ -189,9 +186,8 @@ public class Ranks {
 						sign.setLine(3, "§2§m----------");
 						sign.update(true);
 						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.SKULL)){
+						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
 							Skull skull = (Skull)blockUp.getState();
-							skull.setSkullType(SkullType.PLAYER);
 							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
 							skull.setRotation(face);
 							skull.update(true);
@@ -244,9 +240,8 @@ public class Ranks {
 						sign.setLine(3, "§2§m----------");
 						sign.update(true);
 						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.SKULL)){
+						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
 							Skull skull = (Skull)blockUp.getState();
-							skull.setSkullType(SkullType.PLAYER);
 							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
 							skull.setRotation(face);
 							skull.update(true);
@@ -284,9 +279,8 @@ public class Ranks {
 						sign.setLine(3, "§2§m----------");
 						sign.update(true);
 						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.SKULL)){
+						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
 							Skull skull = (Skull)blockUp.getState();
-							skull.setSkullType(SkullType.PLAYER);
 							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
 							skull.setRotation(face);
 							skull.update(true);
@@ -328,9 +322,8 @@ public class Ranks {
 						sign.setLine(3, "§2§m----------");
 						sign.update(true);
 						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.SKULL)){
+						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
 							Skull skull = (Skull)blockUp.getState();
-							skull.setSkullType(SkullType.PLAYER);
 							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(guild.getLeader().getUniqueId())));
 							skull.setRotation(face);
 							skull.update(true);
