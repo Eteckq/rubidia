@@ -40,7 +40,7 @@ public class MessageManager {
 		else if(dialog.contains("%no"))p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, pitch);
 		else if(dialog.contains("%hit"))p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_HURT, 1, pitch);
 		else if(dialog.contains("%death"))p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_DEATH, 1, pitch);
-		else if(dialog.contains("%idle"))p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_TRADING, 1, pitch);
+		else if(dialog.contains("%idle"))p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_TRADE, 1, pitch);
 		else if(dialog.contains("%haggle"))p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_AMBIENT, 1, pitch);
 		else {
 			if(type.equals(DialogType.PREDIALOG))p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_AMBIENT, 1, pitch);

@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ritems.general.SpawnEgg;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaMonsters.regions.Monster;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
@@ -259,7 +258,7 @@ public class ObjectiveEditionMenu extends UIHandler {
 		return ITEM_MAT;
 	}
 	protected ItemStack getAmt(){
-		ItemStack ITEM_AMT = new ItemStack(Material.STAINED_GLASS_PANE, this.getObjective().getAmount() > 0 ? this.getObjective().getAmount() : 1, (short)5);
+		ItemStack ITEM_AMT = new ItemStack(Material.LIME_STAINED_GLASS_PANE, this.getObjective().getAmount() > 0 ? this.getObjective().getAmount() : 1);
 		ItemMeta meta = ITEM_AMT.getItemMeta();
 		meta.setDisplayName(String.valueOf(this.getObjective().getAmount()));
 		ITEM_AMT.setItemMeta(meta);
@@ -274,7 +273,7 @@ public class ObjectiveEditionMenu extends UIHandler {
 	}
 	protected ItemStack getEnt(){
 		Monster monster = this.getObjective().getMonster();
-		ItemStack ITEM_ENT = new SpawnEgg(monster != null ? monster.getType() : EntityType.PIG).toItemStack();
+		ItemStack ITEM_ENT = new ItemStack(Material.valueOf((monster != null ? monster.getType() : EntityType.PIG).toString() + "_SPAWN_EGG"), 1);
 		ItemMeta meta = ITEM_ENT.getItemMeta();
 		meta.setDisplayName(monster != null ? monster.getName() : "");
 		ITEM_ENT.setItemMeta(meta);
@@ -287,7 +286,7 @@ public class ObjectiveEditionMenu extends UIHandler {
 		return ITEM_NAME;
 	}
 	protected ItemStack getTakeItem(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, this.getObjective().isTakeItem() ? (short)10 : (short)8);
+		ItemStack item = new ItemStack(this.getObjective().isTakeItem() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Take Item : " + String.valueOf(this.getObjective().isTakeItem()));
 		item.setItemMeta(meta);

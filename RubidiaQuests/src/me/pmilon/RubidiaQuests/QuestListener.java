@@ -38,6 +38,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -45,7 +46,6 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
@@ -177,21 +177,23 @@ public class QuestListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onPickUp(PlayerPickupItemEvent event){
-		final Player player = event.getPlayer();
-		if(player != null){
-			RPlayer rp = RPlayer.get(player);
-			Quest quest = rp.getFollowedQuest();
-			if(quest != null){
-				if(!quest.getObjectivesByType(ObjectiveType.GET).isEmpty()){
-					Bukkit.getScheduler().runTaskLater(QuestsPlugin.instance, new Runnable(){
+	public void onPickUp(EntityPickupItemEvent event){
+		if(event.getEntity() instanceof Player) {
+			final Player player = (Player) event.getEntity();
+			if(player != null){
+				RPlayer rp = RPlayer.get(player);
+				Quest quest = rp.getFollowedQuest();
+				if(quest != null){
+					if(!quest.getObjectivesByType(ObjectiveType.GET).isEmpty()){
+						Bukkit.getScheduler().runTaskLater(QuestsPlugin.instance, new Runnable(){
 
-						@Override
-						public void run() {
-							Utils.updateFollowedQuest(player, false);
-						}
-						
-					}, 1);
+							@Override
+							public void run() {
+								Utils.updateFollowedQuest(player, false);
+							}
+							
+						}, 1);
+					}
 				}
 			}
 		}

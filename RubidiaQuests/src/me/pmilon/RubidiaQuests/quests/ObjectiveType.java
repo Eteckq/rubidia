@@ -6,13 +6,13 @@ public enum ObjectiveType {
 
 	GET(Material.NETHER_STAR, "Apporter "),
 	MINE(Material.IRON_PICKAXE, "Collecter "),
-	CRAFT(Material.WORKBENCH, "Forger "),
+	CRAFT(Material.CRAFTING_TABLE, "Forger "),
 	KILL(Material.IRON_SWORD, "Tuer "),
 	DISCOVER(Material.MAP, "Aller "),
 	TALK(Material.FEATHER, "Parler à "),
-	TIME(Material.WATCH, "Terminer en "),
+	TIME(Material.CLOCK, "Terminer en "),
 	FISH(Material.FISHING_ROD, "Pêcher "),
-	LEASH(Material.LEASH, "Amener "),
+	LEASH(Material.LEAD, "Amener "),
 	FOLLOW(Material.COMPASS, "Accompagner "),
 	SIDE_QUEST(Material.BOOK, "Parler à ");
 	

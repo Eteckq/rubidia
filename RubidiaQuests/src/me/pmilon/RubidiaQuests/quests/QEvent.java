@@ -17,6 +17,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -112,15 +113,14 @@ public class QEvent {
 			List<Block> blocks = this.getBlocks();
 			for(final Block block : blocks){
 				new BukkitTask(QuestsPlugin.instance){
-					@SuppressWarnings("deprecation")
 					public void run(){
 						final Material material = block.getType();
-						final byte data = block.getData();
+						final BlockData data = block.getBlockData();
 						block.getWorld().getBlockAt(block.getLocation()).setType(Material.AIR);
 						new BukkitTask(QuestsPlugin.instance){
 							public void run(){
 								block.getWorld().getBlockAt(block.getLocation()).setType(material);
-								block.getWorld().getBlockAt(block.getLocation()).setData(data);
+								block.getWorld().getBlockAt(block.getLocation()).setBlockData(data);
 							}
 
 							@Override

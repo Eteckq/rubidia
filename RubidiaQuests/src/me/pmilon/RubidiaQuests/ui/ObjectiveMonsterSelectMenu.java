@@ -10,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ritems.general.SpawnEgg;
 import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaMonsters.regions.Monster;
 import me.pmilon.RubidiaMonsters.regions.Monsters;
@@ -45,7 +44,7 @@ public class ObjectiveMonsterSelectMenu extends ListMenuUIHandler<Monster>{
 
 	@Override
 	protected ItemStack getItem(Monster monster) {
-		ItemStack item = new SpawnEgg(monster.getType()).toItemStack();
+		ItemStack item = new ItemStack(Material.valueOf(monster.getType().toString() + "_SPAWN_EGG"), 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(monster.getName());
 		meta.setLore(Arrays.asList(monster.getType().toString()));

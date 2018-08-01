@@ -21,10 +21,10 @@ public class QuestEditionMenu extends UIHandler {
 	private Quest quest;
 	private QuestPNJ pnj;
 	
-	private ItemStack ITEM_TITLE = new ItemStack(Material.EMPTY_MAP, 1);
+	private ItemStack ITEM_TITLE = new ItemStack(Material.MAP, 1);
 	private ItemStack ITEM_SUBTITLE = new ItemStack(Material.PAPER, 1);
 	private ItemStack ITEM_EVT = new ItemStack(Material.TNT, 1);
-	private ItemStack ITEM_OBJ = new ItemStack(Material.LEAVES, 1);
+	private ItemStack ITEM_OBJ = new ItemStack(Material.OAK_LEAVES, 1);
 	private ItemStack ITEM_REW = new ItemStack(Material.EMERALD, 1);
 	private ItemStack ITEM_REQ = new ItemStack(Material.REDSTONE_BLOCK, 1);
 	private ItemStack ITEM_NOND = new ItemStack(Material.BOOK, 1);
@@ -232,6 +232,7 @@ public class QuestEditionMenu extends UIHandler {
 		back.setItemMeta(meta);
 		return back;
 	}
+	@SuppressWarnings("deprecation")
 	protected ItemStack getStart(){
 		Wool wool = new Wool(this.getQuest().getType().getColor());
 		ItemStack ITEM_START = wool.toItemStack(1);
@@ -241,35 +242,35 @@ public class QuestEditionMenu extends UIHandler {
 		return ITEM_START;
 	}
 	protected ItemStack getAutoFinish(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, this.getQuest().isAutoFinish() ? (short)10 : (short)8);
+		ItemStack item = new ItemStack(this.getQuest().isAutoFinish() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("AutoFinish : " + String.valueOf(this.getQuest().isAutoFinish()));
 		item.setItemMeta(meta);
 		return item;
 	}
 	protected ItemStack getRedonable(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, this.getQuest().isRedonable() ? (short)10 : (short)8);
+		ItemStack item = new ItemStack(this.getQuest().isRedonable() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Redonable : " + String.valueOf(this.getQuest().isRedonable()));
 		item.setItemMeta(meta);
 		return item;
 	}
 	protected ItemStack getGiveupable(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, this.getQuest().isGiveupable() ? (short)10 : (short)8);
+		ItemStack item = new ItemStack(this.getQuest().isGiveupable() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Giveupable : " + String.valueOf(this.getQuest().isGiveupable()));
 		item.setItemMeta(meta);
 		return item;
 	}
 	protected ItemStack getOrderedQuest(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, this.getQuest().isOrderedQuest() ? (short)10 : (short)8);
+		ItemStack item = new ItemStack(this.getQuest().isOrderedQuest() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Ordered quest : " + String.valueOf(this.getQuest().isOrderedQuest()));
 		item.setItemMeta(meta);
 		return item;
 	}
 	protected ItemStack getUnique(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, this.getQuest().isUnique() ? (short)10 : (short)8);
+		ItemStack item = new ItemStack(this.getQuest().isUnique() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Unique quest : " + String.valueOf(this.getQuest().isUnique()));
 		item.setItemMeta(meta);

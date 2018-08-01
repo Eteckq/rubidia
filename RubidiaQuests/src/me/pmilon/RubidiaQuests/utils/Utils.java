@@ -141,7 +141,7 @@ public class Utils {
 	
 	public static void display(String title, String[] strings, Player player){
 		int space = 0;
-		Objective objective = player.getScoreboard().registerNewObjective(title, "dummy");
+		Objective objective = player.getScoreboard().registerNewObjective(title, "dummy", "questInfos");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		for(int i = 0;i < strings.length;i++){
 			if(strings[i].equals("")){

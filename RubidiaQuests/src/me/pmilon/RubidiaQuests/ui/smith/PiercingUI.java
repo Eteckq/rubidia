@@ -35,10 +35,10 @@ import me.pmilon.RubidiaQuests.QuestsPlugin;
 
 public class PiercingUI extends UIHandler {
 
-	private ItemStack WPN_SLOT = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)14);
-	private ItemStack ORI_SLOT = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)8);
-	private ItemStack FREE_SLOT = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)8);
-	private ItemStack LOCKED_SLOT = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)7);
+	private ItemStack WPN_SLOT = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
+	private ItemStack ORI_SLOT = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
+	private ItemStack FREE_SLOT = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+	private ItemStack LOCKED_SLOT = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 	
 	private Weapon weapon;
 	private Random random = new Random();
@@ -171,7 +171,7 @@ public class PiercingUI extends UIHandler {
 					this.scroll.clear();
 					this.update();
 				}else if(slot == 8 && !item.isSimilar(FREE_SLOT)){
-					if(this.endTask == null && item.getType().equals(Material.DOUBLE_PLANT)){
+					if(this.endTask == null && item.getType().equals(Material.KELP_PLANT)){
 						this.endTask = new BukkitTask(QuestsPlugin.instance){
 
 							@Override

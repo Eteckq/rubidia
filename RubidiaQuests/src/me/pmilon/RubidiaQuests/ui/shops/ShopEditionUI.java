@@ -209,7 +209,7 @@ public class ShopEditionUI extends UIHandler{
 	}
 	public ItemStack getShopIS(){
 		PlayerShop shop = (PlayerShop)this.getShop();
-		ItemStack START = new ItemStack(shop.isStart() ? Material.BOOK : Material.BOOK_AND_QUILL, 1);
+		ItemStack START = new ItemStack(shop.isStart() ? Material.BOOK : Material.WRITABLE_BOOK, 1);
 		ItemMeta mSTART = START.getItemMeta();
 		if(shop.isStart()){
 			mSTART.setDisplayName(rp.translateString("§6§lClose shop", "§6§lFermer la boutique"));

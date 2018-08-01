@@ -51,14 +51,39 @@ public class QuestColl extends Database<String,Quest> {
 				if(Configs.getQuestsConfig().contains("quests." + uuid + ".rewards")){
 					for(String reward : Configs.getQuestsConfig().getConfigurationSection("quests." + uuid + ".rewards").getKeys(false)){
 						String path = "quests." + uuid + ".rewards." + reward;
-						rewards.add(new Reward(uuid, Integer.valueOf(reward), RewardType.valueOf(Configs.getQuestsConfig().getString(path + ".type")), RClass.valueOf(Configs.getQuestsConfig().getString(path + ".rclass")), RJob.valueOf(Configs.getQuestsConfig().getString(path + ".rjob")), Configs.getQuestsConfig().getItemStack(path + ".itemStack"), Mastery.valueOf(Configs.getQuestsConfig().getString(path + ".mastery")), Configs.getQuestsConfig().getInt(path + ".amount"), Configs.getQuestsConfig().getDouble(path + ".rexp"), Configs.getQuestsConfig().getString(path + ".questUUID"), Configs.getQuestsConfig().getString(path + ".command"), Configs.getQuestsConfig().getString(path + ".infoName"), false));
+						rewards.add(new Reward(uuid,
+								Integer.valueOf(reward),
+								RewardType.valueOf(Configs.getQuestsConfig().getString(path + ".type")),
+								RClass.valueOf(Configs.getQuestsConfig().getString(path + ".rclass")),
+								RJob.valueOf(Configs.getQuestsConfig().getString(path + ".rjob")),
+								Configs.getQuestsConfig().getItemStack(path + ".itemStack"),
+								Mastery.valueOf(Configs.getQuestsConfig().getString(path + ".mastery")),
+								Configs.getQuestsConfig().getInt(path + ".amount"),
+								Configs.getQuestsConfig().getDouble(path + ".rexp"),
+								Configs.getQuestsConfig().getString(path + ".questUUID"),
+								Configs.getQuestsConfig().getString(path + ".command"),
+								Configs.getQuestsConfig().getString(path + ".infoName"),
+								false));
 					}
 				}
 				List<Required> requireds = new ArrayList<Required>();
 				if(Configs.getQuestsConfig().contains("quests." + uuid + ".requireds")){
 					for(String required : Configs.getQuestsConfig().getConfigurationSection("quests." + uuid + ".requireds").getKeys(false)){
 						String path = "quests." + uuid + ".requireds." + required;
-						requireds.add(new Required(uuid, Integer.valueOf(required), RequiredType.valueOf(Configs.getQuestsConfig().getString(path + ".type")), Configs.getQuestsConfig().getItemStack(path + ".itemStack"), RClass.valueOf(Configs.getQuestsConfig().getString(path + ".rclass")), RJob.valueOf(Configs.getQuestsConfig().getString(path + ".rjob")), Configs.getQuestsConfig().getString(path + ".questUUID"), Configs.getQuestsConfig().getInt(path + ".level"), Mastery.valueOf(Configs.getQuestsConfig().getString(path + ".mastery")), Configs.getQuestsConfig().getLong(path + ".timeStart"), Configs.getQuestsConfig().getLong(path + ".timeEnd"), Configs.getQuestsConfig().getBoolean(path + ".dialog"), Configs.getQuestsConfig().getString(path + ".noDialog"), false));
+						requireds.add(new Required(uuid,
+								Integer.valueOf(required),
+								RequiredType.valueOf(Configs.getQuestsConfig().getString(path + ".type")),
+								Configs.getQuestsConfig().getItemStack(path + ".itemStack"),
+								RClass.valueOf(Configs.getQuestsConfig().getString(path + ".rclass")),
+								RJob.valueOf(Configs.getQuestsConfig().getString(path + ".rjob")),
+								Configs.getQuestsConfig().getString(path + ".questUUID"),
+								Configs.getQuestsConfig().getInt(path + ".level"),
+								Mastery.valueOf(Configs.getQuestsConfig().getString(path + ".mastery")),
+								Configs.getQuestsConfig().getLong(path + ".timeStart"),
+								Configs.getQuestsConfig().getLong(path + ".timeEnd"),
+								Configs.getQuestsConfig().getBoolean(path + ".dialog"),
+								Configs.getQuestsConfig().getString(path + ".noDialog"),
+								false));
 					}
 				}
 				List<QEvent> qEvents = new ArrayList<QEvent>();
@@ -77,7 +102,16 @@ public class QuestColl extends Database<String,Quest> {
 						if(Configs.getQuestsConfig().contains(path + ".itemStack")){
 							itemStack = Configs.getQuestsConfig().getItemStack(path + ".itemStack");
 						}else itemStack = new ItemStack(Material.STONE,1);
-						QEvent qEvent = new QEvent(uuid, Integer.valueOf(qEventUUID), QEventType.valueOf(Configs.getQuestsConfig().getString(path + ".type")), Configs.getQuestsConfig().getInt(path + ".amount"), Configs.getQuestsConfig().getDouble(path + ".range"), (Location)Configs.getQuestsConfig().get(path + ".location"), Configs.getQuestsConfig().getString(path + ".monsterUUID"), Configs.getQuestsConfig().getInt(path + ".monsterLevel"), (PotionEffect)Configs.getQuestsConfig().get(path + ".potionEffect"), blocks, itemStack, false);
+						QEvent qEvent = new QEvent(uuid,
+								Integer.valueOf(qEventUUID),
+								QEventType.valueOf(Configs.getQuestsConfig().getString(path + ".type")),
+								Configs.getQuestsConfig().getInt(path + ".amount"),
+								Configs.getQuestsConfig().getDouble(path + ".range"),
+								(Location)Configs.getQuestsConfig().get(path + ".location"),
+								Configs.getQuestsConfig().getString(path + ".monsterUUID"),
+								Configs.getQuestsConfig().getInt(path + ".monsterLevel"),
+								(PotionEffect)Configs.getQuestsConfig().get(path + ".potionEffect"),
+								blocks, itemStack, false);
 						qEvent.setItemStack(itemStack);
 						qEvents.add(qEvent);
 					}

@@ -49,7 +49,7 @@ public class SafeUI extends UIHandler {
 			final int slot = e.getRawSlot();
 			if(!rp.isVip()){
 				if(slot > 8){
-					if(!e.getCurrentItem().getType().equals(Material.STAINED_GLASS_PANE)){
+					if(!e.getCurrentItem().getType().equals(Material.BLACK_STAINED_GLASS_PANE)){
 						e.setCurrentItem(this.getMenu().getItem(slot));
 						new BukkitTask(Core.instance){
 							public void run(){
@@ -65,7 +65,7 @@ public class SafeUI extends UIHandler {
 				}
 			}
 			
-			if(slot > 8 && e.getCurrentItem().getType().equals(Material.STAINED_GLASS_PANE)){
+			if(slot > 8 && e.getCurrentItem().getType().equals(Material.BLACK_STAINED_GLASS_PANE)){
 				if(rp.isVip())e.setCurrentItem(null);
 				else e.setCancelled(true);
 			}
@@ -104,7 +104,7 @@ public class SafeUI extends UIHandler {
 			ItemStack is = this.getMenu().getItem(slot);
 			if(is != null){
 				if(is.getType().equals(Material.EMERALD) || is.getType().equals(Material.EMERALD_BLOCK))rp.getBank().put(slot, is);
-				else if(!is.getType().equals(Material.STAINED_GLASS_PANE)){
+				else if(!is.getType().equals(Material.BLACK_STAINED_GLASS_PANE)){
 					this.getMenu().setItem(slot, new ItemStack(Material.AIR));
 					this.getHolder().getInventory().addItem(is);
 				}
@@ -113,7 +113,7 @@ public class SafeUI extends UIHandler {
 	}
 	
 	public ItemStack getVipSlot(){
-		ItemStack vipSlot = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)15);
+		ItemStack vipSlot = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = vipSlot.getItemMeta();
 		meta.setDisplayName(rp.translateString("§4§lVIP SLOT", "§4§lSLOT VIP"));
 		meta.setLore(Arrays.asList(rp.translateString("§cBuy vip rank at the shop in order to", "§cAchetez le grade VIP pour débloquer"), rp.translateString("§cunlock this line of empty space!", "§ccette ligne d'espace supplémentaire !")));

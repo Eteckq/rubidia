@@ -65,6 +65,7 @@ public class QuestListRequiredChoose extends ListMenuUIHandler<Quest> {
 		return item;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected ItemStack getItem(Quest quest) {
 		Wool wool = new Wool(quest.getType().getColor());

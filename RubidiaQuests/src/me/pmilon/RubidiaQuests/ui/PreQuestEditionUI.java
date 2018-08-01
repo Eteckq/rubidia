@@ -21,7 +21,7 @@ public class PreQuestEditionUI extends UIHandler {
 	private QuestPNJ pnj;
 	
 	private ItemStack ITEM_CHOOSE = new ItemStack(Material.BOOK, 1);
-	private ItemStack ITEM_CREATE = new ItemStack(Material.BOOK_AND_QUILL, 1);
+	private ItemStack ITEM_CREATE = new ItemStack(Material.WRITABLE_BOOK, 1);
 
 	private int SLOT_BACK = 8;
 	private int SLOT_CHOOSE = 3;

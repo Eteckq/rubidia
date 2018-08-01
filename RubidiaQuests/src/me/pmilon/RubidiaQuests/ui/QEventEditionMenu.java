@@ -20,7 +20,6 @@ import org.bukkit.potion.PotionEffectType;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ritems.general.SpawnEgg;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaMonsters.regions.Monster;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
@@ -37,7 +36,7 @@ public class QEventEditionMenu extends UIHandler {
 	private QuestPNJ pnj;
 	private QEvent qEvent;
 
-	private ItemStack ITEM_RNG = new ItemStack(Material.EMPTY_MAP, 1);
+	private ItemStack ITEM_RNG = new ItemStack(Material.MAP, 1);
 	private ItemStack ITEM_LOC = new ItemStack(Material.COMPASS, 1);
 	private ItemStack ITEM_EFF = new ItemStack(Material.POTION, 1);
 	private ItemStack ITEM_BLK = new ItemStack(Material.BRICK, 1);
@@ -240,7 +239,7 @@ public class QEventEditionMenu extends UIHandler {
 		return ITEM_TYPE;
 	}
 	protected ItemStack getAmt(){
-		ItemStack ITEM_MONEY = new ItemStack(Material.STAINED_GLASS_PANE, this.getQEvent().getAmount() > 0 ? (this.getQEvent().getAmount() > 64 ? 64 : this.getQEvent().getAmount()) : 1, (short)5);
+		ItemStack ITEM_MONEY = new ItemStack(Material.LIME_STAINED_GLASS_PANE, this.getQEvent().getAmount() > 0 ? (this.getQEvent().getAmount() > 64 ? 64 : this.getQEvent().getAmount()) : 1);
 		ItemMeta meta = ITEM_MONEY.getItemMeta();
 		meta.setDisplayName(String.valueOf(this.getQEvent().getAmount()));
 		ITEM_MONEY.setItemMeta(meta);
@@ -261,7 +260,7 @@ public class QEventEditionMenu extends UIHandler {
 	}
 	protected ItemStack getMst(){
 		Monster monster = this.getQEvent().getMonster();
-		ItemStack ITEM_ENT = new SpawnEgg(monster != null ? monster.getType() : EntityType.PIG).toItemStack();
+		ItemStack ITEM_ENT = new ItemStack(Material.valueOf((monster != null ? monster.getType() : EntityType.PIG).toString() + "_SPAWN_EGG"), 1);
 		ItemMeta meta = ITEM_ENT.getItemMeta();
 		meta.setDisplayName(monster != null ? monster.getName() : "");
 		ITEM_ENT.setItemMeta(meta);
@@ -275,7 +274,7 @@ public class QEventEditionMenu extends UIHandler {
 		return ITEM_EFF;
 	}
 	protected ItemStack getLvl(){
-		ItemStack ITEM_MONEY = new ItemStack(Material.STAINED_GLASS_PANE, this.getQEvent().getMonsterLevel() > 0 ? (this.getQEvent().getMonsterLevel() > 64 ? 64 : this.getQEvent().getMonsterLevel()) : 1, (short)10);
+		ItemStack ITEM_MONEY = new ItemStack(Material.PURPLE_STAINED_GLASS_PANE, this.getQEvent().getMonsterLevel() > 0 ? (this.getQEvent().getMonsterLevel() > 64 ? 64 : this.getQEvent().getMonsterLevel()) : 1);
 		ItemMeta meta = ITEM_MONEY.getItemMeta();
 		meta.setDisplayName(String.valueOf(this.getQEvent().getMonsterLevel()));
 		ITEM_MONEY.setItemMeta(meta);

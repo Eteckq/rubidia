@@ -4,14 +4,14 @@ import org.bukkit.Material;
 
 public enum RewardType {
 
-	CLASS(Material.GOLD_HOE),
+	CLASS(Material.GOLDEN_HOE),
 	JOB(Material.DIAMOND_AXE),
 	ITEM(Material.NETHER_STAR),
-	XP(Material.EXP_BOTTLE),
+	XP(Material.EXPERIENCE_BOTTLE),
 	MONEY(Material.EMERALD),
 	MASTERY(Material.DIAMOND_HOE),
 	SKP(Material.BOOKSHELF),
-	SKD(Material.BOOK_AND_QUILL),
+	SKD(Material.WRITABLE_BOOK),
 	QUEST(Material.BOOK),
 	COMMAND(Material.MAP);
 	

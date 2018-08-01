@@ -31,7 +31,7 @@ public class RewardEditionMenu extends UIHandler {
 	private QuestPNJ pnj;
 	private Reward reward;
 
-	private ItemStack ITEM_XP = new ItemStack(Material.EXP_BOTTLE, 1);
+	private ItemStack ITEM_XP = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
 	private ItemStack ITEM_QUEST = new ItemStack(Material.BOOK, 1);
 	private ItemStack ITEM_CMD = new ItemStack(Material.MAP, 1);
 	
@@ -253,14 +253,14 @@ public class RewardEditionMenu extends UIHandler {
 		return ITEM_CMD;
 	}
 	protected ItemStack getAmt(){
-		ItemStack ITEM_MONEY = new ItemStack(Material.STAINED_GLASS_PANE, this.getReward().getAmount() > 0 ? (this.getReward().getAmount() > 64 ? 64 : this.getReward().getAmount()) : 1, (short)10);
+		ItemStack ITEM_MONEY = new ItemStack(Material.PURPLE_STAINED_GLASS_PANE, this.getReward().getAmount() > 0 ? (this.getReward().getAmount() > 64 ? 64 : this.getReward().getAmount()) : 1);
 		ItemMeta meta = ITEM_MONEY.getItemMeta();
 		meta.setDisplayName(String.valueOf(this.getReward().getAmount()));
 		ITEM_MONEY.setItemMeta(meta);
 		return ITEM_MONEY;
 	}
 	protected ItemStack getMastery(){
-		ItemStack ITEM_MASTERY = new ItemStack(Material.ENCHANTMENT_TABLE, this.getReward().getMastery().getId()+1);
+		ItemStack ITEM_MASTERY = new ItemStack(Material.ENCHANTING_TABLE, this.getReward().getMastery().getId()+1);
 		ItemMeta meta = ITEM_MASTERY.getItemMeta();
 		meta.setDisplayName(this.getReward().getMastery().toString());
 		ITEM_MASTERY.setItemMeta(meta);

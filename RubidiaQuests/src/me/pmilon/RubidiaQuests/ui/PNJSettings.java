@@ -32,11 +32,11 @@ public class PNJSettings extends UIHandler {
 
 	private PNJHandler pnj;
 
-	private ItemStack ITEM_TITLE = new ItemStack(Material.EMPTY_MAP, 1);
+	private ItemStack ITEM_TITLE = new ItemStack(Material.MAP, 1);
 	private ItemStack ITEM_NAME = new ItemStack(Material.PAPER, 1);
 	private ItemStack ITEM_DIAL_QUST = new ItemStack(Material.BOOK, 1);
-	private ItemStack ITEM_NO_QUEST_DIAL = new ItemStack(Material.BOOK_AND_QUILL, 1);
-	private ItemStack ITEM_AGE = new ItemStack(Material.BED, 1);
+	private ItemStack ITEM_NO_QUEST_DIAL = new ItemStack(Material.WRITABLE_BOOK, 1);
+	private ItemStack ITEM_AGE = new ItemStack(Material.RED_BED, 1);
 	private ItemStack ITEM_MOVE = new ItemStack(Material.COMPASS, 1);
 	private ItemStack ITEM_DELETE = new ItemStack(Material.BARRIER, 1);
 	
@@ -182,7 +182,7 @@ public class PNJSettings extends UIHandler {
 		return ITEM_NAME;
 	}
 	private ItemStack getFix(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, this.getPnj().isFix() ? (short)10 : (short)8);
+		ItemStack item = new ItemStack(this.getPnj().isFix() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Fix : " + String.valueOf(this.getPnj().isFix()));
 		item.setItemMeta(meta);

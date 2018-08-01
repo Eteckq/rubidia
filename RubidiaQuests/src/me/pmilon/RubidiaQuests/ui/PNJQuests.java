@@ -77,7 +77,7 @@ public class PNJQuests extends UIHandler {
 				meta.setLore(Arrays.asList(quest.getColoredSubtitle()));
 				item.setItemMeta(meta);
 			}else{
-				item = new ItemStack(Material.BOOK_AND_QUILL, 1);
+				item = new ItemStack(Material.WRITABLE_BOOK, 1);
 				ItemMeta meta = item.getItemMeta();
 				meta.setDisplayName("No Quest");
 				item.setItemMeta(meta);

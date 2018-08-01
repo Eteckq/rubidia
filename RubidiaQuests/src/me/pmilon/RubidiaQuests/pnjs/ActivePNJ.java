@@ -26,7 +26,7 @@ public abstract class ActivePNJ extends PNJHandler {
 	protected void onRightClick(PlayerInteractEntityEvent e, final Player p, Villager villager) {
 		if(this.getDialog() != null){
 			if(!this.getDialog().isEmpty()){
-				p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_TRADING, 1, 1);
+				p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_TRADE, 1, 1);
 				PNJDialog dialog = new PNJDialog(p, this, villager, Arrays.asList(this.getDialog().replaceAll("%rapid", "")), DialogType.PREDIALOG, new Runnable(){
 					public void run(){
 						onTalk(p);

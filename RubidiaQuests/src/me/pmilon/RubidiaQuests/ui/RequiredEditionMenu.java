@@ -218,7 +218,7 @@ public class RequiredEditionMenu extends UIHandler {
 	
 
 	private ItemStack getIsDialog(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, (short) (this.getRequired().isDialog() ? 10 : 8));
+		ItemStack item = new ItemStack(this.getRequired().isDialog() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Dialoging : " + String.valueOf(this.getRequired().isDialog()));
 		item.setItemMeta(meta);
@@ -259,7 +259,7 @@ public class RequiredEditionMenu extends UIHandler {
 		return ITEM_QUEST;
 	}
 	private ItemStack getMastery(){
-		ItemStack ITEM_MASTERY = new ItemStack(Material.ENCHANTMENT_TABLE, this.getRequired().getMastery().getId()+1);
+		ItemStack ITEM_MASTERY = new ItemStack(Material.ENCHANTING_TABLE, this.getRequired().getMastery().getId()+1);
 		ItemMeta meta = ITEM_MASTERY.getItemMeta();
 		meta.setDisplayName(this.getRequired().getMastery().toString());
 		ITEM_MASTERY.setItemMeta(meta);
@@ -283,7 +283,7 @@ public class RequiredEditionMenu extends UIHandler {
 		return this.getRequired().getItemStack();
 	}
 	private ItemStack getTimeStart(){
-		ItemStack item = new ItemStack(Material.WATCH, 1);
+		ItemStack item = new ItemStack(Material.CLOCK, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Time Start");
 		meta.setLore(Arrays.asList(String.valueOf(this.getRequired().getTimeStart())));
@@ -291,7 +291,7 @@ public class RequiredEditionMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getTimeEnd(){
-		ItemStack item = new ItemStack(Material.WATCH, 1);
+		ItemStack item = new ItemStack(Material.CLOCK, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Time End");
 		meta.setLore(Arrays.asList(String.valueOf(this.getRequired().getTimeEnd())));
@@ -299,7 +299,7 @@ public class RequiredEditionMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getLevel(){
-		ItemStack item = new ItemStack(Material.EYE_OF_ENDER, 1);
+		ItemStack item = new ItemStack(Material.ENDER_EYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Level");
 		meta.setLore(Arrays.asList(String.valueOf(this.getRequired().getLevel())));

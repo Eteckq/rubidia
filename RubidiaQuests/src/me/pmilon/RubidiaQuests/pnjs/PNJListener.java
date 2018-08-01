@@ -123,6 +123,7 @@ public class PNJListener implements Listener {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onTeleport(PlayerTeleportEvent event){
 		Player player = event.getPlayer();
