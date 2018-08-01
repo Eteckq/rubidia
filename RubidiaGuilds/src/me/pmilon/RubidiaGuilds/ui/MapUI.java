@@ -159,6 +159,7 @@ public class MapUI extends UIHandler {
 				lore.add("§7" + rp.translateString("You are here","Vous êtes ici"));
 			}
 			lore.add("§8(" + x + "," + z + ")");
+			if(meta == null)meta = item.getItemMeta();
 			meta.setLore(lore);
 			item.setItemMeta(meta);
 			this.getMenu().setItem(9*i+j, item);

@@ -159,8 +159,8 @@ public class ChunksUI extends UIHandler {
 	private ItemStack get(int i, int j){
 		Location location = new Location(this.location.getWorld(), this.location.getX() + (p == 1 ? j-4 : (p == 2 ? 2-i : (p == 3 ? 4-j : i-2 )))*16, this.location.getY(), this.location.getZ() + (p == 1 ? i-2 : (p == 2 ? j-4 : (p == 3 ? 2-i : 4-j )))*16);
 		Chunk chunk = RubidiaManagerPlugin.getChunkColl().get(location.getChunk());
-		ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1);
-		ItemMeta meta = item.getItemMeta();
+		ItemStack item = null;
+		ItemMeta meta = null;
 		List<String> lore = new ArrayList<String>();
 		if(chunk == null){
 			chunk = new RChunk(location.getWorld(), location.getChunk().getX(), location.getChunk().getZ(), true);
@@ -170,20 +170,24 @@ public class ChunksUI extends UIHandler {
 			RegionManager manager = WorldGuardPlugin.inst().getRegionManager(chunk.getWorld());
 			ApplicableRegionSet set = manager.getApplicableRegions(region);
 			if(!set.testState(null, Flags.REGEN)){
-				item.setDurability((short)7);
+				item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
+				meta = item.getItemMeta();
 				meta.setDisplayName("§7§l" + rp.translateString("Protected region", "Région protégée"));
 			}else{
 				if(chunk instanceof NChunk){
-					item.setDurability((short)14);
+					item = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
+					meta = item.getItemMeta();
 					meta.setDisplayName("§4§lNChunk");
 					lore.add("§c§o" + rp.translateString("Regeneration disabled","Régénération désactivée"));
 				}else{
 					if(((RChunk)chunk).isRegenerated()){
-						item.setDurability((short)13);
+						item = new ItemStack(Material.GREEN_STAINED_GLASS_PANE, 1);
+						meta = item.getItemMeta();
 						meta.setDisplayName("§2§lRChunk");
 						lore.add("§a§o" + rp.translateString("Regeneration enabled | Regenerated chunk","Régénération activée | Chunk régénéré"));
 					}else{
-						item.setDurability((short)5);
+						item = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
+						meta = item.getItemMeta();
 						meta.setDisplayName("§6§lRChunk");
 						lore.add("§e§o" + rp.translateString("Regeneration enabled | Damaged chunk","Régénération activée | Chunk endommagé"));
 					}
@@ -192,7 +196,7 @@ public class ChunksUI extends UIHandler {
 			Claim claim = Claim.get(chunk.getBukkitChunk());
 			if(claim != null){
 				Guild guild = claim.getGuild();
-				item.setDurability((short)1);
+				item = new ItemStack(Material.ORANGE_STAINED_GLASS_PANE, 1);
 				lore.add("§d" + rp.translateString("Chunk claimed by", "Chunk revendiqué par") + " §o" + guild.getName());
 				if(!guild.isActive()){
 					lore.add("§c" + rp.translateString("Inactive guild", "Guilde inactive"));
@@ -201,11 +205,12 @@ public class ChunksUI extends UIHandler {
 		}
 
 		if(i == 2 && j == 4){
-			item.setDurability((short)12);
+			item = new ItemStack(Material.BROWN_STAINED_GLASS_PANE, 1);
 			lore.add("");
 			lore.add("§7" + rp.translateString("You are here","Vous êtes ici"));
 		}
 		lore.add("§8(" + chunk.getX() + "," + chunk.getZ() + ")");
+		if(meta == null)meta = item.getItemMeta();
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;
