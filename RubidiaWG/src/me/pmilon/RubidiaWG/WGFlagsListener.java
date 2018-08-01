@@ -84,7 +84,7 @@ public class WGFlagsListener implements Listener {
 		
 		if(block != null){
 			ApplicableRegionSet set = wgPlugin.getRegionManager(block.getWorld()).getApplicableRegions(block.getLocation());
-			List<Material> blocks = Arrays.asList(Material.CHEST, Material.HOPPER, Material.FURNACE, Material.ANVIL, Material.ENCHANTMENT_TABLE, Material.CAULDRON, Material.WORKBENCH, Material.DROPPER, Material.ENDER_PORTAL, Material.BEACON, Material.BREWING_STAND, Material.DISPENSER);
+			List<Material> blocks = Arrays.asList(Material.CHEST, Material.HOPPER, Material.FURNACE, Material.ANVIL, Material.ENCHANTING_TABLE, Material.CAULDRON, Material.CRAFTING_TABLE, Material.DROPPER, Material.END_PORTAL, Material.BEACON, Material.BREWING_STAND, Material.DISPENSER);
 			if(blocks.contains(block.getType()) && !rp.isOp()){
 				if(!set.testState(null, Flags.BLOCKS)){
 					e.setCancelled(true);
@@ -125,7 +125,7 @@ public class WGFlagsListener implements Listener {
 	public void onBlockChange(EntityChangeBlockEvent e){
 		Block block = e.getBlock();
 		if(block != null){
-			if(block.getType().equals(Material.SOIL)){
+			if(block.getType().equals(Material.FARMLAND)){
 				ApplicableRegionSet set = this.wgPlugin.getRegionManager(block.getWorld()).getApplicableRegions(block.getLocation());
 				if(!set.testState(null, Flags.SOIL_TRAMPLING)){
 					e.setCancelled(true);
@@ -138,7 +138,7 @@ public class WGFlagsListener implements Listener {
 	public void onBlockFade(BlockFadeEvent e){
 		Block block = e.getBlock();
 		if(block != null){
-			if(block.getType().equals(Material.SOIL)){
+			if(block.getType().equals(Material.FARMLAND)){
 				ApplicableRegionSet set = this.wgPlugin.getRegionManager(block.getWorld()).getApplicableRegions(block.getLocation());
 				if(!set.testState(null, Flags.SOIL_TRAMPLING)){
                     e.setCancelled(true);

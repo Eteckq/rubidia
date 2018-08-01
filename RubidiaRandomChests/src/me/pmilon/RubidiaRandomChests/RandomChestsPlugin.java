@@ -10,6 +10,7 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.Locations;
 import net.minecraft.server.v1_13_R1.BlockPosition;
+import net.minecraft.server.v1_13_R1.ChatMessage;
 import net.minecraft.server.v1_13_R1.TileEntityChest;
 import net.minecraft.server.v1_13_R1.World;
 
@@ -92,23 +93,23 @@ public class RandomChestsPlugin extends JavaPlugin{
 	public void toLuckyChest(final Chest chest){
 	    World nmsWorld = ((CraftWorld) chest.getWorld()).getHandle();
 	    TileEntityChest teC = (TileEntityChest) nmsWorld.getTileEntity(new BlockPosition(chest.getX(), chest.getY(), chest.getZ()));
-	    teC.setCustomName("Coffre chance");
+	    teC.setCustomName(new ChatMessage("Coffre chance"));
 
 		for(int i = 0;i < chest.getBlockInventory().getSize();i++){
 			if(random.nextInt(100) < 45){//45% to have an item INSIDE WHICH:
 				if(random.nextInt(100) < 9){//9% to have loot -- 91% to have else
 					int r = random.nextInt(4);
-					chest.getBlockInventory().setItem(i, new ItemStack(r==0 ? Material.ROTTEN_FLESH : r == 1 ?Material.STRING : r == 2 ? Material.BONE : Material.SULPHUR, random.nextInt(4)+1));
+					chest.getBlockInventory().setItem(i, new ItemStack(r==0 ? Material.ROTTEN_FLESH : r == 1 ?Material.STRING : r == 2 ? Material.BONE : Material.GUNPOWDER, random.nextInt(4)+1));
 				}else if(random.nextInt(100) < 7){
 					chest.getBlockInventory().setItem(i, new ItemStack(Material.EMERALD, random.nextInt(6)+1));
 				}else if(random.nextInt(100) < 5){
 					int r = random.nextInt(4);
-					chest.getBlockInventory().setItem(i, new ItemStack(r==0 ? Material.APPLE : r == 1 ? Material.MUSHROOM_SOUP : r == 2 ? Material.COOKIE : Material.PUMPKIN_PIE, random.nextInt(4)+1));
+					chest.getBlockInventory().setItem(i, new ItemStack(r==0 ? Material.APPLE : r == 1 ? Material.MUSHROOM_STEW : r == 2 ? Material.COOKIE : Material.PUMPKIN_PIE, random.nextInt(4)+1));
 				}else if(random.nextInt(100) < 5){
 					int r = random.nextInt(7);
-					chest.getBlockInventory().setItem(i, new ItemStack(r==0 ? Material.COOKED_CHICKEN : r == 1 ? Material.COOKED_BEEF : r == 2 ? Material.COOKED_FISH : r == 3 ? Material.COOKED_MUTTON : r == 4 ? Material.RAW_BEEF : r == 5 ? Material.RAW_CHICKEN : r == 6 ? Material.RAW_FISH : Material.COOKED_MUTTON, random.nextInt(4)+1));
+					chest.getBlockInventory().setItem(i, new ItemStack(r==0 ? Material.COOKED_CHICKEN : r == 1 ? Material.COOKED_BEEF : r == 2 ? Material.COOKED_SALMON : r == 3 ? Material.COOKED_MUTTON : r == 4 ? Material.BEEF : r == 5 ? Material.CHICKEN : r == 6 ? Material.SALMON : Material.COOKED_MUTTON, random.nextInt(4)+1));
 				}else if(random.nextInt(1000) < 3){
-					chest.getBlockInventory().setItem(i, new ItemStack(Material.CARROT_STICK, 1));
+					chest.getBlockInventory().setItem(i, new ItemStack(Material.CARROT_ON_A_STICK, 1));
 				}else if(random.nextInt(1000) < 2){
 					chest.getBlockInventory().setItem(i, new ItemStack(Material.GOLDEN_APPLE, 1));
 				}
