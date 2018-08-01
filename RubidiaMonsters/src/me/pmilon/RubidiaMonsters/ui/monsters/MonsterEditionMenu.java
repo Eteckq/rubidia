@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ritems.general.SpawnEgg;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaMonsters.attacks.AbstractAttack;
@@ -204,14 +203,14 @@ public class MonsterEditionMenu extends UIHandler {
 		return back;
 	}
 	private ItemStack getMType(){
-		ItemStack item = new SpawnEgg(this.getMonster().getType()).toItemStack();
+		ItemStack item = new ItemStack(Material.valueOf(this.getMonster().getType().toString() + "_SPAWN_EGG"), 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Type: " + this.getMonster().getType().toString());
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getXpf(){
-		ItemStack item = new ItemStack(Material.EXP_BOTTLE, 1);
+		ItemStack item = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("XPFactor: " + this.getMonster().getXPFactor());
 		item.setItemMeta(meta);
@@ -233,7 +232,7 @@ public class MonsterEditionMenu extends UIHandler {
 		return item;
 	}
 	protected ItemStack getAverage(){
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, this.getMonster().isAverage() ? (short)10 : (short)8);
+		ItemStack item = new ItemStack(this.getMonster().isAverage() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Average stats : " + String.valueOf(this.getMonster().isAverage()));
 		item.setItemMeta(meta);

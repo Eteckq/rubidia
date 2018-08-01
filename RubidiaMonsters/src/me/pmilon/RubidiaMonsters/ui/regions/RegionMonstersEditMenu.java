@@ -85,7 +85,7 @@ public class RegionMonstersEditMenu extends UIHandler {
 	protected ItemStack getMob(Monster monster){
 		ItemStack item;
 		if(monster != null){
-			item = new ItemStack(Material.MONSTER_EGG, 1);
+			item = new ItemStack(Material.valueOf(monster.getType().toString() + "_SPAWN_EGG"), 1);
 			ItemMeta meta = item.getItemMeta();
 			meta.setDisplayName(monster.getName());
 			meta.setLore(Arrays.asList(monster.getType().toString()));

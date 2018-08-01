@@ -103,7 +103,7 @@ public class MonsterListener implements Listener {
 					if(monster != null){
 						if(monster.getTamer() == null){
 							ItemStack item = player.getEquipment().getItemInMainHand();
-							if(item.getType().equals(Material.LEASH)){
+							if(item.getType().equals(Material.LEAD)){
 								event.setCancelled(true);
 								monster.setTamer(player);
 								if(!RPlayer.get(player).isOp()){

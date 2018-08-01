@@ -61,6 +61,7 @@ public class RegionsUI extends ListMenuUIHandler<Region>{
 		return infos;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected ItemStack getItem(Region region) {
 		Wool wool = new Wool(region.getType().getDyeColor());

@@ -143,6 +143,7 @@ public class Region {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public Location getRandomSpawnLocation(Monster monster){
 		double x = RubidiaMonstersPlugin.random.nextDouble()*(this.getXRange()/2)*(RubidiaMonstersPlugin.random.nextBoolean() ? -1 : 1);
 		double y = RubidiaMonstersPlugin.random.nextDouble()*(this.getYRange()/2);
@@ -318,6 +319,7 @@ public class Region {
 		this.dungeonUUID = dungeonUUID;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean hasSpawnLocation(){
 		for(Monster monster : this.getMonsters()){
 			for(double x = -this.getXRange()/2;x < this.getXRange()/2;x++){

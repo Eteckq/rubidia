@@ -207,7 +207,7 @@ public class RegionManager extends UIHandler {
 		return item;
 	}
 	private ItemStack getMobs() {
-		ItemStack item = new ItemStack(Material.MONSTER_EGG, 1);
+		ItemStack item = new ItemStack(Material.EGG, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Monsters");
 		List<String> lore = new ArrayList<String>();
@@ -219,21 +219,21 @@ public class RegionManager extends UIHandler {
 		return item;
 	}
 	private ItemStack getMinLvl() {
-		ItemStack item = new ItemStack(Material.EXP_BOTTLE, 1);
+		ItemStack item = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Level Min: " + this.getRegion().getMinLevel());
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getMaxLvl() {
-		ItemStack item = new ItemStack(Material.EXP_BOTTLE, 1);
+		ItemStack item = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Level Max: " + this.getRegion().getMaxLevel());
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getYShift() {
-		ItemStack item = new ItemStack(Material.EXP_BOTTLE, 1);
+		ItemStack item = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("yShift: " + this.getRegion().getYShift());
 		item.setItemMeta(meta);
@@ -246,6 +246,7 @@ public class RegionManager extends UIHandler {
 		item.setItemMeta(meta);
 		return item;
 	}
+	@SuppressWarnings("deprecation")
 	private ItemStack getRType() {
 		Wool wool = new Wool(this.getRegion().getType().getDyeColor());
 		ItemStack item = wool.toItemStack(1);
@@ -255,14 +256,14 @@ public class RegionManager extends UIHandler {
 		return item;
 	}
 	private ItemStack getSquare() {
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, (short) (this.getRegion().isSquare() ? 10 : 8));
+		ItemStack item = new ItemStack(this.getRegion().isSquare() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Square: " + this.getRegion().isSquare());
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getFading() {
-		ItemStack item = new ItemStack(Material.INK_SACK, 1, (short) (this.getRegion().isFadingLevel() ? 10 : 8));
+		ItemStack item = new ItemStack(this.getRegion().isFadingLevel() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("Fading level: " + this.getRegion().isFadingLevel());
 		item.setItemMeta(meta);
