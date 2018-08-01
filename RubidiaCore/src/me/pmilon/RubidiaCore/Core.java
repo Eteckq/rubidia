@@ -54,6 +54,7 @@ import me.pmilon.RubidiaCore.events.RPlayerDeathEvent;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause.RTeleportType;
 import me.pmilon.RubidiaCore.handlers.EconomyHandler;
+import me.pmilon.RubidiaCore.handlers.EntityHandler;
 import me.pmilon.RubidiaCore.handlers.GamePlayEffectsHandler;
 import me.pmilon.RubidiaCore.handlers.HealthBarHandler;
 import me.pmilon.RubidiaCore.handlers.JobsHandler;
@@ -1806,6 +1807,7 @@ public class Core extends JavaPlugin implements Listener {
 	    
 	    AbilitiesAPI.onEnable(this);
 	    Events.onEnable(this);
+	    EntityHandler.onEnable(this);
 
 		ItemStack backpackis = new ItemStack(Material.STORAGE_MINECART, 1);
 		ItemMeta bpmeta = backpackis.getItemMeta();

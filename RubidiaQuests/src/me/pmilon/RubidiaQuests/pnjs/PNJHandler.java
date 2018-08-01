@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.handlers.EntityHandler;
 import me.pmilon.RubidiaCore.handlers.TeleportHandler;
 import me.pmilon.RubidiaCore.tags.TagStand;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
@@ -322,9 +323,8 @@ public abstract class PNJHandler {
 
 	
 	public void createFake(Player player){
-		//TODO implement entity hider to hide real PNJ (check if not implemented in spigot 1.13)
-		//if(this.getEntity() != null)Core.entityHider.hideEntity(player, this.getEntity());
-		//for(ArmorStand tag : this.getTag().getDisplays())Core.entityHider.hideEntity(player, tag);
+		if(this.getEntity() != null)EntityHandler.hideEntity(player, this.getEntity());
+		for(ArmorStand tag : this.getTag().getDisplays())EntityHandler.hideEntity(player, tag);
 		
 		Villager villager = this.getEntity().getWorld().spawn(this.getEntity().getLocation(), Villager.class);
 		this.resetPathfinders(villager,true);
@@ -339,12 +339,12 @@ public abstract class PNJHandler {
 		villager.setProfession(this.getType().getProfession());
 		TagStand tag = new TagStand(villager, new String[]{this.getTitlePrefix()+this.getTitle(),this.getNamePrefix()+this.getName()}, false);
 		tag.display();
-		/*for(Player p : Bukkit.getOnlinePlayers()){
+		for(Player p : Bukkit.getOnlinePlayers()){
 			if(!p.equals(player)){
-				if(villager != null)Core.entityHider.hideEntity(p, villager);
-				for(ArmorStand stand : tag.getDisplays())Core.entityHider.hideEntity(p, stand);
+				if(villager != null)EntityHandler.hideEntity(p, villager);
+				for(ArmorStand stand : tag.getDisplays())EntityHandler.hideEntity(p, stand);
 			}
-		}*/
+		}
 		List<Villager> villagers = PNJManager.pnjTemps.containsKey(player) ? PNJManager.pnjTemps.get(player) : new ArrayList<Villager>();
 		villagers.add(villager);
 		PNJManager.pnjTemps.put(player, villagers);

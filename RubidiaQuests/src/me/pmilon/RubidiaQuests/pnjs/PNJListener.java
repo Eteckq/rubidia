@@ -5,6 +5,7 @@ import java.util.List;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.handlers.EntityHandler;
 import me.pmilon.RubidiaCore.tags.TagStand;
 import me.pmilon.RubidiaCore.tags.TagStandManager;
 import me.pmilon.RubidiaCore.utils.Locations;
@@ -114,9 +115,8 @@ public class PNJListener implements Listener {
 						if(stand != null)stand.remove(true);
 						villager.remove();
 						
-						//TODO
-						//if(handler.getEntity() != null)Core.entityHider.showEntity(player, handler.getEntity());
-						//for(ArmorStand tag : handler.getTag().getDisplays())Core.entityHider.showEntity(player, tag);
+						if(handler.getEntity() != null)EntityHandler.showEntity(player, handler.getEntity());
+						for(ArmorStand tag : handler.getTag().getDisplays())EntityHandler.showEntity(player, tag);
 					}
 				}
 			}
@@ -142,9 +142,8 @@ public class PNJListener implements Listener {
 						if(stand != null)stand.remove(true);
 						villager.remove();
 						
-						//TODO
-						//if(handler.getEntity() != null)Core.entityHider.showEntity(player, handler.getEntity());
-						//for(ArmorStand tag : handler.getTag().getDisplays())Core.entityHider.showEntity(player, tag);
+						if(handler.getEntity() != null)EntityHandler.showEntity(player, handler.getEntity());
+						for(ArmorStand tag : handler.getTag().getDisplays())EntityHandler.showEntity(player, tag);
 					}
 					PNJManager.pnjTokillTemps.remove(player);
 				}
