@@ -5,7 +5,7 @@
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/EffectLib.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaCore-1.12.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaGuilds-1.12.jar"/>
-	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaMonsters-1.12.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/spigot.jar"/>
+	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaMonsters-1.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

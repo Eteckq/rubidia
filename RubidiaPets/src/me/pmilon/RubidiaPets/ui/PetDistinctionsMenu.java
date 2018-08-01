@@ -118,7 +118,7 @@ public class PetDistinctionsMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getArdor(){
-		ItemStack item = new ItemStack(Material.INK_SACK, this.getPet().getArdor() > 0 ? (this.getPet().getArdor() > 64 ? 64 : this.getPet().getArdor()) : 1, (short)7);
+		ItemStack item = new ItemStack(Material.LIGHT_GRAY_DYE, this.getPet().getArdor() > 0 ? (this.getPet().getArdor() > 64 ? 64 : this.getPet().getArdor()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = this.getPet().getArdor() > 0 ? "§2" : "§4";
 		meta.setDisplayName(color + "§l" + this.getPet().getArdor() + color + " " + rp.translateString("ardor point", "point") + (this.getPet().getArdor() > 1 ? "s" : "") + rp.translateString("", " d'ardeur"));
@@ -127,7 +127,7 @@ public class PetDistinctionsMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getPatience(){
-		ItemStack item = new ItemStack(Material.INK_SACK, this.getPet().getPatience() > 0 ? (this.getPet().getPatience() > 64 ? 64 : this.getPet().getPatience()) : 1, (short)2);
+		ItemStack item = new ItemStack(Material.CACTUS_GREEN, this.getPet().getPatience() > 0 ? (this.getPet().getPatience() > 64 ? 64 : this.getPet().getPatience()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = this.getPet().getPatience() > 0 ? "§2" : "§4";
 		meta.setDisplayName(color + "§l" + this.getPet().getPatience() + color + " " + rp.translateString("patience point", "point") + (this.getPet().getPatience() > 1 ? "s" : "") + rp.translateString("", " de patience"));
@@ -136,7 +136,7 @@ public class PetDistinctionsMenu extends UIHandler {
 		return item;
 	}
 	private ItemStack getAcuity(){
-		ItemStack item = new ItemStack(Material.INK_SACK, this.getPet().getAcuity() > 0 ? (this.getPet().getAcuity() > 64 ? 64 : this.getPet().getAcuity()) : 1, (short)5);
+		ItemStack item = new ItemStack(Material.PURPLE_DYE, this.getPet().getAcuity() > 0 ? (this.getPet().getAcuity() > 64 ? 64 : this.getPet().getAcuity()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = this.getPet().getAcuity() > 0 ? "§2" : "§4";
 		meta.setDisplayName(color + "§l" + this.getPet().getAcuity() + color + " " + rp.translateString("acuity point", "point") + (this.getPet().getAcuity() > 1 ? "s" : "") + rp.translateString("", " d'acuité"));

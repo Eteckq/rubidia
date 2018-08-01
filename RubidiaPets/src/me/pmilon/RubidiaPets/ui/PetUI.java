@@ -137,8 +137,8 @@ public class PetUI extends UIHandler{
 	        			  else if(color.equals(DyeColor.ORANGE))color = DyeColor.PINK;
 	        			  else if(color.equals(DyeColor.PINK))color = DyeColor.PURPLE;
 	        			  else if(color.equals(DyeColor.PURPLE))color = DyeColor.RED;
-	        			  else if(color.equals(DyeColor.RED))color = DyeColor.SILVER;
-	        			  else if(color.equals(DyeColor.SILVER))color = DyeColor.WHITE;
+	        			  else if(color.equals(DyeColor.RED))color = DyeColor.LIGHT_GRAY;
+	        			  else if(color.equals(DyeColor.LIGHT_GRAY))color = DyeColor.WHITE;
 	        			  else if(color.equals(DyeColor.WHITE))color = DyeColor.YELLOW;
 	        			  else if(color.equals(DyeColor.YELLOW))color = DyeColor.BLACK;
 	        			  
@@ -191,7 +191,7 @@ public class PetUI extends UIHandler{
 	}
 
 	private ItemStack getName(){
-		  ItemStack name = new ItemStack(Material.EMPTY_MAP);
+		  ItemStack name = new ItemStack(Material.MAP);
 		    ItemMeta im = name.getItemMeta();
 		    im.setDisplayName(rp.translateString("§e§lRENAME", "§e§lRENOMMER"));
 		    im.setLore(Arrays.asList("§7" + rp.translateString("Give it a flashy name","Donnez-lui un nom à sa hauteur"), "§7" + rp.translateString("using minecraft color codes!","en utilisant les codes couleurs minecraft !")));
@@ -234,7 +234,7 @@ public class PetUI extends UIHandler{
 		return pearls;
 	}
 	private ItemStack getPearls(){
-		ItemStack pearls = new ItemStack(Material.EYE_OF_ENDER, 1);
+		ItemStack pearls = new ItemStack(Material.ENDER_EYE, 1);
 		ItemMeta pearlsm = pearls.getItemMeta();
 		pearlsm.setDisplayName("§a§l" + rp.translateString("PEARLS","PERLES"));
 		pearls.setItemMeta(pearlsm);

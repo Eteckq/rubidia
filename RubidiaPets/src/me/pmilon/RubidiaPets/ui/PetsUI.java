@@ -11,7 +11,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import me.pmilon.RubidiaCore.ritems.general.SpawnEgg;
 import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaPets.pets.Pearl;
@@ -37,7 +36,7 @@ public class PetsUI extends ListMenuUIHandler<Pet> {
 
 	@Override
 	protected ItemStack getItem(Pet pet) {
-		ItemStack stack = new SpawnEgg(pet.getType()).toItemStack();
+		ItemStack stack = new ItemStack(Material.valueOf(pet.getType().toString() + "_SPAWN_EGG"), 1);
 		ItemMeta meta = stack.getItemMeta();
 		meta.setDisplayName("§f" + pet.getName());
 		List<String> lore = new ArrayList<String>();

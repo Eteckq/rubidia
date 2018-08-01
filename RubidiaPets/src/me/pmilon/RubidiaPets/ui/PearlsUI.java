@@ -143,7 +143,7 @@ public class PearlsUI extends UIHandler {
 	protected boolean openWindow() {
 		for(int i = 0;i < this.getPet().getActivePearls().size();i++){
 			Pearl pearl = this.getPet().getActivePearls().get(i);
-			ItemStack stack = new ItemStack(Material.EYE_OF_ENDER, 1);
+			ItemStack stack = new ItemStack(Material.ENDER_EYE, 1);
 			ItemMeta meta = stack.getItemMeta();
 			String lvl = "";
 			for(int j = 0;j < pearl.getAmplifier();j++){
