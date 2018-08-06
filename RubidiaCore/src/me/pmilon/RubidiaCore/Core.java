@@ -101,6 +101,7 @@ import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.JSONUtils;
 import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
 import me.pmilon.RubidiaMonsters.RubidiaMonstersPlugin;
 import me.pmilon.RubidiaMonsters.regions.Monsters;
@@ -119,6 +120,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
@@ -126,6 +128,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -196,9 +199,6 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.domains.DefaultDomain;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-
-import de.slikey.effectlib.util.ParticleEffect;
-import de.slikey.effectlib.util.ParticleEffect.BlockData;
 
 public class Core extends JavaPlugin implements Listener {
 	
@@ -1082,7 +1082,7 @@ public class Core extends JavaPlugin implements Listener {
 					public void onCancel() {
 					}
 					
-				}.runTaskLater(Utils.random.nextInt(6*20)+9*20);
+				}.runTaskLater(RandomUtils.random.nextInt(6*20)+9*20);
 			}
 			return true;
 		}
@@ -1403,7 +1403,7 @@ public class Core extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onPing(ServerListPingEvent event){
 		event.setMaxPlayers(playersMax+1);
-		if(Utils.random.nextBoolean()){
+		if(RandomUtils.random.nextBoolean()){
 			Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
 			if(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
 				event.setMotd("             §5>>>  §d§lSAMED'XP DE FOLIE§5  <<<\n                             §dXP ×2");
@@ -1553,33 +1553,33 @@ public class Core extends JavaPlugin implements Listener {
 		return list;
 	}
 	
-	public static void playAnimEffect(ParticleEffect particle, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount, BlockData data){
+	public static void playAnimEffect(Particle particle, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount, BlockData data){
 		for(Player player : Bukkit.getOnlinePlayers()){
 			Core.playAnimEffect(particle, player, location, offSetX, offSetY, offSetZ, speed, amount, data);
 		}
 	}
 	
-	public static void playAnimEffect(ParticleEffect particle, Player player, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount, BlockData data){
+	public static void playAnimEffect(Particle particle, Player player, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount, BlockData data){
 		if(player.getWorld().equals(location.getWorld()) && player.getLocation().distanceSquared(location) <= 2304/*range 48*/){
 			if(RPlayer.get(player).getEffects()){
-				if(particle.getRequiresData()){
-					particle.display(data, offSetX, offSetY, offSetZ, speed, amount, location, player);
-				}else particle.display(offSetX, offSetY, offSetZ, speed, amount, location, player);
+				if(particle == Particle.BLOCK_CRACK || particle == Particle.BLOCK_DUST || particle == Particle.FALLING_DUST){
+					player.spawnParticle(particle, location, amount, offSetX, offSetY, offSetZ, speed, data);
+				}else player.spawnParticle(particle, location, amount, offSetX, offSetY, offSetZ, speed);
 			}
 		}
 	}
 	
-	public static void playAnimEffect(ParticleEffect particle, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount){
+	public static void playAnimEffect(Particle particle, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount){
 		for(Player player : Bukkit.getOnlinePlayers()){
 			Core.playAnimEffect(particle, player, location, offSetX, offSetY, offSetZ, speed, amount);
 		}
 	}
 	
-	public static void playAnimEffect(ParticleEffect particle, Player player, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount){
+	public static void playAnimEffect(Particle particle, Player player, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount){
 		if(player.getWorld().equals(location.getWorld()) && player.getLocation().distanceSquared(location) <= 2304/*range 48*/){
 			if(RPlayer.get(player).getEffects()){
-				if(!particle.getRequiresData()){
-					particle.display(offSetX, offSetY, offSetZ, speed, amount, location, player);
+				if(!(particle == Particle.BLOCK_CRACK || particle == Particle.BLOCK_DUST || particle == Particle.FALLING_DUST)){
+					player.spawnParticle(particle, location, amount, offSetX, offSetY, offSetZ, speed);
 				}
 			}
 		}
@@ -2141,7 +2141,7 @@ public class Core extends JavaPlugin implements Listener {
 
 			@Override
 			public void run() {
-				String[] announce = getConfig().getStringList("announcements").get(Utils.random.nextInt(getConfig().getStringList("announcements").size())).split("--");
+				String[] announce = getConfig().getStringList("announcements").get(RandomUtils.random.nextInt(getConfig().getStringList("announcements").size())).split("--");
 				String message = "\n   §e" + announce[0];
 				if(announce.length > 1){
 					message += "\n            §8>> §7§l" + announce[1];

@@ -12,6 +12,7 @@ import me.pmilon.RubidiaPets.ui.PetUI;
 import me.pmilon.RubidiaPets.utils.Settings;
 
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
@@ -31,8 +32,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 public class EventsHandler implements Listener {
 
@@ -107,7 +106,7 @@ public class EventsHandler implements Listener {
 												pet.setHealth(pet.getHealth()+Settings.HEALTH_PER_FOOD);
 												pet.getEntity().setHealth(pet.getEntity().getHealth()+Settings.HEALTH_PER_FOOD);
 											}
-											ParticleEffect.HEART.display(.4F, 1.0F, .4F, 1F, 9, pet.getEntity().getLocation(), 32.0);
+											pet.getEntity().getWorld().spawnParticle(Particle.HEART, pet.getEntity().getLocation(), 9, .4, 1, .4);
 											item.setAmount(item.getAmount()-1);
 											if(item.getAmount() < 1)e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 										}

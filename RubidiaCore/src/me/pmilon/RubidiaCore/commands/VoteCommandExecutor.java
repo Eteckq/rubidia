@@ -3,15 +3,14 @@ package me.pmilon.RubidiaCore.commands;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.commands.abstracts.PlayerCommandExecutor;
-import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
+import me.pmilon.RubidiaCore.utils.VectorUtils;
 import me.pmilon.RubidiaCore.votes.Vote;
 import me.pmilon.RubidiaCore.votes.Votes;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-
-import de.slikey.effectlib.util.VectorUtils;
 
 public class VoteCommandExecutor extends PlayerCommandExecutor {
 
@@ -84,7 +83,7 @@ public class VoteCommandExecutor extends PlayerCommandExecutor {
 									public void run() {
 										if(target.isOnline()){
 											if(target.getHealth() > 1)target.damage(1);
-											target.setVelocity(VectorUtils.rotateVector(target.getEyeLocation().getDirection().multiply(.75).setY(.03), Utils.random.nextInt(45)*(Utils.random.nextBoolean() ? -1 : 1), 0));
+											target.setVelocity(VectorUtils.rotateVector(target.getEyeLocation().getDirection().multiply(.75).setY(.03), RandomUtils.random.nextInt(45)*(RandomUtils.random.nextBoolean() ? -1 : 1), 0));
 											for(Player po : Bukkit.getOnlinePlayers()){
 												po.playSound(po.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1, 1);
 												RPlayer.get(po).sendMessage("§6" + target.getName() + " §ehas been slammed!", "§6" + target.getName() + " §ea reçu une claque !");

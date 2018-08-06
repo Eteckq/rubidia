@@ -15,6 +15,7 @@ import me.pmilon.RubidiaCore.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -37,8 +38,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 public class AbilitiesListener implements Listener{
 
@@ -129,8 +128,8 @@ public class AbilitiesListener implements Listener{
 						if(entity.hasMetadata("Minion")){
 							if(entity.getMetadata("Minion").get(0).asString().equals(p.getName())){
 								entity.remove();
-					            Core.playAnimEffect(ParticleEffect.CLOUD, entity.getLocation(), .5F, .5F, .5F, .1F, 23);
-					            Core.playAnimEffect(ParticleEffect.LAVA, entity.getLocation(), .5F, .5F, .5F, .1F, 8);
+					            Core.playAnimEffect(Particle.CLOUD, entity.getLocation(), .5F, .5F, .5F, .1F, 23);
+					            Core.playAnimEffect(Particle.LAVA, entity.getLocation(), .5F, .5F, .5F, .1F, 8);
 					            entity.getWorld().playSound(entity.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, .8F, 1);
 								rp.setActiveAbility(7, false);
 							}

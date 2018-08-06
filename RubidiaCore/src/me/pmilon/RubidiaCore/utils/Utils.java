@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
@@ -31,8 +30,6 @@ import org.bukkit.util.Vector;
 public class Utils {
 
 	public static final long MILLIS_IN_YEAR = 31556952000L;
-	
-	public static final Random random = new Random();
 
 	public static int defineEnchantmentCost(Player p, ItemStack item, Map<Enchantment, Integer> enchantms, int level){
 		String m = item.getType().toString();

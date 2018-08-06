@@ -5,7 +5,7 @@ import java.util.List;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSpawnEntityWeather;
 import me.pmilon.RubidiaCore.utils.Locations;
-import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,7 +30,7 @@ public class FakeLightning {
 	
 	public void display(Location location, List<Entity> entities){
 		WrapperPlayServerSpawnEntityWeather packet = new WrapperPlayServerSpawnEntityWeather();
-		packet.setEntityID(Utils.random.nextInt(200));
+		packet.setEntityID(RandomUtils.random.nextInt(200));
 		packet.setType(1);
 		packet.setX(location.getBlockX());
 		packet.setY(location.getBlockY());

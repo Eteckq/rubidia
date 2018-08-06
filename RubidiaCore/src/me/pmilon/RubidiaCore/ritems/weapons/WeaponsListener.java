@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
@@ -28,8 +29,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.projectiles.ProjectileSource;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
@@ -124,7 +123,7 @@ public class WeaponsListener implements Listener {
 											
 											if(rp.canAttackMagic){
 												rp.canAttackMagic = false;
-										        new MageAttack(player, is, critical).start();
+										        new MageAttack(player, is, critical).run();
 												new BukkitTask(Core.instance){
 													public void run(){
 														rp.canAttackMagic = true;
@@ -157,7 +156,7 @@ public class WeaponsListener implements Listener {
 														this.cancel();
 													}else{
 														if(critical){
-															ParticleEffect.CRIT_MAGIC.display(0, 0, 0, 0, 1, arrow.getLocation(), 32);
+															arrow.getLocation().getWorld().spawnParticle(Particle.CRIT_MAGIC, arrow.getLocation(), 1, 0, 0, 0);
 														}
 													}
 												}

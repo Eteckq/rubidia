@@ -41,12 +41,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
-import de.slikey.effectlib.EffectManager;
-
 public class QuestsPlugin extends JavaPlugin {
 
 	public static QuestsPlugin instance;
-	public static EffectManager effectManager;
 	public static PNJManager pnjManager;
 	public static QuestListener listener;
 	public static ConsoleCommandSender console;
@@ -63,7 +60,6 @@ public class QuestsPlugin extends JavaPlugin {
 
 	public void onEnable(){
 		instance = this;
-		effectManager = new EffectManager(this);
 		console = Bukkit.getConsoleSender();
 		
 		console.sendMessage("§a   Loading Quests...");

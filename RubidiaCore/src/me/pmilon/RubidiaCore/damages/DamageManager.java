@@ -14,7 +14,7 @@ import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.ritems.weapons.WeaponUse;
 import me.pmilon.RubidiaCore.ritems.weapons.Piercing.PiercingType;
 import me.pmilon.RubidiaCore.utils.Settings;
-import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaGuilds.guilds.Relation;
 import me.pmilon.RubidiaGuilds.raids.Raid;
@@ -25,6 +25,7 @@ import me.pmilon.RubidiaPets.pets.Pets;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -38,8 +39,6 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 @SuppressWarnings("deprecation")
 public class DamageManager {
@@ -99,7 +98,7 @@ public class DamageManager {
     	if(rItem.isWeapon()){
 	    	Weapon weapon = rItem.getWeapon();
 	    	if(weapon != null){
-	    		double points = Utils.random.nextInt(weapon.getMaxDamages()-weapon.getMinDamages())+weapon.getMinDamages()+Utils.random.nextDouble();
+	    		double points = RandomUtils.random.nextInt(weapon.getMaxDamages()-weapon.getMinDamages())+weapon.getMinDamages()+RandomUtils.random.nextDouble();
 	    		if(average)points = (weapon.getMaxDamages()+weapon.getMinDamages())*.5;
 				Map<Enchantment, Integer> enchants = item.getEnchantments();
 			    for(Enchantment enchant : enchants.keySet()){
@@ -204,9 +203,9 @@ public class DamageManager {
 		
 		Monster monster = Monsters.entities.get(damager);
 		if(critical || monster != null){
-			if(Utils.random.nextInt(100) < 20+(rp != null ? rp.getCriticalStrikeChanceFactor()*100 : -10)){
+			if(RandomUtils.random.nextInt(100) < 20+(rp != null ? rp.getCriticalStrikeChanceFactor()*100 : -10)){
 				damages *= rp != null ? rp.getCriticalStrikeDamagesFactor() : 2.0;
-				Core.playAnimEffect(ParticleEffect.CRIT, damaged.getLocation().add(0,1,0), .2F, .2F, .2F, .5F, 44);
+				Core.playAnimEffect(Particle.CRIT, damaged.getLocation().add(0,1,0), .2F, .2F, .2F, .5F, 44);
 			}
 		}
 		
@@ -241,7 +240,7 @@ public class DamageManager {
 					GMember member = GMember.get(player);
 					
 					if(!member.hasGuild() || !mtarget.hasGuild()){
-						ParticleEffect.BARRIER.display(.25F, .75F, .25F, 1, 1, pdamaged.getLocation().add(0,1,0), player);
+						player.spawnParticle(Particle.BARRIER, pdamaged.getLocation().add(0,1,0), 1, .25, .75, .25);
 						rpDamager.sendActionBar("§4§lHey! §cYou can only attack players during a raid!", "§4§lHey ! §cVous ne pouvez attaquer des joueurs que durant une offensive !");
 						return false;
 					}else if(mtarget.getGuild().isRaiding()){
@@ -249,7 +248,7 @@ public class DamageManager {
 						Relation offRelation = member.getGuild().getRelationTo(raid.getOffensive());
 						Relation defRelation = member.getGuild().getRelationTo(raid.getDefensive());
 						if(!raid.isStarted()){
-							ParticleEffect.BARRIER.display(.25F, .75F, .25F, 1, 1, pdamaged.getLocation().add(0,1,0), player);
+							player.spawnParticle(Particle.BARRIER, pdamaged.getLocation().add(0,1,0), 1, .25, .75, .25);
 							if(mtarget.getGuild().equals(raid.getDefensive()) && (offRelation.equals(Relation.ALLY) || offRelation.equals(Relation.MEMBER)) || mtarget.getGuild().equals(raid.getOffensive()) && (defRelation.equals(Relation.ALLY) || defRelation.equals(Relation.MEMBER))){
 								rpDamager.sendActionBar("§4§lHey! §cRaid against guild §4§l" + mtarget.getGuild().getName() + " §chas not yet started!", "§4§lHey ! §cL'offensive contre la guilde §4§l" + mtarget.getGuild().getName() + " §cn'a pas encore débuté !");
 								return false;
@@ -262,7 +261,7 @@ public class DamageManager {
 							return false;
 						}
 					}else{
-						ParticleEffect.BARRIER.display(.25F, .75F, .25F, 1, 1, pdamaged.getLocation().add(0,1,0), player);
+						player.spawnParticle(Particle.BARRIER, pdamaged.getLocation().add(0,1,0), 1, .25, .75, .25);
 						rpDamager.sendActionBar("§4§lHey! §cYou can only attack players during a raid!", "§4§lHey ! §cVous ne pouvez attaquer des joueurs que durant une offensive !");
 						return false;
 					}
@@ -274,7 +273,7 @@ public class DamageManager {
 		}
 		
 		if(!cause.equals(RDamageCause.ABILITY)){
-			if(Utils.random.nextInt(1000) < (rpDamaged != null ? rpDamaged.getBlockChanceFactor()*1000 : 25)){
+			if(RandomUtils.random.nextInt(1000) < (rpDamaged != null ? rpDamaged.getBlockChanceFactor()*1000 : 25)){
 				if(rpDamager != null){
 					if(rpDamaged == null)rpDamager.sendActionBar("§cTarget has blocked your attack!", "§cLa cible a bloqué votre attaque !");
 					else rpDamager.sendActionBar("§c" + rpDamaged.getName() + " blocked your attack!", "§c" + rpDamaged.getName() + " a bloqué votre attaque !");
@@ -284,7 +283,7 @@ public class DamageManager {
 					else rpDamaged.sendActionBar("§aYou blocked " + rpDamager.getName() + "'s attack!", "§aVous avez bloqué l'attaque de " + rpDamager.getName() + " !");
 				}
 				damaged.setNoDamageTicks(12);
-				Core.playAnimEffect(ParticleEffect.SLIME, damaged.getLocation().add(0,1,0), .3F, .3F, .3F, .5F, 50);
+				Core.playAnimEffect(Particle.SLIME, damaged.getLocation().add(0,1,0), .3F, .3F, .3F, .5F, 50);
 				damaged.getWorld().playSound(damaged.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 2);
 				return false;
 			}
@@ -307,7 +306,7 @@ public class DamageManager {
 						Weapon weapon = rItem.getWeapon();
 						if(weapon != null){
 							if(weapon.isAttack()){
-								damages = (Utils.random.nextInt(weapon.getMaxDamages()-weapon.getMinDamages())+weapon.getMinDamages()+Utils.random.nextDouble());
+								damages = (RandomUtils.random.nextInt(weapon.getMaxDamages()-weapon.getMinDamages())+weapon.getMinDamages()+RandomUtils.random.nextDouble());
 								if(average)damages = (weapon.getMaxDamages()+weapon.getMinDamages())*.5;
 								if(!weapon.getWeaponUse().toString().contains(cause.toString())){
 									damages = 0;

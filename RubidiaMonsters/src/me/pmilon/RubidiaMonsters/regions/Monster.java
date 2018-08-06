@@ -30,6 +30,7 @@ import net.minecraft.server.v1_13_R1.EntityInsentient;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.craftbukkit.v1_13_R1.entity.CraftEntity;
 import org.bukkit.enchantments.Enchantment;
@@ -41,9 +42,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import de.slikey.effectlib.util.ParticleEffect;
-import de.slikey.effectlib.util.ParticleEffect.BlockData;
 
 public class Monster {
 
@@ -138,7 +136,6 @@ public class Monster {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public Monster spawn(final Location location, int level, boolean enraged){
 		level += (RubidiaMonstersPlugin.random.nextBoolean() ? 1 : -1)*RubidiaMonstersPlugin.random.nextInt(3);
 		this.setEnraged(enraged);
@@ -150,8 +147,7 @@ public class Monster {
 		entity.setRemoveWhenFarAway(false);
 		entity.setNoDamageTicks(50);
 		entity.setGravity(false);
-		Location block = location.clone().add(0,-1,0);
-		final BlockData data = new BlockData(block.getBlock().getType(), block.getBlock().getData());
+		final Location blockLocation = location.clone().add(0,-1,0);
 		new BukkitTask(RubidiaMonstersPlugin.instance){
 
 			@Override
@@ -163,7 +159,7 @@ public class Monster {
 					@Override
 					public void run() {
 						entity.teleport(entity.getLocation().add(0,step,0), TeleportCause.PLUGIN);
-						Core.playAnimEffect(ParticleEffect.BLOCK_CRACK, location, .5F, .5F, .5F, 1, 3, data);
+						Core.playAnimEffect(Particle.BLOCK_CRACK, location, .5F, .5F, .5F, 1, 3, blockLocation.getBlock().getBlockData());
 					}
 
 					@Override

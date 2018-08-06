@@ -17,6 +17,7 @@ import net.minecraft.server.v1_13_R1.World;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.command.ConsoleCommandSender;
@@ -25,8 +26,6 @@ import org.bukkit.craftbukkit.v1_13_R1.CraftWorld;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 public class RandomChestsPlugin extends JavaPlugin{
 
@@ -123,7 +122,7 @@ public class RandomChestsPlugin extends JavaPlugin{
 			@Override
 			public void run(){
 				if(chest.getLocation().getBlock().hasMetadata("luckyChest")){
-					Core.playAnimEffect(ParticleEffect.CRIT, Locations.getCenter(chest.getLocation()).add(0,.5,0), .3F, .3F, .3F, .3F, 30);
+					Core.playAnimEffect(Particle.CRIT, Locations.getCenter(chest.getLocation()).add(0,.5,0), .3F, .3F, .3F, .3F, 30);
 				}else this.cancel();
 			}
 

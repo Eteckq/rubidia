@@ -10,11 +10,13 @@ import me.pmilon.RubidiaCore.packets.WrapperPlayServerRelEntityMove;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSpawnEntityLiving;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 import net.minecraft.server.v1_13_R1.ChatMessage;
 import net.minecraft.server.v1_13_R1.EntityArmorStand;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.craftbukkit.v1_13_R1.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -25,9 +27,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 
-import de.slikey.effectlib.util.ParticleEffect;
-import de.slikey.effectlib.util.ParticleEffect.BlockData;
-
 public class GamePlayEffectsHandler implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
@@ -37,7 +36,7 @@ public class GamePlayEffectsHandler implements Listener {
 			for(final Player player : Core.toPlayerList(damaged.getNearbyEntities(16, 16, 16))){
 				RPlayer rp = RPlayer.get(player);
 				if(rp.getCombatLevel() > 1){
-					Location location = damaged.getLocation().add(new Vector(Utils.random.nextDouble(),-.5,Utils.random.nextDouble()));
+					Location location = damaged.getLocation().add(new Vector(RandomUtils.random.nextDouble(),-.5,RandomUtils.random.nextDouble()));
 					EntityArmorStand stand1 = new EntityArmorStand(((CraftWorld)player.getWorld()).getHandle());
 					stand1.setLocation(0, 0, 0, 0, 0);
 					stand1.setCustomName(new ChatMessage("§c-" + Math.round(e.getDamages())));
@@ -76,7 +75,7 @@ public class GamePlayEffectsHandler implements Listener {
 					if(rp.getCombatLevel() > 2){
 						new BukkitTask(Core.instance){
 							public void run(){
-								Core.playAnimEffect(ParticleEffect.BLOCK_CRACK, damaged.getLocation().add(0,.6,0), .3F, .5F, .3F, 1, 40, new BlockData(Material.REDSTONE_BLOCK, (byte)0));
+								Core.playAnimEffect(Particle.BLOCK_CRACK, damaged.getLocation().add(0,.6,0), .3F, .5F, .3F, 1, 40, Material.REDSTONE_BLOCK.createBlockData());
 								Random r = new Random();
 								for(int i = 0;i < r.nextInt(4)+3;i++){
 									ItemStack stack = new ItemStack(Material.REDSTONE);

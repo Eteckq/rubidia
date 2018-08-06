@@ -2,11 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaGuilds-1.12.jar"/>
-	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaWG-1.12.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/WorldEdit.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/WorldGuard.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/spigot.jar"/>
-	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaCore-1.12.jar"/>
+	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaCore-1.13.jar"/>
+	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaGuilds-1.13.jar"/>
+	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaWG-1.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

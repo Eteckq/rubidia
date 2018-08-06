@@ -16,6 +16,7 @@ import me.pmilon.RubidiaPets.pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -26,8 +27,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 public class TeleportHandler implements Listener{
 
@@ -142,10 +141,10 @@ public class TeleportHandler implements Listener{
 	
 	public static void teleport(final Entity e, Location location) {
 		if(e != null){
-	    	Core.playAnimEffect(ParticleEffect.PORTAL, e.getLocation(), .5F, .5F, .5F, 1, 100);
+	    	Core.playAnimEffect(Particle.PORTAL, e.getLocation(), .5F, .5F, .5F, 1, 100);
 			handleVehicleTeleportation(e, location);
 			e.teleport(location);
-	    	Core.playAnimEffect(ParticleEffect.PORTAL, location, .5F, .5F, .5F, 1, 100);
+	    	Core.playAnimEffect(Particle.PORTAL, location, .5F, .5F, .5F, 1, 100);
 		}
 	}
 

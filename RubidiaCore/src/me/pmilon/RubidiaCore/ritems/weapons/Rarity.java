@@ -1,6 +1,6 @@
 package me.pmilon.RubidiaCore.ritems.weapons;
 
-import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 public enum Rarity {
 	
@@ -39,11 +39,11 @@ public enum Rarity {
 	}
 	
 	public static Rarity random(Rarity... rarities){
-		int id = Utils.random.nextInt(1000);
-		Rarity rarity = rarities[Utils.random.nextInt(rarities.length)];
+		int id = RandomUtils.random.nextInt(1000);
+		Rarity rarity = rarities[RandomUtils.random.nextInt(rarities.length)];
 		while(rarity == null || id > rarity.getFactor()*1000){
-			id = Utils.random.nextInt(1000);
-			rarity = rarities[Utils.random.nextInt(rarities.length)];
+			id = RandomUtils.random.nextInt(1000);
+			rarity = rarities[RandomUtils.random.nextInt(rarities.length)];
 		}
 		return rarity;
 	}

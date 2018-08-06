@@ -10,6 +10,7 @@ import me.pmilon.RubidiaGuilds.guilds.GMember;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -17,8 +18,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 public class WorldRegenHandler implements Listener {
 
@@ -49,7 +48,7 @@ public class WorldRegenHandler implements Listener {
 							int time = 0;
 							public void run(){
 								if(time < 5){
-									Core.playAnimEffect(ParticleEffect.VILLAGER_HAPPY, player.getLocation().add(0,1,0), .3F, .3F, .3F, 1, 50);
+									Core.playAnimEffect(Particle.VILLAGER_HAPPY, player.getLocation().add(0,1,0), .3F, .3F, .3F, 1, 50);
 									LevelUtils.firework(player.getLocation());
 								}else if(fireworkFinish.containsKey(player)){
 									Bukkit.getScheduler().cancelTask(fireworkFinish.get(player));

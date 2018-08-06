@@ -11,6 +11,7 @@ import me.pmilon.RubidiaCore.ritems.general.RItem;
 import me.pmilon.RubidiaCore.ritems.weapons.REnchantment;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -90,7 +91,7 @@ public class EnchantmentUI extends UIHandler {
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
 				RPlayer rp = RPlayer.get(p);
-				Enchantment enchant = available.get(Utils.random.nextInt(available.size()));
+				Enchantment enchant = available.get(RandomUtils.random.nextInt(available.size()));
 			    int level = this.getLevel(e.getRawSlot());
 			    int elvl = this.getEnchantmentIntervalLevel(level);
 				int bLevel = this.getMaxBookshelfLevel();
@@ -177,10 +178,10 @@ public class EnchantmentUI extends UIHandler {
 		return 0;
 	}
 	private int getEnchantmentIntervalLevel(int level){
-		if(level == 1)return Utils.random.nextInt(2)+1;
-		else if(level == 2)return Utils.random.nextInt(3)+1;
-		else if(level == 3)return Utils.random.nextInt(3)+2;
-		else if(level >= 4)return Utils.random.nextInt(2)+4;
+		if(level == 1)return RandomUtils.random.nextInt(2)+1;
+		else if(level == 2)return RandomUtils.random.nextInt(3)+1;
+		else if(level == 3)return RandomUtils.random.nextInt(3)+2;
+		else if(level >= 4)return RandomUtils.random.nextInt(2)+4;
 		return 0;
 	}
 	

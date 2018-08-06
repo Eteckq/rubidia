@@ -9,6 +9,7 @@ import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaMonsters.events.MonsterKillEvent;
 import me.pmilon.RubidiaMonsters.regions.Monster;
 
@@ -47,7 +48,7 @@ public class ItemListener implements Listener {
 		}
 		
 		for(RItemStack drop : RItemStacks.ITEMS){
-			if(Utils.random.nextInt(drop.getDropRarity()) < 1){
+			if(RandomUtils.random.nextInt(drop.getDropRarity()) < 1){
 				ItemStack dropItem = drop.getItemStack();
 				dropItem.setAmount(dropItem.getAmount()*lootFactor);
 				entity.getWorld().dropItemNaturally(entity.getLocation(), dropItem);
@@ -55,7 +56,7 @@ public class ItemListener implements Listener {
 			}
 		}
 		
-		int rarityProb = Utils.random.nextInt(1000000);
+		int rarityProb = RandomUtils.random.nextInt(1000000);
 		Rarity rarity = null;
 		for(int i = Rarity.values().length-1;i >= 0;i--){
 			rarity = Rarity.values()[i];
@@ -64,14 +65,14 @@ public class ItemListener implements Listener {
 			}
 		}
 		
-		int probability = Utils.random.nextInt(1000000);
+		int probability = RandomUtils.random.nextInt(1000000);
 		List<Weapon> weaponsLevel = Weapons.getByLevel(monster.getLevel(), (int) (6+(monster.getLevel()/30.0)));
 		List<Weapon> weaponsRarity = Weapons.getByRarity(rarity);
 		List<Weapon> available = Utils.mergeLists(weaponsLevel, weaponsRarity);
 		Collections.shuffle(available);
 		for(Weapon weapon : available){
 			if(weapon.getDropChance()*1000000/Settings.GLOBAL_WEAPON_DROP_REDUCTION > probability){
-				int supp = Utils.random.nextInt(100);
+				int supp = RandomUtils.random.nextInt(100);
 				int suppLevel = 0;
 				if(supp >= 49)suppLevel++;
 				if(supp >= 74)suppLevel++;

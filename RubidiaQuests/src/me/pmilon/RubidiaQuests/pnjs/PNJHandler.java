@@ -33,6 +33,7 @@ import net.minecraft.server.v1_13_R1.PathfinderGoalSelector;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.craftbukkit.v1_13_R1.entity.CraftEntity;
 import org.bukkit.entity.ArmorStand;
@@ -45,8 +46,6 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 public abstract class PNJHandler {
 
@@ -376,7 +375,7 @@ public abstract class PNJHandler {
 			for(Player player : Core.toPlayerList(this.getEntity().getNearbyEntities(16, 16, 16))){
 				RPlayer rp = RPlayer.get(player);
 				Quest qst = null;
-				ParticleEffect effect = null;
+				Particle particle = null;
 				List<Quest> quests = rp.getQuestsOfType(ObjectiveType.TALK, ObjectiveType.GET, ObjectiveType.LEASH);
 				if(!quests.isEmpty()){
 					for(Quest quest : quests){
@@ -412,25 +411,25 @@ public abstract class PNJHandler {
 					}
 				}
 				if(qst != null){
-					effect = ParticleEffect.SPELL_INSTANT;
+					particle = Particle.SPELL_INSTANT;
 				}else{
 					if(this instanceof QuestPNJ){
 						QuestPNJ pnjQ = (QuestPNJ)this;
 						qst = pnjQ.getActiveQuest(rp);
 						if(qst != null){
-							if(qst.hasFinished(rp))effect = ParticleEffect.DRIP_LAVA;
-							else effect = ParticleEffect.WATER_WAKE;
+							if(qst.hasFinished(rp))particle = Particle.DRIP_LAVA;
+							else particle = Particle.WATER_WAKE;
 						}else{
 							qst = pnjQ.getAvailableQuest(rp);
 							if(qst != null){
-								if(qst.isMain())effect = ParticleEffect.CRIT_MAGIC;
-								else effect = ParticleEffect.VILLAGER_HAPPY;
+								if(qst.isMain())particle = Particle.CRIT_MAGIC;
+								else particle = Particle.VILLAGER_HAPPY;
 							}
 						}
 					}
 				}
-				if(effect != null){
-					effect.display(.25F, .6F, .25F, 0, 8, this.getEntity().getLocation().add(0,.75,0), player);
+				if(particle != null){
+					player.spawnParticle(particle, this.getEntity().getLocation().add(0,.75,0), 8, .25, .6, .25, 0);
 				}
 			}
 		}

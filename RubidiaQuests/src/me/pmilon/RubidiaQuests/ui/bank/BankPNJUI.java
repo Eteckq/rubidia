@@ -16,6 +16,7 @@ import me.pmilon.RubidiaCore.handlers.EconomyHandler;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.pnjs.BankPNJ;
 
@@ -101,7 +102,7 @@ public class BankPNJUI extends UIHandler {
 	}
 
 	private ItemStack getRandomChange(){
-		ItemStack item = new ItemStack(Utils.random.nextBoolean() ? Material.EMERALD : Material.EMERALD_BLOCK, Utils.random.nextInt(64)+1);
+		ItemStack item = new ItemStack(RandomUtils.random.nextBoolean() ? Material.EMERALD : Material.EMERALD_BLOCK, RandomUtils.random.nextInt(64)+1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6§lChange");
 		meta.setLore(Arrays.asList("§7" + rp.translateString("Change " + EconomyHandler.EMERALD_BLOCK_VALUE + " emeralds into 1 emerald block (and vice versa)","Changer " + EconomyHandler.EMERALD_BLOCK_VALUE + " émeraudes en 1 bloc d'émeraude (et vice versa)")));

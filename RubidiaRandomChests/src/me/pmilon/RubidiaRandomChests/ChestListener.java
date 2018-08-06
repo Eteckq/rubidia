@@ -6,12 +6,14 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.utils.Locations;
 import me.pmilon.RubidiaCore.utils.Sounds;
+import me.pmilon.RubidiaCore.utils.VectorUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -31,9 +33,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
-
-import de.slikey.effectlib.util.ParticleEffect;
-import de.slikey.effectlib.util.VectorUtils;
 
 public class ChestListener implements Listener {
 
@@ -91,8 +90,8 @@ public class ChestListener implements Listener {
 											VectorUtils.rotateAroundAxisY(v2, .2);
 											v.add(new Vector(0,.1,0));
 											v2.add(new Vector(0,.1,0));
-											Core.playAnimEffect(ParticleEffect.NOTE, origin.clone().add(v), 0, 0, 0, 0, 0);
-											Core.playAnimEffect(ParticleEffect.NOTE, origin.clone().add(v2), 0, 0, 0, 0, 0);
+											Core.playAnimEffect(Particle.NOTE, origin.clone().add(v), 0, 0, 0, 0, 0);
+											Core.playAnimEffect(Particle.NOTE, origin.clone().add(v2), 0, 0, 0, 0, 0);
 										}
 									}, i/2);
 								}

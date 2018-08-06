@@ -6,9 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
@@ -148,7 +147,7 @@ public class Claims{
 						for(Block block : blocks){
 							if(block.getChunk().equals(newClaim.getChunk())){
 								Location location = Locations.getSafeLocation(block.getLocation());
-								Core.playAnimEffect(ParticleEffect.SPELL_WITCH, location, .25F, .5F, .25F, .5F, 21);
+								Core.playAnimEffect(Particle.SPELL_WITCH, location, .25F, .5F, .25F, .5F, 21);
 							}
 						}
 					}
@@ -195,7 +194,7 @@ public class Claims{
 						for(Block block : blocks){
 							if(block.getChunk().equals(unclaim.getChunk())){
 								Location location = Locations.getSafeLocation(block.getLocation());
-								Core.playAnimEffect(ParticleEffect.SPELL_INSTANT, location, .25F, .5F, .25F, .5F, 21);
+								Core.playAnimEffect(Particle.SPELL_INSTANT, location, .25F, .5F, .25F, .5F, 21);
 							}
 						}
 					}

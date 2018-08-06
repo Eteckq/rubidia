@@ -4,6 +4,7 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaQuests.ui.bank.SafeUI;
 
 import org.bukkit.Material;

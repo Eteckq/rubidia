@@ -15,7 +15,7 @@ import me.pmilon.RubidiaCore.RChat.RChatUtils;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.Settings;
-import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 public class RDuel {
 
@@ -183,15 +183,15 @@ public class RDuel {
 												int baseY2 = p2.getLocation().getBlockY();
 												for(Location location : locations){
 													if(getChallenger().getEffects()){
-														Location location1 = location.clone().add(0,baseY1-location.getY()+3+Utils.random.nextDouble(),0);
+														Location location1 = location.clone().add(0,baseY1-location.getY()+3+RandomUtils.random.nextDouble(),0);
 														if(location1.distanceSquared(p1.getLocation()) <= 81){
-															Settings.DUEL_WALL_PARTICLE.display(new Vector(0,-1,0), Utils.random.nextFloat()*.2F, location1, p1);
+															p1.spawnParticle(Settings.DUEL_WALL_PARTICLE, location1, 1, 0, -1, 0, RandomUtils.random.nextDouble()*.2);
 														}
 													}
 													if(getChallenged().getEffects()){
-														Location location2 = location.clone().add(0,baseY2-location.getY()+3+Utils.random.nextDouble(),0);
+														Location location2 = location.clone().add(0,baseY2-location.getY()+3+RandomUtils.random.nextDouble(),0);
 														if(location2.distanceSquared(p2.getLocation()) <= 81){
-															Settings.DUEL_WALL_PARTICLE.display(new Vector(0,-1,0), Utils.random.nextFloat()*.2F, location2, p2);
+															p2.spawnParticle(Settings.DUEL_WALL_PARTICLE, location2, 1, 0, -1, 0, RandomUtils.random.nextDouble()*.2);
 														}
 													}
 												}

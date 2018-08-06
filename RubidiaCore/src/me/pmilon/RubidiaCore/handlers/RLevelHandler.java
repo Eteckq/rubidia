@@ -20,6 +20,7 @@ import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -162,10 +163,10 @@ public class RLevelHandler implements Listener{
 					ItemStack[] inventory = new ItemStack[event.getInventoryDrops().length];
 					ItemStack[] armor = new ItemStack[event.getArmorDrops().length];
 					List<Integer> nums = new ArrayList<Integer>();
-					int slot = slots.get(Utils.random.nextInt(slots.size()));
+					int slot = slots.get(RandomUtils.random.nextInt(slots.size()));
 					for(int i = 0;i < slots.size()*.34;i++){
 						while(nums.contains(slot)){
-							slot = slots.get(Utils.random.nextInt(slots.size()));
+							slot = slots.get(RandomUtils.random.nextInt(slots.size()));
 						}
 						nums.add(slot);
 						ItemStack item;
@@ -176,7 +177,7 @@ public class RLevelHandler implements Listener{
 								ItemMeta meta = item.getItemMeta();
 								if(meta.hasEnchant(REnchantment.SOUL_BIND)){
 									int level = meta.getEnchantLevel(REnchantment.SOUL_BIND);
-									if(Utils.random.nextInt(100) < level*20)continue;//keeping it
+									if(RandomUtils.random.nextInt(100) < level*20)continue;//keeping it
 								}
 							}
 						}

@@ -23,9 +23,8 @@ import me.pmilon.RubidiaGuilds.utils.Settings;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 public class Guild {
 
@@ -181,10 +180,10 @@ public class Guild {
 			
 			RPlayer rp = RPlayer.get(member);
 			if(rp.isOnline()){
-				Core.playAnimEffect(ParticleEffect.REDSTONE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 0, 100);
-				Core.playAnimEffect(ParticleEffect.SLIME, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
-				Core.playAnimEffect(ParticleEffect.ENCHANTMENT_TABLE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
-				Core.playAnimEffect(ParticleEffect.TOWN_AURA, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
+				Core.playAnimEffect(Particle.REDSTONE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 0, 100);
+				Core.playAnimEffect(Particle.SLIME, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
+				Core.playAnimEffect(Particle.ENCHANTMENT_TABLE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
+				Core.playAnimEffect(Particle.TOWN_AURA, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
 			}
 		}
 	}
@@ -353,10 +352,10 @@ public class Guild {
 		for(GMember member : this.getMembers()){
 			RPlayer rp = RPlayer.get(member);
 			if(rp.isOnline()){
-				Core.playAnimEffect(ParticleEffect.REDSTONE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 0, 100);
-				Core.playAnimEffect(ParticleEffect.SLIME, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
-				Core.playAnimEffect(ParticleEffect.ENCHANTMENT_TABLE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
-				Core.playAnimEffect(ParticleEffect.TOWN_AURA, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
+				Core.playAnimEffect(Particle.REDSTONE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 0, 100);
+				Core.playAnimEffect(Particle.SLIME, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
+				Core.playAnimEffect(Particle.ENCHANTMENT_TABLE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
+				Core.playAnimEffect(Particle.TOWN_AURA, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
 			}
 			member.setGuild(Guild.getNone());
 			member.setRank(Guild.getNone().getDefaultRank());

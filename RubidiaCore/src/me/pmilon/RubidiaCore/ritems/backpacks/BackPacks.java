@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.utils.Configs;
-import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 public class BackPacks {
 
@@ -57,7 +57,7 @@ public class BackPacks {
 	}
 	
 	public static String randomBID(){
-		int bidr = Utils.random.nextInt((int) Math.pow(10, BID_LENGTH));
+		int bidr = RandomUtils.random.nextInt((int) Math.pow(10, BID_LENGTH));
 		String bid = String.valueOf(bidr);
 		String plus = "";
 		if(bid.length() < BID_LENGTH){

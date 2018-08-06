@@ -1,63 +1,28 @@
 package me.pmilon.RubidiaCore.mage;
 
-import de.slikey.effectlib.Effect;
-import de.slikey.effectlib.EffectManager;
-import de.slikey.effectlib.EffectType;
-import de.slikey.effectlib.util.ParticleEffect;
-
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-public class MageMeteor extends Effect {
+public class MageMeteor extends BukkitTask {
 	
-    public ParticleEffect particle = ParticleEffect.EXPLOSION_HUGE;
-    public int zigZags = 5;
+	private final Location origin;
+	private final Location target;
+	
+    public MageMeteor(Location origin, Location target) {
+		super(Core.instance);
+		this.origin = origin;
+		this.target = target;
+	}
+    
     public int particles = 2;
-    protected int step = 0;
     
     public Player player;
-
-    public MageMeteor(EffectManager effectManager) {
-        super(effectManager);
-        type = EffectType.INSTANT;
-        period = 5;
-        iterations = 200;
-    }
-
-    @Override
-    public void onRun() {
-        Location location = getLocation();
-        Location target = getTarget();
-        if (target == null) {
-            cancel();
-            return;
-        }
-        Vector link = target.toVector().subtract(location.toVector());
-        float length = (float) link.length();
-        link.normalize();
-
-        float ratio = length / particles;
-        final Vector v = link.multiply(ratio);
-        final Location loc = location.clone().subtract(v);
-        
-        new BukkitTask(Core.instance){
-
-			@Override
-			public void run() {
-                loc.add(v);
-                Core.playAnimEffect(particle, loc, 0, 0, 0, 1, 1);
-			}
-
-			@Override
-			public void onCancel() {
-			}
-        	
-        }.runTaskTimerCancelling(0, 2, particles*2);
-    }
+    
     public void setPlayer(Player en){
     	if(en != null){
     		player = en;
@@ -65,4 +30,37 @@ public class MageMeteor extends Effect {
     		player = null;
     	}
     }
+    
+	@Override
+	public void run() {
+        if (target == null) {
+            cancel();
+            return;
+        }
+        Vector link = target.toVector().subtract(origin.toVector());
+        float length = (float) link.length();
+        link.normalize();
+
+        float ratio = length / particles;
+        final Vector v = link.multiply(ratio);
+        final Location loc = origin.clone().subtract(v);
+        
+        new BukkitTask(Core.instance){
+
+			@Override
+			public void run() {
+                loc.add(v);
+                Core.playAnimEffect(Particle.EXPLOSION_HUGE, loc, 0, 0, 0, 1, 1);
+			}
+
+			@Override
+			public void onCancel() {
+			}
+        	
+        }.runTaskTimerCancelling(0, 2, particles*2);
+	}
+	
+	@Override
+	public void onCancel() {
+	}
 }

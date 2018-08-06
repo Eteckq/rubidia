@@ -1,10 +1,8 @@
 package me.pmilon.RubidiaMonsters.regions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.Locations;
 import me.pmilon.RubidiaGuilds.claims.Claim;
 import me.pmilon.RubidiaMonsters.RubidiaMonstersPlugin;
@@ -14,10 +12,7 @@ import me.pmilon.RubidiaMonsters.dungeons.Dungeons;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 public class Region {
 	
@@ -59,7 +54,6 @@ public class Region {
 	
 	public List<Monster> entities = new ArrayList<Monster>();
 	
-	public HashMap<Player, BukkitTask> watchersTasks = new HashMap<Player, BukkitTask>();
 	public Region(String UUID, Location center, double xRange, double yRange, double zRange, List<Monster> monsters, boolean square, int minLevel, int maxLevel, double yShift, boolean fadingLevel, int maxMonstersAmount, double rageProbability, String dungeonUUID, RegionType type){
 		this.UUID = UUID;
 		this.center = center;
@@ -175,51 +169,6 @@ public class Region {
 		if(location.getY() < yMin)return this.getRandomSpawnLocation(monster);
 		if(location.getBlock().getType().toString().contains("SNOW"))return location.add(0,1,0);
 		return location;
-	}
-	
-	public void showPlayer(final Player player){
-		this.stopShowingPlayer(player);
-		player.sendMessage("§eNo showing this region");
-		this.watchersTasks.put(player, new BukkitTask(RubidiaMonstersPlugin.getInstance()){
-			@Override
-			public void run(){
-				double y = player.getLocation().getY()-1.4;
-				if(getSize() <= 512 && player.isOnline()){
-					if(isSquare()){
-						for(double x = -getXRange()/2;x < getXRange()/2;x+=.5){
-							ParticleEffect.REDSTONE.display(0, 0, 0, 0, 1, new Location(player.getWorld(), getCenter().getX()+x, y, getCenter().getZ()+getZRange()/2), player);
-							ParticleEffect.REDSTONE.display(0, 0, 0, 0, 1, new Location(player.getWorld(), getCenter().getX()+x, y, getCenter().getZ()-getZRange()/2), player);
-						}
-						for(double z = -getZRange()/2;z < getZRange()/2;z+=.5){
-							ParticleEffect.REDSTONE.display(0, 0, 0, 0, 1, new Location(player.getWorld(), getCenter().getX()+getXRange()/2, y, getCenter().getZ()+z), player);
-							ParticleEffect.REDSTONE.display(0, 0, 0, 0, 1, new Location(player.getWorld(), getCenter().getX()-getXRange()/2, y, getCenter().getZ()+z), player);
-						}
-					}else{
-						for(double teta = 0;teta < 360;teta+=124/getSize()){
-							double rad = Math.toRadians(teta);
-							double x = getCenter().getX() + (getXRange()/2)*Math.cos(rad);
-							double z = getCenter().getZ() + (getZRange()/2)*Math.sin(rad);
-							ParticleEffect.REDSTONE.display(0, 0, 0, 0, 1, new Location(player.getWorld(), x, y, z), player);
-						}
-					}
-				}else{
-					this.cancel();
-					player.sendMessage("§eSize is too big!");
-				}
-			}
-
-			@Override
-			public void onCancel() {
-				player.sendMessage("§eNo longer showing this region");
-			}
-		}.runTaskTimer(0, 20));
-	}
-	
-	public void stopShowingPlayer(Player player){
-		if(this.watchersTasks.containsKey(player)){
-			this.watchersTasks.get(player).cancel();
-			this.watchersTasks.remove(player);
-		}
 	}
 
 	public boolean isSquare() {

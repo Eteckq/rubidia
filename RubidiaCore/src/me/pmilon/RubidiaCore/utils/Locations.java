@@ -13,6 +13,7 @@ import org.bukkit.util.Vector;
 
 public class Locations {
 
+	@SuppressWarnings("deprecation")
 	public static Location getSafeLocation(Location location){
 		Block block = location.getBlock();
 		if(block.getType().isTransparent()){

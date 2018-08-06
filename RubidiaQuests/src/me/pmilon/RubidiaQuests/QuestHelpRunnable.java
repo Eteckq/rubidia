@@ -15,12 +15,11 @@ import me.pmilon.RubidiaQuests.quests.ObjectiveType;
 import me.pmilon.RubidiaQuests.quests.Quest;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 public class QuestHelpRunnable extends BukkitTask {
 
@@ -142,8 +141,8 @@ public class QuestHelpRunnable extends BukkitTask {
 						        if(getPlayer().getWorld().equals(loc.getWorld())){
 						        	for(int p = 0;p < particles;p++){
 							            loc.add(v);
-							            ParticleEffect.DRIP_WATER.display(0, 0, 0, 0, 1, loc, getPlayer());
-							            ParticleEffect.FLAME.display(0, 0, 0, 0, 1, loc, getPlayer());
+							            getPlayer().spawnParticle(Particle.DRIP_WATER, loc, 1, 0, 0, 0);
+							            getPlayer().spawnParticle(Particle.FLAME, loc, 1, 0, 0, 0);
 						        	}
 						        }
 			        		}

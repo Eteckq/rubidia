@@ -49,6 +49,7 @@ import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaPets.pets.Pet;
 import me.pmilon.RubidiaQuests.QuestHelpRunnable;
@@ -69,6 +70,7 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.attribute.Attribute;
@@ -91,8 +93,6 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
-
-import de.slikey.effectlib.util.ParticleEffect;
 
 public class RPlayer {
 	
@@ -376,7 +376,7 @@ public class RPlayer {
 		}
 		if(this.isOnline()){
 			this.getPlayer().playSound(this.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-			Core.playAnimEffect(ParticleEffect.VILLAGER_HAPPY, this.getPlayer().getLocation().add(0,1,0), .4F, .4F, .4F, 1, 60);
+			Core.playAnimEffect(Particle.VILLAGER_HAPPY, this.getPlayer().getLocation().add(0,1,0), .4F, .4F, .4F, 1, 60);
 			NameTags.update();
 		}
 	}
@@ -1381,7 +1381,7 @@ public class RPlayer {
 				@Override
 				public void run() {
 					if(isOnline()){
-						Core.playAnimEffect(ParticleEffect.HEART, getPlayer().getLocation().add(0,.5,0), .2F, .3F, .2F, 0, 4);
+						Core.playAnimEffect(Particle.HEART, getPlayer().getLocation().add(0,.5,0), .2F, .3F, .2F, 0, 4);
 					}
 				}
 
@@ -1425,11 +1425,11 @@ public class RPlayer {
 
 							@Override
 							public void run() {
-								double angle = Utils.random.nextDouble()*Math.PI*2;
+								double angle = RandomUtils.random.nextDouble()*Math.PI*2;
 								Firework f1 = getPlayer().getWorld().spawn(location.clone().add(.4*Math.cos(angle), .25, .4*Math.sin(angle)), Firework.class);
 								FireworkMeta fm1 = f1.getFireworkMeta();
 								fm1.addEffect(effect);
-								fm1.setPower(Utils.random.nextInt(3));
+								fm1.setPower(RandomUtils.random.nextInt(3));
 								f1.setFireworkMeta(fm1);
 							}
 

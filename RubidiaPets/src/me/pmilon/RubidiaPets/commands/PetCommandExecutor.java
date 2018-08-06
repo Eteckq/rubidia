@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaPets.pets.Pearl;
 import me.pmilon.RubidiaPets.pets.Pet;
 import me.pmilon.RubidiaPets.pets.Pets;
@@ -48,7 +48,7 @@ public class PetCommandExecutor implements CommandExecutor {
 						if(type != null && type.getEntityClass() != null && Creature.class.isAssignableFrom(type.getEntityClass())){
 							String name;
 							if(args.length > 2)name = args[2];
-							else name = "PET" + Utils.random.nextInt(10000);
+							else name = "PET" + RandomUtils.random.nextInt(10000);
 							Pet rppet = null;
 							for(Pet pet : rp.getPets()){
 								if(pet.getName().equals(name)){

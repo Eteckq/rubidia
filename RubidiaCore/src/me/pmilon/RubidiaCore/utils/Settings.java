@@ -3,7 +3,7 @@ package me.pmilon.RubidiaCore.utils;
 import java.util.Arrays;
 import java.util.List;
 
-import de.slikey.effectlib.util.ParticleEffect;
+import org.bukkit.Particle;
 
 public class Settings {
 	
@@ -80,7 +80,7 @@ public class Settings {
 	public final static int COMPETITIVE_DUEL_WIN_RENOM_MAX = 50;
 	public final static double COMPETITIVE_DUEL_FACTOR_POWER = .8;
 	public final static double COMPETITIVE_DUEL_FACTOR_BONUS = .01;
-	public final static ParticleEffect DUEL_WALL_PARTICLE = ParticleEffect.DRAGON_BREATH;
+	public final static Particle DUEL_WALL_PARTICLE = Particle.DRAGON_BREATH;
 	
 	public static int SHOUT_LIMIT = 5;
 	

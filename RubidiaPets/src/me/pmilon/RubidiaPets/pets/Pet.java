@@ -8,7 +8,7 @@ import me.pmilon.RubidiaCore.handlers.TeleportHandler;
 import me.pmilon.RubidiaCore.tags.TagStand;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.ReflectionUtils;
-import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaMonsters.pathfinders.PathfinderGoalMeleeAttack;
 import me.pmilon.RubidiaPets.PetsPlugin;
 import me.pmilon.RubidiaPets.pathfindergoals.PathfinderGoalAttack;
@@ -185,7 +185,7 @@ public class Pet {
 	@SuppressWarnings("rawtypes")
 	public void spawn(Player owner){
 		this.owner = owner;
-		Creature pet = (Creature) owner.getWorld().spawnEntity(owner.getLocation().add(new Vector(Utils.random.nextDouble(),0,Utils.random.nextDouble()).normalize().multiply(2.5)), this.getType());
+		Creature pet = (Creature) owner.getWorld().spawnEntity(owner.getLocation().add(new Vector(RandomUtils.random.nextDouble(),0,RandomUtils.random.nextDouble()).normalize().multiply(2.5)), this.getType());
 		EntityCreature creature = ((CraftCreature)pet).getHandle();
 		
 		((LinkedHashSet)ReflectionUtils.getPrivateField("b", PathfinderGoalSelector.class, creature.targetSelector)).clear();
@@ -354,7 +354,7 @@ public class Pet {
 			}
 			if(this.getEntity().getTarget() == null || this.getEntity().getTarget().isDead() || !this.getEntity().getTarget().isValid()){
 				if(this.getEntity().isValid() && !this.getEntity().isDead()){
-					Location location = this.getOwner().getLocation().add(new Vector(Utils.random.nextDouble(), 0, Utils.random.nextDouble()).normalize().multiply(Utils.random.nextInt(3)*Utils.random.nextDouble()+1.9));
+					Location location = this.getOwner().getLocation().add(new Vector(RandomUtils.random.nextDouble(), 0, RandomUtils.random.nextDouble()).normalize().multiply(RandomUtils.random.nextInt(3)*RandomUtils.random.nextDouble()+1.9));
 					if(this.getEntity().getWorld().equals(this.getOwner().getWorld())){
 						double distance = this.getEntity().getLocation().distanceSquared(this.getOwner().getLocation());
 						if(this.canMove()){

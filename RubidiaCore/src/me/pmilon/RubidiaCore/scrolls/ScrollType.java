@@ -12,7 +12,7 @@ import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.ui.FriendCallUI;
 import me.pmilon.RubidiaCore.ui.FriendTPUI;
 import me.pmilon.RubidiaCore.utils.Configs;
-import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -55,8 +55,8 @@ public enum ScrollType {
 
 						@Override
 						public void run() {
-							x = (p.getWorld().getSpawnLocation().getBlockX()+Utils.random.nextInt(2300)+500)*(Utils.random.nextBoolean() ? -1 : 1);
-							z = (p.getWorld().getSpawnLocation().getBlockZ()+Utils.random.nextInt(2300)+500)*(Utils.random.nextBoolean() ? -1 : 1);
+							x = (p.getWorld().getSpawnLocation().getBlockX()+RandomUtils.random.nextInt(2300)+500)*(RandomUtils.random.nextBoolean() ? -1 : 1);
+							z = (p.getWorld().getSpawnLocation().getBlockZ()+RandomUtils.random.nextInt(2300)+500)*(RandomUtils.random.nextBoolean() ? -1 : 1);
 							if(p.getWorld().loadChunk((int) (x/16.0), (int) (z/16.0), true)){
 								yb = p.getWorld().getHighestBlockAt(x, z);
 								if(!nospawn.contains(yb.getType()) && yb.getType().isBlock()){

@@ -10,6 +10,7 @@ import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 public class Weapons {
 	
@@ -265,7 +266,7 @@ public class Weapons {
 		}
 		
 		if(available.size() > 0){
-			return available.get(Utils.random.nextInt(available.size()));
+			return available.get(RandomUtils.random.nextInt(available.size()));
 		}
 		return null;
 	}
@@ -276,9 +277,9 @@ public class Weapons {
 			rarities = Weapons.filterAvailableRarities(available, rarities);
 			if(rarities.length > 0){
 				Rarity rarity = Rarity.random(rarities);
-				Weapon weapon = available.get(Utils.random.nextInt(available.size()));
+				Weapon weapon = available.get(RandomUtils.random.nextInt(available.size()));
 				while(!weapon.getRarity().equals(rarity)){
-					weapon = available.get(Utils.random.nextInt(available.size()));
+					weapon = available.get(RandomUtils.random.nextInt(available.size()));
 				}
 				return weapon;
 			}
@@ -295,9 +296,9 @@ public class Weapons {
 			rarities = Weapons.filterAvailableRarities(available, rarities);
 			if(rarities.length > 0){
 				Rarity rarity = Rarity.random(rarities);
-				Weapon weapon = available.get(Utils.random.nextInt(available.size()));
+				Weapon weapon = available.get(RandomUtils.random.nextInt(available.size()));
 				while(!weapon.getRarity().equals(rarity)){
-					weapon = available.get(Utils.random.nextInt(available.size()));
+					weapon = available.get(RandomUtils.random.nextInt(available.size()));
 				}
 				return weapon;
 			}
