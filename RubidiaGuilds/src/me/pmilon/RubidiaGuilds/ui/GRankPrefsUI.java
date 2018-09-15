@@ -42,9 +42,9 @@ public class GRankPrefsUI extends UIHandler {
 	private ItemStack ITEM_OFFER = new ItemStack(Material.EXPERIENCE_BOTTLE, 1);
 	private ItemStack ITEM_MOBSDAMAGE = new ItemStack(Material.EGG, 1);
 	
-	ItemStack ITEM_DISABLED = new ItemStack(Material.GRAY_DYE, 1, (short)8);
-	ItemStack ITEM_ENABLED = new ItemStack(Material.LIME_DYE, 1, (short)10);
-	ItemStack ITEM_INFO = new ItemStack(Material.MAGENTA_DYE, 1, (short)13);
+	ItemStack ITEM_DISABLED = new ItemStack(Material.GRAY_DYE, 1);
+	ItemStack ITEM_ENABLED = new ItemStack(Material.LIME_DYE, 1);
+	ItemStack ITEM_INFO = new ItemStack(Material.MAGENTA_DYE, 1);
 
 	private int SLOT_BACK = 0;
 	private int SLOT_NEXT = 8;

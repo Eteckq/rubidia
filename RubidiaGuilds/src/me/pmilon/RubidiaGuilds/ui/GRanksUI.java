@@ -153,7 +153,7 @@ public class GRanksUI extends UIHandler {
 				
 				if(ok){
 					ItemStack temp = this.getHolder().getInventory().getItemInMainHand();
-					ItemStack item = temp.hasItemMeta() ? temp.clone() : new ItemStack(temp.getType(), 1, temp.getDurability());
+					ItemStack item = temp.hasItemMeta() ? temp.clone() : new ItemStack(temp.getType());
 					item.setAmount(1);
 					ItemMeta meta = item.getItemMeta();
 					meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);

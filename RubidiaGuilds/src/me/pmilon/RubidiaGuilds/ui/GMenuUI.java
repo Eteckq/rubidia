@@ -88,7 +88,7 @@ public class GMenuUI extends UIHandler {
 					}else rp.sendMessage("§cYou must give leadership first!", "§cVous devez d'abord léguer la direction !");
 				}else if(slot == this.SLOT_DISBAND){
 					if(gm.isLeader() || rp.isOp()){
-						Core.uiManager.requestUI(new GuildDisbandMenu(this.getHolder(), this.getGuild()));
+						Core.uiManager.requestUI(new GuildDisbandConfirmationUI(rp, this.getGuild()));
 					}else rp.sendMessage("§cYou must be leader to disband this guild!", "§cVous devez être chef pour dissoudre cette guilde !");
 				}
 			}

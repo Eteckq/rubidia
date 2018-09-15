@@ -38,7 +38,7 @@ public class GClaimsMenuUI extends UIHandler {
 	private ItemStack ITEM_CLAIMED;
 	private ItemStack ITEM_NOT_CLAIMED;
 	private ItemStack ITEM_SET = new ItemStack(Material.MAGENTA_DYE, 1);
-	private ItemStack ITEM_NOTSET = new ItemStack(Material.GRAY_DYE, 1, (short)8);
+	private ItemStack ITEM_NOTSET = new ItemStack(Material.GRAY_DYE, 1);
 	private ItemStack ITEM_UNAVAILABLE = new ItemStack(Material.BARRIER, 1);
 	private ItemStack ITEM_STARTRAID = new ItemStack(Material.GOLDEN_SWORD, 1);
 	

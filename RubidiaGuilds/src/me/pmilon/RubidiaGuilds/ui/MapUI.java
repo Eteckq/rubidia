@@ -12,12 +12,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
+import org.bukkit.util.Vector;
 
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
@@ -26,6 +21,7 @@ import me.pmilon.RubidiaGuilds.claims.Claim;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
 import me.pmilon.RubidiaGuilds.guilds.Relation;
 import me.pmilon.RubidiaWG.Flags;
+import me.pmilon.RubidiaWG.WGUtils;
 
 public class MapUI extends UIHandler {
 
@@ -99,10 +95,7 @@ public class MapUI extends UIHandler {
 			ItemMeta meta = null;
 			List<String> lore = new ArrayList<String>();
 			if(claim == null){
-				ProtectedCuboidRegion region = new ProtectedCuboidRegion("temp", new BlockVector(x*16,0,z*16), new BlockVector(x*16+15,255,z*16+15));
-				RegionManager mng = WorldGuardPlugin.inst().getRegionManager(chunk.getWorld());
-				ApplicableRegionSet set = mng.getApplicableRegions(region);
-				if(set.testState(null,Flags.CLAIM)){
+				if(WGUtils.testState(null, this.getHolder().getWorld(), new Vector(x*16,0,z*16), new Vector(x*16+15,255,z*16+15), Flags.CLAIM)){
 					item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 					meta = item.getItemMeta();
 					meta.setDisplayName("§f§l" + rp.translateString("Free territory", "Territoire libre"));
