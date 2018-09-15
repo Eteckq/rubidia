@@ -15,8 +15,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.LocalSession;
+import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.Selection;
 
 public class SecretPathsManager extends JavaPlugin implements Listener{
 	
@@ -70,29 +72,37 @@ public class SecretPathsManager extends JavaPlugin implements Listener{
 					if(args.length > 1){
 						if(args[0].equalsIgnoreCase("create")){
 							if(args.length > 3){
-								Selection sel = we.getSelection(p);
-								if(sel != null){
-									Location bottom = sel.getMinimumPoint();
-									Location top = sel.getMaximumPoint();
-									String title = "";
-									String subtitle = "";
-									boolean passed = false;
-									for(int i = 3;i < args.length;i++){
-										if(!args[i].equals("|")){
-											if(!passed){
-												if(i == 3)title += args[i];
-												else title += " " + args[i];
-											}else{
-												if(i == (args.length-1))subtitle += args[i];
-												else subtitle += args[i] + " ";
+								LocalSession session = we.getSession(p);
+								if(session != null) {
+									if(session.getSelectionWorld() != null) {
+										if(session.isSelectionDefined(session.getSelectionWorld())){
+											try {
+												Vector b = session.getSelection(session.getSelectionWorld()).getMinimumPoint();
+												Vector t = session.getSelection(session.getSelectionWorld()).getMaximumPoint();
+												Location bottom = new Location(p.getWorld(), b.getBlockX(), b.getBlockY(), b.getBlockZ());
+												Location top = new Location(p.getWorld(), t.getBlockX(), t.getBlockY(), t.getBlockZ());
+												String title = "";
+												String subtitle = "";
+												boolean passed = false;
+												for(int i = 3;i < args.length;i++){
+													if(!args[i].equals("|")){
+														if(!passed){
+															if(i == 3)title += args[i];
+															else title += " " + args[i];
+														}else{
+															if(i == (args.length-1))subtitle += args[i];
+															else subtitle += args[i] + " ";
+														}
+													}else passed = true;
+												}
+												SecretPathColl.paths.add(new SecretPath(args[1], title, subtitle, args[2], p.getLocation(), bottom, top));
+												rp.sendMessage("§aPortal §2" + args[1] + " §ahas been created!", "§aLe portail §2" + args[1] + " §aa été créé !");
+											} catch (IncompleteRegionException e) {
+												rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
 											}
-										}else passed = true;
-									}
-									SecretPathColl.paths.add(new SecretPath(args[1], title, subtitle, args[2], p.getLocation(), bottom, top));
-									rp.sendMessage("§aPortal §2" + args[1] + " §ahas been created!", "§aLe portail §2" + args[1] + " §aa été créé !");
-								}else{
-									rp.sendMessage("§cYou have not selected any region!", "§cVous n'avez pas sélectionné de région !");
-								}
+										}else rp.sendMessage("§cYou have not selected any region!", "§cVous n'avez pas sélectionné de région !");
+									}else rp.sendMessage("§cYou have not selected any region!", "§cVous n'avez pas sélectionné de région !");
+								}else rp.sendMessage("§cYou have not selected any region!", "§cVous n'avez pas sélectionné de région !");
 							}else{
 								rp.sendMessage("§cPlease use /portal create [Name] [toName/null] [title.../null + | + subtitle.../null]", "§cUtilisez /portal create [Nom] [NomCible/null] [title.../null + | + subtitle.../null]");
 							}

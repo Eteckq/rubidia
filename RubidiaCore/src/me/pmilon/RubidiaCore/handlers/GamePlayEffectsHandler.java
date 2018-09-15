@@ -11,13 +11,13 @@ import me.pmilon.RubidiaCore.packets.WrapperPlayServerSpawnEntityLiving;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
-import net.minecraft.server.v1_13_R1.ChatMessage;
-import net.minecraft.server.v1_13_R1.EntityArmorStand;
+import net.minecraft.server.v1_13_R2.ChatMessage;
+import net.minecraft.server.v1_13_R2.EntityArmorStand;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.craftbukkit.v1_13_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

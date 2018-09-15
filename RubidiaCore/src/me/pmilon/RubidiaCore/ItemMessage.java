@@ -123,7 +123,8 @@ public class ItemMessage {
 				// a snow layer is a good choice, since it's visually quite unobtrusive
 				stack = new ItemStack(emptyHandReplacement, 1);
 			} else {
-				stack = new ItemStack(stack0.getType(), stack0.getAmount(), stack0.getDurability());
+				stack = new ItemStack(stack0.getType(), stack0.getAmount());
+				stack.setData(stack0.getData());
 			}
 			ItemMeta meta = Bukkit.getItemFactory().getItemMeta(stack.getType());
 			// fool the client into thinking the item name has changed, so it actually (re)displays it

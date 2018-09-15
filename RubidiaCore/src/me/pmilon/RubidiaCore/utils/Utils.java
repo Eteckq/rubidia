@@ -140,7 +140,7 @@ public class Utils {
 	}
 
 	public static ItemStack setGlowingWithoutAttributes(ItemStack is){
-        /*net.minecraft.server.v1_13_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(is);
+        /*net.minecraft.server.v1_13_R2.ItemStack nmsStack = CraftItemStack.asNMSCopy(is);
         NBTTagCompound tag = null;
         if (!nmsStack.hasTag()) {
             tag = new NBTTagCompound();

@@ -68,7 +68,7 @@ public class ObjectivesEditionUI extends UIHandler {
 						Core.uiManager.requestUI(new ObjectivesEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
 					}else Core.uiManager.requestUI(new ObjectiveEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), objective));
 				}else{
-					objective = new Objective(QuestsPlugin.questColl, this.getQuest().getUUID(), slot, ObjectiveType.CRAFT, new ItemStack(Material.STONE, 1), Material.STONE, (short)0, Monsters.monsters.get(0).getUUID(), this.getHolder().getLocation(), "infoName", this.getPnj().getUniqueId(), this.getQuest().getUUID(), this.getPnj().getName(), 1, true, new ArrayList<String>(), new HashMap<String,Long[]>(), true);
+					objective = new Objective(QuestsPlugin.questColl, this.getQuest().getUUID(), slot, ObjectiveType.CRAFT, new ItemStack(Material.STONE, 1), Material.STONE, Monsters.monsters.get(0).getUUID(), this.getHolder().getLocation(), "infoName", this.getPnj().getUniqueId(), this.getQuest().getUUID(), this.getPnj().getName(), 1, true, new ArrayList<String>(), new HashMap<String,Long[]>(), true);
 					this.getQuest().getObjectives().add(objective);
 					Core.uiManager.requestUI(new ObjectiveEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), objective));
 				}

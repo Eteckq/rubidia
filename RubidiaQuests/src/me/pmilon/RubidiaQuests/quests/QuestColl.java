@@ -43,7 +43,27 @@ public class QuestColl extends Database<String,Quest> {
 							}
 						}
 						
-						Objective obj = new Objective(this, uuid, Integer.valueOf(objective), ObjectiveType.valueOf(Configs.getQuestsConfig().getString(path + ".type")), Configs.getQuestsConfig().getItemStack(path + ".itemStack"), Material.valueOf(Configs.getQuestsConfig().getString(path + ".material")), Short.valueOf((short) Configs.getQuestsConfig().getInt(path + ".data")), Configs.getQuestsConfig().getString(path + ".monsterUUID"), ((Location) Configs.getQuestsConfig().get(path + ".location")), Configs.getQuestsConfig().getString(path + ".infoName"), Configs.getQuestsConfig().getString(path + ".targetUUID"), Configs.getQuestsConfig().getString(path + ".sidequestUUID"), Configs.getQuestsConfig().getString(path + ".name"), Configs.getQuestsConfig().getInt(path + ".amount"), Configs.getQuestsConfig().getBoolean(path + ".takeItem"), Configs.getQuestsConfig().getStringList(path + ".dialogs"), scores, false);
+						Material material;
+						try {
+							material = Material.valueOf(Configs.getQuestsConfig().getString(path + ".material"));
+						} catch (Exception ex) {
+							material = Material.STONE;
+						}
+						
+						Objective obj = new Objective(this, uuid, Integer.valueOf(objective),
+								ObjectiveType.valueOf(Configs.getQuestsConfig().getString(path + ".type")),
+								Configs.getQuestsConfig().getItemStack(path + ".itemStack"),
+								material,
+								Configs.getQuestsConfig().getString(path + ".monsterUUID"),
+								((Location) Configs.getQuestsConfig().get(path + ".location")),
+								Configs.getQuestsConfig().getString(path + ".infoName"),
+								Configs.getQuestsConfig().getString(path + ".targetUUID"),
+								Configs.getQuestsConfig().getString(path + ".sidequestUUID"),
+								Configs.getQuestsConfig().getString(path + ".name"),
+								Configs.getQuestsConfig().getInt(path + ".amount"),
+								Configs.getQuestsConfig().getBoolean(path + ".takeItem"),
+								Configs.getQuestsConfig().getStringList(path + ".dialogs"),
+								scores, false);
 						objectives.add(obj);
 					}
 				}

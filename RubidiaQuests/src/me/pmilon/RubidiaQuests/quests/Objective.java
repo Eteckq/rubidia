@@ -32,7 +32,6 @@ public class Objective {
 	private ObjectiveType type;
 	private ItemStack itemStack;
 	private Material material;
-	private short data;
 	private int amount;
 	private Location location;
 	private String infoName;
@@ -47,7 +46,7 @@ public class Objective {
 	private boolean modified;
 	private RItem rItem = null;
 
-	public Objective(QuestColl coll, String questUUID, int index, ObjectiveType type, ItemStack itemStack, Material material, short data, String monsterUUID, Location location, String infoName, String targetUUID, String sidequestUUID, String name, int amount, boolean takeItem, List<String> dialogs, HashMap<String, Long[]> scores, boolean modified){
+	public Objective(QuestColl coll, String questUUID, int index, ObjectiveType type, ItemStack itemStack, Material material, String monsterUUID, Location location, String infoName, String targetUUID, String sidequestUUID, String name, int amount, boolean takeItem, List<String> dialogs, HashMap<String, Long[]> scores, boolean modified){
 		this.questUUID = questUUID;
 		this.index = index;
 		this.type = type;
@@ -63,18 +62,16 @@ public class Objective {
 		this.scores = scores;
 		this.takeItem = takeItem;
 		this.dialogs = dialogs;
-		this.data = data;
 		this.modified = modified;
 		if(this.getType().equals(ObjectiveType.TIME)){
 			coll.timedObjectives.add(this);
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	public boolean check(RPlayer rplayer, Block block){
 		if(this.isAvailable(rplayer)){
 			if(this.getType().equals(ObjectiveType.MINE)){
-				if(this.getMaterial().equals(block.getType()) && this.getData() == block.getData()){
+				if(this.getMaterial().equals(block.getType())){
 					int score = (int)this.getScore(rplayer);
 					if(score > 0){
 						this.setScore(rplayer, score-1);
@@ -275,7 +272,6 @@ public class Objective {
 			Configs.getQuestsConfig().set(path + ".type", this.getType().toString());
 			Configs.getQuestsConfig().set(path + ".itemStack", this.getItemStack());
 			Configs.getQuestsConfig().set(path + ".material", this.getMaterial().toString());
-			Configs.getQuestsConfig().set(path + ".data", Integer.valueOf(this.getData()));
 			Configs.getQuestsConfig().set(path + ".amount", this.getAmount());
 			Configs.getQuestsConfig().set(path + ".location", this.getLocation());
 			Configs.getQuestsConfig().set(path + ".infoName", this.getInfoName());
@@ -480,16 +476,6 @@ public class Objective {
 		this.infoName = infoName;
 		this.setModified(true);
 	}
-
-	public short getData() {
-		return data;
-	}
-
-	public void setData(short data) {
-		this.data = data;
-		this.setModified(true);
-	}
-
 	
 	public void delete(){
 		String path = this.getQuestPath() + "." + this.getIndex();

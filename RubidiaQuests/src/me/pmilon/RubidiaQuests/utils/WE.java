@@ -3,18 +3,19 @@ package me.pmilon.RubidiaQuests.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.regions.Region;
 
 public class WE {
 
-	public static List<Block> getBlocks(Selection selection){
+	public static List<Block> getBlocks(World world, Region region){
 		List<Block> blocks = new ArrayList<Block>();
 		
-		Location min = selection.getMinimumPoint();
-		Location max = selection.getMaximumPoint();
+		Vector min = region.getMinimumPoint();
+		Vector max = region.getMaximumPoint();
 		int xMin = min.getBlockX();
 		int yMin = min.getBlockY();
 		int zMin = min.getBlockZ();
@@ -26,7 +27,7 @@ public class WE {
 		for(int x = xMin;x <= xMax;x++){
 			for(int y = yMin;y <= yMax;y++){
 				for(int z = zMin;z <= zMax;z++){
-					blocks.add(max.getWorld().getBlockAt(x, y, z));
+					blocks.add(world.getBlockAt(x,y,z));
 				}
 			}
 		}

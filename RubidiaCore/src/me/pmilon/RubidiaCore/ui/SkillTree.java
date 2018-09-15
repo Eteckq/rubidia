@@ -20,7 +20,7 @@ import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Sound;
 import org.bukkit.Note.Tone;
-import org.bukkit.craftbukkit.v1_13_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;

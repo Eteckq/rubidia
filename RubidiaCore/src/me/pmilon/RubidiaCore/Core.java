@@ -53,7 +53,6 @@ import me.pmilon.RubidiaCore.duels.RDuelListener;
 import me.pmilon.RubidiaCore.events.RPlayerDeathEvent;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause.RTeleportType;
-import me.pmilon.RubidiaCore.handlers.EconomyHandler;
 import me.pmilon.RubidiaCore.handlers.EntityHandler;
 import me.pmilon.RubidiaCore.handlers.GamePlayEffectsHandler;
 import me.pmilon.RubidiaCore.handlers.HealthBarHandler;
@@ -99,7 +98,6 @@ import me.pmilon.RubidiaCore.ui.managers.UIManager;
 import me.pmilon.RubidiaCore.ui.weapons.WeaponsUI;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.JSONUtils;
-import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
@@ -112,6 +110,7 @@ import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.dialogs.DialogManager;
 import me.pmilon.RubidiaQuests.pnjs.PNJManager;
 import me.pmilon.RubidiaWG.Flags;
+import me.pmilon.RubidiaWG.WGUtils;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
@@ -127,7 +126,6 @@ import org.bukkit.World.Environment;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -148,7 +146,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -196,9 +193,6 @@ import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.domains.DefaultDomain;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 public class Core extends JavaPlugin implements Listener {
 	
@@ -1007,7 +1001,7 @@ public class Core extends JavaPlugin implements Listener {
 				}
 			}else if(cmd.getName().equalsIgnoreCase("beer")){
 				if(p.isOp()){
-					ItemStack beer = new ItemStack(Material.POTION, 1, (short)8227);
+					ItemStack beer = new ItemStack(Material.POTION);
 					ItemMeta beerm = beer.getItemMeta();
 					beerm.setDisplayName(rp.translateString("§rBeer","§rBière"));
 					beerm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
@@ -1098,6 +1092,7 @@ public class Core extends JavaPlugin implements Listener {
 				
 				if(e.getAction().toString().contains("RIGHT_CLICK")){
 					ItemStack item = p.getEquipment().getItemInMainHand();
+					if(item != null)System.out.print(item.getType().toString());
 					RItem rItem = new RItem(item);
 					if(rItem.isBackPack()){
 						e.setCancelled(true);
@@ -1110,7 +1105,7 @@ public class Core extends JavaPlugin implements Listener {
 							if(item.getAmount() < 1)p.getEquipment().setItemInMainHand(new ItemStack(Material.AIR));
 						}
 						Utils.updateInventory(p);
-					}else if(item.getType().equals(Material.GOLDEN_APPLE) && item.getDurability() == 1){
+					}else if(item.getType().equals(Material.ENCHANTED_GOLDEN_APPLE)){
 						e.setCancelled(true);
 						rp.sendMessage("§cCheating golden apple are not permitted on Rubidia.", "§cLes pommes d'or aux pouvoirs surpuissants sont interdites.");
 					}else{
@@ -1127,48 +1122,12 @@ public class Core extends JavaPlugin implements Listener {
 						if(clicked.getType().equals(Material.ENCHANTING_TABLE)){
 							if(!e.isCancelled()){
 								e.setCancelled(true);
-								ApplicableRegionSet set = wg.getRegionManager(clicked.getWorld()).getApplicableRegions(clicked.getLocation());
-								if(!set.testState(null, Flags.BLOCKS) && !p.isOp()){
+								if(!WGUtils.testState(p, clicked.getLocation(), Flags.BLOCKS)){
 									return;
 								}
 								
 								if(!p.getEquipment().getItemInMainHand().getType().equals(Material.AIR))uiManager.requestUI(new EnchantmentUI(clicked.getLocation().add(.5,0,.5), p));
 								else rp.sendMessage("§cPlease take an item in your hand to use the enchantment table.", "§cPrenez un item dans vos main pour utiliser la table d'enchantement.");
-							}
-						}else if(clicked.getType().toString().contains("SIGN")){
-							final Sign s = (Sign) clicked.getState();
-							if(s.getLine(0).contains("§8§l[§4§lA VENDRE§8§l]")){
-								if(s.getLine(1).contains("§8§l[§6§lVIP§8§l]")){
-									if(!rp.isVip()){
-										rp.sendMessage("§cYou must be §8§l[§6§lVIP§8§l] §r§cto buy this region!", "§cVous devez être §8§l[§6§lVIP§8§l] §r§cpour acheter cette région !");
-										return;
-									}
-								}
-								if(!s.getLine(2).contains("no region here")){
-									if(!s.getLine(3).contains("§aGratuit")){
-										String[] price = s.getLine(3).split("§a");
-										if(price.length == 2){
-											if(rp.getBalance() >= Integer.valueOf(price[1])){
-												EconomyHandler.withdrawBalanceITB(p, Integer.valueOf(price[1]));
-											}
-										}
-									}
-									DefaultDomain dd = new DefaultDomain();
-									dd.addPlayer(p.getUniqueId());
-									wg.getRegionManager(s.getWorld()).getRegion(s.getLine(2)).setOwners(dd);
-									s.setLine(0, rp.translateString("§8§l[§4§lSOLD§8§l]", "§8§l[§4§lVENDU§8§l]"));
-									s.setLine(2, rp.translateString("Congratulations!", "Félicitations !"));
-									s.setLine(3, rp.translateString("§aLet's build this!", "§aEn avant !"));
-									s.update();
-									LevelUtils.firework(s.getBlock().getLocation().add(0, 1, 0));
-									Bukkit.getScheduler().runTaskLater(this, new Runnable(){
-										public void run(){
-											s.getBlock().breakNaturally();
-										}
-									}, 80);
-								}else{
-									rp.sendMessage("§cPlease contact an Operator to buy this region.", "§cContactez un Opérateur afin d'acheter cette région.");
-								}
 							}
 						}else if(clicked.getType().equals(Material.BOOKSHELF) && !(p.isSneaking())){
 							e.setCancelled(true);
@@ -1301,38 +1260,6 @@ public class Core extends JavaPlugin implements Listener {
 				}else if(is.getType().equals(Material.SHIELD) && is.hasItemMeta()){
 					e.setCancelled(true);
 					rp.sendMessage("§cYou cannot customize your shield at the moment.", "§cVous ne pouvez pour le moment pas personnaliser votre bouclier.");
-				}
-			}
-		}
-	}
-	
-	@EventHandler
-	public void onSignCreate(SignChangeEvent e){
-		Player p = e.getPlayer();
-		if(e.getBlock().getType().toString().contains("SIGN")){
-			Sign s = (Sign) e.getBlock().getState();
-			for(int i = 0;i < e.getLines().length;i++){
-				e.setLine(i, ChatColor.translateAlternateColorCodes('&', e.getLines()[i]));
-			}
-			if(p.isOp()){
-				if(e.getLine(0).contains("RGSELL")){
-					ApplicableRegionSet rg = wg.getRegionManager(s.getWorld()).getApplicableRegions(s.getLocation());
-					ProtectedRegion tosell = null;
-					int priority = 999999999;
-					for(ProtectedRegion region : rg){
-						if(region.getPriority() < priority){
-							tosell = region;
-							priority = tosell.getPriority();
-						}
-					}
-					e.setLine(0, "§8§l[§4§lA VENDRE§8§l]");
-					e.setLine(1, e.getLine(1).isEmpty() ? "" : "§8§l[§6§lVIP§8§l]");
-					e.setLine(2, tosell == null ? "no region here" : tosell.getId());
-					try {
-						e.setLine(3, e.getLine(3).isEmpty() ? "§aGratuit" : "§8Prix : §a" + Integer.valueOf(e.getLine(3)));
-					} catch (Exception ex){
-						e.setLine(3, "§aGratuit");
-					}
 				}
 			}
 		}
@@ -1724,7 +1651,6 @@ public class Core extends JavaPlugin implements Listener {
 	@SuppressWarnings("deprecation")
 	public void onEnable(){
 		console = Bukkit.getConsoleSender();
-		REnchantment.registerEnchantments();
 		
 		wg = (WorldGuardPlugin) this.getServer().getPluginManager().getPlugin("WorldGuard");
 		we = (WorldEditPlugin) this.getServer().getPluginManager().getPlugin("WorldEdit");
@@ -1806,7 +1732,8 @@ public class Core extends JavaPlugin implements Listener {
 	    this.getCommand("rankings").setExecutor(new RankingsCommandExecutor());
 	    this.getCommand("vote").setExecutor(new VoteCommandExecutor());
 	    this.getCommand("rplayers").setExecutor(new RPlayersCommandExecutor());
-	    
+
+		REnchantment.registerEnchantments();
 	    AbilitiesAPI.onEnable(this);
 	    Events.onEnable(this);
 	    EntityHandler.onEnable(this);

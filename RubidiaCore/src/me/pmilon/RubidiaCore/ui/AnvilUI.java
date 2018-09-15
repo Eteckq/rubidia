@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -100,6 +101,7 @@ public class AnvilUI extends UIHandler {
 					p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 3, 3);
 					/*Random r = new Random();
 					if(r.nextInt(4) == 0){
+						BlockData data = ANVIL.getBlockData();
 						if(ANVIL.getData()+4 < 12){
 							ANVIL.setData((byte) (ANVIL.getData()+4));
 						}else{

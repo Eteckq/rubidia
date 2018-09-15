@@ -1,9 +1,10 @@
 name: RubidiaCore
-author: pmilon
-version: 1.9.2
+author: Rubilmax
+version: 2.0.1
+api-version: 1.13
 description: The Core plugin of Rubidias server.
 main: me.pmilon.RubidiaCore.Core
-softdepend: [ProtocolLib, EffectLib, WorldGuard, WorldEdit, Factions, RubidiaPets, RubidiaGuilds, RubidiaQuests, RubidiaMonsters]
+softdepend: [ProtocolLib, WorldGuard, WorldEdit, RubidiaPets, RubidiaGuilds, RubidiaQuests, RubidiaMonsters]
 commands:
   skilltree:
     description: Opens your Skill Tree.

@@ -172,10 +172,9 @@ public class ObjectiveEditionMenu extends UIHandler {
 					this.getObjective().setLocation(this.getHolder().getLocation());
 					this.getObjective().setInfoName(this.getMessage());
 				}else if(this.getListeningId() == this.LIST_ID_MAT){
-					if(this.getHolder().getItemInHand() != null){
-						if(!this.getHolder().getItemInHand().getType().equals(Material.AIR)){
-							this.getObjective().setMaterial(this.getHolder().getItemInHand().getType());
-							this.getObjective().setData(this.getHolder().getItemInHand().getData().getData());
+					if(this.getHolder().getEquipment().getItemInMainHand() != null){
+						if(!this.getHolder().getEquipment().getItemInMainHand().getType().equals(Material.AIR)){
+							this.getObjective().setMaterial(this.getHolder().getEquipment().getItemInMainHand().getType());
 							this.getObjective().setInfoName(this.getMessage());
 							this.menu.setItem(this.SLOT_MAT, this.getMat());
 						}
@@ -251,7 +250,7 @@ public class ObjectiveEditionMenu extends UIHandler {
 		return ITEM_LOC;
 	}
 	protected ItemStack getMat(){
-		ItemStack ITEM_MAT = new ItemStack(this.getObjective().getMaterial(), 1, this.getObjective().getData());
+		ItemStack ITEM_MAT = new ItemStack(this.getObjective().getMaterial(), 1);
 		ItemMeta meta = ITEM_MAT.getItemMeta();
 		meta.setDisplayName(this.getObjective().getMaterial().toString());
 		ITEM_MAT.setItemMeta(meta);

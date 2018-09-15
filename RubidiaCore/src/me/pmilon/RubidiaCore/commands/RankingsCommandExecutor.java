@@ -11,7 +11,10 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.LocalSession;
+import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.regions.Region;
 
 public class RankingsCommandExecutor extends HybridAdminCommandExecutor {
 
@@ -27,16 +30,24 @@ public class RankingsCommandExecutor extends HybridAdminCommandExecutor {
 						int i = Integer.valueOf(args[2]);
 						if(i > 0 && i < 4){
 							if(args[1].equalsIgnoreCase("level") || args[1].equalsIgnoreCase("renom") || args[1].equalsIgnoreCase("kills") || args[1].equalsIgnoreCase("money") || args[1].equalsIgnoreCase("claims") || args[1].equalsIgnoreCase("gamingtime")){
-								Selection sel = Core.we.getSelection(player);
-								if(sel != null){
-									Location bottom = sel.getMinimumPoint();
-									Location top = sel.getMaximumPoint();
-									if(bottom.distanceSquared(top) == 0){
-										Configs.getDatabase().set("rankings." + args[1] + "." + i + ".location", top);
-										Configs.saveDatabase();
-										rp.sendMessage("§aLocation for rank §2" + args[1] + " §a#§2" + i + " §ahas been set!", "§aLocation for rank §2" + args[1] + " §a#§2" + i + " §ahas been set!");
-									}else rp.sendMessage("§cYour selection is invalid", "§cVotre sélection est invalide");
-								}else rp.sendMessage("§cYour selection is invalid", "§cVotre sélection est invalide");
+								LocalSession session = Core.we.getSession(player);
+								if(session != null) {
+									if(session.getSelectionWorld() != null) {
+										if(session.isSelectionDefined(session.getSelectionWorld())){
+											try {
+												Region region = session.getSelection(session.getSelectionWorld());
+												Vector v = region.getMinimumPoint();
+												if(region.getArea() == 1){
+													Configs.getDatabase().set("rankings." + args[1] + "." + i + ".location", new Location(player.getWorld(), v.getBlockX(), v.getBlockY(), v.getBlockZ()));
+													Configs.saveDatabase();
+													rp.sendMessage("§aLocation for rank §2" + args[1] + " §a#§2" + i + " §ahas been set!", "§aLocation for rank §2" + args[1] + " §a#§2" + i + " §ahas been set!");
+												}else rp.sendMessage("§cYour selection contains more than one block", "§cVotre sélection contient plus d'un bloc");
+											} catch (IncompleteRegionException e) {
+												rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
+											}
+										}else rp.sendMessage("§cYou haven't selected any block yet", "§cVous n'avez pas encore sélectionné de bloc");
+									}else rp.sendMessage("§cYou haven't selected any block yet", "§cVous n'avez pas encore sélectionné de bloc");
+								}else rp.sendMessage("§cYou haven't selected any block yet", "§cVous n'avez pas encore sélectionné de bloc");
 							}else rp.sendMessage("§cPlease use /rankings set [level|money|renom|kills|claims|gamingtime] " + args[2], "§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] " + args[2]);
 						}else rp.sendMessage("§cid must be between 1 & 3!", "§cLa place doit être entre 1 & 3 !");
 					}else rp.sendMessage("§cPlease use /rankings set [level|money|renom|kills|claims|gamingtime] [#]", "§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] [#]");

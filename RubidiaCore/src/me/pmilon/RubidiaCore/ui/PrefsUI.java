@@ -2,8 +2,7 @@ package me.pmilon.RubidiaCore.ui;
 
 import java.util.Arrays;
 
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaMusics.SongManager;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -120,7 +119,7 @@ public class PrefsUI extends UIHandler {
 						this.getMenu().setItem(SLOT_TELEPORTATION+9, rp.getWouldLikeTeleportation() ? ITEM_ENABLED : ITEM_DISABLED);
 					}else if(slot == SLOT_MUSIC || slot == SLOT_MUSIC+9){
 						rp.setMusic(!rp.getMusic());
-						SongManager.stopSong(this.getHolder());
+						//TODO remove music with AudioMc
 						this.getMenu().setItem(SLOT_MUSIC, this.getMusic());
 						this.getMenu().setItem(SLOT_MUSIC+9, rp.getMusic() ? ITEM_ENABLED : ITEM_DISABLED);
 					}else if(slot == SLOT_TEXTURES || slot == SLOT_TEXTURES+9){

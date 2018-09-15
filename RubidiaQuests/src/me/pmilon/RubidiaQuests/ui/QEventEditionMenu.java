@@ -17,7 +17,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.LocalSession;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
@@ -151,12 +152,18 @@ public class QEventEditionMenu extends UIHandler {
 				if(this.getListeningId() == this.LIST_ID_LOC){
 					this.getQEvent().setLocation(this.getHolder().getLocation());
 				}else if(this.getListeningId() == this.LIST_ID_BLK){
-					Selection selection = QuestsPlugin.worldEdit.getSelection(this.getHolder());
-					if(selection != null){
-						if(selection.getRegionSelector().isDefined()){
-							this.getQEvent().setBlocks(WE.getBlocks(selection));
-						}else rp.sendMessage("§cSelect complete region", "§cSélectionnez une région complète");
-					}else rp.sendMessage("§cSelect complete region", "§cSélectionnez une région complète");
+					LocalSession session = QuestsPlugin.worldEdit.getSession(this.getHolder());
+					if(session != null) {
+						if(session.getSelectionWorld() != null){
+							if(session.isSelectionDefined(session.getSelectionWorld())){
+								try {
+									this.getQEvent().setBlocks(WE.getBlocks(this.getHolder().getWorld(), session.getSelection(session.getSelectionWorld())));
+								} catch (IncompleteRegionException e) {
+									rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
+								}
+							}else rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
+						}else rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
+					}else rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
 				}else if(this.getListeningId() == this.LIST_ID_RNG){
 					this.getQEvent().setRange(Double.valueOf(this.getMessage()));
 				}else if(this.getListeningId() == this.LIST_ID_EFF){

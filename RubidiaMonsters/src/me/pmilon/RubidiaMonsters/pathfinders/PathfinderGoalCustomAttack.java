@@ -6,9 +6,9 @@ import org.bukkit.entity.LivingEntity;
 
 import me.pmilon.RubidiaMonsters.attacks.AbstractAttack;
 import me.pmilon.RubidiaMonsters.regions.Monster;
-import net.minecraft.server.v1_13_R1.EntityCreature;
-import net.minecraft.server.v1_13_R1.EntityLiving;
-import net.minecraft.server.v1_13_R1.PathfinderGoal;
+import net.minecraft.server.v1_13_R2.EntityCreature;
+import net.minecraft.server.v1_13_R2.EntityLiving;
+import net.minecraft.server.v1_13_R2.PathfinderGoal;
 
 public class PathfinderGoalCustomAttack extends PathfinderGoal {
 

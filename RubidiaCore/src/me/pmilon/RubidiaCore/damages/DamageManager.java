@@ -231,24 +231,24 @@ public class DamageManager {
 		if(damager.equals(damaged))return false;
 		
 		if(damaged instanceof Player){
-			Player pdamaged = (Player)damaged;
-			GMember mtarget = GMember.get(pdamaged);
+			Player defender = (Player)damaged;
+			GMember mtarget = GMember.get(defender);
 			
 			if(damager instanceof Player){
+				Player attacker = (Player)damager;
 				if(!rpDamager.isInDuel() || !rpDamager.getDuelOpponent().equals(rpDamaged)){
-					Player player = (Player)damager;
-					GMember member = GMember.get(player);
+					GMember member = GMember.get(attacker);
 					
 					if(!member.hasGuild() || !mtarget.hasGuild()){
-						player.spawnParticle(Particle.BARRIER, pdamaged.getLocation().add(0,1,0), 1, .25, .75, .25);
-						rpDamager.sendActionBar("§4§lHey! §cYou can only attack players during a raid!", "§4§lHey ! §cVous ne pouvez attaquer des joueurs que durant une offensive !");
+						attacker.spawnParticle(Particle.BARRIER, defender.getLocation().add(0,1,0), 1, .25, .75, .25);
+						rpDamager.sendActionBar("§4§lHey! §cYou can only attack players during a raid or a duel!", "§4§lHey ! §cVous ne pouvez attaquer des joueurs que durant une offensive ou un duel !");
 						return false;
 					}else if(mtarget.getGuild().isRaiding()){
 						Raid raid = mtarget.getGuild().getCurrentRaid();
 						Relation offRelation = member.getGuild().getRelationTo(raid.getOffensive());
 						Relation defRelation = member.getGuild().getRelationTo(raid.getDefensive());
 						if(!raid.isStarted()){
-							player.spawnParticle(Particle.BARRIER, pdamaged.getLocation().add(0,1,0), 1, .25, .75, .25);
+							attacker.spawnParticle(Particle.BARRIER, defender.getLocation().add(0,1,0), 1, .25, .75, .25);
 							if(mtarget.getGuild().equals(raid.getDefensive()) && (offRelation.equals(Relation.ALLY) || offRelation.equals(Relation.MEMBER)) || mtarget.getGuild().equals(raid.getOffensive()) && (defRelation.equals(Relation.ALLY) || defRelation.equals(Relation.MEMBER))){
 								rpDamager.sendActionBar("§4§lHey! §cRaid against guild §4§l" + mtarget.getGuild().getName() + " §chas not yet started!", "§4§lHey ! §cL'offensive contre la guilde §4§l" + mtarget.getGuild().getName() + " §cn'a pas encore débuté !");
 								return false;
@@ -261,7 +261,7 @@ public class DamageManager {
 							return false;
 						}
 					}else{
-						player.spawnParticle(Particle.BARRIER, pdamaged.getLocation().add(0,1,0), 1, .25, .75, .25);
+						attacker.spawnParticle(Particle.BARRIER, defender.getLocation().add(0,1,0), 1, .25, .75, .25);
 						rpDamager.sendActionBar("§4§lHey! §cYou can only attack players during a raid!", "§4§lHey ! §cVous ne pouvez attaquer des joueurs que durant une offensive !");
 						return false;
 					}
