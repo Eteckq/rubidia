@@ -1,9 +1,11 @@
 package me.pmilon.RubidiaWG;
 
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
 
 import me.pmilon.RubidiaWG.events.RegionEnterEvent;
 import me.pmilon.RubidiaWG.events.RegionEnteredEvent;
@@ -19,29 +21,22 @@ import org.bukkit.event.player.*;
 
 import java.util.*;
 
-public class WGRegionEventsListener implements Listener
-{
-    private WorldGuardPlugin wgPlugin;
+public class WGRegionEventsListener implements Listener {
+	
     private RubidiaWGPlugin plugin;
     
     private Map<Player, Set<ProtectedRegion>> playerRegions;
     
-    public WGRegionEventsListener(RubidiaWGPlugin plugin, WorldGuardPlugin wgPlugin)
-    {
+    public WGRegionEventsListener(RubidiaWGPlugin plugin) {
         this.plugin = plugin;
-        this.wgPlugin = wgPlugin;
-        
         playerRegions = new HashMap<Player, Set<ProtectedRegion>>();
     }
     
     @EventHandler
-    public void onPlayerKick(PlayerKickEvent e)
-    {
+    public void onPlayerKick(PlayerKickEvent e) {
         Set<ProtectedRegion> regions = playerRegions.remove(e.getPlayer());
-        if (regions != null)
-        {
-            for(ProtectedRegion region : regions)
-            {
+        if (regions != null) {
+            for(ProtectedRegion region : regions) {
                 RegionLeaveEvent leaveEvent = new RegionLeaveEvent(region, e.getPlayer(), MovementWay.DISCONNECT, e);
                 RegionLeftEvent leftEvent = new RegionLeftEvent(region, e.getPlayer(), MovementWay.DISCONNECT, e);
 
@@ -52,13 +47,10 @@ public class WGRegionEventsListener implements Listener
     }
     
     @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent e)
-    {
+    public void onPlayerQuit(PlayerQuitEvent e) {
         Set<ProtectedRegion> regions = playerRegions.remove(e.getPlayer());
-        if (regions != null)
-        {
-            for(ProtectedRegion region : regions)
-            {
+        if (regions != null) {
+            for(ProtectedRegion region : regions) {
                 RegionLeaveEvent leaveEvent = new RegionLeaveEvent(region, e.getPlayer(), MovementWay.DISCONNECT, e);
                 RegionLeftEvent leftEvent = new RegionLeftEvent(region, e.getPlayer(), MovementWay.DISCONNECT, e);
 
@@ -69,96 +61,73 @@ public class WGRegionEventsListener implements Listener
     }
     
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e)
-    {
+    public void onPlayerMove(PlayerMoveEvent e) {
         e.setCancelled(updateRegions(e.getPlayer(), MovementWay.MOVE, e.getTo(), e));
     }
     
     @EventHandler
-    public void onPlayerTeleport(PlayerTeleportEvent e)
-    {
+    public void onPlayerTeleport(PlayerTeleportEvent e) {
         e.setCancelled(updateRegions(e.getPlayer(), MovementWay.TELEPORT, e.getTo(), e));
     }
     
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e)
-    {
+    public void onPlayerJoin(PlayerJoinEvent e) {
         updateRegions(e.getPlayer(), MovementWay.SPAWN, e.getPlayer().getLocation(), e);
     }
     
     @EventHandler
-    public void onPlayerRespawn(PlayerRespawnEvent e)
-    {
+    public void onPlayerRespawn(PlayerRespawnEvent e) {
         updateRegions(e.getPlayer(), MovementWay.SPAWN, e.getRespawnLocation(), e);
     }
     
-    private synchronized boolean updateRegions(final Player player, final MovementWay movement, Location to, final PlayerEvent event)
-    {
+    private synchronized boolean updateRegions(final Player player, final MovementWay movement, Location to, final PlayerEvent event) {
         Set<ProtectedRegion> regions;
         Set<ProtectedRegion> oldRegions;
         
-        if (playerRegions.get(player) == null)
-        {
+        if (playerRegions.get(player) == null) {
             regions = new HashSet<ProtectedRegion>();
-        }
-        else
-        {
+        } else {
             regions = new HashSet<ProtectedRegion>(playerRegions.get(player));
         }
         
         oldRegions = new HashSet<ProtectedRegion>(regions);
+
+		RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+		RegionManager manager = container.get(BukkitAdapter.adapt(to.getWorld()));
+		ApplicableRegionSet set = manager.getApplicableRegions(BukkitAdapter.asVector(to));
         
-        RegionManager rm = wgPlugin.getRegionManager(to.getWorld());
-        
-        if (rm == null)
-        {
-            return false;
-        }
-        
-        ApplicableRegionSet appRegions = rm.getApplicableRegions(to);
-        
-        for (final ProtectedRegion region : appRegions)
-        {
-            if (!regions.contains(region))
-            {
+        for (final ProtectedRegion region : set) {
+            if (!regions.contains(region)) {
                 RegionEnterEvent e = new RegionEnterEvent(region, player, movement, event);
                 
                 plugin.getServer().getPluginManager().callEvent(e);
                 
-                if (e.isCancelled())
-                {
+                if (e.isCancelled()) {
                     regions.clear();
                     regions.addAll(oldRegions);
                     
                     return true;
-                }
-                else
-                {
-                    Bukkit.getScheduler().runTaskLater(plugin,new Runnable()
-                    {
+                } else {
+                    Bukkit.getScheduler().runTaskLater(plugin,new Runnable() {
                         @Override
-                        public void run()
-                        {
-                            {}
+                        public void run() {
                             RegionEnteredEvent e = new RegionEnteredEvent(region, player, movement, event);
                             
                             plugin.getServer().getPluginManager().callEvent(e);
                         }
                     }, 1L);
+                    
                     regions.add(region);
                 }
             }
         }
         
-        Collection<ProtectedRegion> app = appRegions.getRegions();
+        Collection<ProtectedRegion> app = set.getRegions();
         Iterator<ProtectedRegion> itr = regions.iterator();
-        while(itr.hasNext())
-        {
+        while(itr.hasNext()) {
             final ProtectedRegion region = itr.next();
-            if (!app.contains(region))
-            {
-                if (rm.getRegion(region.getId()) != region)
-                {
+            if (!app.contains(region)) {
+                if (manager.getRegion(region.getId()) != region) {
                     itr.remove();
                     continue;
                 }

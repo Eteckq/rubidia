@@ -8,7 +8,6 @@
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaCore-1.13.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaGuilds-1.13.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaMonsters-1.13.jar"/>
-	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaMusics-1.13.jar"/>
 	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaPets-1.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

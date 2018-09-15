@@ -1,52 +1,38 @@
 package me.pmilon.RubidiaWG;
 
-import org.bukkit.plugin.Plugin;
+import java.lang.reflect.Field;
+
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.flags.Flag;
+import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
+import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 
 public class RubidiaWGPlugin extends JavaPlugin {
-    private WGRegionEventsListener listener;
-    private WGFlagsListener flagsListener;
-    public static WorldGuardPlugin wgPlugin;
     
 	@Override
 	public void onLoad(){
-        wgPlugin = getWGPlugin();
-        wgPlugin.getFlagRegistry().register(Flags.DUELS);
-        wgPlugin.getFlagRegistry().register(Flags.SOIL_TRAMPLING);
-        wgPlugin.getFlagRegistry().register(Flags.MUSIC);
-        wgPlugin.getFlagRegistry().register(Flags.BLOCKS);
-        wgPlugin.getFlagRegistry().register(Flags.SKILLS);
-    	wgPlugin.getFlagRegistry().register(Flags.RIDE);
-    	wgPlugin.getFlagRegistry().register(Flags.CLAIM);
-    	wgPlugin.getFlagRegistry().register(Flags.LEAVE_COMMAND);
-    	wgPlugin.getFlagRegistry().register(Flags.NATURAL_SPAWN);
-    	wgPlugin.getFlagRegistry().register(Flags.ENTER_TITLE);
-    	wgPlugin.getFlagRegistry().register(Flags.LEAVE_TITLE);
-    	wgPlugin.getFlagRegistry().register(Flags.REGEN);
+        FlagRegistry registry = WorldGuard.getInstance().getFlagRegistry();
+        for(Field field : Flags.class.getDeclaredFields()) {
+        	try {
+				registry.register((Flag<?>) field.get(null));
+			} catch (FlagConflictException e) {
+				Bukkit.getConsoleSender().sendMessage("§4Unable to register flag §c" + field.getName() + " §4because of incompatibility.");
+				e.printStackTrace();
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+        }
 	}
 	
     @Override
-    public void onEnable()
-    {
-        
-        listener = new WGRegionEventsListener(this, wgPlugin);
-        flagsListener = new WGFlagsListener(wgPlugin);
-        
-        getServer().getPluginManager().registerEvents(listener, wgPlugin);
-        getServer().getPluginManager().registerEvents(flagsListener, wgPlugin);
+    public void onEnable() {
+    	WorldGuardPlugin plugin = WorldGuardPlugin.inst();
+        getServer().getPluginManager().registerEvents(new WGRegionEventsListener(this), plugin);
+        getServer().getPluginManager().registerEvents(new WGFlagsListener(), plugin);
     }
     
-    private WorldGuardPlugin getWGPlugin()
-    {
-        Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
-        
-        if (plugin == null || !(plugin instanceof WorldGuardPlugin))
-        {
-            return null;
-        }
-        
-        return (WorldGuardPlugin) plugin;
-    }
 }
