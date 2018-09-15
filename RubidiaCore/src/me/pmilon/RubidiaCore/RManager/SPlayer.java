@@ -40,13 +40,11 @@ public class SPlayer {
 	private double currentnrj;
 	private int kills;
 	private int renom;
-	private int lastmoneyamount;
 	private List<Pet> pets;
 	private HashMap<JobTask, Integer> jobscores;
 	private HashMap<Integer, ItemStack> creative;
 	private HashMap<Integer, ItemStack> survival;
-	private HashMap<Integer, ItemStack> bank;
-	private int pendingBalance;
+	private int bank;
 	private List<Quest> activeQuests;
 	private List<Quest> doneQuests;
 	private Quest followedQuest;
@@ -60,8 +58,11 @@ public class SPlayer {
 	private boolean modified = false;
 	public SPlayer(int id, int rlevel, double rexp, RClass rClass, RJob rJob,
 			Mastery mastery, int skp, int skd, int firstability, int secondability, int thirdability, int fourthability,
-			int fifthability, int sixthability, int seventhability, int eighthability, int strength, int endurance, int agility, int intelligence, int perception, double currentnrj, int kills, int renom, int lastmoneyamount, List<Pet> pets, HashMap<JobTask, Integer> jobscores,
-			HashMap<Integer, ItemStack> creative, HashMap<Integer, ItemStack> survival, HashMap<Integer,ItemStack> bank, int pendingBalance,List<Quest> activeQuests, List<Quest> doneQuests, Quest followedQuest, Location lastLocation, HashMap<Integer, ItemStack> lastInventory, HashMap<Integer, ItemStack> enderchest,
+			int fifthability, int sixthability, int seventhability, int eighthability, int strength, int endurance, int agility,
+			int intelligence, int perception, double currentnrj, int kills, int renom, List<Pet> pets,
+			HashMap<JobTask, Integer> jobscores, HashMap<Integer, ItemStack> creative, HashMap<Integer, ItemStack> survival,
+			int bank, List<Quest> activeQuests, List<Quest> doneQuests, Quest followedQuest, Location lastLocation,
+			HashMap<Integer, ItemStack> lastInventory, HashMap<Integer, ItemStack> enderchest,
 			double lastHealth, int lastFoodLevel){
 		this.id = id;
 		this.rlevel = rlevel;
@@ -87,13 +88,11 @@ public class SPlayer {
 		this.currentnrj = currentnrj;
 		this.kills = kills;
 		this.renom = renom;
-		this.lastmoneyamount = lastmoneyamount;
 		this.pets = pets;
 		this.jobscores = jobscores;
 		this.creative = creative;
 		this.survival = survival;
 		this.bank = bank;
-		this.pendingBalance = pendingBalance;
 		this.activeQuests = activeQuests;
 		this.doneQuests = doneQuests;
 		this.followedQuest = followedQuest;
@@ -274,13 +273,6 @@ public class SPlayer {
 		this.renom = renom;
 		this.setModified(true);
 	}
-	public int getLastmoneyamount() {
-		return lastmoneyamount;
-	}
-	public void setLastmoneyamount(int lastmoneyamount) {
-		this.lastmoneyamount = lastmoneyamount;
-		this.setModified(true);
-	}
 	public HashMap<JobTask, Integer> getJobscores() {
 		return jobscores;
 	}
@@ -302,10 +294,10 @@ public class SPlayer {
 		this.survival = survival;
 		this.setModified(true);
 	}
-	public HashMap<Integer, ItemStack> getBank() {
+	public int getBank() {
 		return bank;
 	}
-	public void setBank(HashMap<Integer, ItemStack> bank) {
+	public void setBank(int bank) {
 		this.bank = bank;
 		this.setModified(true);
 	}
@@ -356,24 +348,16 @@ public class SPlayer {
 		Configs.getPlayerConfig().set(path + ".currentnrj", this.getCurrentnrj());
 		Configs.getPlayerConfig().set(path + ".kills", this.getKills());
 		Configs.getPlayerConfig().set(path + ".renom", this.getRenom());
-		Configs.getPlayerConfig().set(path + ".lastMoneyAmount", this.getLastmoneyamount());
 		Configs.getPlayerConfig().set(path + ".lastLocation", this.getLastLocation());
 		Configs.getPlayerConfig().set(path + ".lastHealth", this.getLastHealth());
 		Configs.getPlayerConfig().set(path + ".lastFoodLevel", this.getLastFoodLevel());
-		Configs.getPlayerConfig().set(path + ".pendingBalance", this.getPendingBalance());
+		Configs.getPlayerConfig().set(path + ".bank", this.getBank());
 		for(JobTask task : this.getJobscores().keySet())Configs.getPlayerConfig().set(path + ".jobscores." + task.toString(), this.getJobscores().get(task));
 		for(int i : this.getCreative().keySet()){
 			Configs.getPlayerConfig().set(path + ".gamemode.creative." + i, this.getCreative().get(i));
 		}
 		for(int i : this.getSurvival().keySet()){
 			Configs.getPlayerConfig().set(path + ".gamemode.survival." + i, this.getSurvival().get(i));
-		}
-		for(int i = 0;i < 18;i++){
-			if(this.getBank().containsKey(i)){
-				Configs.getPlayerConfig().set(path + ".bank." + i, this.getBank().get(i));
-			}else{
-				Configs.getPlayerConfig().set(path + ".bank." + i, null);
-			}
 		}
 		for(int i : this.getLastInventory().keySet()){
 			Configs.getPlayerConfig().set(path + ".lastInventory." + i, this.getLastInventory().get(i));
@@ -438,13 +422,6 @@ public class SPlayer {
 	}
 	public void setLastFoodLevel(int lastFoodLevel) {
 		this.lastFoodLevel = lastFoodLevel;
-		this.setModified(true);
-	}
-	public int getPendingBalance() {
-		return pendingBalance;
-	}
-	public void setPendingBalance(int pendingBalance) {
-		this.pendingBalance = pendingBalance;
 		this.setModified(true);
 	}
 	public List<Pet> getPets() {

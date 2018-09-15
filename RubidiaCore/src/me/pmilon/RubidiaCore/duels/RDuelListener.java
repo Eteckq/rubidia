@@ -106,7 +106,7 @@ public class RDuelListener implements Listener {
 	@EventHandler
 	public void onMove(PlayerMoveEvent event){
 		Location to = event.getTo();
-		if(to.distanceSquared(event.getFrom()) > .04){
+		if(to.distanceSquared(event.getFrom()) > .004){
 			Player player = event.getPlayer();
 			RPlayer rp = RPlayer.get(player);
 			if(rp.isInDuel()){

@@ -88,9 +88,9 @@ public class GInfosMenuUI extends UIHandler {
 							rp.sendMessage("§aTake a banner in your hands and type in the cost you want to set (members will pay this amount for each cape they order).", "§aPrenez une bannière entre vos mains et entrez son coût (les membres paieront ce montant pour chaque cape commandée).");
 						}else rp.sendMessage("§cYou don't have permission to modify your guild's representative item!", "§cVous n'avez pas la permission de modifier l'item de votre guilde !");
 					}else{
-						if(rp.getBalance() >= this.getGuild().getCapeCost() || gm.isLeader() || rp.isOp()){
+						if(rp.getBank() >= this.getGuild().getCapeCost() || gm.isLeader() || rp.isOp()){
 							if(!gm.isLeader() && !rp.isOp()){
-								EconomyHandler.withdrawBalanceITB(this.getHolder(), this.getGuild().getCapeCost());
+								EconomyHandler.withdraw(this.getHolder(), this.getGuild().getCapeCost());
 								this.getGuild().addBalance(this.getGuild().getCapeCost());
 							}
 							this.getGuild().broadcastMessage(Relation.MEMBER, "§&d" + gm.getName() + " §&chas purchased a cape!", "§&d" + gm.getName() + " §&ca acheté une cape de guilde !");

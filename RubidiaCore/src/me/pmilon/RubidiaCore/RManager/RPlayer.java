@@ -31,7 +31,6 @@ import me.pmilon.RubidiaCore.events.RPlayerPreChatMessageEvent;
 import me.pmilon.RubidiaCore.events.RPlayerRequestDuelEvent;
 import me.pmilon.RubidiaCore.events.RPlayerXPEvent;
 import me.pmilon.RubidiaCore.events.RXPSource;
-import me.pmilon.RubidiaCore.handlers.EconomyHandler;
 import me.pmilon.RubidiaCore.handlers.JobsHandler.JobTask;
 import me.pmilon.RubidiaCore.handlers.TradingHandler;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerChat;
@@ -326,24 +325,17 @@ public class RPlayer {
 	public Long getVip(){
 		return this.vip;
 	}
-	public int getLastMoneyAmount(){
-		return this.getLoadedSPlayer().getLastmoneyamount();
-	}
 	public HashMap<Integer, ItemStack> getCreativeHM(){
 		return this.getLoadedSPlayer().getCreative();
 	}
 	public HashMap<Integer, ItemStack> getSurvivalHM(){
 		return this.getLoadedSPlayer().getSurvival();
 	}
-	public HashMap<Integer, ItemStack> getBank(){
+	public int getBank(){
 		return this.getLoadedSPlayer().getBank();
 	}
 	public Player getPlayer(){
 		return this.player;
-	}
-	public int getBalance(){
-		if(this.isOnline())return EconomyHandler.getBalance(this.getPlayer());
-		return this.getLoadedSPlayer().getLastmoneyamount();
 	}
 	public boolean getWouldLikeInvocation(){
 		return this.invocation;
@@ -463,9 +455,6 @@ public class RPlayer {
 	public void setVip(Long vip){
 		this.vip = vip;
 		this.setModified(true);
-	}
-	public void setLastMoneyAmount(int lastmoneyamount){
-		this.getLoadedSPlayer().setLastmoneyamount(lastmoneyamount);
 	}
 	public void setPlayer(Player p){
 		this.player = p;
@@ -757,18 +746,18 @@ public class RPlayer {
 		RPlayerPreChatMessageEvent event = new RPlayerPreChatMessageEvent(this, target, message, type);
 		Bukkit.getPluginManager().callEvent(event);
 		if(!event.isCancelled() && !event.getMessage().isEmpty()){
-			RPlayer eventrp = event.getRPlayer();
+			final RPlayer eventrp = event.getRPlayer();
 			String m = event.getMessage();
 			
 			if(Smiley.hasSmiley(m) && !eventrp.isInCombat()){
 				final Player player = eventrp.getPlayer();
-				if(!Smiley.isSmileying(player))eventrp.smileyHelmet = player.getEquipment().getHelmet();
+				if(!Smiley.isSmileying(player))eventrp.smileyHelmet = player.getEquipment().getHelmet().clone();
 				Smiley.setSmileying(player, true);
 				player.getEquipment().setHelmet(Smiley.base("http://textures.minecraft.net/texture/" + Smiley.urls.get(Smiley.smileys.indexOf(Smiley.getSmiley(m)))));
 				if(eventrp.smileyTask != null)eventrp.smileyTask.cancel();
 				eventrp.smileyTask = new BukkitTask(Core.instance){
 					public void run(){
-						if(smileyHelmet != null)player.getEquipment().setHelmet(smileyHelmet);
+						if(eventrp.smileyHelmet != null)player.getEquipment().setHelmet(eventrp.smileyHelmet);
 						else player.getEquipment().setHelmet(new ItemStack(Material.AIR, 1));
 						Smiley.setSmileying(player, false);
 					}
@@ -1913,5 +1902,15 @@ public class RPlayer {
 	public void setPublicData(boolean publicData) {
 		this.publicData = publicData;
 		this.setModified(true);
+	}
+
+	public void setBank(int bank) {
+		this.getLoadedSPlayer().setBank(bank);
+		this.setModified(true);
+	}
+
+	public int getMaxBankAmount() {
+		if(this.isVip())return -1;
+		return 3000;
 	}
 }

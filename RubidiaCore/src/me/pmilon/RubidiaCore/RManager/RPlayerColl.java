@@ -52,12 +52,6 @@ public class RPlayerColl extends Database<String,RPlayer>{
 									survival.put(Integer.valueOf(s), Configs.getPlayerConfig().getItemStack(path2 + ".gamemode.survival." + s));
 								}
 							}
-							HashMap<Integer, ItemStack> bank = new HashMap<Integer, ItemStack>();
-							if(Configs.getPlayerConfig().contains(path2 + ".bank")){
-								for(String s : Configs.getPlayerConfig().getConfigurationSection(path2 + ".bank").getKeys(false)){
-									bank.put(Integer.valueOf(s), Configs.getPlayerConfig().getItemStack(path2 + ".bank." + s));
-								}
-							}
 							HashMap<Integer, ItemStack> lastInventory = new HashMap<Integer, ItemStack>();
 							if(Configs.getPlayerConfig().contains(path2 + ".lastInventory")){
 								for(String s : Configs.getPlayerConfig().getConfigurationSection(path2 + ".lastInventory").getKeys(false)){
@@ -116,10 +110,8 @@ public class RPlayerColl extends Database<String,RPlayer>{
 									Configs.getPlayerConfig().getInt(path2 + ".currentnrj"),
 									Configs.getPlayerConfig().getInt(path2 + ".kills"),
 									Configs.getPlayerConfig().getInt(path2 + ".renom"),
-									Configs.getPlayerConfig().getInt(path2 + ".lastMoneyAmount"),
-									pets, jobscores, creative, survival, bank,
-									Configs.getPlayerConfig().getInt(path2 + ".pendingBalance"), activeQuests, doneQuests,
-									followedQuest,
+									pets, jobscores, creative, survival, Configs.getPlayerConfig().getInt(path2 + ".bank"),
+									activeQuests, doneQuests, followedQuest,
 									(Location)Configs.getPlayerConfig().get(path2 + ".lastLocation"),
 									lastInventory, enderchest,
 									Configs.getPlayerConfig().getDouble(path2 + ".lastHealth"),
@@ -228,7 +220,7 @@ public class RPlayerColl extends Database<String,RPlayer>{
 	}
 	
 	public SPlayer newDefaultSPlayer(int id){
-		return new SPlayer(id, 0, 0.0, RClass.VAGRANT, RJob.JOBLESS, Mastery.VAGRANT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 1000, 0, new ArrayList<Pet>(), new HashMap<JobTask, Integer>(), new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(),0, new ArrayList<Quest>(), new ArrayList<Quest>(), null, null, new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 20, 20);
+		return new SPlayer(id, 0, 0.0, RClass.VAGRANT, RJob.JOBLESS, Mastery.VAGRANT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 1000, new ArrayList<Pet>(), new HashMap<JobTask, Integer>(), new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 0, new ArrayList<Quest>(), new ArrayList<Quest>(), null, null, new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 20, 20);
 	}
 	
 	public boolean contains(Player p){

@@ -49,8 +49,8 @@ public class ShopUI extends ListMenuUIHandler<ItemStack>{
 		ItemMeta meta = item.getItemMeta();
 		List<String> lore = meta.hasLore() ? Utils.getModifiableCopy(meta.getLore()) : new ArrayList<String>();
 		int cost = prices[0]*64+prices[1];
-		String ccolorCode = rp.getBalance() > cost ? "§a" : "§c";
-		String dcolorCode = rp.getBalance() > cost ? "§2" : "§4";
+		String ccolorCode = rp.getBank() > cost ? "§a" : "§c";
+		String dcolorCode = rp.getBank() > cost ? "§2" : "§4";
 		int quantity = this.getShop() instanceof PlayerShop ? ((PlayerShop)this.getShop()).getEditionUI().getQuantity(items) : 1;
 		lore.addAll(Arrays.asList("§8§m-------------------", "", rp.translateString("§7Cost: " + ccolorCode + cost + " " + dcolorCode + "emeralds", "§7Coût : " + ccolorCode + cost + " " + dcolorCode + "émeraudes"), rp.translateString("§7Remaining quantity: §8" + quantity, "§7Quantité restante : §8" + quantity)));
 		meta.setLore(lore);
@@ -75,7 +75,7 @@ public class ShopUI extends ListMenuUIHandler<ItemStack>{
 		ItemStack stack = this.get(slot);
 		Integer[] prices = this.getShop().getPrices().get(this.getShop().getItemStacks().indexOf(stack));
 		int cost = (prices[0]*64+prices[1])*amount;
-		if(rp.getBalance() > cost){
+		if(rp.getBank() > cost){
 			int quantityAvailable = this.getShop() instanceof PlayerShop ? ((PlayerShop)this.getShop()).getEditionUI().getQuantity(stack) : 5;
 			if(quantityAvailable >= amount){
 				if(Utils.getAmountCanHold(p, stack) >= stack.getAmount()*amount){
@@ -84,17 +84,17 @@ public class ShopUI extends ListMenuUIHandler<ItemStack>{
 					ItemMeta meta = is.getItemMeta();
 					if(meta.hasDisplayName())id = meta.getDisplayName();
 					else id = is.getType().toString();
-					EconomyHandler.withdrawBalanceITB(p, cost);
+					rp.sendMessage("§aYou successfully bought §e" + amount*stack.getAmount() + " §6" + id + " §afor §2" + cost + " §aemeralds!","§aVous avez acheté §e" + amount*stack.getAmount() + " §6" + id + " §apour §2" + cost + " §aémeraudes !");
+					EconomyHandler.withdraw(p, cost);
 					for(int i = 0;i < amount;i++){
 						p.getInventory().addItem(is);
 					}
 					if(this.getShop() instanceof PlayerShop){
 						PlayerShop shop = (PlayerShop)this.getShop();
-						EconomyHandler.addBalanceITB(shop.getHolder(), cost);
-						shop.getEditionUI().buyItem(stack, amount);
 						RPlayer.get(shop.getHolder()).sendMessage("§2" + rp.getName() + " §abought you §e" + amount*stack.getAmount() + " §6" + id + " §afor §2" + cost + " §aemeralds!","§2" + rp.getName() + " §avous a acheté §e" + amount*stack.getAmount() + " §6" + id + " §apour §2" + cost + " §aémeraudes !");
+						EconomyHandler.deposit(shop.getHolder(), cost);
+						shop.getEditionUI().buyItem(stack, amount);
 					}
-					rp.sendMessage("§aYou successfully bought §e" + amount*stack.getAmount() + " §6" + id + " §afor §2" + cost + " §aemeralds!","§aVous avez acheté §e" + amount*stack.getAmount() + " §6" + id + " §apour §2" + cost + " §aémeraudes !");
 					if(quantityAvailable-amount > 0)this.menu.setItem(slot, this.getItem(stack));
 					else{
 						this.closeUI();
@@ -102,7 +102,7 @@ public class ShopUI extends ListMenuUIHandler<ItemStack>{
 					}
 				}else rp.sendMessage("§cYou don't have enough space to keep items in your inventory!", "§cVous n'avez pas assez de place pour garder vos items dans votre inventaire !");
 			}else rp.sendMessage("§cNot enough items are available...", "§cIl n'y a plus assez d'items disponibles...");
-		}else rp.sendMessage("§cYou don't have enough money to buy that...", "§cVous n'avez pas assez d'argent pour acheter ceci...");
+		}else rp.sendMessage("§cYou don't have enough emeralds in your bank!", "§cVous n'avez pas assez d'émeraudes dans votre banque !");
 	}
 	
 	@Override

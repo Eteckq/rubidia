@@ -103,8 +103,8 @@ public class AnvilUI extends UIHandler {
 			if(slot == FINAL_ITEM_SLOT || slot == FINAL_ITEM_SLOT-1 || slot == FINAL_ITEM_SLOT+1){
 				RPlayer rp = RPlayer.get(p);
 				if(this.block.getType().toString().contains("ANVIL")) {
-					if(rp.getBalance() >= this.cost){
-						EconomyHandler.withdrawBalanceITB(this.getHolder(), this.cost);
+					if(rp.getBank() >= this.cost){
+						EconomyHandler.withdraw(this.getHolder(), this.cost);
 						p.getInventory().addItem(this.item);
 						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 3, 3);
 						Random r = new Random();
@@ -119,9 +119,9 @@ public class AnvilUI extends UIHandler {
 							}
 						}
 						DONE = true;
-					}else rp.sendMessage("§cYou don't have enough emeralds!", "§cVous n'avez pas assez d'émeraudes !");
+					}else rp.sendMessage("§cYou don't have enough emeralds in your bank!", "§cVous n'avez pas assez d'émeraudes dans votre banque !");
 				}else rp.sendMessage("§cThe anvil disappeared!","§cLa forge a disparue !");
-				this.closeUI();
+				this.close(false);
 			}else if(slot != 0 && slot != 8)this.closeUI();
 		}
 	}

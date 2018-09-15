@@ -131,16 +131,16 @@ public class Ranks {
 	        	int money1 = 0;
 	        	for(SPlayer sp : rp1.getSaves()){
 	        		if(sp != null){
-		        		if(sp.getLastmoneyamount() >= money1){
-		        			money1 = sp.getLastmoneyamount();
+		        		if(sp.getBank() >= money1){
+		        			money1 = sp.getBank();
 		        		}
 	        		}
 	        	}
 	        	int money2 = 0;
 	        	for(SPlayer sp : rp2.getSaves()){
 	        		if(sp != null){
-		        		if(sp.getLastmoneyamount() >= money2){
-		        			money2 = sp.getLastmoneyamount();
+		        		if(sp.getBank() >= money2){
+		        			money2 = sp.getBank();
 		        		}
 	        		}
 	        	}
@@ -158,7 +158,7 @@ public class Ranks {
 							Sign sign = (Sign)block.getRelative(fc).getState();
 							sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
 							sign.setLine(1, "§7§l" + rp.getName());
-							sign.setLine(2, "§2§l" + rp.getLastMoneyAmount() + " §aémd.");
+							sign.setLine(2, "§2§l" + rp.getBank() + " §aémd.");
 							sign.setLine(3, "§2§m----------");
 							sign.update(true);
 							Block blockUp = block.getRelative(BlockFace.UP);

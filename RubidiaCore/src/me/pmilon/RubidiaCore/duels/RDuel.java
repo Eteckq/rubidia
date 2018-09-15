@@ -358,6 +358,11 @@ public class RDuel {
 			player.setHealth(this.challengedHealth);
 			player.setFoodLevel(this.challengedFood);
 		}
+		player.setFireTicks(0);
+		if(player.hasMetadata("rangerPoison")) {
+			BukkitTask task = BukkitTask.tasks.get(player.getMetadata("rangerPoison").get(0).asInt());
+			if(task != null)task.cancel();
+		}
 	}
 
 	public BukkitTask getRequestTimeout() {

@@ -100,8 +100,8 @@ public class EnchantmentUI extends UIHandler {
 					return;
 				}
 				
-				if(rp.getBalance() >= this.getCost(level)){
-					EconomyHandler.withdrawBalanceITB(this.getHolder(), this.getCost(level));
+				if(rp.getBank() >= this.getCost(level)){
+					EconomyHandler.withdraw(this.getHolder(), this.getCost(level));
 					if(elvl > enchant.getMaxLevel())elvl = enchant.getMaxLevel();
 					ItemMeta meta = this.item.getItemMeta();
 					meta.addEnchant(enchant, elvl, true);
@@ -136,8 +136,9 @@ public class EnchantmentUI extends UIHandler {
 						}
 					}
 					this.item.setItemMeta(meta);
+					this.close(false);
 					rp.sendMessage("§aStrange powers have taken power over your item!", "§aD'étranges puissances ont pris le contrôle de votre item !");
-				}else rp.sendMessage("§cYou don't have enough emeralds!", "§cVous n'avez pas assez d'émeraudes !");
+				}else rp.sendMessage("§cYou don't have enough emeralds in your bank!", "§cVous n'avez pas assez d'émeraudes dans votre banque !");
 				this.close(false);
 			}
 		}

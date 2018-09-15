@@ -166,7 +166,7 @@ public class AbilitiesListener implements Listener{
 		}
 	}
 	
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onAttack(RubidiaEntityDamageEvent event){
 		if(!event.isCancelled()){
 			LivingEntity damager = event.getDamager();

@@ -161,8 +161,8 @@ public class Reward {
 			rp.addRExp(this.getRExp(), new RXPSource(RXPSourceType.QUEST, null, null));
 			if(rp.isOnline())rp.getPlayer().sendMessage("§2[+] §a" + this.getRExp() + " XP");
 		}else if(this.getType().equals(RewardType.MONEY)){
-			if(rp.isOnline())EconomyHandler.addBalanceITB(rp.getPlayer(), this.getAmount());
 			rp.sendMessage("§2[+] §a" + this.getAmount() + " emeralds", "§2[+] §a" + this.getAmount() + " émeraudes");
+			if(rp.isOnline())EconomyHandler.deposit(rp.getPlayer(), this.getAmount());
 		}else if(this.getType().equals(RewardType.SKP)){
 			rp.setSkillPoints(rp.getSkillPoints()+this.getAmount());
 			rp.sendMessage("§2[+] §a" + this.getAmount() + " skillpoint" + (this.getAmount() > 1 ? "s" : ""), "§2[+] §a" + this.getAmount() + " point" + (this.getAmount() > 1 ? "s" : "") + " de compétence");

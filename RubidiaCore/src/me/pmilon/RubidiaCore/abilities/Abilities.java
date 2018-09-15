@@ -533,8 +533,7 @@ public class Abilities {
 		if(rp.getAbLevel3() > 0 && !d.hasMetadata("rangerPoison")){
 			Ability ability3 = AbilitiesAPI.getAbility(RClass.RANGER, 3);
 			final double damages3 = rp.getAbLevel3()*ability3.getDamagesPerLevel()+ability3.getDamagesMin();
-			d.setMetadata("rangerPoison", new FixedMetadataValue(Abilities.getPlugin(), rp.getUniqueId()));
-			new BukkitTask(Abilities.getPlugin()){
+			d.setMetadata("rangerPoison", new FixedMetadataValue(Abilities.getPlugin(), new BukkitTask(Abilities.getPlugin()){
 
 				public void run() {
 					if(!d.isDead() && d.isValid()){
@@ -548,7 +547,7 @@ public class Abilities {
 					d.removeMetadata("rangerPoison", Abilities.getPlugin());
 				}
 				
-			}.runTaskTimerCancelling(0, 20, 100);
+			}.runTaskTimerCancelling(0, 20, 100).getTaskId()));
 		}
 		if(rp.getAbLevel4() > 0){
 			Ability ability4 = AbilitiesAPI.getAbility(RClass.RANGER, 4);

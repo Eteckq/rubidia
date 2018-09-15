@@ -2,11 +2,9 @@ package me.pmilon.RubidiaCore.handlers;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
-
 
 public class PlaymodeHandler {
 	
@@ -48,12 +46,6 @@ public class PlaymodeHandler {
 		if(rp.getSurvivalHM().containsKey(102))equipment.setChestplate(rp.getSurvivalHM().get(102));
 		if(rp.getSurvivalHM().containsKey(103))equipment.setLeggings(rp.getSurvivalHM().get(103));
 		if(rp.getSurvivalHM().containsKey(104))equipment.setBoots(rp.getSurvivalHM().get(104));
-	}
-	
-	public static void saveBank(Inventory bank, Player p){
-		for(int slot = 0;slot < bank.getSize();slot++){
-			if(bank.getItem(slot) != null)if(!bank.getItem(slot).getType().equals(Material.AIR))RPlayer.get(p).getBank().put(slot, bank.getItem(slot));
-		}
 	}
 	
 }

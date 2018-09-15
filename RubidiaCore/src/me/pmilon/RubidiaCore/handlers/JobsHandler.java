@@ -268,7 +268,7 @@ public class JobsHandler implements Listener {
 				if(pay)rp.getJobScores().put(task,score);
 			}
 			if(pay)rp.sendMessage("§aYou were paid §e" + salary + " §aemeralds for your great job during the day!", "§aVous avez été payé §e" + salary + " §aémeraudes pour votre superbe travail tout au long de la journée !");
-			EconomyHandler.addBalanceITB(p, salary);
+			EconomyHandler.deposit(p, salary);
 		}
 		return salary;
 	}

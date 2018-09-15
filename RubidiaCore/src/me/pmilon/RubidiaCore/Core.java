@@ -308,10 +308,10 @@ public class Core extends JavaPlugin implements Listener {
 
 				NameTags.update();
 
-	    		if(!rp.isOp() && rp.getBalance() > 120*(rp.getRLevel()+1)){
+	    		if(!rp.isOp() && rp.getBank() > 120*(rp.getRLevel()+1)){
 					for(RPlayer rpo : RPlayer.getOnlines()){
 						if(rpo.isOp()){
-							rpo.sendMessage("§4" + rp.getName() + " §chas too many emeralds for his level (§4" + rp.getBalance() + "§c)...","§4" + rp.getName() + " §ca trop d'émeraudes pour son niveau (§4" + rp.getBalance() + "§c)...");
+							rpo.sendMessage("§4" + rp.getName() + " §chas too many emeralds for his level (§4" + rp.getBank() + "§c)...","§4" + rp.getName() + " §ca trop d'émeraudes pour son niveau (§4" + rp.getBank() + "§c)...");
 						}
 					}
 	    		}
@@ -1092,8 +1092,6 @@ public class Core extends JavaPlugin implements Listener {
 				
 				if(e.getAction().toString().contains("RIGHT_CLICK")){
 					ItemStack item = p.getEquipment().getItemInMainHand();
-					if(item != null)System.out.print("inhand: " + item.getType().toString());
-					if(e.getClickedBlock() != null)System.out.print("clicked: " + e.getClickedBlock().getType().toString());
 					RItem rItem = new RItem(item);
 					if(rItem.isBackPack()){
 						e.setCancelled(true);
@@ -1252,12 +1250,6 @@ public class Core extends JavaPlugin implements Listener {
 							}
 						}
 					}
-				}else if(is.getType().equals(Material.EMERALD_BLOCK)){
-					e.setCancelled(true);
-					rp.sendMessage("§cYou can only change money from a banker!", "§cSeul un banquier peut changer votre monnaie !");
-				}else if(is.getType().equals(Material.EMERALD) && is.getAmount() == 9){
-					e.setCancelled(true);
-					rp.sendMessage("§cYou can only change money from a banker!", "§cSeul un banquier peut changer votre monnaie !");
 				}else if(is.getType().equals(Material.SHIELD) && is.hasItemMeta()){
 					e.setCancelled(true);
 					rp.sendMessage("§cYou cannot customize your shield at the moment.", "§cVous ne pouvez pour le moment pas personnaliser votre bouclier.");
@@ -1320,9 +1312,13 @@ public class Core extends JavaPlugin implements Listener {
 			RPlayer rp = RPlayer.get(player);
 			Item item = event.getItemDrop();
 			String material = item.getItemStack().getType().toString();
-			boolean hasWeapon = (rp.getRClass().equals(RClass.PALADIN) && material.contains("_AXE")) || (rp.getRClass().equals(RClass.RANGER) && material.contains("BOW")) || (rp.getRClass().equals(RClass.MAGE) && material.contains("_HOE")) || (rp.getRClass().equals(RClass.ASSASSIN) && material.contains("_SWORD")) || (rp.getRClass().equals(RClass.VAGRANT) && (material.contains("_SWORD") || material.contains("_AXE") || material.contains("BOW")));
-			if(hasWeapon){
-				item.remove();
+			if((rp.getRClass().equals(RClass.PALADIN) && material.contains("_AXE"))
+				|| (rp.getRClass().equals(RClass.RANGER) && material.contains("BOW"))
+				|| (rp.getRClass().equals(RClass.MAGE) && material.contains("_HOE"))
+				|| (rp.getRClass().equals(RClass.ASSASSIN) && material.contains("_SWORD"))
+				|| (rp.getRClass().equals(RClass.VAGRANT)
+						&& (material.contains("_SWORD") || material.contains("_AXE") || material.contains("BOW")))){
+				event.setCancelled(true);
 				Core.uiManager.requestUI(new DistinctionsMenu(player));
 			}
 		}
@@ -1774,7 +1770,7 @@ public class Core extends JavaPlugin implements Listener {
 				
 				for(RPlayer rp : RPlayer.getOnlines()){
 					if(!rp.isOp()){
-						rp.setLastMoneyAmount(rp.getBalance());
+						rp.setBank(rp.getBank());
 						rp.setRenom(rp.getRenom()+1);
 					}
 				}

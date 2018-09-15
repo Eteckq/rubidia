@@ -81,22 +81,22 @@ public class GBankUI extends UIHandler {
 		if(e.getCurrentItem() != null){
 			if(!e.getCursor().getType().equals(Material.EMERALD) && !e.getCursor().getType().equals(Material.EMERALD_BLOCK) && !e.getCursor().getType().equals(Material.AIR)){
 				e.setCancelled(true);
-				rp.sendMessage("Â§cThis is a bank, not a storage!", "Â§cC'est une banque, pas un coffre !");
+				rp.sendMessage("§cThis is a bank, not a storage!", "§cC'est une banque, pas un coffre !");
 			}else{
 				if(e.getCursor().getType().equals(Material.EMERALD) || e.getCursor().getType().equals(Material.EMERALD_BLOCK)){
 					if(e.isRightClick()){
 						if(!gm.getPermission(Permission.BANK_WITHDRAW)){
 							e.setCancelled(true);
-							rp.sendMessage("Â§cYou don't have permission to withdraw emeralds from your guild's bank!", "Â§cVous n'avez pas la permission de retirer des Ã©meraudes de la banque de votre guilde !");
+							rp.sendMessage("§cYou don't have permission to withdraw emeralds from your guild's bank!", "§cVous n'avez pas la permission de retirer des émeraudes de la banque de votre guilde !");
 						}
 					}else if(!gm.getPermission(Permission.BANK_DEPOSIT)){
 						e.setCancelled(true);
-						rp.sendMessage("Â§cYou don't have permission to depose emeralds in your guild's bank!", "Â§cVous n'avez pas la permission de dÃ©poser des Ã©meraudes dans la banque de votre guilde !");
+						rp.sendMessage("§cYou don't have permission to depose emeralds in your guild's bank!", "§cVous n'avez pas la permission de déposer des émeraudes dans la banque de votre guilde !");
 					}
 				}else if(e.getCursor().getType().equals(Material.AIR)){
 					if(!gm.getPermission(Permission.BANK_WITHDRAW)){
 						e.setCancelled(true);
-						rp.sendMessage("Â§cYou don't have permission to withdraw emeralds from your guild's bank!", "Â§cVous n'avez pas la permission de retirer des Ã©meraudes de la banque de votre guilde !");
+						rp.sendMessage("§cYou don't have permission to withdraw emeralds from your guild's bank!", "§cVous n'avez pas la permission de retirer des émeraudes de la banque de votre guilde !");
 					}
 				}
 				
