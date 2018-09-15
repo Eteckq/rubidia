@@ -5,16 +5,12 @@ import java.util.List;
 
 import me.pmilon.RubidiaGuilds.claims.Claim;
 import me.pmilon.RubidiaWG.Flags;
+import me.pmilon.RubidiaWG.WGUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-
-import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
+import org.bukkit.util.Vector;
 
 public abstract class Chunk {
 
@@ -107,10 +103,7 @@ public abstract class Chunk {
 					}
 				}
 				
-				ProtectedCuboidRegion region = new ProtectedCuboidRegion("temp", new BlockVector(this.getOrigin().getX(),this.getOrigin().getY(),this.getOrigin().getZ()), new BlockVector(this.getDestination().getX(),this.getDestination().getY(),this.getDestination().getZ()));
-				RegionManager manager = WorldGuardPlugin.inst().getRegionManager(this.getWorld());
-				ApplicableRegionSet set = manager.getApplicableRegions(region);
-				if(set.testState(null, Flags.REGEN)){
+				if(WGUtils.testState(null, this.getWorld(), new Vector(this.getOrigin().getX(),this.getOrigin().getY(),this.getOrigin().getZ()), new Vector(this.getDestination().getX(),this.getDestination().getY(),this.getDestination().getZ()), Flags.REGEN)){
 					return "true";
 				}else return "Unregenable region inside";
 			}else return "Chunk already regenerated";

@@ -12,12 +12,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
+import org.bukkit.util.Vector;
 
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaGuilds.claims.Claim;
@@ -29,6 +24,7 @@ import me.pmilon.RubidiaManager.chunks.ChunkManager;
 import me.pmilon.RubidiaManager.chunks.NChunk;
 import me.pmilon.RubidiaManager.chunks.RChunk;
 import me.pmilon.RubidiaWG.Flags;
+import me.pmilon.RubidiaWG.WGUtils;
 
 public class ChunksUI extends UIHandler {
 
@@ -72,10 +68,7 @@ public class ChunksUI extends UIHandler {
 				Location location = new Location(this.location.getWorld(), this.location.getX() + (p == 1 ? j-4 : (p == 2 ? 2-i : (p == 3 ? 4-j : i-2 )))*16, this.location.getY(), this.location.getZ() + (p == 1 ? i-2 : (p == 2 ? j-4 : (p == 3 ? 2-i : 4-j )))*16);
 				Chunk chunk = RubidiaManagerPlugin.getChunkColl().get(location.getChunk());
 				if(e.isLeftClick()){
-					ProtectedCuboidRegion region = new ProtectedCuboidRegion("temp", new BlockVector(chunk.getOrigin().getX(),chunk.getOrigin().getY(),chunk.getOrigin().getZ()), new BlockVector(chunk.getDestination().getX(),chunk.getDestination().getY(),chunk.getDestination().getZ()));
-					RegionManager mng = WorldGuardPlugin.inst().getRegionManager(chunk.getWorld());
-					ApplicableRegionSet set = mng.getApplicableRegions(region);
-					if(set.testState(null, Flags.REGEN)){
+					if(WGUtils.testState(null, this.getHolder().getWorld(), new Vector(chunk.getOrigin().getX(),chunk.getOrigin().getY(),chunk.getOrigin().getZ()), new Vector(chunk.getDestination().getX(),chunk.getDestination().getY(),chunk.getDestination().getZ()), Flags.REGEN)){
 						if(!e.isShiftClick()){
 							if(chunk instanceof RChunk){
 								RubidiaManagerPlugin.getChunkColl().delete(chunk);
@@ -166,10 +159,7 @@ public class ChunksUI extends UIHandler {
 			chunk = new RChunk(location.getWorld(), location.getChunk().getX(), location.getChunk().getZ(), true);
 			ChunkColl.chunks.add(chunk);
 		}else{
-			ProtectedCuboidRegion region = new ProtectedCuboidRegion("temp", new BlockVector(chunk.getOrigin().getX(),chunk.getOrigin().getY(),chunk.getOrigin().getZ()), new BlockVector(chunk.getDestination().getX(),chunk.getDestination().getY(),chunk.getDestination().getZ()));
-			RegionManager manager = WorldGuardPlugin.inst().getRegionManager(chunk.getWorld());
-			ApplicableRegionSet set = manager.getApplicableRegions(region);
-			if(!set.testState(null, Flags.REGEN)){
+			if(!WGUtils.testState(null, this.getHolder().getWorld(), new Vector(chunk.getOrigin().getX(),chunk.getOrigin().getY(),chunk.getOrigin().getZ()), new Vector(chunk.getDestination().getX(),chunk.getDestination().getY(),chunk.getDestination().getZ()), Flags.REGEN)){
 				item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 				meta = item.getItemMeta();
 				meta.setDisplayName("§7§l" + rp.translateString("Protected region", "Région protégée"));

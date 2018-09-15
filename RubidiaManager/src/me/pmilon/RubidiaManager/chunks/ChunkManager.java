@@ -29,6 +29,7 @@ import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardWriter;
 import com.sk89q.worldedit.function.operation.ForwardExtentCopy;
@@ -40,7 +41,6 @@ import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.util.io.Closer;
 import com.sk89q.worldedit.util.io.file.FilenameException;
 import com.sk89q.worldedit.world.World;
-import com.sk89q.worldedit.world.registry.WorldData;
 
 public class ChunkManager {
 
@@ -98,7 +98,7 @@ public class ChunkManager {
 		} catch (IncompleteRegionException | MaxChangedBlocksException e) {
 		}
         
-        return new ClipboardHolder(blockClipboard, this.getEditSession().getWorld().getWorldData());
+        return new ClipboardHolder(blockClipboard);
 	}
 	
 	public void paste(){
@@ -107,11 +107,10 @@ public class ChunkManager {
 		
 		try {
 	        Vector to = getPastePosition(location);
-	        WorldData worldData = this.getLocalWorld().getWorldData();
 	        Clipboard clipboard = this.getLocalSession().getClipboard().getClipboard();
 	        
-	        Operation operation = new ClipboardHolder(clipboard, worldData)
-	                .createPaste(this.getEditSession(), this.getEditSession().getWorld().getWorldData())
+	        Operation operation = new ClipboardHolder(clipboard)
+	                .createPaste(this.getEditSession())
 	                .to(to)
 	                .ignoreAirBlocks(false)
 	                .build();
@@ -135,7 +134,7 @@ public class ChunkManager {
         try {
             File file = WorldEdit.getInstance().getSafeSaveFile(null, this.getFile().getParentFile(), this.getFile().getName(), "schematic", "schematic");
 
-            ClipboardFormat format = ClipboardFormat.findByAlias("schematic");
+            ClipboardFormat format = ClipboardFormats.findByAlias("schematic");
 
             ClipboardHolder holder = this.getLocalSession().getClipboard();
             Clipboard clipboard = holder.getClipboard();
@@ -143,7 +142,7 @@ public class ChunkManager {
             FileOutputStream fos = closer.register(new FileOutputStream(file));
             BufferedOutputStream bos = closer.register(new BufferedOutputStream(fos));
             ClipboardWriter writer = closer.register(format.getWriter(bos));
-            writer.write(clipboard, holder.getWorldData());
+            writer.write(clipboard);
         } catch (IOException | EmptyClipboardException | FilenameException e) {
         } finally {
             try {
@@ -154,7 +153,7 @@ public class ChunkManager {
 	}
 	
 	public void read(){
-        ClipboardFormat format = ClipboardFormat.findByAlias("schematic");
+        ClipboardFormat format = ClipboardFormats.findByAlias("schematic");
         Closer closer = Closer.create();
         
 		try {
@@ -164,10 +163,9 @@ public class ChunkManager {
 	        BufferedInputStream bis = closer.register(new BufferedInputStream(fis));
 	        ClipboardReader reader = format.getReader(bis);
 
-	        WorldData worldData = this.getLocalWorld().getWorldData();
-	        Clipboard clipboard = reader.read(worldData);
+	        Clipboard clipboard = reader.read();
 	        
-	        this.getLocalSession().setClipboard(new ClipboardHolder(clipboard, worldData));
+	        this.getLocalSession().setClipboard(new ClipboardHolder(clipboard));
 		} catch (IOException | FilenameException ex) {
 		}
 	}
