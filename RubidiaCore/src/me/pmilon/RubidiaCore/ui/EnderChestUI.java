@@ -1,24 +1,23 @@
 package me.pmilon.RubidiaCore.ui;
 
-import net.minecraft.server.v1_13_R2.BlockPosition;
-import net.minecraft.server.v1_13_R2.PacketPlayOutBlockAction;
-
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
+import com.comphenix.protocol.wrappers.BlockPosition;
+
+import me.pmilon.RubidiaCore.packets.WrapperPlayServerBlockAction;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
-public class EnderChest extends UIHandler{
+public class EnderChestUI extends UIHandler{
 
-	private Block block;
-	public EnderChest(Player p, Block block) {
+	private final Block block;
+	public EnderChestUI(Player p, Block block) {
 		super(p);
 		this.menu = Bukkit.createInventory(this.getHolder(), 27, StringUtils.abbreviate(rp.translateString("Ender Chest", "Coffre du Néant") + " | " + rp.getName(),32));
 		this.block = block;
@@ -31,7 +30,7 @@ public class EnderChest extends UIHandler{
 
 	@Override
 	protected boolean openWindow() {
-		//this.changeChestState(block.getLocation(), true);
+		this.changeState(true);
 		for(int i : rp.getLoadedSPlayer().getEnderchest().keySet()){
 			this.getMenu().setItem(i, rp.getLoadedSPlayer().getEnderchest().get(i));
 		}
@@ -48,7 +47,7 @@ public class EnderChest extends UIHandler{
 
 	@Override
 	public void onInventoryClose(InventoryCloseEvent e, Player p) {
-		//if(block.getType().toString().contains("CHEST"))this.changeChestState(block.getLocation(), false);
+		if(this.block.getType().equals(Material.ENDER_CHEST))this.changeState(false);
 		for(int i = 0;i < this.getMenu().getSize();i++){
 			rp.getLoadedSPlayer().getEnderchest().put(i, this.getMenu().getItem(i));
 		}
@@ -59,16 +58,17 @@ public class EnderChest extends UIHandler{
 		this.getHolder().closeInventory();
 	}
 
-	/*@SuppressWarnings("deprecation")
-	public void changeChestState(Location loc, boolean open) {
-	    byte dataByte = (open) ? (byte) 1 : 0;
+	public void changeState(boolean open) {
+        WrapperPlayServerBlockAction packet = new WrapperPlayServerBlockAction();
+        packet.setBlockType(this.block.getType());
+        packet.setLocation(new BlockPosition(this.block.getX(), this.block.getY(), this.block.getZ()));
+        packet.setByte1((byte) 1);
+        packet.setByte2((open) ? (byte) 1 : 0);
 	    for (Player player : Bukkit.getOnlinePlayers()) {
-	        if(open)player.playSound(loc, Sound.BLOCK_CHEST_OPEN, 1, 1);
-	        else player.playSound(loc, Sound.BLOCK_CHEST_CLOSE, 1, 1);
-	        BlockPosition position = new BlockPosition(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
-	        PacketPlayOutBlockAction blockActionPacket = new PacketPlayOutBlockAction(position, net.minecraft.server.v1_13_R2.Block.getById(loc.getBlock()), (byte) 1, dataByte);
-	        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(blockActionPacket);
+	        //if(open)player.playSound(this.block.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
+	        //else player.playSound(this.block.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);
+	        packet.sendPacket(player);
 	    }
-	}*/
+	}
 	
 }

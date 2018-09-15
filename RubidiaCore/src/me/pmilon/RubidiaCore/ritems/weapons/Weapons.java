@@ -7,6 +7,7 @@ import org.bukkit.Material;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RClass;
+import me.pmilon.RubidiaCore.utils.BukkitConverter;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
@@ -54,7 +55,7 @@ public class Weapons {
 				Weapon weapon = new Weapon(id,
 						Configs.getWeaponsConfig().getString(path + ".name"),
 						Rarity.valueOf(Configs.getWeaponsConfig().getString(path + ".rarity")),
-						Material.valueOf(Configs.getWeaponsConfig().getString(path + ".type")),
+						Material.valueOf(BukkitConverter.convert(Configs.getWeaponsConfig().getString(path + ".type"))),
 						RClass.valueOf(Configs.getWeaponsConfig().getString(path + ".rClass")),
 						Configs.getWeaponsConfig().getDouble(path + ".dropChance"),
 						Configs.getWeaponsConfig().getInt(path + ".minDamages"),

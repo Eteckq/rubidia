@@ -88,7 +88,7 @@ import me.pmilon.RubidiaCore.ui.AnvilUI;
 import me.pmilon.RubidiaCore.ui.BackpackUI;
 import me.pmilon.RubidiaCore.ui.DistinctionsMenu;
 import me.pmilon.RubidiaCore.ui.EnchantmentUI;
-import me.pmilon.RubidiaCore.ui.EnderChest;
+import me.pmilon.RubidiaCore.ui.EnderChestUI;
 import me.pmilon.RubidiaCore.ui.PlayerMenu;
 import me.pmilon.RubidiaCore.ui.PrefsUI;
 import me.pmilon.RubidiaCore.ui.SPlayerManager;
@@ -1092,7 +1092,8 @@ public class Core extends JavaPlugin implements Listener {
 				
 				if(e.getAction().toString().contains("RIGHT_CLICK")){
 					ItemStack item = p.getEquipment().getItemInMainHand();
-					if(item != null)System.out.print(item.getType().toString());
+					if(item != null)System.out.print("inhand: " + item.getType().toString());
+					if(e.getClickedBlock() != null)System.out.print("clicked: " + e.getClickedBlock().getType().toString());
 					RItem rItem = new RItem(item);
 					if(rItem.isBackPack()){
 						e.setCancelled(true);
@@ -1138,7 +1139,7 @@ public class Core extends JavaPlugin implements Listener {
 							if(!e.isCancelled()){
 								e.setCancelled(true);
 								if(!p.isSneaking()){
-									Core.uiManager.requestUI(new EnderChest(p, clicked));
+									Core.uiManager.requestUI(new EnderChestUI(p, clicked));
 								}
 							}
 						}

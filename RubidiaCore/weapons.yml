@@ -2,7 +2,7 @@
   ca0096a1-c178-4a02-881c-83dd42ea7797:
     name: Hache en bois
     rarity: COMMON
-    type: WOOD_AXE
+    type: WOODEN_AXE
     rClass: VAGRANT
     dropChance: 0.06
     minDamages: 0
@@ -16,7 +16,7 @@
   2d2b23ad-dc3e-427c-b887-2123249d7d25:
     name: Hache Lourde
     rarity: COMMON
-    type: WOOD_AXE
+    type: WOODEN_AXE
     rClass: VAGRANT
     dropChance: 0.06
     minDamages: 1
@@ -30,7 +30,7 @@
   92833249-04fc-42ad-a795-25a0a67c95fc:
     name: Hache Rodney
     rarity: COMMON
-    type: WOOD_AXE
+    type: WOODEN_AXE
     rClass: VAGRANT
     dropChance: 0.055
     minDamages: 3
@@ -44,7 +44,7 @@
   13fcaf55-e4e3-497b-a3f0-42aef3c35da4:
     name: Hache Parmil
     rarity: COMMON
-    type: WOOD_AXE
+    type: WOODEN_AXE
     rClass: VAGRANT
     dropChance: 0.055
     minDamages: 5
@@ -58,7 +58,7 @@
   88ac3f59-3b40-4f75-8536-30f80f411e89:
     name: Hache Morrow
     rarity: COMMON
-    type: WOOD_AXE
+    type: WOODEN_AXE
     rClass: VAGRANT
     dropChance: 0.05
     minDamages: 6
@@ -72,7 +72,7 @@
   2eab9a55-23ba-4db1-80a6-2fe124cadec7:
     name: Hache Scintillante
     rarity: COMMON
-    type: WOOD_AXE
+    type: WOODEN_AXE
     rClass: VAGRANT
     dropChance: 0.05
     minDamages: 7
@@ -86,7 +86,7 @@
   0311c8ff-d7d6-4c19-8ace-bb83dc5caf65:
     name: Hache Schyadin
     rarity: COMMON
-    type: WOOD_AXE
+    type: WOODEN_AXE
     rClass: VAGRANT
     dropChance: 0.045
     minDamages: 9
@@ -408,7 +408,7 @@
   466c6314-3c2e-4a7c-b5ec-337a6ee59b19:
     name: Épée en bois
     rarity: COMMON
-    type: WOOD_SWORD
+    type: WOODEN_SWORD
     rClass: VAGRANT
     dropChance: 0.06
     minDamages: 0
@@ -422,7 +422,7 @@
   67c78a1e-e6cb-4244-ab67-2b16fdb024a9:
     name: Épée Longue
     rarity: COMMON
-    type: WOOD_SWORD
+    type: WOODEN_SWORD
     rClass: VAGRANT
     dropChance: 0.06
     minDamages: 1
@@ -436,7 +436,7 @@
   3d2beeaf-0895-4e95-8625-f586f78e33ff:
     name: Épée Aiguisée
     rarity: COMMON
-    type: WOOD_SWORD
+    type: WOODEN_SWORD
     rClass: VAGRANT
     dropChance: 0.055
     minDamages: 4
@@ -450,7 +450,7 @@
   7c838c41-6a30-49b9-b563-de985982bf17:
     name: Épée Pirma
     rarity: COMMON
-    type: WOOD_SWORD
+    type: WOODEN_SWORD
     rClass: VAGRANT
     dropChance: 0.055
     minDamages: 5
@@ -464,7 +464,7 @@
   c8be62db-f50a-4321-bd01-e5b48b9d4251:
     name: Épée Mertyl
     rarity: COMMON
-    type: WOOD_SWORD
+    type: WOODEN_SWORD
     rClass: VAGRANT
     dropChance: 0.05
     minDamages: 6
@@ -478,7 +478,7 @@
   0d4792d5-698d-40a9-9242-f34cb7f83757:
     name: Épée Virta
     rarity: COMMON
-    type: WOOD_SWORD
+    type: WOODEN_SWORD
     rClass: VAGRANT
     dropChance: 0.05
     minDamages: 8
@@ -492,7 +492,7 @@
   bc2266cf-215c-4c1f-8111-5c1921168829:
     name: Épée Parrow
     rarity: COMMON
-    type: WOOD_SWORD
+    type: WOODEN_SWORD
     rClass: VAGRANT
     dropChance: 0.045
     minDamages: 9
@@ -506,7 +506,7 @@
   5fa51293-7e06-4488-b6c0-06ab9be823a1:
     name: Épée Blew
     rarity: COMMON
-    type: WOOD_SWORD
+    type: WOODEN_SWORD
     rClass: VAGRANT
     dropChance: 0.045
     minDamages: 10
@@ -1220,7 +1220,7 @@
   62749533-3038-4a00-adb3-4039b734855c:
     name: Baguette en Chêne
     rarity: COMMON
-    type: WOOD_HOE
+    type: WOODEN_HOE
     rClass: VAGRANT
     dropChance: 0.06
     minDamages: 0
@@ -1234,7 +1234,7 @@
   603ea1f9-61fa-4139-a8c3-fe6b7d17c634:
     name: Baguette Longue
     rarity: COMMON
-    type: WOOD_HOE
+    type: WOODEN_HOE
     rClass: VAGRANT
     dropChance: 0.06
     minDamages: 1
@@ -1248,7 +1248,7 @@
   45827c53-3427-4c6d-becd-0f2c1f1d7ac9:
     name: Baguette Cubique
     rarity: COMMON
-    type: WOOD_HOE
+    type: WOODEN_HOE
     rClass: VAGRANT
     dropChance: 0.055
     minDamages: 2
@@ -1262,7 +1262,7 @@
   6cb87674-1519-49c8-990e-801efa9cc461:
     name: Baguette Saphire
     rarity: COMMON
-    type: WOOD_HOE
+    type: WOODEN_HOE
     rClass: VAGRANT
     dropChance: 0.055
     minDamages: 4
@@ -1276,7 +1276,7 @@
   8cd2b515-6951-4df8-948f-35f715a3b092:
     name: Baguette Quartz
     rarity: COMMON
-    type: WOOD_HOE
+    type: WOODEN_HOE
     rClass: VAGRANT
     dropChance: 0.05
     minDamages: 7
@@ -1290,7 +1290,7 @@
   48ce4d09-5ccc-479f-8821-2a7a791de7a2:
     name: Baguette Nangril
     rarity: COMMON
-    type: WOOD_HOE
+    type: WOODEN_HOE
     rClass: VAGRANT
     dropChance: 0.05
     minDamages: 8
@@ -1598,7 +1598,7 @@
   35fdcb19-cc0e-42ae-bd68-e949929e7508:
     name: Hachereau
     rarity: UNCOMMON
-    type: WOOD_AXE
+    type: WOODEN_AXE
     rClass: PALADIN
     dropChance: 0.045
     minDamages: 6
@@ -1640,7 +1640,7 @@
   6f311834-7ac2-4e89-a091-b6533c0fdfd3:
     name: Hache Kolom
     rarity: UNCOMMON
-    type: GOLD_AXE
+    type: GOLDEN_AXE
     rClass: PALADIN
     dropChance: 0.02
     minDamages: 34
@@ -1654,7 +1654,7 @@
   07b327f1-c101-4041-8393-4df806e1e81e:
     name: Hache Parsure
     rarity: UNCOMMON
-    type: GOLD_AXE
+    type: GOLDEN_AXE
     rClass: PALADIN
     dropChance: 0.005
     minDamages: 46
@@ -1668,7 +1668,7 @@
   308d554e-cf95-4425-a5bc-088740a36070:
     name: Dague
     rarity: UNCOMMON
-    type: WOOD_SWORD
+    type: WOODEN_SWORD
     rClass: ASSASSIN
     dropChance: 0.045
     minDamages: 7
@@ -1710,7 +1710,7 @@
   30bf00ac-f030-4069-84e7-4d9f76ec6993:
     name: Épée Haltu
     rarity: UNCOMMON
-    type: GOLD_SWORD
+    type: GOLDEN_SWORD
     rClass: ASSASSIN
     dropChance: 0.008
     minDamages: 32
@@ -1808,7 +1808,7 @@
   692c9f69-d0f2-41f9-a99a-73faad3743f6:
     name: Baguetteau
     rarity: UNCOMMON
-    type: WOOD_HOE
+    type: WOODEN_HOE
     rClass: MAGE
     dropChance: 0.045
     minDamages: 5
@@ -1850,7 +1850,7 @@
   ceb4b788-bea9-4739-a3c3-9af76f7a30de:
     name: Bâton Darhik
     rarity: UNCOMMON
-    type: GOLD_HOE
+    type: GOLDEN_HOE
     rClass: MAGE
     dropChance: 0.008
     minDamages: 37
@@ -3217,7 +3217,7 @@
   e86be4d2-8c5e-4d9f-9c59-6aa2b3ad6e17:
     name: Pelle Angélique
     rarity: EPIC
-    type: WOOD_SPADE
+    type: WOODEN_SHOVEL
     rClass: VAGRANT
     dropChance: 0.1
     minDamages: 70
@@ -3270,7 +3270,7 @@
   14fd02e7-3f3b-4bfe-8e08-90b519a10e5c:
     name: Hache Persil
     rarity: EPIC
-    type: GOLD_AXE
+    type: GOLDEN_AXE
     rClass: PALADIN
     dropChance: 0.8
     minDamages: 29
@@ -3284,7 +3284,7 @@
   78a86bb7-e9d2-4826-844d-a444e0c1e3ed:
     name: Doloire Magnus
     rarity: EPIC
-    type: GOLD_AXE
+    type: GOLDEN_AXE
     rClass: PALADIN
     dropChance: 0.2
     minDamages: 61
@@ -3298,7 +3298,7 @@
   4cd56b86-28ca-4024-a696-c8068050999f:
     name: Hache Iparmentier
     rarity: RARE
-    type: GOLD_AXE
+    type: GOLDEN_AXE
     rClass: PALADIN
     dropChance: 0.75
     minDamages: 37
@@ -3354,7 +3354,7 @@
   8669a8e9-763c-4cff-9124-8b29d79530de:
     name: Bâton Droit
     rarity: EPIC
-    type: GOLD_HOE
+    type: GOLDEN_HOE
     rClass: MAGE
     dropChance: 0.8
     minDamages: 18
@@ -3368,7 +3368,7 @@
   af55391d-ae0f-420f-ae4e-8cf96cb01cea:
     name: Bâton Tontata
     rarity: RARE
-    type: GOLD_HOE
+    type: GOLDEN_HOE
     rClass: MAGE
     dropChance: 0.75
     minDamages: 34
@@ -3382,7 +3382,7 @@
   8ca422f4-e761-420f-b0b4-0b5d45df79c3:
     name: Épée Courbe
     rarity: EPIC
-    type: GOLD_SWORD
+    type: GOLDEN_SWORD
     rClass: ASSASSIN
     dropChance: 0.8
     minDamages: 21
@@ -3396,7 +3396,7 @@
   141113c4-2076-4059-b87b-cd16df763ee1:
     name: Épée Nalty
     rarity: RARE
-    type: GOLD_SWORD
+    type: GOLDEN_SWORD
     rClass: ASSASSIN
     dropChance: 0.75
     minDamages: 37
@@ -3410,7 +3410,7 @@
   4c954f0e-aa00-4723-8085-01ec9ed8d079:
     name: Sceptre Trelm
     rarity: EPIC
-    type: GOLD_HOE
+    type: GOLDEN_HOE
     rClass: MAGE
     dropChance: 0.2
     minDamages: 47
@@ -3424,7 +3424,7 @@
   5cdd3c04-1e90-404c-997a-789ac5df7f7e:
     name: Épée Monstre
     rarity: EPIC
-    type: GOLD_SWORD
+    type: GOLDEN_SWORD
     rClass: ASSASSIN
     dropChance: 0.2
     minDamages: 51
@@ -3451,7 +3451,7 @@
   a118674b-1156-4519-9389-9e62825b3ef1:
     name: Casque de Garde
     rarity: SET
-    type: GOLD_HELMET
+    type: GOLDEN_HELMET
     rClass: VAGRANT
     dropChance: 0.0
     minDamages: 8
@@ -3464,7 +3464,7 @@
   8b10ab88-2f8f-4bd6-b974-fcffe518c1b8:
     name: Plastron de Garde
     rarity: SET
-    type: GOLD_CHESTPLATE
+    type: GOLDEN_CHESTPLATE
     rClass: VAGRANT
     dropChance: 0.0
     minDamages: 13
@@ -3477,7 +3477,7 @@
   981504db-8d52-451d-84e3-b14f428cc125:
     name: Jambières de Garde
     rarity: SET
-    type: GOLD_LEGGINGS
+    type: GOLDEN_LEGGINGS
     rClass: VAGRANT
     dropChance: 0.0
     minDamages: 9
@@ -3490,7 +3490,7 @@
   6561bae8-3c7f-43c7-ad53-e2b4bd1bce07:
     name: Bottes de Garde
     rarity: SET
-    type: GOLD_BOOTS
+    type: GOLDEN_BOOTS
     rClass: VAGRANT
     dropChance: 0.0
     minDamages: 8

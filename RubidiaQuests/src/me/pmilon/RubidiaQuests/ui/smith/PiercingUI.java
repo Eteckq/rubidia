@@ -171,7 +171,7 @@ public class PiercingUI extends UIHandler {
 					this.scroll.clear();
 					this.update();
 				}else if(slot == 8 && !item.isSimilar(FREE_SLOT)){
-					if(this.endTask == null && item.getType().equals(Material.KELP_PLANT)){
+					if(this.endTask == null && item.getType().equals(Material.SUNFLOWER)){
 						this.endTask = new BukkitTask(QuestsPlugin.instance){
 
 							@Override

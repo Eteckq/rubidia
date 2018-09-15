@@ -3,13 +3,17 @@ package me.pmilon.RubidiaCore.ritems.weapons;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
+import me.pmilon.RubidiaCore.RManager.RPlayer;
 
 public class REnchantment {
 
@@ -21,7 +25,7 @@ public class REnchantment {
 															Enchantment.LOOT_BONUS_MOBS,
 															Enchantment.LUCK);
 	
-	public static Enchantment SOUL_BIND = new Enchantment(new NamespacedKey(Core.instance, "Soul Bind")){
+	public static Enchantment SOUL_BIND = new Enchantment(new NamespacedKey(Core.instance, "Soul_Bind")){
 
 		@Override
 		public boolean canEnchantItem(ItemStack item) {
@@ -107,4 +111,60 @@ public class REnchantment {
 				REnchantment.SOUL_BIND};
 	}
 
+	public static int cost(Player player, ItemStack item, int level) {
+		RPlayer rp = RPlayer.get(player);
+		int DCOST = (rp.isVip() ? 47 : 59)+level*8;
+		if(item.hasItemMeta()) {
+			ItemMeta meta = item.getItemMeta();
+			if(meta.hasEnchants()) {
+				String m = item.getType().toString();
+				Map<Enchantment, Integer> enchantms = meta.getEnchants();
+				if(m.contains("WOODEN_")){
+					for(Enchantment enchant : REnchantment.values()){
+						if(enchantms.containsKey(enchant)){
+							if(rp.isVip())DCOST += level*(enchantms.get(enchant));
+							else DCOST += (level+1)*(enchantms.get(enchant));
+						}
+					}
+				}else if(m.contains("STONE_")){
+					for(Enchantment enchant : REnchantment.values()){
+						if(enchantms.containsKey(enchant)){
+							if(rp.isVip())DCOST += level*2*(enchantms.get(enchant));
+							else DCOST += (level*2+2)*(enchantms.get(enchant));
+						}
+					}
+				}else if(m.contains("IRON_")){
+					for(Enchantment enchant : REnchantment.values()){
+						if(enchantms.containsKey(enchant)){
+							if(rp.isVip())DCOST += (level*4+1)*(enchantms.get(enchant));
+							else DCOST += (level*5+1)*(enchantms.get(enchant));
+						}
+					}
+				}else if(m.contains("DIAMOND_")){
+					for(Enchantment enchant : REnchantment.values()){
+						if(enchantms.containsKey(enchant)){
+							if(rp.isVip())DCOST += (level*6-1)*(enchantms.get(enchant));
+							else DCOST += (level*7-1)*(enchantms.get(enchant));
+						}
+					}
+				}else if(m.contains("GOLD_")){
+					for(Enchantment enchant : REnchantment.values()){
+						if(enchantms.containsKey(enchant)){
+							if(rp.isVip())DCOST += (level*8+2)*(enchantms.get(enchant));
+							else DCOST += (level*9+3)*(enchantms.get(enchant));
+						}
+					}
+				}else{
+					for(Enchantment enchant : REnchantment.values()){
+						if(enchantms.containsKey(enchant)){
+							if(rp.isVip())DCOST += level*3*(enchantms.get(enchant));
+							else DCOST += (level*4-1)*(enchantms.get(enchant));
+						}
+					}
+				}
+			}
+		}
+		return (DCOST < 0 ? 0 : DCOST)*item.getAmount();
+	}
+	
 }

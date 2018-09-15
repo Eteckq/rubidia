@@ -2,7 +2,7 @@ name: RubidiaSecretPaths
 version: 2.0
 api-version: 1.13
 main: me.pmilon.RubidiaSecretPaths.SecretPathsManager
-author: pmilon
+author: Rubilmax
 depend: [WorldEdit, RubidiaCore]
 commands:
   portal:

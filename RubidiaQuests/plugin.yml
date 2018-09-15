@@ -1,11 +1,11 @@
 name: RubidiaQuests
-author: pmilon
+author: Rubilmax
 version: 2.0.6
 api-version: 1.13
 description: The Quests plugin of Rubidias server.
 main: me.pmilon.RubidiaQuests.QuestsPlugin
 loadbefore: [RubidiaCore]
-softdepend: [Multiverse-Core, WorldGuard, EffectLib]
+softdepend: [Multiverse-Core, WorldGuard]
 commands:
   pnj:
     description: create a pnj

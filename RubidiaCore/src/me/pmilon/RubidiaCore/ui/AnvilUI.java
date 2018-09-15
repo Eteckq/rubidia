@@ -5,14 +5,13 @@ import java.util.Random;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.handlers.EconomyHandler;
+import me.pmilon.RubidiaCore.ritems.weapons.REnchantment;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.utils.Utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -22,24 +21,32 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class AnvilUI extends UIHandler {
 
 	RPlayer rp = RPlayer.get(this.getHolder());
-	private final ItemStack INHAND;
-	private final ItemStack ITEM_0;
-	private final ItemStack ITEM_1;
-	private final Block ANVIL;
-	private final int COST;
-	private int FINAL_ITEM_SLOT = 6;
+	private final ItemStack item;
+	private final ItemStack item0;
+	private final ItemStack item1;
+	private final Block block;
+	private final int cost;
+	private int ITEM_0_SLOT = 2, ITEM_1_SLOT = 3, FINAL_ITEM_SLOT = 6;
 	private boolean DONE = false;
 	
 	public AnvilUI(Player p, Block anvil, ItemStack is_0, ItemStack is_1, ItemStack is_2) {
 		super(p);
 		this.setMenu(Bukkit.createInventory(this.getHolder(), 9, rp.translateString("Anvil", "Forge")));
-		this.ITEM_0 = is_0;
-		this.ITEM_1 = is_1;
-		this.INHAND = is_2;
-		this.ANVIL = anvil;
-		this.COST = Utils.defineAnvilCost(this.getHolder(), INHAND);
+		this.item0 = is_0;
+		this.item1 = is_1;
+		this.item = is_2;
+		this.block = anvil;
+		ItemMeta im = is_2.getItemMeta();
+		int cost = 0;
+		if(im.hasDisplayName()) {
+			if(rp.isVip())cost += 6;
+			else cost += 10;
+		}
+		if(im.hasEnchants()){
+			cost += REnchantment.cost(p, is_2, 2);
+		}
+		this.cost = cost;
 		this.getHolder().closeInventory();
-		rp.refreshRLevelDisplay();
 	}
 
 	@Override
@@ -49,9 +56,9 @@ public class AnvilUI extends UIHandler {
 
 	@Override
 	protected boolean openWindow() {
-		this.getMenu().setItem(2, ITEM_0);
-		this.getMenu().setItem(3, ITEM_1);
-		this.getMenu().setItem(FINAL_ITEM_SLOT, INHAND);
+		this.getMenu().setItem(this.ITEM_0_SLOT, item0);
+		this.getMenu().setItem(this.ITEM_1_SLOT, item1);
+		this.getMenu().setItem(FINAL_ITEM_SLOT, this.item);
 		this.getMenu().setItem(0, this.getInfos());
 		this.getMenu().setItem(8, this.getInfos());
 		this.getMenu().setItem(1, this.getItemInfos());
@@ -65,7 +72,7 @@ public class AnvilUI extends UIHandler {
 		ItemStack is = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = is.getItemMeta();
 		meta.setDisplayName(rp.translateString("§aFinal item", "§aItem final"));
-		meta.setLore(Arrays.asList("§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-", rp.translateString("§7Confirm your item forging", "§7Confirmez la modification"), rp.translateString("§7by clicking it.", "§7en cliquant dessus."), rp.translateString("§cCost: §4" + COST + "§c Emeralds", "§cCoût : §4" + COST + "§c émeraudes"), "§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-"));
+		meta.setLore(Arrays.asList("§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-", rp.translateString("§7Confirm your item forging", "§7Confirmez la modification"), rp.translateString("§7by clicking it.", "§7en cliquant dessus."), rp.translateString("§cCost: §4" + this.cost + "§c Emeralds", "§cCoût : §4" + this.cost + "§c émeraudes"), "§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-"));
 		is.setItemMeta(meta);
 		return is;
 	}
@@ -88,36 +95,34 @@ public class AnvilUI extends UIHandler {
 		return is;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
+			e.setCancelled(true);
 			int slot = e.getRawSlot();
 			if(slot == FINAL_ITEM_SLOT || slot == FINAL_ITEM_SLOT-1 || slot == FINAL_ITEM_SLOT+1){
 				RPlayer rp = RPlayer.get(p);
-				if(rp.getBalance() >= COST){
-					EconomyHandler.withdrawBalanceITB(this.getHolder(), COST);
-					p.getInventory().addItem(INHAND);
-					p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 3, 3);
-					/*Random r = new Random();
-					if(r.nextInt(4) == 0){
-						BlockData data = ANVIL.getBlockData();
-						if(ANVIL.getData()+4 < 12){
-							ANVIL.setData((byte) (ANVIL.getData()+4));
-						}else{
-							ANVIL.setType(Material.AIR);
-							p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_BREAK, 3, 3);
+				if(this.block.getType().toString().contains("ANVIL")) {
+					if(rp.getBalance() >= this.cost){
+						EconomyHandler.withdrawBalanceITB(this.getHolder(), this.cost);
+						p.getInventory().addItem(this.item);
+						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 3, 3);
+						Random r = new Random();
+						if(r.nextInt(4) == 0){
+							if(this.block.getType().equals(Material.ANVIL)){
+								this.block.setType(Material.CHIPPED_ANVIL);
+							}else if(this.block.getType().equals(Material.CHIPPED_ANVIL)){
+								this.block.setType(Material.DAMAGED_ANVIL);
+							}else{
+								this.block.setType(Material.AIR);
+								p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_BREAK, 3, 3);
+							}
 						}
-					}*/
-					DONE = true;
-				}else{
-					p.sendMessage(rp.translateString("§cYou don't have enough emeralds!", "§cVous n'avez pas assez d'émeraudes !"));
-					DONE = false;
-				}
+						DONE = true;
+					}else rp.sendMessage("§cYou don't have enough emeralds!", "§cVous n'avez pas assez d'émeraudes !");
+				}else rp.sendMessage("§cThe anvil disappeared!","§cLa forge a disparue !");
 				this.closeUI();
-			}else if(slot == 2 || slot == 3 || slot == 1 || slot == 4)this.closeUI();
-			else e.setCancelled(true);
-			e.setCancelled(true);
+			}else if(slot != 0 && slot != 8)this.closeUI();
 		}
 	}
 
@@ -129,13 +134,13 @@ public class AnvilUI extends UIHandler {
 	@Override
 	public void onInventoryClose(InventoryCloseEvent e, final Player p) {
 		if(!DONE){
-			if(ITEM_0 != null)p.getInventory().addItem(ITEM_0);
-			if(ITEM_1 != null)p.getInventory().addItem(ITEM_1);
+			if(this.item0 != null)p.getInventory().addItem(this.item0);
+			if(this.item1 != null)p.getInventory().addItem(this.item1);
 		}else{
-			if(ITEM_1 != null){
-				if(ITEM_1.getAmount() > 1){
-					ITEM_1.setAmount(ITEM_1.getAmount()-1);//because item in slot 1 is the dominating
-					p.getInventory().addItem(ITEM_1);
+			if(this.item1 != null){
+				if(this.item1.getAmount() > 1){
+					this.item1.setAmount(this.item1.getAmount()-1);//because item in slot 1 is the dominating
+					p.getInventory().addItem(this.item1);
 				}
 			}
 		}
@@ -145,4 +150,5 @@ public class AnvilUI extends UIHandler {
 	protected void closeUI() {
 		this.getHolder().closeInventory();
 	}
+	
 }

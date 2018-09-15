@@ -2,7 +2,7 @@ name: RubidiaPets
 version: 2.0
 api-version: 1.13
 main: me.pmilon.RubidiaPets.PetsPlugin
-author: pmilon
+author: Rubilmax
 commands:
   pet:
     description: Give a pet to a player.

@@ -61,28 +61,20 @@ public class Ranks {
 				RPlayer rp = rps.get(i-1);
 				if(rp != null){
 					Block block = location.getBlock();
-					Block signBlock = null;
-					BlockFace face = null;
 					for(BlockFace fc : new BlockFace[]{BlockFace.NORTH, BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}){
 						if(block.getRelative(fc).getType().equals(Material.WALL_SIGN)){
-							signBlock = block.getRelative(fc);
-							face = fc;
-							break;
-						}
-					}
-					if(signBlock != null){
-						Sign sign = (Sign)signBlock.getState();
-						sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
-						sign.setLine(1, "§7§l" + rp.getName());
-						sign.setLine(2, "§3N. §9§l" + rp.getRLevel());
-						sign.setLine(3, "§2§m----------");
-						sign.update(true);
-						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
-							Skull skull = (Skull)blockUp.getState();
-							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
-							skull.setRotation(face);
-							skull.update(true);
+							Sign sign = (Sign)block.getRelative(fc).getState();
+							sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
+							sign.setLine(1, "§7§l" + rp.getName());
+							sign.setLine(2, "§3N. §9§l" + rp.getRLevel());
+							sign.setLine(3, "§2§m----------");
+							sign.update(true);
+							Block blockUp = block.getRelative(BlockFace.UP);
+							if(blockUp.getType().equals(Material.PLAYER_HEAD) || blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
+								Skull skull = (Skull)blockUp.getState();
+								skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
+								skull.update(true);
+							}
 						}
 					}
 				}
@@ -115,28 +107,20 @@ public class Ranks {
 				RPlayer rp = rps.get(i-1);
 				if(rp != null){
 					Block block = location.getBlock();
-					Block signBlock = null;
-					BlockFace face = null;
 					for(BlockFace fc : new BlockFace[]{BlockFace.NORTH, BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}){
 						if(block.getRelative(fc).getType().equals(Material.WALL_SIGN)){
-							signBlock = block.getRelative(fc);
-							face = fc;
-							break;
-						}
-					}
-					if(signBlock != null){
-						Sign sign = (Sign)signBlock.getState();
-						sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
-						sign.setLine(1, "§7§l" + rp.getName());
-						sign.setLine(2, "§8[§7" + rp.getRenom() + "§8]");
-						sign.setLine(3, "§2§m----------");
-						sign.update(true);
-						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
-							Skull skull = (Skull)blockUp.getState();
-							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
-							skull.setRotation(face);
-							skull.update(true);
+							Sign sign = (Sign)block.getRelative(fc).getState();
+							sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
+							sign.setLine(1, "§7§l" + rp.getName());
+							sign.setLine(2, "§8[§7" + rp.getRenom() + "§8]");
+							sign.setLine(3, "§2§m----------");
+							sign.update(true);
+							Block blockUp = block.getRelative(BlockFace.UP);
+							if(blockUp.getType().equals(Material.PLAYER_HEAD) || blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
+								Skull skull = (Skull)blockUp.getState();
+								skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
+								skull.update(true);
+							}
 						}
 					}
 				}
@@ -169,28 +153,20 @@ public class Ranks {
 				RPlayer rp = rps.get(i-1);
 				if(rp != null){
 					Block block = location.getBlock();
-					Block signBlock = null;
-					BlockFace face = null;
 					for(BlockFace fc : new BlockFace[]{BlockFace.NORTH, BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}){
 						if(block.getRelative(fc).getType().equals(Material.WALL_SIGN)){
-							signBlock = block.getRelative(fc);
-							face = fc;
-							break;
-						}
-					}
-					if(signBlock != null){
-						Sign sign = (Sign)signBlock.getState();
-						sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
-						sign.setLine(1, "§7§l" + rp.getName());
-						sign.setLine(2, "§2§l" + rp.getLastMoneyAmount() + " §aémd.");
-						sign.setLine(3, "§2§m----------");
-						sign.update(true);
-						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
-							Skull skull = (Skull)blockUp.getState();
-							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
-							skull.setRotation(face);
-							skull.update(true);
+							Sign sign = (Sign)block.getRelative(fc).getState();
+							sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
+							sign.setLine(1, "§7§l" + rp.getName());
+							sign.setLine(2, "§2§l" + rp.getLastMoneyAmount() + " §aémd.");
+							sign.setLine(3, "§2§m----------");
+							sign.update(true);
+							Block blockUp = block.getRelative(BlockFace.UP);
+							if(blockUp.getType().equals(Material.PLAYER_HEAD) || blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
+								Skull skull = (Skull)blockUp.getState();
+								skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
+								skull.update(true);
+							}
 						}
 					}
 				}
@@ -223,28 +199,20 @@ public class Ranks {
 				RPlayer rp = rps.get(i-1);
 				if(rp != null){
 					Block block = location.getBlock();
-					Block signBlock = null;
-					BlockFace face = null;
 					for(BlockFace fc : new BlockFace[]{BlockFace.NORTH, BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}){
 						if(block.getRelative(fc).getType().equals(Material.WALL_SIGN)){
-							signBlock = block.getRelative(fc);
-							face = fc;
-							break;
-						}
-					}
-					if(signBlock != null){
-						Sign sign = (Sign)signBlock.getState();
-						sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
-						sign.setLine(1, "§7§l" + rp.getName());
-						sign.setLine(2, "§4§l" + rp.getKills() + " §cmeurtre" + (rp.getKills() > 1 ? "s" : ""));
-						sign.setLine(3, "§2§m----------");
-						sign.update(true);
-						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
-							Skull skull = (Skull)blockUp.getState();
-							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
-							skull.setRotation(face);
-							skull.update(true);
+							Sign sign = (Sign)block.getRelative(fc).getState();
+							sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
+							sign.setLine(1, "§7§l" + rp.getName());
+							sign.setLine(2, "§4§l" + rp.getKills() + " §cmeurtre" + (rp.getKills() > 1 ? "s" : ""));
+							sign.setLine(3, "§2§m----------");
+							sign.update(true);
+							Block blockUp = block.getRelative(BlockFace.UP);
+							if(blockUp.getType().equals(Material.PLAYER_HEAD) || blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
+								Skull skull = (Skull)blockUp.getState();
+								skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
+								skull.update(true);
+							}
 						}
 					}
 				}
@@ -261,29 +229,21 @@ public class Ranks {
 				RPlayer rp = rps.get(i-1);
 				if(rp != null){
 					Block block = location.getBlock();
-					Block signBlock = null;
-					BlockFace face = null;
 					for(BlockFace fc : new BlockFace[]{BlockFace.NORTH, BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}){
 						if(block.getRelative(fc).getType().equals(Material.WALL_SIGN)){
-							signBlock = block.getRelative(fc);
-							face = fc;
-							break;
-						}
-					}
-					if(signBlock != null){
-						long hours = TimeUnit.MILLISECONDS.toHours(rp.getGamingTime());
-						Sign sign = (Sign)signBlock.getState();
-						sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
-						sign.setLine(1, "§7§l" + rp.getName());
-						sign.setLine(2, "§4§l" + hours + " §cheure" + (hours > 1 ? "s" : ""));
-						sign.setLine(3, "§2§m----------");
-						sign.update(true);
-						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
-							Skull skull = (Skull)blockUp.getState();
-							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
-							skull.setRotation(face);
-							skull.update(true);
+							long hours = TimeUnit.MILLISECONDS.toHours(rp.getGamingTime());
+							Sign sign = (Sign)block.getRelative(fc).getState();
+							sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
+							sign.setLine(1, "§7§l" + rp.getName());
+							sign.setLine(2, "§4§l" + hours + " §cheure" + (hours > 1 ? "s" : ""));
+							sign.setLine(3, "§2§m----------");
+							sign.update(true);
+							Block blockUp = block.getRelative(BlockFace.UP);
+							if(blockUp.getType().equals(Material.PLAYER_HEAD) || blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
+								Skull skull = (Skull)blockUp.getState();
+								skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rp.getUniqueId())));
+								skull.update(true);
+							}
 						}
 					}
 				}
@@ -305,28 +265,20 @@ public class Ranks {
 				Guild guild = guilds.get(i-1);
 				if(guild != null){
 					Block block = location.getBlock();
-					Block signBlock = null;
-					BlockFace face = null;
 					for(BlockFace fc : new BlockFace[]{BlockFace.NORTH, BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}){
 						if(block.getRelative(fc).getType().equals(Material.WALL_SIGN)){
-							signBlock = block.getRelative(fc);
-							face = fc;
-							break;
-						}
-					}
-					if(signBlock != null){
-						Sign sign = (Sign)signBlock.getState();
-						sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
-						sign.setLine(1, "§7§l" + guild.getName());
-						sign.setLine(2, "§6§l" + guild.getClaims().size() + "§e terre" + (guild.getClaims().size() > 1 ? "s" : ""));
-						sign.setLine(3, "§2§m----------");
-						sign.update(true);
-						Block blockUp = block.getRelative(BlockFace.UP);
-						if(blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
-							Skull skull = (Skull)blockUp.getState();
-							skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(guild.getLeader().getUniqueId())));
-							skull.setRotation(face);
-							skull.update(true);
+							Sign sign = (Sign)block.getRelative(fc).getState();
+							sign.setLine(0, "§2§m---§2> §8#" + i + "§2 <§m---");
+							sign.setLine(1, "§7§l" + guild.getName());
+							sign.setLine(2, "§6§l" + guild.getClaims().size() + "§e terre" + (guild.getClaims().size() > 1 ? "s" : ""));
+							sign.setLine(3, "§2§m----------");
+							sign.update(true);
+							Block blockUp = block.getRelative(BlockFace.UP);
+							if(blockUp.getType().equals(Material.PLAYER_HEAD) || blockUp.getType().equals(Material.PLAYER_WALL_HEAD)){
+								Skull skull = (Skull)blockUp.getState();
+								skull.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(guild.getLeader().getUniqueId())));
+								skull.update(true);
+							}
 						}
 					}
 				}

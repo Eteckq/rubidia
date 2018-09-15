@@ -26,21 +26,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class EnchantmentUI extends UIHandler {
 
 	RPlayer rp = RPlayer.get(this.getHolder());
-	private final ItemStack INHAND = this.getHolder().getEquipment().getItemInMainHand().clone();
-	private final ItemMeta INHANDM = this.getHolder().getEquipment().getItemInMainHand().getItemMeta();
-	private int COST1 = Utils.defineEnchantmentCost(this.getHolder(), INHAND, INHANDM.getEnchants(), 1);
-	private int COST2 = Utils.defineEnchantmentCost(this.getHolder(), INHAND, INHANDM.getEnchants(), 2);
-	private int COST3 = Utils.defineEnchantmentCost(this.getHolder(), INHAND, INHANDM.getEnchants(), 3);
-	private int COST4 = Utils.defineEnchantmentCost(this.getHolder(), INHAND, INHANDM.getEnchants(), 4);
+	private final ItemStack item;
+	private int[] costs = new int[4];
 	private final List<Enchantment> available = new ArrayList<Enchantment>();
 	private final Location location;
-	private final int SELECTED_SLOT;
 	
 	public EnchantmentUI(Location location, Player p) {
 		super(p);
 		this.menu = Bukkit.createInventory(this.getHolder(), 9, rp.translateString("Enchantment", "Enchantement"));
+		this.item = this.getHolder().getEquipment().getItemInMainHand().clone();
 		this.location = location;
-		this.SELECTED_SLOT = p.getInventory().getHeldItemSlot();
+		for(int i = 0;i < 4;i++) {
+			costs[i] = REnchantment.cost(this.getHolder(), this.item, i);
+		}
 	}
 	
 	@Override
@@ -50,14 +48,15 @@ public class EnchantmentUI extends UIHandler {
 
 	@Override
 	protected boolean openWindow() {
-		RItem rItem = new RItem(INHAND);
-		Map<Enchantment, Integer> enchantms = INHANDM.getEnchants();
+		RItem rItem = new RItem(this.item);
+		ItemMeta meta = this.item.getItemMeta().clone();
+		Map<Enchantment, Integer> enchantms = meta.getEnchants();
 		int bLevel = this.getMaxBookshelfLevel();
 		boolean canEnchant = false;
 
 		for(Enchantment enchant : REnchantment.values()){
 			if((!rItem.isWeapon() || !enchant.equals(Enchantment.DURABILITY)) && !enchant.equals(Enchantment.MENDING)){
-				if(enchant.canEnchantItem(INHAND) || rItem.isWeapon() && rItem.getWeapon().isAttack() && REnchantment.WEAPONS_ENCHANTMENTS.contains(enchant)){
+				if(enchant.canEnchantItem(this.item) || rItem.isWeapon() && rItem.getWeapon().isAttack() && REnchantment.WEAPONS_ENCHANTMENTS.contains(enchant)){
 					canEnchant = true;
 					if(!enchantms.containsKey(enchant)){
 						available.add(enchant);
@@ -65,7 +64,7 @@ public class EnchantmentUI extends UIHandler {
 				}
 			}
 		}
-		if(!canEnchant || me.pmilon.RubidiaQuests.utils.Utils.isQuestItem(INHAND)){
+		if(!canEnchant || me.pmilon.RubidiaQuests.utils.Utils.isQuestItem(this.item)){
 			rp.sendMessage("§cYou cannot enchant this item!", "§cVous ne pouvez pas enchanter cet item !");
 			this.getUIManager().playerSessions.remove(this.getUIManager().getSession(this.getHolder()).getIdentifier());
 			return false;
@@ -73,24 +72,24 @@ public class EnchantmentUI extends UIHandler {
 			rp.sendMessage("§cThis item is already fully enchanted!", "§cCet item est déjà complètement enchanté !");
 			return false;
 		}
-		ItemMeta INHANDMTEMP = INHANDM.clone();
+		ItemStack itemb = this.item.clone();
 		for(int i = 1;i < 5;i++){
 			if(bLevel >= i){
-				INHANDMTEMP.setDisplayName(rp.translateString("§aRandom enchantment | §aPalliate §2" + i, "§aEnchantement aléatoire | §aPallier §2" + i));
-				INHANDMTEMP.setLore(Arrays.asList("§8§m                                               ", "", rp.translateString("§7Randomly enchant this", "§7Enchantez cet item aléatoirement"), rp.translateString("§7item by clicking it.", "§7en cliquant dessus."), rp.translateString("§7Enchantments level " + (i == 4 ? "4-5" : (i == 3 ? "2-5" : (i == 2 ? "1-3" : "1-2"))) + " (max)", "§7Enchantements niveau " + (i == 4 ? "4-5" : (i == 3 ? "2-5" : (i == 2 ? "1-3" : "1-2"))) + " (max)"), "", rp.translateString("§cCost: §4" + this.getCost(i) + "§c emeralds", "§cCoût : §4" + this.getCost(i) + "§c émeraudes")));
-				INHAND.setItemMeta(INHANDMTEMP);
-				INHAND.setAmount(i);
-				this.getMenu().setItem(i*2-1, INHAND);
+				meta.setDisplayName(rp.translateString("§aRandom enchantment | §aPalliate §2" + i, "§aEnchantement aléatoire | §aPallier §2" + i));
+				meta.setLore(Arrays.asList("§8§m                                               ", "", rp.translateString("§7Randomly enchant this", "§7Enchantez cet item aléatoirement"), rp.translateString("§7item by clicking it.", "§7en cliquant dessus."), rp.translateString("§7Enchantments level " + (i == 4 ? "4-5" : (i == 3 ? "2-5" : (i == 2 ? "1-3" : "1-2"))) + " (max)", "§7Enchantements niveau " + (i == 4 ? "4-5" : (i == 3 ? "2-5" : (i == 2 ? "1-3" : "1-2"))) + " (max)"), "", rp.translateString("§cCost: §4" + this.getCost(i) + "§c emeralds", "§cCoût : §4" + this.getCost(i) + "§c émeraudes")));
+				itemb.setItemMeta(meta);
+				itemb.setAmount(i);
+				this.getMenu().setItem(i*2-1, itemb);
 			}else this.getMenu().setItem(i*2-1, this.getNo(i));
 		}
+		this.getHolder().getEquipment().setItemInMainHand(new ItemStack(Material.AIR));
 		return this.getHolder().openInventory(this.getMenu()) != null;
 	}
 
 	@Override
-	public void onInventoryClick(InventoryClickEvent e, Player p) {
+	public void onInventoryClick(InventoryClickEvent e, Player arg0) {
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				RPlayer rp = RPlayer.get(p);
 				Enchantment enchant = available.get(RandomUtils.random.nextInt(available.size()));
 			    int level = this.getLevel(e.getRawSlot());
 			    int elvl = this.getEnchantmentIntervalLevel(level);
@@ -102,45 +101,42 @@ public class EnchantmentUI extends UIHandler {
 				}
 				
 				if(rp.getBalance() >= this.getCost(level)){
-					ItemStack is = p.getEquipment().getItemInMainHand();
-					if(is.getType().equals(INHAND.getType()) && this.SELECTED_SLOT == p.getInventory().getHeldItemSlot()){
-						EconomyHandler.withdrawBalanceITB(this.getHolder(), this.getCost(level));
-						if(elvl > enchant.getMaxLevel())elvl = enchant.getMaxLevel();
-						INHANDM.addEnchant(enchant, elvl, true);
-						is.setItemMeta(INHANDM);
-						RItem rItem = new RItem(is);
-						if(rItem.isWeapon())rItem.getWeapon().updateState(rp, is);
-						else{
-							for(Enchantment ench : INHANDM.getEnchants().keySet()){
-								if(ench.equals(REnchantment.SOUL_BIND)){
-									int lvl = INHANDM.getEnchants().get(ench);
-									String name = "§7Liaison spirituelle " + (lvl == 1 ? "I" : lvl == 2 ? "II" : lvl == 3 ? "III" : lvl == 4 ? "IV" : lvl == 5 ? "V" : "???");
-									if(INHANDM.hasLore()){
-										boolean found = false;
-										List<String> lore = Utils.getModifiableCopy(INHANDM.getLore());
-										for(int i = 0;i < lore.size();i++){
-											if(lore.get(i).contains("Liaison spirituelle")){
-												lore.set(i, name);
-												found = true;
-												break;
-											}
-										}//useless
-										if(!found){
-											for(int i = lore.size()-1;i >= 0;i--){
-												if(lore.size() > i+1)lore.set(i+1, lore.get(i));
-												else lore.add(lore.get(i));
-											}
-											lore.set(0, name);
+					EconomyHandler.withdrawBalanceITB(this.getHolder(), this.getCost(level));
+					if(elvl > enchant.getMaxLevel())elvl = enchant.getMaxLevel();
+					ItemMeta meta = this.item.getItemMeta();
+					meta.addEnchant(enchant, elvl, true);
+					RItem rItem = new RItem(this.item);
+					if(rItem.isWeapon())rItem.getWeapon().updateState(rp, this.item);
+					else{
+						for(Enchantment ench : meta.getEnchants().keySet()){
+							if(ench.equals(REnchantment.SOUL_BIND)){
+								int lvl = meta.getEnchants().get(ench);
+								String name = "§7Liaison spirituelle " + (lvl == 1 ? "I" : lvl == 2 ? "II" : lvl == 3 ? "III" : lvl == 4 ? "IV" : lvl == 5 ? "V" : "???");
+								if(meta.hasLore()){
+									boolean found = false;
+									List<String> lore = Utils.getModifiableCopy(meta.getLore());
+									for(int i = 0;i < lore.size();i++){
+										if(lore.get(i).contains("Liaison spirituelle")){
+											lore.set(i, name);
+											found = true;
+											break;
 										}
-										INHANDM.setLore(lore);
-									}else INHANDM.setLore(Arrays.asList(name));
-									break;
-								}
+									}
+									if(!found){
+										for(int i = lore.size()-1;i >= 0;i--){
+											if(lore.size() > i+1)lore.set(i+1, lore.get(i));
+											else lore.add(lore.get(i));
+										}
+										lore.set(0, name);
+									}
+									meta.setLore(lore);
+								}else meta.setLore(Arrays.asList(name));
+								break;
 							}
-							is.setItemMeta(INHANDM);
 						}
-						rp.sendMessage("§aStrange powers have got over your item!", "§aD'étranges puissances ont pris le contrôle de votre item !");
-					}else rp.sendMessage("§cA problem occurred. Please retry.", "§cUn problème est survenu. Réessayez.");
+					}
+					this.item.setItemMeta(meta);
+					rp.sendMessage("§aStrange powers have taken power over your item!", "§aD'étranges puissances ont pris le contrôle de votre item !");
 				}else rp.sendMessage("§cYou don't have enough emeralds!", "§cVous n'avez pas assez d'émeraudes !");
 				this.close(false);
 			}
@@ -148,8 +144,13 @@ public class EnchantmentUI extends UIHandler {
 	}
 
 	@Override
-	public void onInventoryClose(InventoryCloseEvent e, Player p) {
-		//nothing to do here ??
+	public void onInventoryClose(InventoryCloseEvent e, Player arg0) {
+		ItemStack item = this.getHolder().getEquipment().getItemInMainHand();
+		if(item == null || item.getType().equals(Material.AIR)) {
+			this.getHolder().getEquipment().setItemInMainHand(this.item);
+		}else {
+			this.getHolder().getInventory().addItem(this.item);
+		}
 	}
 
 	@Override
@@ -159,23 +160,16 @@ public class EnchantmentUI extends UIHandler {
 
 	@Override
 	public void onGeneralClick(InventoryClickEvent e, Player p) {
-		if(e.isShiftClick() || e.getCurrentItem().equals(p.getEquipment().getItemInMainHand()))e.setCancelled(true);
+		if(e.isShiftClick())e.setCancelled(true);
 	}
 	
 	
 	private int getCost(int level){
-		if(level == 1)return COST1;
-		else if(level == 2)return COST2;
-		else if(level == 3)return COST3;
-		else if(level >= 4)return COST4;
+		if(level < 4)return this.costs[level-1];
 		return 0;
 	}
 	private int getLevel(int slot){
-		if(slot == 1)return 1;
-		else if(slot == 3)return 2;
-		else if(slot == 5)return 3;
-		else if(slot == 7)return 4;
-		return 0;
+		return (int) Math.round(slot/2.);
 	}
 	private int getEnchantmentIntervalLevel(int level){
 		if(level == 1)return RandomUtils.random.nextInt(2)+1;

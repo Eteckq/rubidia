@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.damages.RDamageCause;
-import me.pmilon.RubidiaCore.ritems.weapons.REnchantment;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 
 import org.bukkit.Location;
@@ -30,70 +28,6 @@ import org.bukkit.util.Vector;
 public class Utils {
 
 	public static final long MILLIS_IN_YEAR = 31556952000L;
-
-	public static int defineEnchantmentCost(Player p, ItemStack item, Map<Enchantment, Integer> enchantms, int level){
-		String m = item.getType().toString();
-		RPlayer rp = RPlayer.get(p);
-		int DCOST = (rp.isVip() ? 47 : 59)+level*8;
-		if(m.contains("WOODEN_")){
-			for(Enchantment enchant : REnchantment.values()){
-				if(enchantms.containsKey(enchant)){
-					if(rp.isVip())DCOST += level*(enchantms.get(enchant));
-					else DCOST += (level+1)*(enchantms.get(enchant));
-				}
-			}
-		}else if(m.contains("STONE_")){
-			for(Enchantment enchant : REnchantment.values()){
-				if(enchantms.containsKey(enchant)){
-					if(rp.isVip())DCOST += level*2*(enchantms.get(enchant));
-					else DCOST += (level*2+2)*(enchantms.get(enchant));
-				}
-			}
-		}else if(m.contains("IRON_")){
-			for(Enchantment enchant : REnchantment.values()){
-				if(enchantms.containsKey(enchant)){
-					if(rp.isVip())DCOST += (level*4+1)*(enchantms.get(enchant));
-					else DCOST += (level*5+1)*(enchantms.get(enchant));
-				}
-			}
-		}else if(m.contains("DIAMOND_")){
-			for(Enchantment enchant : REnchantment.values()){
-				if(enchantms.containsKey(enchant)){
-					if(rp.isVip())DCOST += (level*6-1)*(enchantms.get(enchant));
-					else DCOST += (level*7-1)*(enchantms.get(enchant));
-				}
-			}
-		}else if(m.contains("GOLD_")){
-			for(Enchantment enchant : REnchantment.values()){
-				if(enchantms.containsKey(enchant)){
-					if(rp.isVip())DCOST += (level*8+2)*(enchantms.get(enchant));
-					else DCOST += (level*9+3)*(enchantms.get(enchant));
-				}
-			}
-		}else{
-			for(Enchantment enchant : REnchantment.values()){
-				if(enchantms.containsKey(enchant)){
-					if(rp.isVip())DCOST += level*3*(enchantms.get(enchant));
-					else DCOST += (level*4-1)*(enchantms.get(enchant));
-				}
-			}
-		}
-		return (DCOST < 0 ? 0 : DCOST)*item.getAmount();
-	}
-
-	public static int defineAnvilCost(Player p, ItemStack is) {
-		RPlayer rp = RPlayer.get(p);
-		int cost = 0;
-		ItemMeta im = is.getItemMeta();
-		if(im.hasDisplayName()){
-			if(rp.isVip())cost += 7;
-			else cost += 10;
-		}
-		if(im.hasEnchants()){
-			cost += Utils.defineEnchantmentCost(p, is, im.getEnchants(),2);
-		}
-		return cost;
-	}
 	
 	public static void updateInventory(final Player p){
 		new BukkitTask(Core.instance){
@@ -140,17 +74,6 @@ public class Utils {
 	}
 
 	public static ItemStack setGlowingWithoutAttributes(ItemStack is){
-        /*net.minecraft.server.v1_13_R2.ItemStack nmsStack = CraftItemStack.asNMSCopy(is);
-        NBTTagCompound tag = null;
-        if (!nmsStack.hasTag()) {
-            tag = new NBTTagCompound();
-            nmsStack.setTag(tag);
-        }
-        if (tag == null) tag = nmsStack.getTag();
-        NBTTagList ench = new NBTTagList();
-        tag.set("ench", ench);
-        nmsStack.setTag(tag);
-        return CraftItemStack.asCraftMirror(nmsStack);*/
 		ItemMeta meta = is.getItemMeta();
 		meta.addEnchant(Enchantment.LUCK, 1, false);
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -174,18 +97,6 @@ public class Utils {
 			return true;
 		}
 	}
-	/*public static void removeSafeBuff(Player p, PotionEffectType type, int amplifier){
-		if(p.hasPotionEffect(type)){
-			for(PotionEffect active : p.getActivePotionEffects()){
-				if(active.getType().equals(type)){
-					if(active.getAmplifier() == amplifier){
-						p.removePotionEffect(type);
-						return;
-					}
-				}
-			}
-		}
-	}*/
 	
 	public static Object hashMapKeyOf(HashMap<?,?> map, Object value){
 		for(Object k : map.keySet()){

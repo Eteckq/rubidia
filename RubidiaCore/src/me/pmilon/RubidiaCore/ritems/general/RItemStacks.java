@@ -34,7 +34,7 @@ public class RItemStacks {
 		star.setItemMeta(META);
 		STAR_STONE = new RItemStack(star, 879);
 		
-		ItemStack orichalcum = new ItemStack(Material.KELP_PLANT, 1);
+		ItemStack orichalcum = new ItemStack(Material.SUNFLOWER, 1);
 		META.setDisplayName("§fOrichalque");
 		orichalcum.setItemMeta(META);
 		ORICHALCUM = new RItemStack(orichalcum, 1022);
