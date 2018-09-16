@@ -40,7 +40,7 @@ public class BankPNJUI extends UIHandler {
 			if(e.getCurrentItem() != null){
 				if(!e.getCurrentItem().getType().equals(Material.EMERALD) && !e.getCurrentItem().getType().equals(Material.EMERALD_BLOCK)){
 					e.setCancelled(true);
-				}
+				}else this.menu.setItem(this.SLOT_MELT, this.getMelt());
 			}
 		}
 	}
@@ -57,18 +57,16 @@ public class BankPNJUI extends UIHandler {
 						rp.sendMessage("§cThere is not enough room for all these emeralds in your bank!", "§cIl n'y a pas assez de place pour toutes ces émeraudes dans votre banque !");
 					}else {
 						for(int i = 0;i < 8;i++) {
+							if(!this.getMenu().getItem(i).getType().equals(Material.EMERALD) && !this.getMenu().getItem(i).equals(Material.EMERALD_BLOCK)){
+								this.getHolder().getInventory().addItem(this.getMenu().getItem(i));
+							}
 							this.getMenu().setItem(i, new ItemStack(Material.AIR));
 						}
 						EconomyHandler.deposit(this.getHolder(), count);
 					}
 				}
 			}
-			
-			if(e.getCursor() != null) {
-				if(!e.getCursor().getType().equals(Material.EMERALD) && !e.getCursor().getType().equals(Material.EMERALD_BLOCK)) {
-					e.setCancelled(true);
-				}else this.menu.setItem(this.SLOT_MELT, this.getMelt());
-			}
+			this.menu.setItem(this.SLOT_MELT, this.getMelt());
 		}
 	}
 
@@ -105,7 +103,7 @@ public class BankPNJUI extends UIHandler {
 		for(int i = 0;i < 8;i++) {
 			ItemStack item = this.getMenu().getItem(i);
 			if(item != null) {
-				amount += item.getType().equals(Material.EMERALD_BLOCK) ? 9 : 1;
+				amount += item.getType().equals(Material.EMERALD_BLOCK) ? 9 : (item.getType().equals(Material.EMERALD) ? 1 : 0);
 			}
 		}
 		return amount;

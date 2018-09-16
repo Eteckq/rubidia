@@ -67,7 +67,6 @@ public class GRankPrefsUI extends UIHandler {
 	private int SLOT_DEFAULTRANK = 7;
 	
 	//PAGE 3
-	private int SLOT_TKBANK = 1;
 	private int SLOT_GVBANK = 2;
 	private int SLOT_OFFER = 4;
 	private int SLOT_MOBSDAMAGE = 6;
@@ -181,11 +180,7 @@ public class GRankPrefsUI extends UIHandler {
 					if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
 						this.setPage(2);
 					}else if((gm.getPermission(Permission.RANK_PREFS) && gm.getRank().getId() < this.rank.getId()) || gm.isLeader()){
-						if(slot == this.SLOT_TKBANK || slot == this.SLOT_TKBANK+9){
-							this.rank.setPermission(Permission.BANK_WITHDRAW, !this.rank.getPermission(Permission.BANK_WITHDRAW));
-							this.getMenu().setItem(this.SLOT_TKBANK, this.getCanTakeBank());
-							this.getMenu().setItem(this.SLOT_TKBANK+9, this.rank.getPermission(Permission.BANK_WITHDRAW) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_GVBANK || slot == this.SLOT_GVBANK+9){
+						if(slot == this.SLOT_GVBANK || slot == this.SLOT_GVBANK+9){
 							this.rank.setPermission(Permission.BANK_DEPOSIT, !this.rank.getPermission(Permission.BANK_DEPOSIT));
 							this.getMenu().setItem(this.SLOT_GVBANK, this.getCanGiveBank());
 							this.getMenu().setItem(this.SLOT_GVBANK+9, this.rank.getPermission(Permission.BANK_DEPOSIT) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
@@ -278,9 +273,6 @@ public class GRankPrefsUI extends UIHandler {
 			getMenu().clear();
 			getMenu().setItem(SLOT_BACK, this.getBack(2));
 			getMenu().setItem(SLOT_BACK+9, this.ITEM_INFO);
-			
-			getMenu().setItem(SLOT_TKBANK, this.getCanTakeBank());
-			getMenu().setItem(SLOT_TKBANK+9, (this.rank.getPermission(Permission.BANK_WITHDRAW) ? this.ITEM_ENABLED : this.ITEM_DISABLED));
 			
 			getMenu().setItem(SLOT_GVBANK, this.getCanGiveBank());
 			getMenu().setItem(SLOT_GVBANK+9, (this.rank.getPermission(Permission.BANK_DEPOSIT) ? this.ITEM_ENABLED : this.ITEM_DISABLED));
@@ -418,13 +410,6 @@ public class GRankPrefsUI extends UIHandler {
 		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to modify", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), rp.translateString("§7manage your guild's relations (alliances/oppositions).", "§7les relations de votre guilde (alliances/oppositions)."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
 		ITEM_RELATIONS.setItemMeta(META);
 		return ITEM_RELATIONS;
-	}
-	private ItemStack getCanTakeBank(){
-		ItemMeta META = ITEM_BANK.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.BANK_WITHDRAW) ? "§a§l" : "§c§l") + rp.translateString("Bank withdraw permission", "Permission de retrait de la banque"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to withdraw", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à retirer"), rp.translateString("§7emeralds from your guild's bank.", "§7des émeraudes de la banque de votre guilde."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
-		ITEM_BANK.setItemMeta(META);
-		return ITEM_BANK;
 	}
 	private ItemStack getCanGiveBank(){
 		ItemMeta META = ITEM_BANK.getItemMeta();

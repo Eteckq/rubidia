@@ -18,7 +18,6 @@ public enum Permission {
 	RELATIONS("canManageRelations"),
 	DEFAULT_RANK("canSetDefaultRank"),
 	BANK_DEPOSIT("canGiveBank"),
-	BANK_WITHDRAW("canTakeBank"),
 	OFFER("canOffer"),
 	DAMAGE_MOBS("canDamageMobs");
 	

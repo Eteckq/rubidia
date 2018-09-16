@@ -21,12 +21,6 @@ public class GColl extends Database<String,Guild>{
 		if(Configs.getGuildConfig().contains("guilds")){
 			for(String uuid : Configs.getGuildConfig().getConfigurationSection("guilds").getKeys(false)){
 				String path = "guilds." + uuid;
-				HashMap<Integer, ItemStack> bank = new HashMap<Integer, ItemStack>();
-				if(Configs.getGuildConfig().contains("guilds." + uuid + ".bank")){
-					for(String s : Configs.getGuildConfig().getConfigurationSection("guilds." + uuid + ".bank").getKeys(false)){
-						bank.put(Integer.valueOf(s), Configs.getGuildConfig().getItemStack("guilds." + uuid + ".bank." + s));
-					}
-				}
 				List<Claim> claims = new ArrayList<Claim>();
 				if(Configs.getGuildConfig().contains(path + ".claimUUIDs")){
 					for(String claimUUID : Configs.getGuildConfig().getStringList(path + ".claimUUIDs")){
@@ -86,8 +80,8 @@ public class GColl extends Database<String,Guild>{
 						Configs.getGuildConfig().getBoolean(path + ".claimChestsUsable"),
 						Configs.getGuildConfig().getBoolean(path + ".claimMobsDamageable"),
 						Configs.getGuildConfig().getItemStack(path + ".displayItem"),
-						Configs.getGuildConfig().getInt(path + ".capeCost"),
-						Configs.getGuildConfig().getBoolean(path + ".glowing"), bank,
+						Configs.getGuildConfig().getBoolean(path + ".glowing"),
+						Configs.getGuildConfig().getInt(path + ".bank"),
 						Configs.getGuildConfig().getBoolean(path + ".peaceful"),
 						Configs.getGuildConfig().getString(path + ".lastRaidUUID"),
 						Configs.getGuildConfig().contains(path + ".lastConnection") ? Configs.getGuildConfig().getLong(path + ".lastConnection") : System.currentTimeMillis());
@@ -121,7 +115,7 @@ public class GColl extends Database<String,Guild>{
 		Rank[] ranks = new Rank[7];
 		ranks[0] = new Rank(new ItemStack(Material.FLINT_AND_STEEL, 1), "Leader", 0, Permission.getDefault(true), new boolean[]{true,true,true,true,true,true,true,true}, new boolean[]{true,true,true,true,true,true,true,true});
 		ranks[6] = new Rank(new ItemStack(Material.APPLE, 1), "Recrue", 6, Permission.getDefault(false), new boolean[8], new boolean[8]);
-		Guild guild = new Guild(UUID.randomUUID().toString(), name, description, 1, 0.0, 6, ranks, new GHome[8], members, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<Claim>(), false, true, false, false, cape, 10, false, new HashMap<Integer, ItemStack>(), peaceful, "", System.currentTimeMillis());
+		Guild guild = new Guild(UUID.randomUUID().toString(), name, description, 1, 0.0, 6, ranks, new GHome[8], members, new ArrayList<String>(), new ArrayList<String>(), new ArrayList<Claim>(), false, true, false, false, cape, false, 0, peaceful, "", System.currentTimeMillis());
 		this.load(guild.getUUID(),guild);
 		leader.setGuild(guild);
 		leader.setRank(ranks[0]);
@@ -191,9 +185,8 @@ public class GColl extends Database<String,Guild>{
 		Configs.getGuildConfig().set(path + ".claimChestsUsable", guild.isClaimChestsUsable());
 		Configs.getGuildConfig().set(path + ".claimMobsDamageable", guild.isClaimMobsDamageable());
 		Configs.getGuildConfig().set(path + ".alive", true);
-		for(int i : guild.getBank().keySet())Configs.getGuildConfig().set(path + ".bank." + i, guild.getBank().get(i));
+		Configs.getGuildConfig().set(path + ".bank", guild.getBank());
 		Configs.getGuildConfig().set(path + ".displayItem", guild.getCape());
-		Configs.getGuildConfig().set(path + ".capeCost", guild.getCapeCost());
 		Configs.getGuildConfig().set(path + ".glowing", guild.isGlowing());
 		Configs.getGuildConfig().set(path + ".peaceful", guild.isPeaceful());
 		Configs.getGuildConfig().set(path + ".lastConnection", guild.getLastConnection());

@@ -18,6 +18,7 @@ import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.claims.Claim;
 import me.pmilon.RubidiaGuilds.events.GMemberLeaveGuildEvent;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
+import me.pmilon.RubidiaGuilds.guilds.Permission;
 
 public class GMenuUI extends UIHandler {
 	
@@ -69,7 +70,9 @@ public class GMenuUI extends UIHandler {
 				if(slot == this.SLOT_INFOS){
 					Core.uiManager.requestUI(new GInfosMenuUI(this.getHolder(), this.getGuild()));
 				}else if(slot == this.SLOT_BANK){
-					Core.uiManager.requestUI(new GBankUI(this.getHolder(), this.getGuild()));
+					if(gm.getPermission(Permission.BANK_DEPOSIT) || rp.isOp()) {
+						Core.uiManager.requestUI(new GBankUI(this.getHolder(), this.getGuild()));
+					}else rp.sendMessage("§cYou don't have permission to deposit emeralds in your guild bank.", "§cVous n'avez pas la permission de déposer des émeraudes dans la banque de votre guilde.");
 				}else if(slot == this.SLOT_CLAIMS){
 					Core.uiManager.requestUI(new GClaimsMenuUI(this.getHolder(), this.getGuild(), Claim.get(this.getHolder().getLocation())));
 				}else if(slot == this.SLOT_MEMBERS){

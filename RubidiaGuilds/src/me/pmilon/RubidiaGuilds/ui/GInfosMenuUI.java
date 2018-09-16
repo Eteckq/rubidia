@@ -16,13 +16,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.handlers.EconomyHandler;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.events.GMemberChangeGuildNameEvent;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
 import me.pmilon.RubidiaGuilds.guilds.Permission;
 import me.pmilon.RubidiaGuilds.guilds.Relation;
+import me.pmilon.RubidiaGuilds.utils.Settings;
 
 public class GInfosMenuUI extends UIHandler {
 
@@ -73,32 +73,33 @@ public class GInfosMenuUI extends UIHandler {
 					Core.uiManager.requestUI(new GMenuUI(this.getHolder(), this.getGuild()));
 				}else if(slot == this.SLOT_NAME){
 					if(gm.getPermission(Permission.RENAME)){
-						rp.sendMessage("§aRename your guild by typing the desired name in the chat! (MAX: " + Guild.NAME_LENGTH + " characters)", "§aRenommez votre guilde en entrant le nom désiré dans le chat ! (MAX : " + Guild.NAME_LENGTH + "caractères)");
+						rp.sendMessage("Â§aRename your guild by typing the desired name in the chat! (MAX: " + Guild.NAME_LENGTH + " characters)", "Â§aRenommez votre guilde en entrant le nom dÃ©sirÃ© dans le chat ! (MAX : " + Guild.NAME_LENGTH + "caractÃ¨res)");
 						this.close(true, this.LISTENINGID_NAME);
-					}else rp.sendMessage("§cYou don't have permission to rename your guild.", "§cVous n'avez pas la permission de renommer votre guilde.");
+					}else rp.sendMessage("Â§cYou don't have permission to rename your guild.", "Â§cVous n'avez pas la permission de renommer votre guilde.");
 				}else if(slot == this.SLOT_DESC){
 					if(gm.getPermission(Permission.RENAME)){
-						rp.sendMessage("§aChange your guild's description by typing the desired one in the chat!", "§aModifiez votre description de guilde en entrant celle désirée dans le chat !");
+						rp.sendMessage("Â§aChange your guild's description by typing the desired one in the chat!", "Â§aModifiez votre description de guilde en entrant celle dÃ©sirÃ©e dans le chat !");
 						this.close(true, this.LISTENINGID_DESC);
-					}else rp.sendMessage("§cYou don't have permission to change your guild's description.", "§cVous n'avez pas la permission de modifier la description de votre guilde.");
+					}else rp.sendMessage("Â§cYou don't have permission to change your guild's description.", "Â§cVous n'avez pas la permission de modifier la description de votre guilde.");
 				}else if(slot == this.SLOT_DISPLAY){
 					if(e.isLeftClick()){
 						if(gm.getPermission(Permission.CAPE) || gm.isLeader()){
 							this.close(true, this.LISTID_CAPE);
-							rp.sendMessage("§aTake a banner in your hands and type in the cost you want to set (members will pay this amount for each cape they order).", "§aPrenez une bannière entre vos mains et entrez son coût (les membres paieront ce montant pour chaque cape commandée).");
-						}else rp.sendMessage("§cYou don't have permission to modify your guild's representative item!", "§cVous n'avez pas la permission de modifier l'item de votre guilde !");
+							rp.sendMessage("Â§aTake a banner in your hands and type in the cost you want to set (members will pay this amount for each cape they order).", "Â§aPrenez une banniÃ¨re entre vos mains et entrez son coÃ»t (les membres paieront ce montant pour chaque cape commandÃ©e).");
+						}else rp.sendMessage("Â§cYou don't have permission to modify your guild's representative item!", "Â§cVous n'avez pas la permission de modifier l'item de votre guilde !");
 					}else{
-						if(rp.getBank() >= this.getGuild().getCapeCost() || gm.isLeader() || rp.isOp()){
-							if(!gm.isLeader() && !rp.isOp()){
-								EconomyHandler.withdraw(this.getHolder(), this.getGuild().getCapeCost());
-								this.getGuild().addBalance(this.getGuild().getCapeCost());
-							}
-							this.getGuild().broadcastMessage(Relation.MEMBER, "§&d" + gm.getName() + " §&chas purchased a cape!", "§&d" + gm.getName() + " §&ca acheté une cape de guilde !");
+						if(this.getGuild().getBank() >= Settings.CAPE_COST || rp.isOp()){
+							this.getGuild().broadcastMessage(Relation.MEMBER, "Â§&d" + gm.getName() + " Â§&chas purchased a cape!", "Â§&d" + gm.getName() + " Â§&ca achetÃ© une cape de guilde !");
 							this.getHolder().getInventory().addItem(this.getGuild().getCape());
-						}else rp.sendMessage("§cYou don't have enough emeralds!", "§cVous n'avez pas suffisamment d'émeraudes !");
+							if(!rp.isOp()){
+								this.getGuild().withdraw(Settings.CAPE_COST);
+							}
+						}else rp.sendMessage("Â§cYour guild doesn't have enough emeralds!", "Â§cVotre guilde n'a pas suffisamment d'Ã©meraudes !");
 					}
 				}else if(slot == this.SLOT_GLOWING){
-					if(gm.getPermission(Permission.CAPE) || gm.isLeader())this.getGuild().setGlowing(!this.getGuild().isGlowing());
+					if(gm.getPermission(Permission.CAPE) || gm.isLeader()) {
+						this.getGuild().setGlowing(!this.getGuild().isGlowing());
+					}
 					this.menu.setItem(this.SLOT_DISPLAY, this.getInfos());
 					this.menu.setItem(this.SLOT_GLOWING, this.getGlowing());
 				}else if(slot == this.SLOT_OFFER)Core.uiManager.requestUI(new GExpMenuUI(this.getHolder(), this.getGuild()));
@@ -126,24 +127,21 @@ public class GInfosMenuUI extends UIHandler {
 						GMemberChangeGuildNameEvent event = new GMemberChangeGuildNameEvent(this.getGuild(), gm, name);
 						Bukkit.getPluginManager().callEvent(event);
 						if(!event.isCancelled())event.getGuild().setName(name);
-					}else rp.sendMessage("§cA guild with this name already exists!", "§cUne guilde avec le même nom existe déjà !");
+					}else rp.sendMessage("Â§cA guild with this name already exists!", "Â§cUne guilde avec le mÃªme nom existe dÃ©jÃ  !");
 				}else if(this.getListeningId() == this.LISTENINGID_DESC){
-					this.getGuild().setDescription(this.getMessage().replace('§', '?'));
+					this.getGuild().setDescription(this.getMessage().replace('Â§', '?'));
 				}else if(this.getListeningId() == this.LISTID_CAPE){
-					if(Utils.isInteger(this.getMessage())){
-						this.getGuild().setCapeCost(Integer.valueOf(this.getMessage()));
-						ItemStack item = this.getHolder().getInventory().getItemInMainHand();
-						if(item.getType().toString().contains("_BANNER")){
-							ItemMeta meta = item.getItemMeta();
-							meta.setDisplayName("§fCape de " + this.getGuild().getName());
-							meta.setLore(new ArrayList<String>());
-							meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_POTION_EFFECTS);
-							item.setItemMeta(meta);
-							ItemStack cape = item.clone();
-							cape.setAmount(1);
-							this.getGuild().setCape(cape);
-						}else rp.sendMessage("§cYou can only use a banner as your guild's cape!","§cVous ne pouvez utiliser qu'une bannière en tant que cape de votre guilde !");
-					}
+					ItemStack item = this.getHolder().getInventory().getItemInMainHand();
+					if(item.getType().toString().contains("_BANNER")){
+						ItemMeta meta = item.getItemMeta();
+						meta.setDisplayName("Â§fCape de " + this.getGuild().getName());
+						meta.setLore(new ArrayList<String>());
+						meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_POTION_EFFECTS);
+						item.setItemMeta(meta);
+						ItemStack cape = item.clone();
+						cape.setAmount(1);
+						this.getGuild().setCape(cape);
+					}else rp.sendMessage("Â§cYou can only use a banner as your guild's cape!","Â§cVous ne pouvez utiliser qu'une banniÃ¨re en tant que cape de votre guilde !");
 				}
 			}
 		}
@@ -159,31 +157,31 @@ public class GInfosMenuUI extends UIHandler {
 	
 	private ItemStack getBack(){
 		ItemMeta META_BACK = ITEM_BACK.getItemMeta();
-		META_BACK.setDisplayName("§6§l" + rp.translateString("Main menu", "Menu principal"));
-		META_BACK.setLore(Arrays.asList(rp.translateString("§7Get back to the main menu.", "§7Retourner au menu principal."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META_BACK.setDisplayName("Â§6Â§l" + rp.translateString("Main menu", "Menu principal"));
+		META_BACK.setLore(Arrays.asList(rp.translateString("Â§7Get back to the main menu.", "Â§7Retourner au menu principal."), "", rp.translateString("Â§eÂ§lClick to open", "Â§eÂ§lCliquez pour ouvrir")));
 		ITEM_BACK.setItemMeta(META_BACK);
 		return ITEM_BACK;
 	}
 	private ItemStack getGuildName(){
 		ItemMeta paperm = ITEM_NAME.getItemMeta();
-		paperm.setDisplayName("§a§l" + rp.translateString("Guild Name", "Nom de Guilde"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Change your guild name", "§7Changez votre nom de guilde"), "", rp.translateString("§6§lCurrent name: ", "§6§lNom actuel : ") + "§e" + this.getGuild().getName()));
+		paperm.setDisplayName("Â§aÂ§l" + rp.translateString("Guild Name", "Nom de Guilde"));
+		paperm.setLore(Arrays.asList(rp.translateString("Â§7Change your guild name", "Â§7Changez votre nom de guilde"), "", rp.translateString("Â§6Â§lCurrent name: ", "Â§6Â§lNom actuel : ") + "Â§e" + this.getGuild().getName()));
 		ITEM_NAME.setItemMeta(paperm);
 		return ITEM_NAME;
 	}
 	private ItemStack getGuildDesc(){
 		ItemMeta paperm = ITEM_DESC.getItemMeta();
 		String description  = this.getGuild().getDescription();
-		paperm.setDisplayName("§a§l" + rp.translateString("Guild Description", "Description de Guilde"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Change your guild description", "§7Changez votre description de guilde"), "", rp.translateString("§6§lCurrent description: ", "§6§lDescription actuelle : ") + "§e" + StringUtils.abbreviate(description, 22)));
+		paperm.setDisplayName("Â§aÂ§l" + rp.translateString("Guild Description", "Description de Guilde"));
+		paperm.setLore(Arrays.asList(rp.translateString("Â§7Change your guild description", "Â§7Changez votre description de guilde"), "", rp.translateString("Â§6Â§lCurrent description: ", "Â§6Â§lDescription actuelle : ") + "Â§e" + StringUtils.abbreviate(description, 22)));
 		ITEM_DESC.setItemMeta(paperm);
 		return ITEM_DESC;
 	}
 	private ItemStack getInfos(){
 		ItemStack infos = this.getGuild().getCape();
 		ItemMeta paperm = infos.getItemMeta();
-		paperm.setDisplayName("§a§l" + rp.translateString(this.getGuild().getName() + "'s cape", "Cape de " + this.getGuild().getName()));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Your guild's wearable cape (order one by right-clicking!)", "§7La cape de votre guilde (cliquez droit pour en commander une !)"), rp.translateString("§7Replace it with another banner by left-clicking.", "§7Remplacez-la par une autre bannière en cliquant gauche."), "", rp.translateString("§7Price: §f" + this.getGuild().getCapeCost() + " §7emeralds", "§7Prix : §f" + this.getGuild().getCapeCost() + " §7émeraudes"), rp.translateString("§7§oAdded to the guild's bank.", "§7§oReversées dans la banque de guilde")));
+		paperm.setDisplayName("Â§aÂ§l" + rp.translateString(this.getGuild().getName() + "'s cape", "Cape de " + this.getGuild().getName()));
+		paperm.setLore(Arrays.asList(rp.translateString("Â§7Your guild's wearable cape (order one by right-clicking!)", "Â§7La cape de votre guilde (cliquez droit pour en commander une !)"), rp.translateString("Â§7Replace it with another banner by left-clicking.", "Â§7Remplacez-la par une autre banniÃ¨re en cliquant gauche."), "", rp.translateString("Â§7Price: Â§f" + Settings.CAPE_COST + "âŸ¡", "Â§7Prix : Â§f" + Settings.CAPE_COST + "âŸ¡"), rp.translateString("Â§7Â§oAdded to the guild's bank.", "Â§7Â§oReversÃ©es dans la banque de guilde")));
 		infos.setItemMeta(paperm);
 		return this.getGuild().isGlowing() ? Utils.setGlowingWithoutAttributes(infos) : infos;
 	}
@@ -191,15 +189,15 @@ public class GInfosMenuUI extends UIHandler {
 		ItemStack ITEM_GLOWING = new ItemStack(Material.GRAY_DYE, 1);
 		if(this.getGuild().isGlowing())ITEM_GLOWING = new ItemStack(Material.LIME_DYE, 1);
 		ItemMeta META = ITEM_GLOWING.getItemMeta();
-		META.setDisplayName((this.getGuild().isGlowing() ? "§a§l" : "§c§l") + rp.translateString("Glowing item", "Item brillant"));
-		META.setLore(Arrays.asList(rp.translateString("§7Enable or disable glowing effect", "§7Activer ou désactiver l'effet brillant"), rp.translateString("§7on your representative item.", "§7de votre item de guilde.")));
+		META.setDisplayName((this.getGuild().isGlowing() ? "Â§aÂ§l" : "Â§cÂ§l") + rp.translateString("Glowing item", "Item brillant"));
+		META.setLore(Arrays.asList(rp.translateString("Â§7Enable or disable glowing effect", "Â§7Activer ou dÃ©sactiver l'effet brillant"), rp.translateString("Â§7on your representative item.", "Â§7de votre item de guilde.")));
 		ITEM_GLOWING.setItemMeta(META);
 		return ITEM_GLOWING;
 	}
 	private ItemStack getOffer(){
 		ItemMeta META = ITEM_OFFER.getItemMeta();
-		META.setDisplayName("§6§l" + rp.translateString("Offering menu", "Menu des offrandes"));
-		META.setLore(Arrays.asList(rp.translateString("§7Open the menu allowing to make offerings", "§7Ouvrir le menu vous permettant de faire des offrandes"), rp.translateString("§7for your guild (from monsters' loot),", "§7pour votre guilde (à partir du butin des monstres),"), rp.translateString("leveling it up and expanding its power.", "§7lui octroyant de l'expérience et de la puissance.")));
+		META.setDisplayName("Â§6Â§l" + rp.translateString("Offering menu", "Menu des offrandes"));
+		META.setLore(Arrays.asList(rp.translateString("Â§7Open the menu allowing to make offerings", "Â§7Ouvrir le menu vous permettant de faire des offrandes"), rp.translateString("Â§7for your guild (from monsters' loot),", "Â§7pour votre guilde (Ã  partir du butin des monstres),"), rp.translateString("leveling it up and expanding its power.", "Â§7lui octroyant de l'expÃ©rience et de la puissance.")));
 		ITEM_OFFER.setItemMeta(META);
 		return ITEM_OFFER;
 	}

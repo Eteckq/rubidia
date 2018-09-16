@@ -1,12 +1,10 @@
 package me.pmilon.RubidiaGuilds.guilds;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.handlers.EconomyHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
 import me.pmilon.RubidiaGuilds.claims.Claim;
@@ -16,13 +14,11 @@ import me.pmilon.RubidiaGuilds.events.GuildInviteGMemberEvent;
 import me.pmilon.RubidiaGuilds.events.GuildLevelChangeEvent;
 import me.pmilon.RubidiaGuilds.events.GuildRelationsChangeEvent;
 import me.pmilon.RubidiaGuilds.raids.Raid;
-import me.pmilon.RubidiaGuilds.ui.GBankUI;
 import me.pmilon.RubidiaGuilds.utils.Configs;
 import me.pmilon.RubidiaGuilds.utils.LevelUtils;
 import me.pmilon.RubidiaGuilds.utils.Settings;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
 
@@ -49,10 +45,8 @@ public class Guild {
 	private boolean claimMobsDamageable;
 	private boolean peaceful;
 	private ItemStack cape;
-	private int capeCost;
 	private boolean glowing;
-	private HashMap<Integer, ItemStack> bank;
-	public List<GBankUI> banks = new ArrayList<GBankUI>();
+	private int bank;
 	private Long lastConnection;
 	
 	public List<GMember> invited;
@@ -62,7 +56,10 @@ public class Guild {
 	private final List<Guild> enemies = new ArrayList<Guild>();
 	private final List<Guild> allies = new ArrayList<Guild>();
 	
-	public Guild(String uuid, String name, String description, int level, double experience, int defaultRankId, Rank[] ranks, GHome[] homes, List<String> membersUUIDs, List<String> alliesUUIDs, List<String> enemiesUUIDs, List<Claim> claims, boolean claimBuildable, boolean claimDoorsUsable, boolean claimChestsUsable, boolean claimMobsDamageable, ItemStack cape, int capeCost, boolean glowing, HashMap<Integer, ItemStack> bank, boolean peaceful, String lastRaidUUID, Long lastConnection){
+	public Guild(String uuid, String name, String description, int level, double experience, int defaultRankId, Rank[] ranks, GHome[] homes,
+			List<String> membersUUIDs, List<String> alliesUUIDs, List<String> enemiesUUIDs, List<Claim> claims, boolean claimBuildable,
+			boolean claimDoorsUsable, boolean claimChestsUsable, boolean claimMobsDamageable, ItemStack cape, boolean glowing,
+			int bank, boolean peaceful, String lastRaidUUID, Long lastConnection){
 		this.uuid = uuid;
 		this.name = name;
 		this.description = description;
@@ -80,7 +77,6 @@ public class Guild {
 		this.claimChestsUsable = claimChestsUsable;
 		this.claimMobsDamageable = claimMobsDamageable;
 		this.cape = cape;
-		this.capeCost = capeCost;
 		this.glowing = glowing;
 		this.bank = bank;
 		this.peaceful = peaceful;
@@ -288,7 +284,7 @@ public class Guild {
 	public void broadcastMessage(Relation type, String en, String fr){
 		for(GMember member : this.getMembers()){
 			if(RPlayer.get(member) != null){
-				RPlayer.get(member).sendMessage(en.replaceAll("§&d", type.getDColorCode()).replaceAll("§&c", type.getCColorCode()), fr.replaceAll("§&d", type.getDColorCode()).replaceAll("§&c", type.getCColorCode()));
+				RPlayer.get(member).sendMessage(en.replaceAll("Â§&d", type.getDColorCode()).replaceAll("Â§&c", type.getCColorCode()), fr.replaceAll("Â§&d", type.getDColorCode()).replaceAll("Â§&c", type.getCColorCode()));
 			}
 		}
 	}
@@ -326,23 +322,23 @@ public class Guild {
 				this.getCurrentRaid().getOffensive().getClaims().add(this.getCurrentRaid().getClaim());
 				for(GMember member : this.getCurrentRaid().getOffensive().getMembers()){
 					RPlayer rp = RPlayer.get(member);
-					rp.sendMessage("                  §b§m-----§8§m[  §r    §7RAID FINISHED    §8§m  ]§b§m-----", "                  §b§m-----§8§m[  §r    §7RAID TERMINE    §8§m  ]§b§m-----");
+					rp.sendMessage("                  Â§bÂ§m-----Â§8Â§m[  Â§r    Â§7RAID FINISHED    Â§8Â§m  ]Â§bÂ§m-----", "                  Â§bÂ§m-----Â§8Â§m[  Â§r    Â§7RAID TERMINE    Â§8Â§m  ]Â§bÂ§m-----");
 					if(rp.isOnline())rp.getPlayer().sendMessage("");
-					rp.sendMessage("                        §eEnemies have surrend.", "                §eLes ennemis ont abandonné leur guilde.");
+					rp.sendMessage("                        Â§eEnemies have surrend.", "                Â§eLes ennemis ont abandonnÃ© leur guilde.");
 					if(rp.isOnline()){
 						rp.getPlayer().sendMessage("");
-						rp.getPlayer().sendMessage("                  §b§m-----§8§m[                            ]§b§m-----");
+						rp.getPlayer().sendMessage("                  Â§bÂ§m-----Â§8Â§m[                            ]Â§bÂ§m-----");
 					}
 				}
 			}else{
 				for(GMember member : this.getCurrentRaid().getDefensive().getMembers()){
 					RPlayer rp = RPlayer.get(member);
-					rp.sendMessage("                  §b§m-----§8§m[  §r    §7RAID FINISHED    §8§m  ]§b§m-----", "                  §b§m-----§8§m[  §r    §7RAID TERMINE    §8§m  ]§b§m-----");
+					rp.sendMessage("                  Â§bÂ§m-----Â§8Â§m[  Â§r    Â§7RAID FINISHED    Â§8Â§m  ]Â§bÂ§m-----", "                  Â§bÂ§m-----Â§8Â§m[  Â§r    Â§7RAID TERMINE    Â§8Â§m  ]Â§bÂ§m-----");
 					if(rp.isOnline())rp.getPlayer().sendMessage("");
-					rp.sendMessage("                        §eEnemies have surrend.", "                §eLes ennemis ont abandonné leur guilde.");
+					rp.sendMessage("                        Â§eEnemies have surrend.", "                Â§eLes ennemis ont abandonnÃ© leur guilde.");
 					if(rp.isOnline()){
 						rp.getPlayer().sendMessage("");
-						rp.getPlayer().sendMessage("                  §b§m-----§8§m[                            ]§b§m-----");
+						rp.getPlayer().sendMessage("                  Â§bÂ§m-----Â§8Â§m[                            ]Â§bÂ§m-----");
 					}
 				}
 			}
@@ -376,7 +372,7 @@ public class Guild {
 		GuildsPlugin.gcoll.remove(this.getUUID());
 		Configs.getGuildConfig().set("guilds." + this.getUUID(), null);
 		
-		RPlayer.broadcastMessage("§4§l" + this.getName() + " §chas been disbanded.", "§cLa guilde §4§l" + this.getName() + " §ca été dissoute.");
+		RPlayer.broadcastMessage("Â§4Â§l" + this.getName() + " Â§chas been disbanded.", "Â§cLa guilde Â§4Â§l" + this.getName() + " Â§ca Ã©tÃ© dissoute.");
 	}
 
 	public void invite(GMember member){
@@ -386,14 +382,14 @@ public class Guild {
 			if(this.askers.contains(member)){
 				this.askers.remove(member);
 				this.addMember(member);
-				RPlayer.get(member).sendMessage("§eGuild §6§l" + this.getName() + " §eaccepted your join request!", "§6§l" + this.getName() + " §ea accepté votre demande d'adhésion !");
-				this.broadcastAllMessage("§&d" + member.getName() + " §&cjoined §&d§l" + this.getName() + "§&c!", "§&d" + member.getName() + " §&ca rejoint la guilde §&d§l" + this.getName() + "§&c !");
+				RPlayer.get(member).sendMessage("Â§eGuild Â§6Â§l" + this.getName() + " Â§eaccepted your join request!", "Â§6Â§l" + this.getName() + " Â§ea acceptÃ© votre demande d'adhÃ©sion !");
+				this.broadcastAllMessage("Â§&d" + member.getName() + " Â§&cjoined Â§&dÂ§l" + this.getName() + "Â§&c!", "Â§&d" + member.getName() + " Â§&ca rejoint la guilde Â§&dÂ§l" + this.getName() + "Â§&c !");
 			}else if(this.invited.contains(member)){
 				this.invited.remove(member);
-				RPlayer.get(member).sendMessage("§eGuild §6§l" + this.getName() + " §ecancelled its join invitation.", "§eLa guilde §6§l" + this.getName() + " §ea annulé son invitation.");
+				RPlayer.get(member).sendMessage("Â§eGuild Â§6Â§l" + this.getName() + " Â§ecancelled its join invitation.", "Â§eLa guilde Â§6Â§l" + this.getName() + " Â§ea annulÃ© son invitation.");
 			}else{
 				this.invited.add(member);
-				RPlayer.get(member).sendMessage("§eGuild §6§l" + this.getName() + " §einvited you to join them!", "§eLa guilde §6§l" + this.getName() + " §evous a invité à rejoindre ses membres !");
+				RPlayer.get(member).sendMessage("Â§eGuild Â§6Â§l" + this.getName() + " Â§einvited you to join them!", "Â§eLa guilde Â§6Â§l" + this.getName() + " Â§evous a invitÃ© Ã  rejoindre ses membres !");
 			}
 		}
 	}
@@ -405,16 +401,16 @@ public class Guild {
 			if(this.invited.contains(member)){
 				this.invited.remove(member);
 				this.addMember(member);
-				RPlayer.get(member).sendMessage("§eYou just joined guild §6§l" + this.getName() + "§e!", "§eVous avez rejoint la guilde §6§l" + this.getName() + " §e!");
-				this.broadcastAllMessage("§&d" + member.getName() + " §&cjoined §&d§l" + this.getName() + "§&c!", "§&d" + member.getName() + " §&ca rejoint la guilde §&d§l" + this.getName() + "§&c !");
+				RPlayer.get(member).sendMessage("Â§eYou just joined guild Â§6Â§l" + this.getName() + "Â§e!", "Â§eVous avez rejoint la guilde Â§6Â§l" + this.getName() + " Â§e!");
+				this.broadcastAllMessage("Â§&d" + member.getName() + " Â§&cjoined Â§&dÂ§l" + this.getName() + "Â§&c!", "Â§&d" + member.getName() + " Â§&ca rejoint la guilde Â§&dÂ§l" + this.getName() + "Â§&c !");
 			}else if(this.askers.contains(member)){
 				this.askers.remove(member);
-				RPlayer.get(member).sendMessage("§eYou cancelled your join request to §6§l" + this.getName() + "§e.", "§eVous avez annulé votre requête d'adhésion envoyée à la guilde §6§l" + this.getName() + "§e.");
-				this.broadcastMessage(Relation.MEMBER, "§&d" + member.getName() + " §&ccancelled his join request.", "§&d" + member.getName() + " §&ca annulé sa demande d'adhésion.");
+				RPlayer.get(member).sendMessage("Â§eYou cancelled your join request to Â§6Â§l" + this.getName() + "Â§e.", "Â§eVous avez annulÃ© votre requÃªte d'adhÃ©sion envoyÃ©e Ã  la guilde Â§6Â§l" + this.getName() + "Â§e.");
+				this.broadcastMessage(Relation.MEMBER, "Â§&d" + member.getName() + " Â§&ccancelled his join request.", "Â§&d" + member.getName() + " Â§&ca annulÃ© sa demande d'adhÃ©sion.");
 			}else{
 				this.askers.add(member);
-				RPlayer.get(member).sendMessage("§eYou asked §6§l" + this.getName() + " §eto join their members.", "§eVous avez demandé à la guilde §6§l" + this.getName() + " §ede rejoindre ses membres.");
-				this.broadcastMessage(Relation.MEMBER, "§&d" + member.getName() + " §&casked to join your guild!", "§&d" + member.getName() + " §&ca demandé à rejoindre votre guilde !");
+				RPlayer.get(member).sendMessage("Â§eYou asked Â§6Â§l" + this.getName() + " Â§eto join their members.", "Â§eVous avez demandÃ© Ã  la guilde Â§6Â§l" + this.getName() + " Â§ede rejoindre ses membres.");
+				this.broadcastMessage(Relation.MEMBER, "Â§&d" + member.getName() + " Â§&casked to join your guild!", "Â§&d" + member.getName() + " Â§&ca demandÃ© Ã  rejoindre votre guilde !");
 			}
 		}
 	}
@@ -443,11 +439,11 @@ public class Guild {
 		this.claimChestsUsable = claimChestsUsable;
 	}
 
-	public HashMap<Integer, ItemStack> getBank() {
+	public int getBank() {
 		return bank;
 	}
 
-	public void setBank(HashMap<Integer, ItemStack> bank) {
+	public void setBank(int bank) {
 		this.bank = bank;
 	}
 
@@ -535,48 +531,16 @@ public class Guild {
 		this.cape = cape;
 	}
 
-	public int getCapeCost() {
-		return capeCost;
+	public void withdraw(int cost){
+		this.setBank(this.getBank()-cost);
+		this.broadcastMessage(Relation.MEMBER, "Â§&d" + cost + "âŸ¡  Â§&chave been withdrawed from your guild bank.", "Â§4" + cost + "âŸ¡  Â§cont Ã©tÃ© retirÃ©es de votre banque de guilde.");
+		this.broadcastMessage(Relation.MEMBER, "Â§7Your new guild balance is: Â§f" + this.getBank() + "âŸ¡", "Â§7Votre nouveau solde est de Â§f" + this.getBank() + "âŸ¡");
 	}
-
-	public void setCapeCost(int capeCost) {
-		this.capeCost = capeCost;
-	}
-
-	public void addBalance(int amount){
-		if(amount > 0){
-			for(int slot = 0;slot < 9;slot++){
-				if(amount > 0){
-					boolean elseb = false;
-					if(this.getBank().containsKey(slot)){
-						ItemStack is = this.getBank().get(slot);
-						if(is != null){
-							if(!EconomyHandler.isQuestItem(is)){
-								if(is.getType().equals(Material.EMERALD)){
-									if(is.getAmount() > 0){
-										if(is.getAmount() < 64){
-											amount -= 64 - is.getAmount();
-											if(amount >= 0)is.setAmount(64);
-											else is.setAmount(amount+64);
-										}
-									}else this.getBank().remove(slot);
-								}
-							}
-						}else elseb = true;
-					}else elseb = true;
-					if(elseb){
-						amount -= 64;
-						if(amount >= 0)this.getBank().put(slot, new ItemStack(Material.EMERALD, 64));
-						else this.getBank().put(slot, new ItemStack(Material.EMERALD, amount+64));
-					}
-				}else return;
-			}
-			if(!this.banks.isEmpty()){
-				for(GBankUI bankUI : this.banks){
-					bankUI.update();
-				}
-			}
-		}
+	
+	public void deposit(int amount) {
+		this.setBank(this.getBank()+amount);
+		this.broadcastMessage(Relation.MEMBER, "Â§&d" + amount + "âŸ¡  Â§&chave been added to your guild bank.", "Â§4" + amount + "âŸ¡  Â§cont Ã©tÃ© ajoutÃ©es Ã  votre banque de guilde.");
+		this.broadcastMessage(Relation.MEMBER, "Â§7Your new guild balance is: Â§f" + this.getBank() + "âŸ¡", "Â§7Votre nouveau solde est de Â§f" + this.getBank() + "âŸ¡");
 	}
 
 	public GHome[] getHomes() {
@@ -605,5 +569,9 @@ public class Guild {
 	
 	public Rank getDefaultRank(){
 		return this.getRanks()[this.getDefaultRankId()];
+	}
+
+	public int getMaxBankAmount() {
+		return Settings.CAPE_COST*this.getLevel();
 	}
 }

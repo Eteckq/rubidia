@@ -1,21 +1,24 @@
 package me.pmilon.RubidiaGuilds.ui;
 
+import java.util.Arrays;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import me.pmilon.RubidiaCore.handlers.EconomyHandler;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
-import me.pmilon.RubidiaCore.utils.Utils;
-import me.pmilon.RubidiaGuilds.GuildsPlugin;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
-import me.pmilon.RubidiaGuilds.guilds.Permission;
 
 public class GBankUI extends UIHandler {
 	
 	private Guild guild;
+	private int SLOT_MELT = 8;
 	public GBankUI(Player p, Guild guild) {
 		super(p);
 		this.guild = guild;
@@ -34,44 +37,11 @@ public class GBankUI extends UIHandler {
 
 	@Override
 	public void onGeneralClick(InventoryClickEvent e, Player arg1) {
-		/*
-		// MODIF ETECK
-		//
-		// Pour que je m'y retrouve un peu mieux, j'ai remplacer les fonctions que tu appelles souvent
-		// dans des variables, ici "e.getCurrentItem().getType()" -> variable "itemType"
-		//
-		// Je le fais seulement ici, et si ça te dérange pas je le ferai peut être ailleurs
-		// Je change rien d'autre pour l'instant, j'attends ton accord ^^
-		// (Je n'ai bien sûr rien changé au fonctionnement du code, ça me parait juste plus lisible !)
-		//
-		*/
-		
-		
-		
-		if(e.getCurrentItem() != null){
-			
-			Material itemType = e.getCurrentItem().getType();
-			
-			if(e.isShiftClick()){
-				if(!itemType.equals(Material.EMERALD) && !itemType.equals(Material.EMERALD_BLOCK) && !itemType.equals(Material.AIR)){
+		if(e.isShiftClick()) {
+			if(e.getCurrentItem() != null){
+				if(!e.getCurrentItem().getType().equals(Material.EMERALD) && !e.getCurrentItem().getType().equals(Material.EMERALD_BLOCK)){
 					e.setCancelled(true);
-					rp.sendMessage("§cThis is a bank, not a storage!", "§cC'est une banque, pas un coffre !");
-				}else{
-					if(!gm.getPermission(Permission.BANK_WITHDRAW)){
-						e.setCancelled(true);
-						rp.sendMessage("§cYou don't have permission to withdraw emeralds from your guild's bank!", "§cVous n'avez pas la permission de retirer des émeraudes de la banque de votre guilde !");
-					}
-					
-					final GBankUI bankUI = this;
-					Bukkit.getScheduler().runTaskLater(GuildsPlugin.instance, new Runnable(){
-						public void run(){
-							bankUI.save();
-							for(GBankUI bankHandler : bankUI.getGuild().banks){
-								if(!bankHandler.equals(this))bankHandler.update();
-							}
-						}
-					}, 1);
-				}
+				}else this.menu.setItem(this.SLOT_MELT, this.getMelt());
 			}
 		}
 	}
@@ -79,69 +49,65 @@ public class GBankUI extends UIHandler {
 	@Override
 	public void onInventoryClick(final InventoryClickEvent e, Player p) {
 		if(e.getCurrentItem() != null){
-			if(!e.getCursor().getType().equals(Material.EMERALD) && !e.getCursor().getType().equals(Material.EMERALD_BLOCK) && !e.getCursor().getType().equals(Material.AIR)){
-				e.setCancelled(true);
-				rp.sendMessage("�cThis is a bank, not a storage!", "�cC'est une banque, pas un coffre !");
-			}else{
-				if(e.getCursor().getType().equals(Material.EMERALD) || e.getCursor().getType().equals(Material.EMERALD_BLOCK)){
-					if(e.isRightClick()){
-						if(!gm.getPermission(Permission.BANK_WITHDRAW)){
-							e.setCancelled(true);
-							rp.sendMessage("�cYou don't have permission to withdraw emeralds from your guild's bank!", "�cVous n'avez pas la permission de retirer des �meraudes de la banque de votre guilde !");
+			if(!e.getCurrentItem().getType().equals(Material.AIR)){
+				int slot = e.getRawSlot();
+				if(slot == this.SLOT_MELT){
+					e.setCancelled(true);
+					int count = this.count();
+					if(this.getGuild().getBank() + count > this.getGuild().getMaxBankAmount()) {
+						rp.sendMessage("§cThere is not enough room for all these emeralds in your guild bank!", "§cIl n'y a pas assez de place pour toutes ces émeraudes dans votre banque de guilde!");
+					}else {
+						for(int i = 0;i < 8;i++) {
+							if(!this.getMenu().getItem(i).getType().equals(Material.EMERALD) && !this.getMenu().getItem(i).equals(Material.EMERALD_BLOCK)){
+								this.getHolder().getInventory().addItem(this.getMenu().getItem(i));
+							}
+							this.getMenu().setItem(i, new ItemStack(Material.AIR));
 						}
-					}else if(!gm.getPermission(Permission.BANK_DEPOSIT)){
-						e.setCancelled(true);
-						rp.sendMessage("�cYou don't have permission to depose emeralds in your guild's bank!", "�cVous n'avez pas la permission de d�poser des �meraudes dans la banque de votre guilde !");
-					}
-				}else if(e.getCursor().getType().equals(Material.AIR)){
-					if(!gm.getPermission(Permission.BANK_WITHDRAW)){
-						e.setCancelled(true);
-						rp.sendMessage("�cYou don't have permission to withdraw emeralds from your guild's bank!", "�cVous n'avez pas la permission de retirer des �meraudes de la banque de votre guilde !");
+						EconomyHandler.deposit(this.getHolder(), count);
 					}
 				}
-				
-				final GBankUI bankUI = this;
-				Bukkit.getScheduler().runTaskLater(GuildsPlugin.instance, new Runnable(){
-					public void run(){
-						bankUI.save();
-						for(GBankUI bankHandler : bankUI.getGuild().banks){
-							if(!bankHandler.equals(bankUI))bankHandler.update();
-						}
-					}
-				}, 1);
 			}
+			this.menu.setItem(this.SLOT_MELT, this.getMelt());
 		}
 	}
 
 	@Override
 	public void onInventoryClose(InventoryCloseEvent e, Player p) {
-		this.getGuild().banks.remove(this);
+		for(int i =0;i < 8;i++) {
+			ItemStack item = this.getMenu().getItem(i);
+			if(item != null) {
+				this.getHolder().getInventory().addItem(item);
+			}
+		}
 	}
 
 	@Override
 	protected boolean openWindow() {
-		for(int slot = 0;slot < 9; slot++){
-			if(this.getGuild().getBank().containsKey(slot)){
-				getMenu().setItem(slot, this.getGuild().getBank().get(slot));
-			}
-		}
-		this.getGuild().banks.add(this);
-		return this.getHolder().openInventory(getMenu()) != null;
+		this.menu.setItem(this.SLOT_MELT, this.getMelt());
+		return this.getHolder().openInventory(this.menu) != null;
 	}
 	
-	public void update(){
-		for(int slot = 0;slot < 9; slot++){
-			if(this.getGuild().getBank().containsKey(slot)){
-				getMenu().setItem(slot, this.getGuild().getBank().get(slot));
+	private ItemStack getMelt(){
+		int count = this.count();
+		ItemStack item = new ItemStack(Material.LAVA_BUCKET,1);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("§6§l" + rp.translateString("Guild foundry", "Fonderie de guilde"));
+		meta.setLore(Arrays.asList("§7" + rp.translateString("Send these materials to the guild foundry", "Envoyer ces matériaux à la fonderie de la guilde"),
+				"§7" + rp.translateString("and add §a" + count + " §7emerald" + (count > 1 ? "s" : "") + " to your guild bank account.", "et ajouter §a" + count + " §7émeraude" + (count > 1 ? "s" : "") + " à votre banque de guilde."),
+				"", "§f§l" + rp.translateString("Current balance: §7" + this.getGuild().getBank() + (this.getGuild().getMaxBankAmount() == -1 ? "⟡" : "§8/" + this.getGuild().getMaxBankAmount()), "Solde actuel : §7" + this.getGuild().getBank() + (this.getGuild().getMaxBankAmount() == -1 ? "⟡" : "§8/" + this.getGuild().getMaxBankAmount()))));
+		item.setItemMeta(meta);
+		return item;
+	}
+	
+	private int count() {
+		int amount = 0;
+		for(int i = 0;i < 8;i++) {
+			ItemStack item = this.getMenu().getItem(i);
+			if(item != null) {
+				amount += item.getType().equals(Material.EMERALD_BLOCK) ? 9 : (item.getType().equals(Material.EMERALD) ? 1 : 0);
 			}
 		}
-		Utils.updateInventory(this.getHolder());
-	}
-
-	protected void save(){
-		for(int slot = 0; slot < getMenu().getSize(); slot++){
-			this.getGuild().getBank().put(slot, getMenu().getItem(slot));
-		}
+		return amount;
 	}
 
 	public Guild getGuild() {
