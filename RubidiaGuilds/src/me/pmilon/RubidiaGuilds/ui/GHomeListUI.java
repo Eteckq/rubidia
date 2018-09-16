@@ -72,16 +72,16 @@ public class GHomeListUI extends UIHandler {
 					if(slot < this.getGuild().getLevel()){
 						if(gm.canSetHome(slot)){
 							this.close(true, slot);
-							rp.sendMessage("§aGet to the desired home and take a representative item to show in your guild homes' list. Then enter the home's name in chat.", "§aDéplacez-vous vers le PR souhaité et prenez dans vos mains un item représentatif qui sera affiché dans la liste des PR de votre guilde. Enfin, entrez dans le chat le nom de votre PR.");
-						}else rp.sendMessage("§cYou don't have permission to set homes for your guild!", "§cVous n'avez pas la permission de définir des PR pour votre guilde !");
+							rp.sendMessage("§aGet to the desired home location and take a representative item to show in your guild homes' list. Then enter the home's name in chat.", "§aDéplacez-vous vers le PR souhaité et prenez dans vos mains un item représentatif qui sera affiché dans la liste des PR de votre guilde. Enfin, entrez dans le chat le nom de votre PR.");
+						}else rp.sendMessage("§cYou don't have permission to set home #" + slot + " for your guild!", "§cVous n'avez pas la permission de définir le PR #" + slot + " pour votre guilde !");
 					}else rp.sendMessage("§cYou need to level your guild up to level §e" + (slot+1) + " §cto unlock this home.", "§cVous devez augmenter le niveau de votre guilde jusqu'au niveau §e" + (slot+1) + " §cpour débloquer ce PR.");
 				}else{
 					if(slot < this.getGuild().getLevel()){
 						if(gm.canSetHome(slot)){
-							this.getGuild().getHomes()[slot] = null;
-							this.getMenu().setItem(slot, this.getDefault(slot));
-							rp.sendMessage("§cHome successfully deleted.", "§cPoint de rassemblement supprimé.");
-						}else rp.sendMessage("§cYou don't have permission to set homes for your guild!", "§cVous n'avez pas la permission de définir des PR pour votre guilde !");
+							if(this.getGuild().getHomes()[slot] != null) {
+								Core.uiManager.requestUI(new HomeRemovalConfirmationUI(rp, this.getGuild(), slot));
+							}
+						}else rp.sendMessage("§cYou don't have permission to set home #" + slot + " for your guild!", "§cVous n'avez pas la permission de définir le PR #" + slot + " pour votre guilde !");
 					}else rp.sendMessage("§cYou need to level your guild up to level §e" + (slot+1) + " §cto unlock this home.", "§cVous devez augmenter le niveau de votre guilde jusqu'au niveau §e" + (slot+1) + " §cpour débloquer ce PR.");
 				}
 			}
