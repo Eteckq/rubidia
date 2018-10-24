@@ -110,7 +110,7 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 
 	@Override
 	protected ItemStack getItem(RPlayer e) {
-		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1, (byte)3);
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
 		SkullMeta meta = (SkullMeta) skull.getItemMeta();
 		meta.setDisplayName((e.isOnline() ? "§2[✔] §a" : "§4[✘] §c") + e.getName() + (e.isVip() ? " §8[§6§lVIP§8]" : ""));
 		List<String> lore = new ArrayList<String>();

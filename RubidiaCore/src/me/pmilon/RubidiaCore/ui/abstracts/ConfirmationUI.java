@@ -11,6 +11,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import me.pmilon.RubidiaCore.Core;
+import me.pmilon.RubidiaCore.tasks.BukkitTask;
 
 
 public abstract class ConfirmationUI extends UIHandler {
@@ -73,7 +76,20 @@ public abstract class ConfirmationUI extends UIHandler {
 
 	@Override
 	public void onInventoryClose(InventoryCloseEvent e, Player p) {
-		if(this.defaultNo)no();
+		if(this.defaultNo) {
+			new BukkitTask(Core.instance) {//must be synchronous because elsehow: player leave inventory so UIHandler stop listening to player while we reopen an inventory (for some no() methods)
+
+				@Override
+				public void run() {
+					no();
+				}
+
+				@Override
+				public void onCancel() {
+				}
+				
+			}.runTaskLater(0);
+		}
 	}
 	
 	protected abstract void yes();

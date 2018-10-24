@@ -26,6 +26,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class SkillTree extends UIHandler {
@@ -155,8 +156,9 @@ public class SkillTree extends UIHandler {
 	private ItemStack getAbility(Ability ability){
 		boolean has = leveledUp.contains(ability);
 		double max = ability.getRClass().equals(RClass.RANGER) ? 385.0 : 60.0;
-		ItemStack item = new ItemStack(rp.isAtLeast(ability.getMastery()) ? ability.getRClass().getBaseWeapon() : Material.BARRIER, rp.getAbLevel(ability.getIndex()) < 1 ? 1 : rp.getAbLevel(ability.getIndex()), (short) (has ? ability.getRClass().getBaseWeapon().getMaxDurability()*(1.0004-(8-ability.getIndex())/max) : ability.getRClass().getBaseWeapon().getMaxDurability()*(1.0004-(16-ability.getIndex())/max)));
+		ItemStack item = new ItemStack(rp.isAtLeast(ability.getMastery()) ? ability.getRClass().getBaseWeapon() : Material.BARRIER, rp.getAbLevel(ability.getIndex()) < 1 ? 1 : rp.getAbLevel(ability.getIndex()));
 		ItemMeta meta = item.getItemMeta();
+		((Damageable) meta).setDamage((int) (has ? ability.getRClass().getBaseWeapon().getMaxDurability()*(1.0004-(8-ability.getIndex())/max) : ability.getRClass().getBaseWeapon().getMaxDurability()*(1.0004-(16-ability.getIndex())/max)));
 		meta.setUnbreakable(true);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
 		String color = has ? "§2" : "§4";

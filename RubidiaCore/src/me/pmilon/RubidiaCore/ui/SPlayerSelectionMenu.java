@@ -20,6 +20,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class SPlayerSelectionMenu extends UIHandler{
@@ -47,8 +48,9 @@ public class SPlayerSelectionMenu extends UIHandler{
 			List<String> lore = new ArrayList<String>();
 			if(rp.getSaves()[i] != null){
 				SPlayer sp = rp.getSaves()[i];
-				item1 = new ItemStack(sp.getRClass().equals(RClass.VAGRANT) ? Material.WOODEN_AXE : sp.getRClass().getBaseWeapon(), 1, (short) (sp.getRClass().equals(RClass.VAGRANT) ? Material.WOODEN_AXE.getMaxDurability()*.67 : (sp.getRClass().equals(RClass.RANGER) ? Material.BOW.getMaxDurability()*.954 : sp.getRClass().getBaseWeapon().getMaxDurability()*.72)));
+				item1 = new ItemStack(sp.getRClass().equals(RClass.VAGRANT) ? Material.WOODEN_AXE : sp.getRClass().getBaseWeapon(), 1);
 				meta1 = item1.getItemMeta();
+				((Damageable) meta1).setDamage((int) (sp.getRClass().equals(RClass.VAGRANT) ? Material.WOODEN_AXE.getMaxDurability()*.67 : (sp.getRClass().equals(RClass.RANGER) ? Material.BOW.getMaxDurability()*.954 : sp.getRClass().getBaseWeapon().getMaxDurability()*.72)));
 				meta1.setUnbreakable(true);
 				meta1.setDisplayName("§f§l" + rp.translateString(sp.getRClass().getDisplayEn(), sp.getRClass().getDisplayFr()));
 				double ratio = sp.getRExp()/LevelUtils.getRLevelTotalExp(sp.getRLevel());
@@ -94,9 +96,10 @@ public class SPlayerSelectionMenu extends UIHandler{
 					}
 				}else if(slot < 27 && slot > 17){
 					int id = (int) Math.abs((slot-19)*.5);
-					if(rp.getSaves()[id] != null){
+					SPlayer sp = rp.getSaves()[id];
+					if(sp != null){
 						if(rp.getLastLoadedSPlayerId() != id){
-							Core.uiManager.requestUI(new SPlayerDeletionMenu(this.getHolder(), id));
+							Core.uiManager.requestUI(new SPlayerDeletionConfirmationUI(rp, sp, id));
 						}else rp.sendMessage("§cYou must first select another character!", "§cVous devez d'abord sélectionner un autre personnage !");
 					}
 				}

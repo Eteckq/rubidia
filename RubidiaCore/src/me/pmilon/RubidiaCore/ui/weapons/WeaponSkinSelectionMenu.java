@@ -15,6 +15,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class WeaponSkinSelectionMenu extends ListMenuUIHandler<Integer> {
@@ -85,8 +86,9 @@ public class WeaponSkinSelectionMenu extends ListMenuUIHandler<Integer> {
 
 	@Override
 	protected ItemStack getItem(Integer i) {
-		ItemStack item = new ItemStack(this.getWeapon().getType(),1,(short)(this.getWeapon().getType().getMaxDurability()*i*Weapons.getSkinFactor(this.getWeapon().getType())+1));
+		ItemStack item = new ItemStack(this.getWeapon().getType(),1);
 		ItemMeta meta = item.getItemMeta();
+		((Damageable) meta).setDamage((int) (this.getWeapon().getType().getMaxDurability()*i*Weapons.getSkinFactor(this.getWeapon().getType())+1));
 		meta.setUnbreakable(true);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
 		meta.setDisplayName("Skin #" + i);

@@ -2,6 +2,7 @@ package me.pmilon.RubidiaCore.ui;
 
 import java.util.Arrays;
 
+import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.ui.abstracts.ConfirmationUI;
 
@@ -22,7 +23,7 @@ public class DivorceConfirmationUI extends ConfirmationUI {
 
 	@Override
 	protected void no() {
-		this.close(false);
+		Core.uiManager.requestUI(new CoupleMenu(rp.getPlayer(), rp.getCouple()));
 	}
 
 }

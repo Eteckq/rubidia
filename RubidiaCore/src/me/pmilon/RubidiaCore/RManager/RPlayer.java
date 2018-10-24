@@ -82,6 +82,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
@@ -677,8 +678,9 @@ public class RPlayer {
 		}
 	}
 	public ItemStack getNrjItem(){
-		ItemStack item = new ItemStack(Material.DIAMOND_HOE,this.getNrj() > 126 ? 1 : (int)this.getNrj(),(short) (Material.DIAMOND_HOE.getMaxDurability()*(.9353+.06406150*(this.getNrj()/this.getMaxNrj()))));
+		ItemStack item = new ItemStack(Material.DIAMOND_HOE,this.getNrj() > 126 ? 1 : (int)this.getNrj());
 		ItemMeta meta = item.getItemMeta();
+		((Damageable) meta).setDamage((int) (Material.DIAMOND_HOE.getMaxDurability()*(.9353+.06406150*(this.getNrj()/this.getMaxNrj()))));
 		meta.setUnbreakable(true);
 		meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
 		meta.setDisplayName("§6☇  §e" + (int)this.getNrj() + "§6/" + (int)this.getMaxNrj() + " EP");

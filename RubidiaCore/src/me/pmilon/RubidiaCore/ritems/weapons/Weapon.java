@@ -19,6 +19,7 @@ import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class Weapon {
@@ -203,8 +204,9 @@ public class Weapon {
 	}
 	
 	public ItemStack getNewItemStack(RPlayer rp){
-		ItemStack stack = new ItemStack(this.getType(), 1, (short) (this.getType().getMaxDurability()*this.getSkinId()*Weapons.getSkinFactor(this.getType())+(this.getSkinId() > 0 ? 1 : 0)));
+		ItemStack stack = new ItemStack(this.getType(), 1);
 		ItemMeta meta = stack.getItemMeta();
+		((Damageable) meta).setDamage((int) (this.getType().getMaxDurability()*this.getSkinId()*Weapons.getSkinFactor(this.getType())+(this.getSkinId() > 0 ? 1 : 0)));
 		meta.setDisplayName(this.getRarity().getPrefix() + "§l" + this.getName() + (this.getSuppLevel() > 0 ? " §7(+" + this.getSuppLevel() + ")" : "") + (this.getHoles() > 0 ? (" §5(" + this.getPiercings().size() + "/" + this.getHoles() + ")") : ""));
 		List<String> lore = new ArrayList<String>();
 		lore.addAll(Arrays.asList("§8" + (this.isAttack() ? "Arme " + this.getWeaponUse().getDisplayFr() : "Pièce d'armure"), "§7Rareté : " + this.getRarity().getPrefix() + this.getRarity().getDisplayFr(), "", (this.isAttack() ? "§7Dégâts : §4" : "§7Défense : §4") + this.getMinDamages() + " §8- §4" + this.getMaxDamages()));
@@ -250,9 +252,11 @@ public class Weapon {
 	}
 
 	public ItemStack updateState(RPlayer rp, ItemStack item){
-		short itDamage = (short)(this.getType().getMaxDurability()*this.getSkinId()*Weapons.getSkinFactor(this.getType())+(this.getSkinId() > 0 ? 1 : 0));
-		if(item.getDurability() != itDamage)item.setDurability(itDamage);
+		int itDamage = (int) (this.getType().getMaxDurability()*this.getSkinId()*Weapons.getSkinFactor(this.getType())+(this.getSkinId() > 0 ? 1 : 0));
 		ItemMeta meta = item.getItemMeta();
+		if(((Damageable) meta).getDamage() != itDamage) {
+			((Damageable) meta).setDamage(itDamage);
+		}
 		meta.setUnbreakable(true);
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE);
 		List<String> lore = meta.hasLore() ? Utils.getModifiableCopy(meta.getLore()) : new ArrayList<String>();

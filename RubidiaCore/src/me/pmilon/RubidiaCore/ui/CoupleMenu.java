@@ -76,7 +76,9 @@ public class CoupleMenu extends UIHandler {
 		if(e.getCurrentItem() != null){
 			e.setCancelled(true);
 			int slot = e.getRawSlot();
-			if(slot == this.SLOT_DIVORCE)Core.uiManager.requestUI(new DivorceConfirmationUI(rp));
+			if(slot == this.SLOT_DIVORCE) {
+				Core.uiManager.requestUI(new DivorceConfirmationUI(rp));
+			}
 		}
 	}
 
