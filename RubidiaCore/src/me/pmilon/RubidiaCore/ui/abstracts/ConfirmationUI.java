@@ -21,7 +21,7 @@ public abstract class ConfirmationUI extends UIHandler {
 	private final String[] details;//shown over yes & no (size 2)
 	private final String information;//title of book
 	private final List<String> confirmation;//lore of book
-	private boolean defaultNo = true;
+	private boolean noOnLeave = true;
 	public ConfirmationUI(Player p, String title, String[] details, String information, List<String> confirmation) {
 		super(p);
 		this.details = details;
@@ -76,7 +76,7 @@ public abstract class ConfirmationUI extends UIHandler {
 
 	@Override
 	public void onInventoryClose(InventoryCloseEvent e, Player p) {
-		if(this.defaultNo) {
+		if(this.noOnLeave) {
 			new BukkitTask(Core.instance) {//must be synchronous because elsehow: player leave inventory so UIHandler stop listening to player while we reopen an inventory (for some no() methods)
 
 				@Override
@@ -99,9 +99,13 @@ public abstract class ConfirmationUI extends UIHandler {
 	protected void closeUI() {
 		this.getHolder().closeInventory();
 	}
-	
-	public void setDefaultNo(boolean flag){
-		this.defaultNo = flag;
+
+	public boolean isNoOnLeave() {
+		return noOnLeave;
+	}
+
+	public void setNoOnLeave(boolean noOnLeave) {
+		this.noOnLeave = noOnLeave;
 	}
 
 }

@@ -21,6 +21,7 @@ public class QuestDeletionConfirmationUI extends ConfirmationUI {
 	
 	@Override
 	protected void no() {
+		Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), this.getQuest(), this.getPnj()));
 	}
 	
 	@Override
