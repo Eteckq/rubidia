@@ -19,11 +19,12 @@ public class PathfinderGoalAttack extends PathfinderGoal {
     }
 
     @Override
+    //TODO test new Pathfinder
     public boolean a() {
     	this.t++;
         EntityLiving entityliving = this.b.getGoalTarget();
         if(entityliving != null){
-            double d0 = this.b.e(entityliving.locX, entityliving.getBoundingBox().b, entityliving.locZ);
+            double d0 = this.b.e(entityliving.locX, (entityliving.getBoundingBox().maxY+entityliving.getBoundingBox().minY)/2./* entityliving.getBoundingBox().b */, entityliving.locZ);
             double d1 = (double) (this.b.width * 2.0F * this.b.width * 2.0F + entityliving.width);
             return d0 <= d1 && this.b.getHealth() > 1.0 && this.t > 20.0/this.p.getAttackSpeed() && this.b.getEntitySenses().a(entityliving);
         }
