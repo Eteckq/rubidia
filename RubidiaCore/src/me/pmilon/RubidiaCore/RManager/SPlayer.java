@@ -6,6 +6,7 @@ import java.util.List;
 
 import me.pmilon.RubidiaCore.events.RXPSource;
 import me.pmilon.RubidiaCore.handlers.JobsHandler.JobTask;
+import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaPets.pets.Pet;
@@ -24,14 +25,7 @@ public class SPlayer {
 	private Mastery mastery;
 	private int skp;
 	private int skd;
-	private int firstability;
-	private int secondability;
-	private int thirdability;
-	private int fourthability;
-	private int fifthability;
-	private int sixthability;
-	private int seventhability;
-	private int eighthability;
+	private int[] abilityLevels;
 	private int strength;
 	private int endurance;
 	private int agility;
@@ -72,14 +66,7 @@ public class SPlayer {
 		this.mastery = mastery;
 		this.skp = skp;
 		this.skd = skd;
-		this.firstability = firstability;
-		this.secondability = secondability;
-		this.thirdability = thirdability;
-		this.fourthability = fourthability;
-		this.fifthability = fifthability;
-		this.sixthability = sixthability;
-		this.seventhability = seventhability;
-		this.eighthability = eighthability;
+		this.abilityLevels = new int[] {firstability,secondability,thirdability,fourthability,fifthability,sixthability,seventhability,eighthability};
 		this.strength = strength;
 		this.endurance = endurance;
 		this.agility = agility;
@@ -159,62 +146,6 @@ public class SPlayer {
 	}
 	public void setSkd(int skd) {
 		this.skd = skd;
-		this.setModified(true);
-	}
-	public int getFirstability() {
-		return firstability;
-	}
-	public void setFirstability(int firstability) {
-		this.firstability = firstability;
-		this.setModified(true);
-	}
-	public int getSecondability() {
-		return secondability;
-	}
-	public void setSecondability(int secondability) {
-		this.secondability = secondability;
-		this.setModified(true);
-	}
-	public int getThirdability() {
-		return thirdability;
-	}
-	public void setThirdability(int thirdability) {
-		this.thirdability = thirdability;
-		this.setModified(true);
-	}
-	public int getFourthability() {
-		return fourthability;
-	}
-	public void setFourthability(int fourthability) {
-		this.fourthability = fourthability;
-		this.setModified(true);
-	}
-	public int getFifthability() {
-		return fifthability;
-	}
-	public void setFifthability(int fifthability) {
-		this.fifthability = fifthability;
-		this.setModified(true);
-	}
-	public int getSixthability() {
-		return sixthability;
-	}
-	public void setSixthability(int sixthability) {
-		this.sixthability = sixthability;
-		this.setModified(true);
-	}
-	public int getSeventhability() {
-		return seventhability;
-	}
-	public void setSeventhability(int seventhability) {
-		this.seventhability = seventhability;
-		this.setModified(true);
-	}
-	public int getEighthability() {
-		return eighthability;
-	}
-	public void setEighthability(int eighthability) {
-		this.eighthability = eighthability;
 		this.setModified(true);
 	}
 	public int getStrength() {
@@ -332,14 +263,9 @@ public class SPlayer {
 		Configs.getPlayerConfig().set(path + ".mastery", this.getMastery().toString());
 		Configs.getPlayerConfig().set(path + ".skillpoints", this.getSkp());
 		Configs.getPlayerConfig().set(path + ".distinctionpoints", this.getSkd());
-		Configs.getPlayerConfig().set(path + ".ability.1", this.getFirstability());
-		Configs.getPlayerConfig().set(path + ".ability.2", this.getSecondability());
-		Configs.getPlayerConfig().set(path + ".ability.3", this.getThirdability());
-		Configs.getPlayerConfig().set(path + ".ability.4", this.getFourthability());
-		Configs.getPlayerConfig().set(path + ".ability.5", this.getFifthability());
-		Configs.getPlayerConfig().set(path + ".ability.6", this.getSixthability());
-		Configs.getPlayerConfig().set(path + ".ability.7", this.getSeventhability());
-		Configs.getPlayerConfig().set(path + ".ability.8", this.getEighthability());
+		for(int i = 0;i < 8;i++) {
+			Configs.getPlayerConfig().set(path + ".ability." + (i+1), this.getAbilityLevel(i+1));
+		}
 		Configs.getPlayerConfig().set(path + ".strength", this.getStrength());
 		Configs.getPlayerConfig().set(path + ".endurance", this.getEndurance());
 		Configs.getPlayerConfig().set(path + ".agility", this.getAgility());
@@ -436,5 +362,19 @@ public class SPlayer {
 	}
 	public void setLoaded(boolean loaded) {
 		this.loaded = loaded;
+	}
+	public int[] getAbilityLevels() {
+		return abilityLevels;
+	}
+	public void setAbilityLevels(int[] abilityLevels) {
+		this.abilityLevels = abilityLevels;
+		this.setModified(true);
+	}
+	public int getAbilityLevel(int i) {
+		return abilityLevels[i-1];
+	}
+	public void setAbilityLevel(int i, int level) {
+		this.abilityLevels[i] = level;
+		this.setModified(true);
 	}
 }

@@ -32,6 +32,7 @@ import me.pmilon.RubidiaCore.events.RPlayerRequestDuelEvent;
 import me.pmilon.RubidiaCore.events.RPlayerXPEvent;
 import me.pmilon.RubidiaCore.events.RXPSource;
 import me.pmilon.RubidiaCore.handlers.JobsHandler.JobTask;
+import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaCore.handlers.TradingHandler;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerChat;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSetSlot;
@@ -262,35 +263,8 @@ public class RPlayer {
 	public int getSkillPoints(){
 		return this.getLoadedSPlayer().getSkp();
 	}
-	public int getAbLevel1(){
-		return this.getLoadedSPlayer().getFirstability();
-	}
-	public int getAbLevel2(){
-		return this.getLoadedSPlayer().getSecondability();
-	}
-	public int getAbLevel3(){
-		return this.getLoadedSPlayer().getThirdability();
-	}
-	public int getAbLevel4(){
-		return this.getLoadedSPlayer().getFourthability();
-	}
-	public int getAbLevel5(){
-		return this.getLoadedSPlayer().getFifthability();
-	}
-	public int getAbLevel6(){
-		return this.getLoadedSPlayer().getSixthability();
-	}
-	public int getAbLevel7() {
-		return this.getLoadedSPlayer().getSeventhability();
-	}
-	public void setAbLevel7(int seventhability) {
-		this.getLoadedSPlayer().setSeventhability(seventhability);
-	}
-	public int getAbLevel8() {
-		return this.getLoadedSPlayer().getEighthability();
-	}
-	public void setAbLevel8(int eighthability) {
-		this.getLoadedSPlayer().setEighthability(eighthability);
+	public int getAbilityLevel(int i){
+		return this.getLoadedSPlayer().getAbilityLevel(i);
 	}
 	public double getNrj(){
 		if(this.isOnline())if(this.isOp())return this.getMaxNrj();
@@ -348,12 +322,7 @@ public class RPlayer {
 		return this.getLoadedSPlayer().getJobscores();
 	}
 	public String getJobName(){
-		if(this.getRJob().equals(RJob.ALCHEMIST))return this.translateString("§dAlchemist", "§dAlchimiste");
-		else if(this.getRJob().equals(RJob.FARMER))return this.translateString("§eFarmer", "§eFermier");
-		else if(this.getRJob().equals(RJob.HUNTER))return this.translateString("§cHunter", "§cChasseur");
-		else if(this.getRJob().equals(RJob.LUMBERMAN))return this.translateString("§aLumberman", "§aBûcheron");
-		else if(this.getRJob().equals(RJob.MINER))return this.translateString("§bMiner", "§bMineur");
-		return "§7Sans emploi";
+		return this.translateString(this.getRJob().getNameEN(), this.getRJob().getNameFR());
 	}
 	
 	////////////////////
@@ -405,23 +374,8 @@ public class RPlayer {
 	public void setSkillPoints(int skp){
 		this.getLoadedSPlayer().setSkp(skp);
 	}
-	public void setAbLevel1(int firstability){
-		this.getLoadedSPlayer().setFirstability(firstability);
-	}
-	public void setAbLevel2(int secondability){
-		this.getLoadedSPlayer().setSecondability(secondability);
-	}
-	public void setAbLevel3(int thirdability){
-		this.getLoadedSPlayer().setThirdability(thirdability);
-	}
-	public void setAbLevel4(int fourthability){
-		this.getLoadedSPlayer().setFourthability(fourthability);
-	}
-	public void setAbLevel5(int fifthability){
-		this.getLoadedSPlayer().setFifthability(fifthability);
-	}
-	public void setAbLevel6(int sixthability){
-		this.getLoadedSPlayer().setSixthability(sixthability);
+	public void setAbilityLevel(int i, int level){
+		this.getLoadedSPlayer().setAbilityLevel(i, level);
 	}
 	public void setNrj(double currentnrj){
 		if(currentnrj < 0)currentnrj = 0;
@@ -594,16 +548,12 @@ public class RPlayer {
 		return skd;
 	}
 	public int resetAbilities(){
-		int skp = this.getLoadedSPlayer().getSkp() + this.getAbLevel1() + this.getAbLevel2() + this.getAbLevel3() + this.getAbLevel4() + this.getAbLevel5() + this.getAbLevel6() + this.getAbLevel7() + this.getAbLevel8();
+		int skp = this.getLoadedSPlayer().getSkp();
+		for(int i = 1;i < 9;i++) {
+			skp += this.getLoadedSPlayer().getAbilityLevel(i);
+			this.getLoadedSPlayer().setAbilityLevel(i, 0);
+		}
 		this.setSkillPoints(skp);
-		this.setAbLevel1(0);
-		this.setAbLevel2(0);
-		this.setAbLevel3(0);
-		this.setAbLevel4(0);
-		this.setAbLevel5(0);
-		this.setAbLevel6(0);
-		this.setAbLevel7(0);
-		this.setAbLevel8(0);
 		if(this.isOnline())this.sendMessage("§aYour abilities have been resetted!", "§aVos compétences ont été réinitialisées.");
 		return skp;
 	}
@@ -1915,4 +1865,5 @@ public class RPlayer {
 		if(this.isVip())return -1;
 		return 3000;
 	}
+
 }

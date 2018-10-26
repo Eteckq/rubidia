@@ -20,6 +20,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ItemMessage {
+	
+	//TODO delete all this shite
+	
 	private static final int interval = 20;  // ticks
 	private static final int DEFAULT_DURATION = 2; // seconds
 
