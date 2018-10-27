@@ -12,7 +12,7 @@ public class HelpCommandExecutor extends HybridCommandExecutor {
 
 	@Override
 	public void onPlayerCommand(Player player, RPlayer rp, String[] args) {
-		rp.getChat().addFixDisplay(new RChatFixDisplay(rp, -1, null).addLines(rp.getLanguage().contains("fr") ? Settings.HELP_FR : Settings.HELP_EN));
+		rp.getChat().addFixDisplay(new RChatFixDisplay(rp, -1, null).addLines(Settings.HELP_FR));
 	}
 
 	@Override

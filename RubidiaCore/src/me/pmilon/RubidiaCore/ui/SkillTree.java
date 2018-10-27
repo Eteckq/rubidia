@@ -7,8 +7,7 @@ import java.util.List;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.Mastery;
 import me.pmilon.RubidiaCore.RManager.RClass;
-import me.pmilon.RubidiaCore.abilities.AbilitiesAPI;
-import me.pmilon.RubidiaCore.abilities.Ability;
+import me.pmilon.RubidiaCore.abilities.RAbility;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSetSlot;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
@@ -32,8 +31,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class SkillTree extends UIHandler {
 
 	RClass rClass = rp.getRClass().equals(RClass.VAGRANT) ? RClass.PALADIN : rp.getRClass();
-	List<Ability> abilities = AbilitiesAPI.getAvailable(rClass);//to get all available
-	List<Ability> leveledUp = AbilitiesAPI.getAvailable(rp);//to get all abilities with enough level
+	List<RAbility> abilities = RAbility.getAvailable(rClass);//to get all available
+	List<RAbility> leveledUp = RAbility.getAvailable(rp);//to get all abilities with enough level
 	private boolean canClick = true;
 	
 	public SkillTree(Player p) {
@@ -49,8 +48,8 @@ public class SkillTree extends UIHandler {
 	@Override
 	protected boolean openWindow() {
 		getMenu().setItem(0, this.getSkp());
-		if(rp.getRClass().equals(RClass.VAGRANT))abilities = AbilitiesAPI.getAvailable(rClass);
-		for(Ability ability : abilities){
+		if(rp.getRClass().equals(RClass.VAGRANT))abilities = RAbility.getAvailable(rClass);
+		for(RAbility ability : abilities){
 			getMenu().setItem(ability.getIndex(), this.getAbility(ability));
 		}
 		return this.getHolder().openInventory(getMenu()) != null;
@@ -80,9 +79,9 @@ public class SkillTree extends UIHandler {
 							int amount = 1;
 							if(e.isShiftClick())amount = 5;
 							if(rp.getSkillPoints() >= amount){
-								Ability ability = AbilitiesAPI.getAbility(rClass, slot);
-								if(ability.getLevelMax() < rp.getAbLevel(slot)+amount){
-									amount = ability.getLevelMax()-rp.getAbLevel(slot);
+								RAbility ability = RAbility.valueOf(rClass.toString() + "_" + slot);
+								if(ability.getSettings().getLevelMax() < rp.getAbLevel(slot)+amount){
+									amount = ability.getSettings().getLevelMax()-rp.getAbLevel(slot);
 								}
 								if(amount == 0){
 									rp.sendMessage("§cYou've already reached level max for this ability.", "§cVous avez déjà atteint le niveau maximal pour cette capacité.");
@@ -96,15 +95,15 @@ public class SkillTree extends UIHandler {
 										}
 										rp.setAbLevel(slot, rp.getAbLevel(slot)+amount);
 										rp.setSkillPoints(rp.getSkillPoints()-amount);
-										leveledUp = AbilitiesAPI.getAvailable(rp);
+										leveledUp = RAbility.getAvailable(rp);
 										getMenu().setItem(slot, this.getAbility(ability));
 										getMenu().setItem(0, this.getSkp());
 										if(rp.getSkillPoints() < 1){
-											for(Ability ability1 : abilities){
+											for(RAbility ability1 : abilities){
 												if(slot != ability1.getIndex())getMenu().setItem(ability1.getIndex(), this.getAbility(ability1));
 											}
 										}
-										if(ability.getLevelMax() == rp.getAbLevel(slot))rp.sendMessage("§aYou reached level max for this ability.", "§aVous avez atteint le niveau maximal pour cette capacité.");
+										if(ability.getSettings().getLevelMax() == rp.getAbLevel(slot))rp.sendMessage("§aYou reached level max for this ability.", "§aVous avez atteint le niveau maximal pour cette capacité.");
 									}else{
 										if(ability.getMastery().equals(Mastery.MASTER))rp.sendMessage("§cThis ability is locked! Unlock it being a master at level " + Mastery.MASTER.getLevel() + "!", "§cCette compétence est bloquée ! Utilisez-la au niveau " + Mastery.MASTER.getLevel() + " en devenant maître !");
 										else if(ability.getMastery().equals(Mastery.HERO))rp.sendMessage("§cThis ability is locked! Unlock it being a hero at level " + Mastery.HERO.getLevel() + "!", "§cCette compétence est bloquée ! Utilisez-la au niveau " + Mastery.HERO.getLevel() + " en devenant héros !");
@@ -153,7 +152,7 @@ public class SkillTree extends UIHandler {
 		return item;
 	}
 	
-	private ItemStack getAbility(Ability ability){
+	private ItemStack getAbility(RAbility ability){
 		boolean has = leveledUp.contains(ability);
 		double max = ability.getRClass().equals(RClass.RANGER) ? 385.0 : 60.0;
 		ItemStack item = new ItemStack(rp.isAtLeast(ability.getMastery()) ? ability.getRClass().getBaseWeapon() : Material.BARRIER, rp.getAbLevel(ability.getIndex()) < 1 ? 1 : rp.getAbLevel(ability.getIndex()));
@@ -163,7 +162,7 @@ public class SkillTree extends UIHandler {
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
 		String color = has ? "§2" : "§4";
 		String ccolor = has ? "§a" : "§c";
-		meta.setDisplayName(color + (ability.getMastery().equals(Mastery.MASTER) ? rp.translateString("§l[MASTER] ", "§l[MAITRE] ") : (ability.getMastery().equals(Mastery.HERO) ? rp.translateString("§l[HERO] ", "§l[HEROS] ") : "")) + ccolor + rp.translateString(ability.getName()[0], ability.getName()[1]) + color + (ability.isPassive() ? " - PASSIVE" : " - ACTIVE"));
+		meta.setDisplayName(color + (ability.getMastery().equals(Mastery.MASTER) ? rp.translateString("§l[MASTER] ", "§l[MAITRE] ") : (ability.getMastery().equals(Mastery.HERO) ? rp.translateString("§l[HERO] ", "§l[HEROS] ") : "")) + ccolor + ability.getName() + color + (ability.isPassive() ? " - PASSIVE" : " - ACTIVE"));
 		List<String> lore = new ArrayList<String>();
 		List<String> description = ability.getDescription();
 		for(int i = 0;i < (description.size()/2);i++){
@@ -188,15 +187,18 @@ public class SkillTree extends UIHandler {
 			}
 			if(clicks.length > 0)keystroke += rp.translateString(" Click", "");
 		}
-		double damages = Utils.round((rp.getAbLevel(ability.getIndex())*ability.getDamagesPerLevel()+ability.getDamagesMin())*(ability.isPassive() ? 1 : rp.getAbilityDamagesFactor()), 2);
-		double upDamages = Utils.round(((rp.getAbLevel(ability.getIndex())+1)*ability.getDamagesPerLevel()+ability.getDamagesMin())*(ability.isPassive() ? 1 : rp.getAbilityDamagesFactor()), 2);
-		double cost = Utils.round((rp.getAbLevel(ability.getIndex())*ability.getVigorPerLevel()+ability.getVigorMin()), 2);
-		double upCost = Utils.round(((rp.getAbLevel(ability.getIndex())+1)*ability.getVigorPerLevel()+ability.getVigorMin()), 2);
+		double damages = Utils.round(ability.getDamages(rp)*(ability.isPassive() ? 1 : rp.getAbilityDamagesFactor()), 2);
+		double upDamages = Utils.round(((rp.getAbilityLevel(ability.getIndex())+1)*ability.getSettings().getDamagesPerLevel()+ability.getSettings().getDamagesMin())*(ability.isPassive() ? 1 : rp.getAbilityDamagesFactor()), 2);
+		double cost = Utils.round(ability.getVigorCost(rp), 2);
+		double upCost = Utils.round(((rp.getAbLevel(ability.getIndex())+1)*ability.getSettings().getVigorPerLevel()+ability.getSettings().getVigorMin()), 2);
 		String cdamColor = damages-upDamages > 0 ? "§c" : "§a";
 		String ddamColor = damages-upDamages > 0 ? "§4" : "§2";
 		String ccostColor = cost-upCost < 0 ? "§c" : "§a";
 		String dcostColor = cost-upCost < 0 ? "§4" : "§2";
-		lore.addAll(Arrays.asList("", rp.translateString("§6§lUsage: ", "§6§lUtilisation : ") + "§7" + keystroke, rp.translateString("§6§lCost: ", "§6§lCoût : ") + "§7" + cost + " EP" + (rp.getSkillPoints() > 0 && ability.getLevelMax() > rp.getAbLevel(ability.getIndex()) ? " §e§l>>§a " + ccostColor + upCost + " " + dcostColor + "EP" : ""), "§6§l" + rp.translateString(ability.getSuppInfo() == null ? "Damages" : ability.getSuppInfo()[0], ability.getSuppInfo() == null ? "Dégâts" : ability.getSuppInfo()[1]) + rp.translateString(": ", " : ") + "§7" + damages + (ability.getUnit() == null ? "" : " " + rp.translateString(ability.getUnit()[0], ability.getUnit()[0])) + (rp.getSkillPoints() > 0 && ability.getLevelMax() > rp.getAbLevel(ability.getIndex()) ? " §e§l>>§a " + cdamColor + upDamages + (ability.getUnit() == null ? "" : " " + ddamColor + rp.translateString(ability.getUnit()[0], ability.getUnit()[0])) : ""), "", "§e§lNiveau " + rp.getAbLevel(ability.getIndex()) + "/" + ability.getLevelMax()));
+		lore.addAll(Arrays.asList("", "§6§lUtilisation : §7" + keystroke,
+				"§6§lCoût : §7" + cost + " EP" + (rp.getSkillPoints() > 0 && ability.getSettings().getLevelMax() > rp.getAbLevel(ability.getIndex()) ? " §e§l>>§a " + ccostColor + upCost + " " + dcostColor + "EP" : ""),
+				"§6§l" + (ability.getSuppInfo().isEmpty() ? "Dégâts" : ability.getSuppInfo()) + " : §7" + damages + ability.getUnit() + (rp.getSkillPoints() > 0 && ability.getSettings().getLevelMax() > rp.getAbLevel(ability.getIndex()) ? " §e§l>>§a " + cdamColor + upDamages + " " + ddamColor + ability.getUnit() : ""),
+				"", "§e§lNiveau " + rp.getAbLevel(ability.getIndex()) + "/" + ability.getSettings().getLevelMax()));
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;

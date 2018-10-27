@@ -118,14 +118,14 @@ public class RDuel {
 			p2.setNoDamageTicks(110);
 			this.challengerHealth = p1.getHealth();
 			this.challengedHealth = p2.getHealth();
-			this.challengerMana = this.getChallenger().getNrj();
-			this.challengedMana = this.getChallenged().getNrj();
+			this.challengerMana = this.getChallenger().getVigor();
+			this.challengedMana = this.getChallenged().getVigor();
 			this.challengerFood = p1.getFoodLevel();
 			this.challengedFood = p2.getFoodLevel();
 			p1.setHealth(p1.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
 			p2.setHealth(p2.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
-			this.getChallenger().setNrj(this.getChallenger().getMaxNrj());
-			this.getChallenged().setNrj(this.getChallenged().getMaxNrj());
+			this.getChallenger().setVigor(this.getChallenger().getMaxVigor());
+			this.getChallenged().setVigor(this.getChallenged().getMaxVigor());
 			p1.setFoodLevel(20);
 			p2.setFoodLevel(20);
 			this.count();
@@ -350,11 +350,11 @@ public class RDuel {
 	public void resetStats(Player player){
 		RPlayer rp = RPlayer.get(player);
 		if(rp.equals(this.getChallenger())){
-			rp.setNrj(this.challengerMana);
+			rp.setVigor(this.challengerMana);
 			player.setHealth(this.challengerHealth);
 			player.setFoodLevel(this.challengerFood);
 		}else if(rp.equals(this.getChallenged())){
-			rp.setNrj(this.challengedMana);
+			rp.setVigor(this.challengedMana);
 			player.setHealth(this.challengedHealth);
 			player.setFoodLevel(this.challengedFood);
 		}

@@ -14,7 +14,7 @@ public enum BuffType {
 	MAGIC_DAMAGE("magic damages", "dégâts magiques", Material.GOLDEN_HOE),//DamageManager.getDamages
 	DEFENSE("physical defense", "défense physique", Material.DIAMOND_CHESTPLATE),//RPlayer
 	MAX_HEALTH("max health", "vie maximale", Material.EGG),//RPlayer.getMaxHealth
-	MAX_ENERGY("max energy", "vigueur maximale", Material.CAULDRON),//RPlayer.getMaxNrj
+	MAX_ENERGY("max energy", "vigueur maximale", Material.CAULDRON),//RPlayer.getMaxVigor
 	ENERGY_REGEN("energy regen speed", "vitesse de régénération de la vigueur", Material.CAKE),//Core.task1
 	CRITIC_DAMAGE("critical strike damages", "dégâts des coups critiques", Material.ANVIL),//RPlayer
 	CRITIC_CHANCE("critical strike chance", "chance de coup critique", Material.ANVIL),//RPlayer

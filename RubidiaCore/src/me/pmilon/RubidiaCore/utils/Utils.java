@@ -33,7 +33,7 @@ public class Utils {
 		new BukkitTask(Core.instance){
 			public void run(){
 				p.updateInventory();
-				RPlayer.get(p).updateNrj();
+				RPlayer.get(p).updateVigor();
 			}
 
 			@Override
