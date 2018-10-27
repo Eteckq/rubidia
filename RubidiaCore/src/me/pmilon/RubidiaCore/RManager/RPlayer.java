@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,11 +14,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import me.pmilon.RubidiaCore.Core;
+import me.pmilon.RubidiaCore.ItemMessage;
 import me.pmilon.RubidiaCore.Smiley;
 import me.pmilon.RubidiaCore.RChat.ChatType;
 import me.pmilon.RubidiaCore.RChat.RChat;
 import me.pmilon.RubidiaCore.RChat.RChatMessage;
 import me.pmilon.RubidiaCore.RChat.RChatUtils;
+import me.pmilon.RubidiaCore.abilities.RAbility;
 import me.pmilon.RubidiaCore.couples.Couple;
 import me.pmilon.RubidiaCore.couples.Couples;
 import me.pmilon.RubidiaCore.damages.DamageManager;
@@ -31,7 +34,6 @@ import me.pmilon.RubidiaCore.events.RPlayerPreChatMessageEvent;
 import me.pmilon.RubidiaCore.events.RPlayerRequestDuelEvent;
 import me.pmilon.RubidiaCore.events.RPlayerXPEvent;
 import me.pmilon.RubidiaCore.events.RXPSource;
-import me.pmilon.RubidiaCore.handlers.JobsHandler.JobTask;
 import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaCore.handlers.TradingHandler;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerChat;
@@ -43,6 +45,7 @@ import me.pmilon.RubidiaCore.ritems.weapons.Piercing;
 import me.pmilon.RubidiaCore.ritems.weapons.Piercing.PiercingType;
 import me.pmilon.RubidiaCore.ritems.weapons.Set;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
+import me.pmilon.RubidiaCore.ritems.weapons.WeaponUse;
 import me.pmilon.RubidiaCore.tags.NameTags;
 import me.pmilon.RubidiaCore.tasks.BossBarTimer;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
@@ -80,6 +83,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -101,7 +106,6 @@ public class RPlayer {
 
 	private final String uuid;
 	private String name;
-	private String lang;
 	private Gender sex;
 	private long birthDate;
 	private boolean profileUpdated;
@@ -165,13 +169,12 @@ public class RPlayer {
 	private final List<RBooster> activeRBoosters = new ArrayList<RBooster>();
 	private final HashMap<String, BukkitTask> reloadingWeapons = new HashMap<String, BukkitTask>();
 
-	public RPlayer(String uuid, String name, String lang, Gender sex, long birthDate, boolean profileUpdated, boolean notifonfriendjoin, boolean notifonchatrequest, boolean invocation, boolean teleportation, int combatLevel,
+	public RPlayer(String uuid, String name, Gender sex, long birthDate, boolean profileUpdated, boolean notifonfriendjoin, boolean notifonchatrequest, boolean invocation, boolean teleportation, int combatLevel,
 			boolean clickSound, boolean effects, boolean music, boolean usingTextures, boolean usingCycle, boolean publicData,
 			Long vip, boolean modified, SPlayer[] saves, int lastLoadedSPlayerId, long lastConnectionDate, long gamingTime, int pendingRubis, String coupleUUID, long lastDivorce,
 			int chatHeight, int chatboxWidth, int chatboxHeight, boolean usingChat){
 		this.uuid = uuid;
 		this.name = name;
-		this.lang = lang;
 		this.sex = sex;
 		this.birthDate = birthDate;
 		this.profileUpdated = profileUpdated;
@@ -242,9 +245,6 @@ public class RPlayer {
 	public String getName(){
 		return this.name;
 	}
-	public String getRawLanguage(){
-		return this.lang;
-	}
 	public int getRLevel(){
 		return this.getLoadedSPlayer().getRLevel();
 	}
@@ -266,14 +266,14 @@ public class RPlayer {
 	public int getAbilityLevel(int i){
 		return this.getLoadedSPlayer().getAbilityLevel(i);
 	}
-	public double getNrj(){
-		if(this.isOnline())if(this.isOp())return this.getMaxNrj();
+	public double getVigor(){
+		if(this.isOnline())if(this.isOp())return this.getMaxVigor();
 		return this.getLoadedSPlayer().getCurrentnrj();
 	}
-	public double getMaxNrj(){
+	public double getMaxVigor(){
 		return (100 + (this.getIntelligence()*5))*(1+this.getAdditionalFactor(BuffType.MAX_ENERGY));
 	}
-	public double getNrjPerSecond(){
+	public double getVigorPerSecond(){
 		return (1 + (this.getEndurance()*.02))*(1+this.getAdditionalFactor(BuffType.ENERGY_REGEN));
 	}
 	public int getKills(){
@@ -317,9 +317,6 @@ public class RPlayer {
 	}
 	public boolean getWouldLikeTeleportation(){
 		return this.teleportation;
-	}
-	public HashMap<JobTask, Integer> getJobScores(){
-		return this.getLoadedSPlayer().getJobscores();
 	}
 	public String getJobName(){
 		return this.translateString(this.getRJob().getNameEN(), this.getRJob().getNameFR());
@@ -377,11 +374,11 @@ public class RPlayer {
 	public void setAbilityLevel(int i, int level){
 		this.getLoadedSPlayer().setAbilityLevel(i, level);
 	}
-	public void setNrj(double currentnrj){
+	public void setVigor(double currentnrj){
 		if(currentnrj < 0)currentnrj = 0;
-		if(currentnrj > this.getMaxNrj())currentnrj = this.getMaxNrj();
+		if(currentnrj > this.getMaxVigor())currentnrj = this.getMaxVigor();
 		this.getLoadedSPlayer().setCurrentnrj(currentnrj);
-		this.updateNrj();
+		this.updateVigor();
 		this.setModified(true);
 	}
 	public void setKills(int kills){
@@ -423,12 +420,9 @@ public class RPlayer {
 		this.teleportation = teleportation;
 		this.setModified(true);
 	}
-	public void setJobScores(HashMap<JobTask, Integer> jobscores){
-		this.getLoadedSPlayer().setJobscores(jobscores);
-	}
 	
-	public boolean hasNrj(double i){
-		return this.getNrj() >= i;
+	public boolean hasVigor(double i){
+		return this.getVigor() >= i;
 	}
 	public boolean hasWeaponInHand(){
 		if(this.isOnline()){
@@ -461,8 +455,8 @@ public class RPlayer {
 		return null;
 	}
 	
-	public void addNrj(double amount){
-		this.setNrj(this.getNrj()+amount);
+	public void addVigor(double amount){
+		this.setVigor(this.getVigor()+amount);
 	}
 	public String getClassName(){
 		String classname = "";
@@ -539,7 +533,7 @@ public class RPlayer {
 		this.setAgility(0);
 		this.setIntelligence(0);
 		this.setPerception(0);
-		this.setNrj(this.getMaxNrj());
+		this.setVigor(this.getMaxVigor());
 		if(this.isOnline()){
 			this.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20.0);
 			this.getPlayer().setHealth(this.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
@@ -557,14 +551,8 @@ public class RPlayer {
 		if(this.isOnline())this.sendMessage("§aYour abilities have been resetted!", "§aVos compétences ont été réinitialisées.");
 		return skp;
 	}
-	@SuppressWarnings("deprecation")
-	public String getLanguage(){
-		if(this.isOnline())this.lang = this.getPlayer().spigot().getLocale();
-		return this.lang;
-	}
 	public String translateString(String sen, String sfr){
-		if(this.getLanguage().contains("fr"))return sfr;
-		return sen;
+		return sfr;
 	}
 	public void sendMessage(String sen, String sfr){
 		if(this.isOnline()){
@@ -582,7 +570,7 @@ public class RPlayer {
 	public void sendActionBar(String messageen, String messagefr){
 		if(!this.isOnline())return;
 		WrapperPlayServerChat packet = new WrapperPlayServerChat(new PacketContainer(PacketType.Play.Server.CHAT));
-		packet.setMessage(WrappedChatComponent.fromText(this.getLanguage().contains("fr") ? messagefr : messageen));
+		packet.setMessage(WrappedChatComponent.fromText(messagefr));
 		packet.setPosition(EnumWrappers.ChatType.GAME_INFO);
 		packet.sendPacket(this.getPlayer());
     }
@@ -603,7 +591,7 @@ public class RPlayer {
 		}
 		return 0;
 	}
-	public void updateNrj(){
+	public void updateVigor(){
 		if(this.isOnline()){
 			if(!this.isOp()){
 				ItemStack stack = this.getPlayer().getInventory().getItem(8);
@@ -622,18 +610,18 @@ public class RPlayer {
 				WrapperPlayServerSetSlot packet = new WrapperPlayServerSetSlot();
 				packet.setWindowId(0);
 				packet.setSlot(44);
-				packet.setSlotData(this.getNrjItem());
+				packet.setSlotData(this.getVigorItem());
 				packet.sendPacket(this.getPlayer());
 			}
 		}
 	}
-	public ItemStack getNrjItem(){
-		ItemStack item = new ItemStack(Material.DIAMOND_HOE,this.getNrj() > 126 ? 1 : (int)this.getNrj());
+	public ItemStack getVigorItem(){
+		ItemStack item = new ItemStack(Material.DIAMOND_HOE,this.getVigor() > 126 ? 1 : (int)this.getVigor());
 		ItemMeta meta = item.getItemMeta();
-		((Damageable) meta).setDamage((int) (Material.DIAMOND_HOE.getMaxDurability()*(.9353+.06406150*(this.getNrj()/this.getMaxNrj()))));
+		((Damageable) meta).setDamage((int) (Material.DIAMOND_HOE.getMaxDurability()*(.9353+.06406150*(this.getVigor()/this.getMaxVigor()))));
 		meta.setUnbreakable(true);
 		meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
-		meta.setDisplayName("§6☇  §e" + (int)this.getNrj() + "§6/" + (int)this.getMaxNrj() + " EP");
+		meta.setDisplayName("§6☇  §e" + ((int) this.getVigor()) + "§6/" + ((int) this.getMaxVigor()) + " EP");
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -1621,13 +1609,13 @@ public class RPlayer {
 		if(vanished){
 			for(RPlayer rp : RPlayer.getOnlines()){
 				if(!rp.isOp() && !rp.equals(this))rp.getPlayer().hidePlayer(Core.instance, this.getPlayer());
-				rp.getChat().addInfo("§6[-] §e" + this.getName() + rp.translateString(" left the game", " vient de se déconnecter"));
+				rp.getChat().addInfo("§6[-] §e" + this.getName() + (" vient de se déconnecter"));
 				rp.getChat().update();
 			}
 		}else{
 			for(RPlayer rp : RPlayer.getOnlines()){
 				if(!rp.isOp() && !rp.equals(this))rp.getPlayer().showPlayer(Core.instance, this.getPlayer());
-				rp.getChat().addInfo("§6[+] §e" + this.getName() + rp.translateString(" joined the game", " vient de se connecter"));
+				rp.getChat().addInfo("§6[+] §e" + this.getName() + (" vient de se connecter"));
 				rp.getChat().update();
 			}
 		}
@@ -1866,4 +1854,98 @@ public class RPlayer {
 		return 3000;
 	}
 
+	public String registerAbilityClick(PlayerInteractEvent e){
+		RClass rClass = this.getRClass();
+		RItem rItem = new RItem(e.getItem());
+		if(rItem.isWeapon()){
+			Weapon weapon = rItem.getWeapon();
+			if(weapon.isAttack() && weapon.canUse(this)){
+				if((rClass.equals(RClass.ASSASSIN) || rClass.equals(RClass.PALADIN)) && !weapon.getWeaponUse().equals(WeaponUse.MELEE))return this.getKeystroke();
+				if(rClass.equals(RClass.MAGE) && !weapon.getWeaponUse().equals(WeaponUse.MAGIC))return this.getKeystroke();
+				if(rClass.equals(RClass.RANGER) && !weapon.getWeaponUse().toString().contains("RANGE"))return this.getKeystroke();
+				if(e.getAction().equals(Action.LEFT_CLICK_BLOCK) && !this.isInCombat()){
+					List<Material> paladin = Arrays.asList(Material.CHEST, Material.JUKEBOX, Material.BOOKSHELF, Material.JACK_O_LANTERN, Material.PUMPKIN, Material.SIGN, Material.SIGN, Material.WALL_SIGN, Material.WALL_SIGN, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.COCOA);
+					if(rClass.equals(RClass.PALADIN)){
+						if(paladin.contains(e.getClickedBlock().getType()) || e.getClickedBlock().getType().toString().contains("_LOG") || e.getClickedBlock().getType().toString().contains("WOOD") || e.getClickedBlock().getType().toString().contains("FENCE") || e.getClickedBlock().getType().toString().contains("GATE"))return this.getKeystroke();
+					}else if(rClass.equals(RClass.ASSASSIN)){
+						if(e.getClickedBlock().getType().equals(Material.COBWEB))return this.getKeystroke();
+					}
+				}else if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
+					if(rClass.equals(RClass.MAGE) && weapon.getType().toString().contains("_HOE") && !this.isInCombat()){
+						if(e.getClickedBlock().getType().equals(Material.GRASS) || e.getClickedBlock().getType().equals(Material.DIRT))return this.getKeystroke();
+					}
+				}
+				
+				List<RAbility> available = RAbility.getAvailable(this);
+				if(available.isEmpty())return this.getKeystroke();
+				/*Collections.sort(available, new Comparator<RAbility>(){
+					
+			        public int compare(RAbility ab1, RAbility ab2) {
+			            return ab1.getAbility().getIndex()-ab2.getAbility().getIndex();
+			        }
+			        
+				});*///no need to sort it??
+				String click = e.getAction().toString().contains("LEFT_CLICK") ? "G" : (e.getAction().toString().contains("RIGHT_CLICK") ? "D" : "");
+				this.setKeystroke(this.getKeystroke() + click);
+				
+				if(this.getKeystrokeTaskId() != -1)BukkitTask.tasks.get(this.getKeystrokeTaskId()).cancel();
+				final RPlayer instance = this;
+				this.setKeystrokeTaskId(new BukkitTask(Core.instance){
+
+					@Override
+					public void run() {
+						instance.setKeystroke("");
+					}
+
+					@Override
+					public void onCancel() {
+					}
+					
+				}.runTaskLater(Settings.ABILITY_CLICK_TICKS).getTaskId());
+				
+				for(RAbility ability : available){
+					if(!ability.isPassive()){
+						String[] sequence = ability.getSequence().split(",");
+						if(sequence[0].startsWith(this.getKeystroke())){
+							String[] seq = sequence[0].split("");
+							if(sequence.length > 1){
+								if(sequence[1].contains("!SN") && e.getPlayer().isSneaking())continue;
+								else if(sequence[1].contains("SN") && !e.getPlayer().isSneaking())continue;
+								
+								if(sequence[1].contains("!SP") && e.getPlayer().isSprinting())continue;
+								else if(sequence[1].contains("SP") && !e.getPlayer().isSprinting())continue;
+							}
+							
+							int clicks = this.getKeystroke().length();
+							String keystroke = "§7";
+							if(e.getPlayer().isSneaking())keystroke += "Sneak + ";
+							if(e.getPlayer().isSprinting())keystroke += "Sprint + ";
+							if(clicks > 0)keystroke += this.translateString("", "Clic ");
+							for(int i = 0;i < clicks;i++){
+								if(i != 0)keystroke += "§f/§7";
+								if(seq[i].equals("D"))keystroke += this.translateString("Right", "Droit");
+								else if(seq[i].equals("G"))keystroke += this.translateString("Left", "Gauche");
+							}
+							for(int i = clicks;i < seq.length;i++){
+								if(i != seq.length)keystroke += "§f/§8";
+								if(seq[i].equals("D"))keystroke += this.translateString("Right", "Droit");
+								else if(seq[i].equals("G"))keystroke += this.translateString("Left", "Gauche");
+							}
+							if(clicks > 0)keystroke += this.translateString(" §7Click", "");
+							
+							ItemMessage.sendMessage(e.getPlayer(), keystroke, Settings.ABILITY_CLICK_TICKS);
+							if(this.getClickSound()){
+								if(click.equals("G"))e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_LEVER_CLICK, 1, .5F);
+								else if(click.equals("D"))e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_LEVER_CLICK, 1, 1);
+							}
+							break;
+						}
+					}
+				}
+			}
+		}
+		
+		return this.getKeystroke();
+	}
+	
 }

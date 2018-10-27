@@ -1,16 +1,15 @@
 package me.pmilon.RubidiaCore.abilities;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.ItemMessage;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.damages.DamageManager;
 import me.pmilon.RubidiaCore.damages.RDamageCause;
 import me.pmilon.RubidiaCore.events.RubidiaEntityDamageEvent;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.utils.Utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -37,21 +36,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class AbilitiesListener implements Listener{
 
-	private Plugin plugin;
-	public AbilitiesListener(Plugin plugin){
-		this.plugin = plugin;
-	}
-	
-	public Plugin getPlugin() {
-		return plugin;
-	}
-	
-	public void setPlugin(Plugin plugin) {
-		this.plugin = plugin;
+	public AbilitiesListener(){
 	}
 	
 	@EventHandler
@@ -61,10 +51,10 @@ public class AbilitiesListener implements Listener{
 		if(event.getHand() != null){
 			if(event.getHand().equals(EquipmentSlot.HAND)){
 				if(!rp.getRClass().equals(RClass.VAGRANT) && event.getItem() != null){
-					String keystroke = AbilitiesAPI.registerAbilityClick(rp, event);
+					String keystroke = rp.registerAbilityClick(event);
 					
 					if(!keystroke.isEmpty()){
-						for(Ability ability : AbilitiesAPI.getAvailable(rp)){
+						for(RAbility ability : RAbility.getAvailable(rp)){
 							if(!ability.isPassive()){
 								String seq = ability.getSequence();
 								String[] part = seq.split(",");
@@ -78,21 +68,9 @@ public class AbilitiesListener implements Listener{
 								}
 								
 								if(active){
-									if(!rp.isActiveAbility(ability.getIndex()) || ability.isToggleable()){
-										int abLevel = rp.getAbLevel(ability.getIndex());
-										
-										double neednrj = ability.getVigorMin()+abLevel*ability.getVigorPerLevel();
-										if(rp.hasNrj(neednrj)){
-											double lastNrj = rp.getNrj();
-											ability.doAbility(player, rp, abLevel*ability.getDamagesPerLevel()+ability.getDamagesMin(), neednrj);
-											ItemMessage.sendMessage(player, rp.translateString("§2§l> Ability   §a" + ability.getName()[0], "§2§l> Compétence   §a" + ability.getName()[1]) + " §8§m §r " + (ability.isToggleable() ? (!rp.isActiveAbility(ability.getIndex()) ? "§c" + rp.translateString("Disactivated", "Désactivée") : "§e" + rp.translateString("Activated", "Activée")) : "§e" + Utils.round(rp.getNrj()-lastNrj, 1) + " §6§lEP"), 2);
-											rp.setKeystroke("");
-										}else{
-											player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-											ItemMessage.sendMessage(player, rp.translateString("§cNot enough vigor!", "§cPas assez de vigueur !"), 40);
-										}
-										break;
-									}
+									ability.execute(rp);
+									rp.setKeystroke("");
+									break;
 								}
 							}
 						}
@@ -107,12 +85,12 @@ public class AbilitiesListener implements Listener{
 		Player p = e.getPlayer();
 		RPlayer rp = RPlayer.get(p);
 		for(int i = 1;i < 8;i++){
-			p.setMetadata("activeskill" + i, new FixedMetadataValue(Abilities.getPlugin(), false));
+			p.setMetadata("activeskill" + i, new FixedMetadataValue(Core.instance, false));
 		}
 		
 		if(rp != null){
 			if(rp.getRClass().equals(RClass.MAGE)){
-				p.setMetadata("mageAttack", new FixedMetadataValue(Abilities.getPlugin(), false));
+				p.setMetadata("mageAttack", new FixedMetadataValue(Core.instance, false));
 			}
 		}
 	}
@@ -170,6 +148,7 @@ public class AbilitiesListener implements Listener{
 	public void onAttack(RubidiaEntityDamageEvent event){
 		if(!event.isCancelled()){
 			LivingEntity damager = event.getDamager();
+			LivingEntity target = (LivingEntity) event.getEntity();
 			if(event.getProjectile() != null){
 				if(damager instanceof Player){
 					Player player = (Player)damager;
@@ -178,30 +157,35 @@ public class AbilitiesListener implements Listener{
 					if(projectile instanceof Arrow){
 						Arrow arrow = (Arrow) event.getProjectile();
 						if(rp.getRClass().equals(RClass.RANGER)){
-							if(arrow.hasMetadata("SniperShot")){
+							if(arrow.hasMetadata("snipershot")){
 								arrow.remove();
-								Ability ability = AbilitiesAPI.getAbility(RClass.RANGER, 5);
-								event.setDamages(rp.getAbLevel5()*ability.getDamagesPerLevel()+ability.getDamagesMin());
-							}else if(arrow.hasMetadata("Aiming")){
+								event.setDamages(RAbility.RANGER_5.getAbility().getDamages(rp));
+							}else if(arrow.hasMetadata("aimingArrow")){
 								arrow.remove();
 								arrow.getWorld().playSound(arrow.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, .5F);
-								Ability ability = AbilitiesAPI.getAbility(RClass.RANGER, 7);
-								event.setDamages(rp.getAbLevel7()*ability.getDamagesPerLevel()+ability.getDamagesMin());
-								BukkitTask.tasks.get(player.getMetadata("rangerTask7").get(0).asInt()).cancel();
-							}else if(player.hasMetadata("LegendaryCharged")){
+								event.setDamages(RAbility.RANGER_7.getAbility().getDamages(rp));
+								BukkitTask.tasks.get(arrow.getMetadata("aimingArrow").get(0).asInt()).cancel();
+							}else if(player.hasMetadata("legendaryCharged")){
 								arrow.remove();
-								Abilities.doRANGER8DAMAGES(player, rp, (LivingEntity) event.getEntity());
-							}else if(player.hasMetadata("rangerTask2")){
-								BukkitTask task = BukkitTask.tasks.get(player.getMetadata("rangerTask2").get(0).asInt());
-								if(task != null)task.cancel();
+								RAbility.ASSASSIN_8.getAbility().animate(rp, target);
+							}else if(player.hasMetadata("explosiveArrow")){
+								BukkitTask task = BukkitTask.tasks.get(player.getMetadata("explosiveArrow").get(0).asInt());
+								if(task != null) {
+									task.cancel();
+								}
 							}
-							Abilities.doRANGER3AND4(player, (LivingEntity) event.getEntity());
+							if(rp.getAbilityLevel(3) > 0){
+								RAbility.RANGER_3.getAbility().animate(rp, target);
+							}
+							if(rp.getAbilityLevel(4) > 0){
+								RAbility.RANGER_4.getAbility().animate(rp, target);
+							}
 						}
 					}else if(projectile instanceof Snowball){
 						if(rp.getRClass().equals(RClass.MAGE)){
 							if(rp.isActiveAbility(5)){
 								event.setCancelled(true);
-								Abilities.doMAGE5DAMAGES(player, (LivingEntity) event.getEntity());
+								RAbility.MAGE_5.getAbility().damage(rp, Arrays.asList(target));
 							}
 						}
 					}
@@ -233,10 +217,7 @@ public class AbilitiesListener implements Listener{
 		if(entity.hasMetadata("mageMeteor")){
 			Player player = Bukkit.getPlayer(UUID.fromString(entity.getMetadata("mageMeteor").get(0).asString()));
 			RPlayer rp = RPlayer.get(player);
-			Ability ability = AbilitiesAPI.getAbility(RClass.MAGE, 1);
-			for(LivingEntity en : Core.toDamageableLivingEntityList(player, entity.getNearbyEntities(2.5, 2.5, 2.5), RDamageCause.ABILITY)){
-				DamageManager.damage(en, player, ability.getDamagesMin()+ability.getDamagesPerLevel()*rp.getAbLevel1(), RDamageCause.ABILITY);
-			}
+			RAbility.MAGE_1.getAbility().damage(rp, Core.toDamageableLivingEntityList(player, entity.getNearbyEntities(2.5, 2.5, 2.5), RDamageCause.ABILITY));
 		}
 	}
 }

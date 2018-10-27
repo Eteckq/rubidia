@@ -10,7 +10,7 @@ import me.pmilon.RubidiaCore.Smiley;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.Database;
 import me.pmilon.RubidiaCore.RChat.RChatUtils;
-import me.pmilon.RubidiaCore.handlers.JobsHandler.JobTask;
+import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaPets.pets.Pet;
 import me.pmilon.RubidiaPets.pets.Pets;
@@ -34,12 +34,6 @@ public class RPlayerColl extends Database<String,RPlayer>{
 					for(int i = 0;i < 4;i++){
 						String path2 = path + ".saves." + i;
 						if(Configs.getPlayerConfig().contains(path2)){
-							HashMap<JobTask, Integer> jobscores = new HashMap<JobTask, Integer>();
-							if(Configs.getPlayerConfig().contains(path2 + ".jobscores")){
-								for(String s : Configs.getPlayerConfig().getConfigurationSection(path2 + ".jobscores").getKeys(false)){
-									jobscores.put(JobTask.valueOf(s), Configs.getPlayerConfig().getInt(path2 + ".jobscores." + s));
-								}
-							}
 							HashMap<Integer, ItemStack> creative = new HashMap<Integer, ItemStack>();
 							if(Configs.getPlayerConfig().contains(path2 + ".gamemode.creative")){
 								for(String s : Configs.getPlayerConfig().getConfigurationSection(path2 + ".gamemode.creative").getKeys(false)){
@@ -110,7 +104,7 @@ public class RPlayerColl extends Database<String,RPlayer>{
 									Configs.getPlayerConfig().getInt(path2 + ".currentnrj"),
 									Configs.getPlayerConfig().getInt(path2 + ".kills"),
 									Configs.getPlayerConfig().getInt(path2 + ".renom"),
-									pets, jobscores, creative, survival, Configs.getPlayerConfig().getInt(path2 + ".bank"),
+									pets, creative, survival, Configs.getPlayerConfig().getInt(path2 + ".bank"),
 									activeQuests, doneQuests, followedQuest,
 									(Location)Configs.getPlayerConfig().get(path2 + ".lastLocation"),
 									lastInventory, enderchest,
@@ -129,7 +123,6 @@ public class RPlayerColl extends Database<String,RPlayer>{
 				
 				RPlayer rp = new RPlayer(k,
 						Configs.getPlayerConfig().getString(path + ".name"),
-						Configs.getPlayerConfig().getString(path + ".lang"),
 						gender,
 						Configs.getPlayerConfig().getLong(path + ".birthDate"),
 						Configs.getPlayerConfig().getBoolean(path + ".profileUpdated"),
@@ -220,7 +213,7 @@ public class RPlayerColl extends Database<String,RPlayer>{
 	}
 	
 	public SPlayer newDefaultSPlayer(int id){
-		return new SPlayer(id, 0, 0.0, RClass.VAGRANT, RJob.JOBLESS, Mastery.VAGRANT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 1000, new ArrayList<Pet>(), new HashMap<JobTask, Integer>(), new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 0, new ArrayList<Quest>(), new ArrayList<Quest>(), null, null, new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 20, 20);
+		return new SPlayer(id, 0, 0.0, RClass.VAGRANT, RJob.JOBLESS, Mastery.VAGRANT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 1000, new ArrayList<Pet>(), new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 0, new ArrayList<Quest>(), new ArrayList<Quest>(), null, null, new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 20, 20);
 	}
 	
 	public boolean contains(Player p){
@@ -233,7 +226,6 @@ public class RPlayerColl extends Database<String,RPlayer>{
 			rp.setModified(false);
 			String path = "players." + rp.getUniqueId();
 			Configs.getPlayerConfig().set(path + ".name", rp.getName());
-			Configs.getPlayerConfig().set(path + ".lang", rp.getRawLanguage());
 			Configs.getPlayerConfig().set(path + ".gender", rp.getSex().toString());
 			Configs.getPlayerConfig().set(path + ".birthDate", rp.getBirthDate());
 			Configs.getPlayerConfig().set(path + ".profileUpdated", rp.isProfileUpdated());
@@ -293,7 +285,7 @@ public class RPlayerColl extends Database<String,RPlayer>{
 	protected RPlayer getDefault(String uuid) {
 		SPlayer[] saves = new SPlayer[4];
 		saves[0] = this.newDefaultSPlayer(0);
-		RPlayer rp = new RPlayer(uuid, Bukkit.getPlayer(UUID.fromString(uuid)).getName(), "en_US", Gender.UNKNOWN, 0L, false, true, true, true, true, 1, true, true, true, false, true, false, 0L, true, saves,0, System.currentTimeMillis(), 0, 0, null, 0L, 11, RChatUtils.MAX_CHAT_WIDTH, RChatUtils.MAX_CHAT_HEIGHT, true);
+		RPlayer rp = new RPlayer(uuid, Bukkit.getPlayer(UUID.fromString(uuid)).getName(), Gender.UNKNOWN, 0L, false, true, true, true, true, 1, true, true, true, false, true, false, 0L, true, saves,0, System.currentTimeMillis(), 0, 0, null, 0L, 11, RChatUtils.MAX_CHAT_WIDTH, RChatUtils.MAX_CHAT_HEIGHT, true);
 		rp.setLoadedSPlayer(rp.getSaves()[rp.getLastLoadedSPlayerId()]);
 		return rp;
 	}

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.pmilon.RubidiaCore.events.RXPSource;
-import me.pmilon.RubidiaCore.handlers.JobsHandler.JobTask;
 import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.LevelUtils;
@@ -35,7 +34,6 @@ public class SPlayer {
 	private int kills;
 	private int renom;
 	private List<Pet> pets;
-	private HashMap<JobTask, Integer> jobscores;
 	private HashMap<Integer, ItemStack> creative;
 	private HashMap<Integer, ItemStack> survival;
 	private int bank;
@@ -54,7 +52,7 @@ public class SPlayer {
 			Mastery mastery, int skp, int skd, int firstability, int secondability, int thirdability, int fourthability,
 			int fifthability, int sixthability, int seventhability, int eighthability, int strength, int endurance, int agility,
 			int intelligence, int perception, double currentnrj, int kills, int renom, List<Pet> pets,
-			HashMap<JobTask, Integer> jobscores, HashMap<Integer, ItemStack> creative, HashMap<Integer, ItemStack> survival,
+			HashMap<Integer, ItemStack> creative, HashMap<Integer, ItemStack> survival,
 			int bank, List<Quest> activeQuests, List<Quest> doneQuests, Quest followedQuest, Location lastLocation,
 			HashMap<Integer, ItemStack> lastInventory, HashMap<Integer, ItemStack> enderchest,
 			double lastHealth, int lastFoodLevel){
@@ -76,7 +74,6 @@ public class SPlayer {
 		this.kills = kills;
 		this.renom = renom;
 		this.pets = pets;
-		this.jobscores = jobscores;
 		this.creative = creative;
 		this.survival = survival;
 		this.bank = bank;
@@ -204,13 +201,6 @@ public class SPlayer {
 		this.renom = renom;
 		this.setModified(true);
 	}
-	public HashMap<JobTask, Integer> getJobscores() {
-		return jobscores;
-	}
-	public void setJobscores(HashMap<JobTask, Integer> jobscores) {
-		this.jobscores = jobscores;
-		this.setModified(true);
-	}
 	public HashMap<Integer, ItemStack> getCreative() {
 		return creative;
 	}
@@ -278,7 +268,6 @@ public class SPlayer {
 		Configs.getPlayerConfig().set(path + ".lastHealth", this.getLastHealth());
 		Configs.getPlayerConfig().set(path + ".lastFoodLevel", this.getLastFoodLevel());
 		Configs.getPlayerConfig().set(path + ".bank", this.getBank());
-		for(JobTask task : this.getJobscores().keySet())Configs.getPlayerConfig().set(path + ".jobscores." + task.toString(), this.getJobscores().get(task));
 		for(int i : this.getCreative().keySet()){
 			Configs.getPlayerConfig().set(path + ".gamemode.creative." + i, this.getCreative().get(i));
 		}

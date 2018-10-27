@@ -18,7 +18,7 @@ import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.RManager.RPlayerColl;
 import me.pmilon.RubidiaCore.abilities.Abilities;
-import me.pmilon.RubidiaCore.abilities.AbilitiesAPI;
+import me.pmilon.RubidiaCore.abilities.AbilitiesListener;
 import me.pmilon.RubidiaCore.aeroplane.AeroplaneListener;
 import me.pmilon.RubidiaCore.chairs.ChairListener;
 import me.pmilon.RubidiaCore.commands.BienvenueCommandExecutor;
@@ -56,7 +56,6 @@ import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause.RTeleportType;
 import me.pmilon.RubidiaCore.handlers.EntityHandler;
 import me.pmilon.RubidiaCore.handlers.GamePlayEffectsHandler;
 import me.pmilon.RubidiaCore.handlers.HealthBarHandler;
-import me.pmilon.RubidiaCore.handlers.JobsHandler;
 import me.pmilon.RubidiaCore.handlers.PlaymodeHandler;
 import me.pmilon.RubidiaCore.handlers.RLevelHandler;
 import me.pmilon.RubidiaCore.handlers.ResourcePackHandler;
@@ -490,7 +489,7 @@ public class Core extends JavaPlugin implements Listener {
 											@Override
 											public void run() {
 												p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 5, .8F);
-												rp.sendTitle(rp.translateString("§6Use your resurrection scroll!", "§6Utilisez votre parchemin de résurrection !"), (step > 3 ? "§e" : (step > 1 ? "§c" : "§4")) + step + "...", 0, 25, 0);
+												rp.sendTitle((0, 25, 0);
 												step--;
 											}
 
@@ -729,7 +728,7 @@ public class Core extends JavaPlugin implements Listener {
 
 			@Override
 			public void run() {
-				rp.updateNrj();
+				rp.updateVigor();
 			}
 
 			@Override
@@ -746,7 +745,7 @@ public class Core extends JavaPlugin implements Listener {
 
 			@Override
 			public void run() {
-				rp.updateNrj();
+				rp.updateVigor();
 			}
 
 			@Override
@@ -782,16 +781,6 @@ public class Core extends JavaPlugin implements Listener {
 					}else sender.sendMessage("§4" + args[0] + " §ccouldn't be found.");
 				}else sender.sendMessage("§cPlease use /rubis [player] [amount]");
 			}else sender.sendMessage("§cYou really thought you could do that without being Operator?");
-		}else if(cmd.getName().equalsIgnoreCase("load")){
-			if(sender.isOp()){
-				if(args.length > 0){
-					if(args[0].equals("abilities")){
-						this.reloadConfig();
-						AbilitiesAPI.loadAbilities(this);
-						sender.sendMessage("§6Abilities reloaded!");
-					}
-				}else sender.sendMessage("§cPlease use /load [abilities]");
-			}else sender.sendMessage("§cYou really thought you could do that without being Operator!");
 		}else if(cmd.getName().equalsIgnoreCase("maintenance")){
 			if(sender.isOp()){
 				if(Configs.getDatabase().getBoolean("maintenancemode")){
@@ -812,7 +801,7 @@ public class Core extends JavaPlugin implements Listener {
 					for(Player p : Bukkit.getOnlinePlayers()){
 						if(!p.isOp()){
 							RPlayer rp = RPlayer.get(p);
-							rp.sendTitle(rp.translateString("§4MAINTENANCE MODE", "§4MODE MAINTENANCE"), rp.translateString("§cYou will be kicked in 30 seconds", "§cVous serez expulsé dans 30 secondes"), 0, 150, 5);
+							rp.sendTitle(("§cVous serez expulsé dans 30 secondes"), 0, 150, 5);
 						}
 					}
 					Bukkit.getScheduler().runTaskLater(this, new Runnable(){
@@ -821,7 +810,7 @@ public class Core extends JavaPlugin implements Listener {
 								for(Player p : Bukkit.getOnlinePlayers()){
 									if(!p.isOp()){
 										RPlayer rp = RPlayer.get(p);
-										p.kickPlayer(rp.translateString("§4MAINTENANCE MODE: §cCome back later!", "§4MODE MAINTENANCE: §cRevenez plus tard !"));
+										p.kickPlayer(("§4MODE MAINTENANCE: §cRevenez plus tard !"));
 									}
 								}
 							}
@@ -1039,17 +1028,17 @@ public class Core extends JavaPlugin implements Listener {
 						}
 					}
 				}
-				rp.getChat().addFixDisplay(new RChatFixDisplay(rp,-1,null).addLines(rp.translateString("§a§l          GLITCH HELP", "§a§l          AIDE GLITCH"),
-				rp.translateString("      §6In a moment, you will receive another message of this type.", "     §6Dans un moment, vous recevrez un second message de ce type."),
-				rp.translateString("   §eIt will allow you to get teleported instantly to Mearwood.", "   §eVous pourrez alors être instantanément téléporté à Mearwood.")));
+				rp.getChat().addFixDisplay(new RChatFixDisplay(rp,-1,null).addLines(("§a§l          AIDE GLITCH"),
+				("     §6Dans un moment, vous recevrez un second message de ce type."),
+				("   §eVous pourrez alors être instantanément téléporté à Mearwood.")));
 				new BukkitTask(this){
 
 					@Override
 					public void run() {
-						RChatFixDisplay fixDisplay = new RChatFixDisplay(rp,100,null).addLines(rp.translateString("§a§l          GLITCH HELP", "§a§l          AIDE GLITCH"),
-						rp.translateString("   §eClick on the following button.", "   §eCliquez sur le bouton suivant."),
-						rp.translateString("      §4WARNING! §cYou only have 5 seconds to use it!", "     §4ATTENTION! §cVous n'avez que 5 secondes pour l'utiliser !"), "");
-					    TextComponent tp = new TextComponent(rp.translateString("§2[§aGET ME OUT OF THIS§2]", "§2[§aSORTEZ-MOI DE CE MACHIN§2]"));
+						RChatFixDisplay fixDisplay = new RChatFixDisplay(rp,100,null).addLines(("§a§l          AIDE GLITCH"),
+						("   §eCliquez sur le bouton suivant."),
+						("     §4ATTENTION! §cVous n'avez que 5 secondes pour l'utiliser !"), "");
+					    TextComponent tp = new TextComponent(("§2[§aSORTEZ-MOI DE CE MACHIN§2]"));
 					    ClickEvent tpEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/glitch tp");
 					    tp.setClickEvent(tpEvent);
 					    TextComponent text = new TextComponent("                  ");
@@ -1608,7 +1597,7 @@ public class Core extends JavaPlugin implements Listener {
 		for(Player player : Bukkit.getOnlinePlayers()){
 			RPlayer rp = RPlayer.get(player);
 			rp.sendMessage("§e§l   RUBIDIA IS RESTARTING IN 20 SECONDS...", "§e§l   RUBIDIA REDEMARRE DANS 20 SECONDES...");
-			rp.sendTitle("§aRubidia " + rp.translateString("is restarting", "redémarre") + "...", "§6>  §e20 second" + rp.translateString("", "e") + "s  §6<", 0, 140, 40);
+			rp.sendTitle("§aRubidia " + (0, 140, 40);
 		}
 		new BukkitTask(Core.instance){
 
@@ -1617,7 +1606,7 @@ public class Core extends JavaPlugin implements Listener {
 				for(Player player : Bukkit.getOnlinePlayers()){
 					RPlayer rp = RPlayer.get(player);
 					rp.sendMessage("§e§l   RUBIDIA IS RESTARTING IN 5 SECONDS...", "§e§l   RUBIDIA REDEMARRE DANS 5 SECONDES...");
-					rp.sendTitle("§aRubidia " + rp.translateString("is restarting", "redémarre") + "...", "§6>  §e5 second" + rp.translateString("", "e") + "s  §6<", 0, 200, 0);
+					rp.sendTitle("§aRubidia " + (0, 200, 0);
 				}
 				new BukkitTask(Core.instance){
 
@@ -1695,7 +1684,6 @@ public class Core extends JavaPlugin implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, this);
 	    Bukkit.getPluginManager().registerEvents(new TagStandListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new TeleportHandler(this), this);
-	    Bukkit.getPluginManager().registerEvents(new JobsHandler(this), this);
 	    Bukkit.getPluginManager().registerEvents(new RLevelHandler(this), this);
 	    Bukkit.getPluginManager().registerEvents(new GamePlayEffectsHandler(), this);
 	    Bukkit.getPluginManager().registerEvents(new ChairListener(this), this);
@@ -1704,6 +1692,7 @@ public class Core extends JavaPlugin implements Listener {
 		Bukkit.getPluginManager().registerEvents(new ResourcePackHandler(), this);
 		Bukkit.getPluginManager().registerEvents(new RChatListener(), this);
 		Bukkit.getPluginManager().registerEvents(new RDuelListener(), this);
+	    Bukkit.getPluginManager().registerEvents(new AbilitiesListener(), this);
 		
 	    this.getCommand("item").setExecutor(new ItemCommandExecutor());
 	    this.getCommand("profile").setExecutor(new ProfileCommandExecutor());
@@ -1731,7 +1720,6 @@ public class Core extends JavaPlugin implements Listener {
 	    this.getCommand("rplayers").setExecutor(new RPlayersCommandExecutor());
 
 		REnchantment.registerEnchantments();
-	    AbilitiesAPI.onEnable(this);
 	    Events.onEnable(this);
 	    EntityHandler.onEnable(this);
 
@@ -1788,13 +1776,9 @@ public class Core extends JavaPlugin implements Listener {
 			public void run(){
 				for(RPlayer rp : RPlayer.getOnlines()){
 					if(rp.getLoadedSPlayer() != null){
-						rp.addNrj(rp.getNrjPerSecond());
+						rp.addVigor(rp.getVigorPerSecond());
 						rp.setGamingTime(rp.getGamingTime()+1000L);
 						rp.setLastConnectionDate(System.currentTimeMillis());
-						
-						if(rp.getPlayer().getWorld().getTime() > 12500 && rp.getPlayer().getWorld().getTime() < 12521){
-							JobsHandler.getWage(rp.getPlayer(), true);
-						}
 						
 						for(Pet pet : rp.getPets()){
 							pet.update(rp.getPlayer());
@@ -1857,8 +1841,8 @@ public class Core extends JavaPlugin implements Listener {
 										boolean recipe_empty = true;
 										ItemStack skt = new ItemStack(Material.BOOKSHELF, 1);
 										ItemMeta meta = skt.getItemMeta();
-										meta.setDisplayName(rp.translateString("§6§lCharacter menu", "§6§lMenu du personnage"));
-										meta.setLore(Arrays.asList(rp.translateString("§7Open your character menu", "§7Ouvrir le menu du personnage")));
+										meta.setDisplayName(("§6§lMenu du personnage"));
+										meta.setLore(Arrays.asList(("§7Ouvrir le menu du personnage")));
 										skt.setItemMeta(meta);
 										for(int i = 0;i < 5;i++){
 											if(player.getOpenInventory().getTopInventory().getItem(i) != null){
@@ -2115,7 +2099,7 @@ public class Core extends JavaPlugin implements Listener {
         			RPlayer rp = RPlayer.get(e.getPlayer());
         			if(rp != null){
         				if(!rp.isOp()){
-                			stacks.set(44, rp.getNrjItem());
+                			stacks.set(44, rp.getVigorItem());
                 			packet.setSlotData(stacks);
         				}
         			}
@@ -2125,7 +2109,7 @@ public class Core extends JavaPlugin implements Listener {
 	}
 	public void onDisable(){
 		for(RPlayer rp : RPlayer.getOnlines()){
-			if(rp.isOnline())rp.getPlayer().kickPlayer(rp.translateString("§2§lRubidia §arestarts and will be available back soon!", "§2§lRubidia §aredémarre et sera très rapidement de nouveau disponible !"));
+			if(rp.isOnline())rp.getPlayer().kickPlayer(("§2§lRubidia §aredémarre et sera très rapidement de nouveau disponible !"));
 		}
 		
 		TagStandManager.onDisable();
