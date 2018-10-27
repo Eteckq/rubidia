@@ -16,7 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.Mastery;
 import me.pmilon.RubidiaCore.RManager.RClass;
-import me.pmilon.RubidiaCore.RManager.RJob;
+import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaQuests.dialogs.MessageManager;
@@ -90,12 +90,7 @@ public class RequiredEditionMenu extends UIHandler {
 				else if(this.getRequired().getRclass().equals(RClass.RANGER))this.getRequired().setRclass(RClass.VAGRANT);
 				this.menu.setItem(this.SLOT_CLASS, this.getRClass());
 			}else if(slot == this.SLOT_JOB){
-				if(this.getRequired().getRjob().equals(RJob.ALCHEMIST))this.getRequired().setRjob(RJob.FARMER);
-				else if(this.getRequired().getRjob().equals(RJob.FARMER))this.getRequired().setRjob(RJob.HUNTER);
-				else if(this.getRequired().getRjob().equals(RJob.HUNTER))this.getRequired().setRjob(RJob.JOBLESS);
-				else if(this.getRequired().getRjob().equals(RJob.JOBLESS))this.getRequired().setRjob(RJob.LUMBERMAN);
-				else if(this.getRequired().getRjob().equals(RJob.LUMBERMAN))this.getRequired().setRjob(RJob.MINER);
-				else if(this.getRequired().getRjob().equals(RJob.MINER))this.getRequired().setRjob(RJob.ALCHEMIST);
+				//TODO cycle jobs
 				this.menu.setItem(this.SLOT_JOB, this.getRJob());
 			}else if(slot == this.SLOT_TYPE){
 				this.menu.clear();

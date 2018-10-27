@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.Mastery;
 import me.pmilon.RubidiaCore.RManager.RClass;
-import me.pmilon.RubidiaCore.RManager.RJob;
+import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.utils.LevelUtils;
@@ -86,12 +86,7 @@ public class RewardEditionMenu extends UIHandler {
 				else if(this.getReward().getRClass().equals(RClass.RANGER))this.getReward().setRClass(RClass.VAGRANT);
 				this.menu.setItem(this.SLOT_CLASS, this.getRClass());
 			}else if(slot == this.SLOT_JOB){
-				if(this.getReward().getRJob().equals(RJob.ALCHEMIST))this.getReward().setRJob(RJob.FARMER);
-				else if(this.getReward().getRJob().equals(RJob.FARMER))this.getReward().setRJob(RJob.HUNTER);
-				else if(this.getReward().getRJob().equals(RJob.HUNTER))this.getReward().setRJob(RJob.JOBLESS);
-				else if(this.getReward().getRJob().equals(RJob.JOBLESS))this.getReward().setRJob(RJob.LUMBERMAN);
-				else if(this.getReward().getRJob().equals(RJob.LUMBERMAN))this.getReward().setRJob(RJob.MINER);
-				else if(this.getReward().getRJob().equals(RJob.MINER))this.getReward().setRJob(RJob.ALCHEMIST);
+				//TODO cycle jobs
 				this.menu.setItem(this.SLOT_JOB, this.getRJob());
 			}else if(slot == this.SLOT_AMT){
 				int amount = 1;

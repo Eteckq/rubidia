@@ -15,7 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.Mastery;
 import me.pmilon.RubidiaCore.RManager.RClass;
-import me.pmilon.RubidiaCore.RManager.RJob;
+import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaQuests.pnjs.PNJHandler;
 import me.pmilon.RubidiaQuests.pnjs.PNJHandler.PNJType;

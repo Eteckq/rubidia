@@ -91,7 +91,7 @@ public class ShopUI extends ListMenuUIHandler<ItemStack>{
 					}
 					if(this.getShop() instanceof PlayerShop){
 						PlayerShop shop = (PlayerShop)this.getShop();
-						RPlayer.get(shop.getHolder()).sendMessage("§2" + rp.getName() + " §abought you §e" + amount*stack.getAmount() + " §6" + id + " §afor §2" + cost + " §aemeralds!","§2" + rp.getName() + " §avous a acheté §e" + amount*stack.getAmount() + " §6" + id + " §apour §2" + cost + " §aémeraudes !");
+						RPlayer.get(shop.getHolder()).sendMessage("§2" + rp.getName() + " §avous a acheté §e" + amount*stack.getAmount() + " §6" + id + " §apour §2" + cost + " §aémeraudes !");
 						EconomyHandler.deposit(shop.getHolder(), cost);
 						shop.getEditionUI().buyItem(stack, amount);
 					}

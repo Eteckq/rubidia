@@ -5,11 +5,11 @@ import org.bukkit.inventory.ItemStack;
 
 import me.pmilon.RubidiaCore.RManager.Mastery;
 import me.pmilon.RubidiaCore.RManager.RClass;
-import me.pmilon.RubidiaCore.RManager.RJob;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.events.RXPSource;
 import me.pmilon.RubidiaCore.events.RXPSourceType;
 import me.pmilon.RubidiaCore.handlers.EconomyHandler;
+import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.dialogs.DialogManager;
 import me.pmilon.RubidiaQuests.dialogs.DialogType;
