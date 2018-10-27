@@ -5,7 +5,7 @@ import java.util.Map;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.abilities.Abilities;
+import me.pmilon.RubidiaCore.abilities.RAbility;
 import me.pmilon.RubidiaCore.events.RubidiaEntityDamageEvent;
 import me.pmilon.RubidiaCore.ritems.general.RItem;
 import me.pmilon.RubidiaCore.ritems.weapons.BuffType;
@@ -75,7 +75,7 @@ public class DamageManager {
 			RPlayer rp = RPlayer.get(player);
 			factor += rp.getDefenseFactor();
 			if(rp.getRClass().equals(RClass.PALADIN)){
-				factor += Abilities.doPALADIN4(player)*.01;//to convert it to factor
+				factor += RAbility.PALADIN_4.getAbility().getDamages(rp)*.01;//to convert to factor
 			}
 			defensePoints += rp.getBonus(PiercingType.DEFENSE);
 		}
@@ -378,7 +378,7 @@ public class DamageManager {
 			damages += rp.getBonus(PiercingType.ATTACK);
 			damages *= rp.getNextAttackFactor();//needs to be after all sums
 			if(rp.getRClass().equals(RClass.PALADIN)){
-				factor += Abilities.doPALADIN3(rp.getPlayer())*.01;//to convert it to factor
+				factor += RAbility.PALADIN_3.getAbility().getDamages(rp)*.01;//to convert to factor
 			}
 		}
 		
