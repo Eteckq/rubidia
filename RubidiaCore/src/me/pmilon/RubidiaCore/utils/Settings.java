@@ -6,83 +6,85 @@ import java.util.List;
 import org.bukkit.Particle;
 
 public class Settings {
-	
-	public static int LEVEL_JOB = 10;
-	public static int LEVEL_MAX = 150;
 
-	public static double STRENGTH_FACTOR_MELEE_DAMAGES_ON_MELEE = .0075;
-	public static double STRENGTH_FACTOR_MELEE_RANGE_DAMAGES_ON_MELEE = .005;
-	public static double STRENGTH_FACTOR_HAND_DAMAGES_ON_MELEE = .2;
-	public static double ENDURANCE_FACTOR_MAXHEALTH = .75;
-	public static double ENDURANCE_FACTOR_NRJREGEN = .02;
-	public static double ENDURANCE_FACTOR_DEFENSE = .005;
-	public static double ENDURANCE_FACTOR_ABILITY_DEF = .005;
-	public static double AGILITY_FACTOR_RANGE_DAMAGES_ON_RANGE = .01;
-	public static double AGILITY_FACTOR_ATTACK_SPEED = .01;
-	public static double AGILITY_FACTOR_CRITICAL_STRIKE_DAMAGES = .015;
-	public static double AGILITY_FACTOR_CRITICAL_STRIKE_CHANCE = .005;
-	public static double INTELLIGENCE_FACTOR_MAGIC_DAMAGES_ON_MAGIC = .0075;
-	public static double INTELLIGENCE_FACTOR_ABILITY_DAMAGES = .0075;
-	public static double INTELLIGENCE_FACTOR_MAXNRJ = 5;
-	public static double PERCEPTION_FACTOR_BLOCK_CHANCE = .0025;
-	public static double PERCEPTION_FACTOR_LOOT_CHANCE = .0025;
-	public static double PERCEPTION_FACTOR_LIFT_COST = .005;
+	public static final int ABILITY_CLICK_TICKS = 17;
+	
+	public static final int LEVEL_JOB = 10;
+	public static final int LEVEL_MAX = 150;
 
-	public static int SWORDS_DMG_RANGE_MAX = 29;
-	public static int AXES_DMG_RANGE_MAX = 61;
-	public static int BOWS_DMG_RANGE_MAX = 18;
-	public static int WANDS_DMG_RANGE_MAX = 43;
-	public static int WEAPONS_DMG_MAX = 390;
-	public static double WEAPONS_SPD_MAX = 1.6;
-	public static double WEAPONS_SPD_MIN = .3334;
-	public static int HELMETS_DEF_MAX = 160;
-	public static int HELMETS_DEF_RANGE_MAX = 35;
-	public static int ARMORS_DEF_MAX = 210;
-	public static int ARMORS_DEF_RANGE_MAX = 56;
-	public static int GAUNTLETS_DEF_MAX = 90;
-	public static int GAUNTLETS_DEF_RANGE_MAX = 19;
-	public static int BOOTS_DEF_MAX = 130;
-	public static int BOOTS_DEF_RANGE_MAX = 27;
-	public static int SHIELDS_DEF_MAX = 120;
-	public static int SHIELDS_DEF_RANGE_MAX = 47;
-	public static double PALADIN_DEF_FACTOR = 1.31;
-	public static double RANGER_DEF_FACTOR = 1.12;
-	public static double MAGE_DEF_FACTOR = 1.04;
-	public static double ASSASSIN_DEF_FACTOR = .93;
-	public static double PALADIN_DMG_FACTOR = 1.12;
-	public static double RANGER_DMG_FACTOR = 1.47;
-	public static double MAGE_DMG_FACTOR = 1.01;
-	public static double ASSASSIN_DMG_FACTOR = 1.21;
-	public static double PALADIN_SPD_FACTOR = .83;
-	public static double RANGER_SPD_FACTOR = 1.03;
-	public static double MAGE_SPD_FACTOR = .91;
-	public static double ASSASSIN_SPD_FACTOR = 1.08;
-	
-	public static double ENCHANTMENT_DAMAGE_ALL_FACTOR = .025;
-	public static double ENCHANTMENT_SPECIFIC_DAMAGES_FACTOR = .025;
-	public static double ENCHANTMENT_POWER_FACTOR = .025;
-	public static double ENCHANTMENT_PROTECTION_FACTOR = .04;
-	public static double ENCHANTMENT_LOOT_BONUS_FACTOR = .6;
-	public static double ENCHANTMENT_LUCK_FACTOR = .01;
-	public static double POTIONEFFECT_DAMAGES_FACTOR = .025;
-	
-	public static double GLOBAL_WEAPON_DROP_REDUCTION = 1.15;
-	public static double WEAPON_RARITY_MIN = .001;
-	public static double WEAPON_RARITY_MAX = .02;
+	public static final double STRENGTH_FACTOR_MELEE_DAMAGES_ON_MELEE = .0075;
+	public static final double STRENGTH_FACTOR_MELEE_RANGE_DAMAGES_ON_MELEE = .005;
+	public static final double STRENGTH_FACTOR_HAND_DAMAGES_ON_MELEE = .2;
+	public static final double ENDURANCE_FACTOR_MAXHEALTH = .75;
+	public static final double ENDURANCE_FACTOR_NRJREGEN = .02;
+	public static final double ENDURANCE_FACTOR_DEFENSE = .005;
+	public static final double ENDURANCE_FACTOR_ABILITY_DEF = .005;
+	public static final double AGILITY_FACTOR_RANGE_DAMAGES_ON_RANGE = .01;
+	public static final double AGILITY_FACTOR_ATTACK_SPEED = .01;
+	public static final double AGILITY_FACTOR_CRITICAL_STRIKE_DAMAGES = .015;
+	public static final double AGILITY_FACTOR_CRITICAL_STRIKE_CHANCE = .005;
+	public static final double INTELLIGENCE_FACTOR_MAGIC_DAMAGES_ON_MAGIC = .0075;
+	public static final double INTELLIGENCE_FACTOR_ABILITY_DAMAGES = .0075;
+	public static final double INTELLIGENCE_FACTOR_MAXNRJ = 5;
+	public static final double PERCEPTION_FACTOR_BLOCK_CHANCE = .0025;
+	public static final double PERCEPTION_FACTOR_LOOT_CHANCE = .0025;
+	public static final double PERCEPTION_FACTOR_LIFT_COST = .005;
 
-	public final static int DUEL_REQUEST_TIME = 30;
-	public final static int DUEL_TIMEOUT = 3;
-	public final static int COMPETITIVE_DUEL_LEVEL_SHIFT_MAX = 15;
-	public final static int COMPETITIVE_DUEL_DELAY_MAX = 30;
-	public final static int COMPETITIVE_DUEL_FORFAIT_RENOM = 10;
-	public final static int COMPETITIVE_DUEL_TIE_RENOM = 15;
-	public final static int COMPETITIVE_DUEL_WIN_RENOM_MIN = 10;
-	public final static int COMPETITIVE_DUEL_WIN_RENOM_MAX = 50;
-	public final static double COMPETITIVE_DUEL_FACTOR_POWER = .8;
-	public final static double COMPETITIVE_DUEL_FACTOR_BONUS = .01;
-	public final static Particle DUEL_WALL_PARTICLE = Particle.DRAGON_BREATH;
+	public static final int SWORDS_DMG_RANGE_MAX = 29;
+	public static final int AXES_DMG_RANGE_MAX = 61;
+	public static final int BOWS_DMG_RANGE_MAX = 18;
+	public static final int WANDS_DMG_RANGE_MAX = 43;
+	public static final int WEAPONS_DMG_MAX = 390;
+	public static final double WEAPONS_SPD_MAX = 1.6;
+	public static final double WEAPONS_SPD_MIN = .3334;
+	public static final int HELMETS_DEF_MAX = 160;
+	public static final int HELMETS_DEF_RANGE_MAX = 35;
+	public static final int ARMORS_DEF_MAX = 210;
+	public static final int ARMORS_DEF_RANGE_MAX = 56;
+	public static final int GAUNTLETS_DEF_MAX = 90;
+	public static final int GAUNTLETS_DEF_RANGE_MAX = 19;
+	public static final int BOOTS_DEF_MAX = 130;
+	public static final int BOOTS_DEF_RANGE_MAX = 27;
+	public static final int SHIELDS_DEF_MAX = 120;
+	public static final int SHIELDS_DEF_RANGE_MAX = 47;
+	public static final double PALADIN_DEF_FACTOR = 1.31;
+	public static final double RANGER_DEF_FACTOR = 1.12;
+	public static final double MAGE_DEF_FACTOR = 1.04;
+	public static final double ASSASSIN_DEF_FACTOR = .93;
+	public static final double PALADIN_DMG_FACTOR = 1.12;
+	public static final double RANGER_DMG_FACTOR = 1.47;
+	public static final double MAGE_DMG_FACTOR = 1.01;
+	public static final double ASSASSIN_DMG_FACTOR = 1.21;
+	public static final double PALADIN_SPD_FACTOR = .83;
+	public static final double RANGER_SPD_FACTOR = 1.03;
+	public static final double MAGE_SPD_FACTOR = .91;
+	public static final double ASSASSIN_SPD_FACTOR = 1.08;
 	
-	public static int SHOUT_LIMIT = 5;
+	public static final double ENCHANTMENT_DAMAGE_ALL_FACTOR = .025;
+	public static final double ENCHANTMENT_SPECIFIC_DAMAGES_FACTOR = .025;
+	public static final double ENCHANTMENT_POWER_FACTOR = .025;
+	public static final double ENCHANTMENT_PROTECTION_FACTOR = .04;
+	public static final double ENCHANTMENT_LOOT_BONUS_FACTOR = .6;
+	public static final double ENCHANTMENT_LUCK_FACTOR = .01;
+	public static final double POTIONEFFECT_DAMAGES_FACTOR = .025;
+	
+	public static final double GLOBAL_WEAPON_DROP_REDUCTION = 1.15;
+	public static final double WEAPON_RARITY_MIN = .001;
+	public static final double WEAPON_RARITY_MAX = .02;
+
+	public static final int DUEL_REQUEST_TIME = 30;
+	public static final int DUEL_TIMEOUT = 3;
+	public static final int COMPETITIVE_DUEL_LEVEL_SHIFT_MAX = 15;
+	public static final int COMPETITIVE_DUEL_DELAY_MAX = 30;
+	public static final int COMPETITIVE_DUEL_FORFAIT_RENOM = 10;
+	public static final int COMPETITIVE_DUEL_TIE_RENOM = 15;
+	public static final int COMPETITIVE_DUEL_WIN_RENOM_MIN = 10;
+	public static final int COMPETITIVE_DUEL_WIN_RENOM_MAX = 50;
+	public static final double COMPETITIVE_DUEL_FACTOR_POWER = .8;
+	public static final double COMPETITIVE_DUEL_FACTOR_BONUS = .01;
+	public static Particle DUEL_WALL_PARTICLE = Particle.DRAGON_BREATH;
+	
+	public static final int SHOUT_LIMIT = 5;
 	
 	public static long TIME_BEFORE_WEDDING_PROPOSAL = 24*60*60*1000L;
 	
