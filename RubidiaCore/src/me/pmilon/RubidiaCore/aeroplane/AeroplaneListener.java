@@ -39,7 +39,7 @@ public class AeroplaneListener implements Listener {
 					if(item.getType().equals(Material.ELYTRA)){
 						event.setCancelled(true);
 						if(!player.isGliding()){
-							if(rp.hasNrj(rp.getAeroplaneCost())){
+							if(rp.hasVigor(rp.getAeroplaneCost())){
 								boolean ok = true;
 								for(int i = 1;i < 21;i++){
 									if(player.getLocation().add(0,i,0).getBlock().getType().isSolid()){
@@ -49,7 +49,7 @@ public class AeroplaneListener implements Listener {
 								}
 								
 								if(ok){
-									rp.addNrj(-rp.getAeroplaneCost());
+									rp.addVigor(-rp.getAeroplaneCost());
 									player.setVelocity(new Vector(0,1.8,0));
 									new BukkitTask(this.getPlugin()){
 										Location lastLocation = player.getLocation().clone();
