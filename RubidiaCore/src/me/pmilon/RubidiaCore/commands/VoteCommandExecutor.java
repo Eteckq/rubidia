@@ -86,11 +86,11 @@ public class VoteCommandExecutor extends PlayerCommandExecutor {
 											target.setVelocity(VectorUtils.rotateVector(target.getEyeLocation().getDirection().multiply(.75).setY(.03), RandomUtils.random.nextInt(45)*(RandomUtils.random.nextBoolean() ? -1 : 1), 0));
 											for(Player po : Bukkit.getOnlinePlayers()){
 												po.playSound(po.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1, 1);
-												RPlayer.get(po).sendMessage("§6" + target.getName() + " §ehas been slammed!", "§6" + target.getName() + " §ea reçu une claque !");
+												RPlayer.get(po).sendMessage("§6" + target.getName() + " §ea reçu une claque !");
 											}
 										}else{
 											for(Player po : Bukkit.getOnlinePlayers()){
-												RPlayer.get(po).sendMessage("§6" + target.getName() + " §eescaped the slam like a yellow belly...", "§6" + target.getName() + " §ea échappé à la claque comme un trouillard...");
+												RPlayer.get(po).sendMessage("§6" + target.getName() + " §ea échappé à la claque comme un trouillard...");
 											}
 										}
 									}
