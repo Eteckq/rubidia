@@ -300,7 +300,7 @@ public class Core extends JavaPlugin implements Listener {
 					if(rpo.knows(rp)){
 						if(rpo.getNotifOnFriendJoin()){
 							rpo.getPlayer().playSound(rpo.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 10F);
-							rpo.sendMessage("§e" + s + " §ahas just joined the game!", "§e" + s + " §avient de se connecter !");
+							rpo.sendMessage("§e" + s + " §avient de se connecter !");
 						}
 					}
 				}
@@ -310,7 +310,7 @@ public class Core extends JavaPlugin implements Listener {
 	    		if(!rp.isOp() && rp.getBank() > 120*(rp.getRLevel()+1)){
 					for(RPlayer rpo : RPlayer.getOnlines()){
 						if(rpo.isOp()){
-							rpo.sendMessage("§4" + rp.getName() + " §chas too many emeralds for his level (§4" + rp.getBank() + "§c)...","§4" + rp.getName() + " §ca trop d'émeraudes pour son niveau (§4" + rp.getBank() + "§c)...");
+							rpo.sendMessage("§4" + rp.getName() + " §ca trop d'émeraudes pour son niveau (§4" + rp.getBank() + "§c)...");
 						}
 					}
 	    		}

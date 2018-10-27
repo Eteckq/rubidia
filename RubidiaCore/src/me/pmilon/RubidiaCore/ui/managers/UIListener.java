@@ -80,7 +80,6 @@ public class UIListener implements Listener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerChat(RPlayerPreChatMessageEvent e){
 		RPlayer rplayer = e.getRPlayer();
@@ -89,7 +88,7 @@ public class UIListener implements Listener {
 			String message = ChatColor.translateAlternateColorCodes('&', e.getMessage());
 			if(message.equalsIgnoreCase("-") && !ui.isKeepingWindowAfterEditMode()){
 				this.uiManager.tempSessions.remove(rplayer.getPlayer());
-				rplayer.sendMessage("§aYou left edit mode.", "§aVous avez quitté le mode d'édition.");
+				rplayer.sendMessage("§aVous avez quitté le mode d'édition.");
 			}else{
 				this.uiManager.registerUI(ui);
 				ui.openWindow(message);

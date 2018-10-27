@@ -33,7 +33,7 @@ public class MoneyCommandExecutor extends HybridCommandExecutor {
 							RPlayer rpo = RPlayer.get(po);
 							if(rp.getBank() >= amount){
 								rp.sendMessage("§aVous avez payé §2" + args[1] + " §ade §e" + amount + " §aémeraudes !");
-								rpo.sendMessage("§2" + rp.getName() + " §apaid you §e" + amount + " §aemeralds !", "§2" + rp.getName() + " §avous a payé de §e" + amount + " §aémeraudes !");
+								rpo.sendMessage("§2" + rp.getName() + " §avous a payé de §e" + amount + " §aémeraudes !");
 								EconomyHandler.withdraw(player, amount);
 								EconomyHandler.deposit(po, amount);
 							}
@@ -49,7 +49,7 @@ public class MoneyCommandExecutor extends HybridCommandExecutor {
 							int amount = Integer.valueOf(args[2]);
 							if(rpo.getBank() < amount)rp.sendMessage("§4" + args[1] + " §cdid not have that much money! All of his emeralds have been taken.");
 							rp.sendMessage("§aVous avez retiré §e" + amount + " §aémeraudes du compte de §2" + args[1] + "§a.");
-							rpo.sendMessage("§4" + rp.getName() + " §ctook you §e" + amount + " §cemeralds !", "§4" + rp.getName() + " §cvous a pris §e" + amount + " §cémeraudes !");
+							rpo.sendMessage("§4" + rp.getName() + " §cvous a pris §e" + amount + " §cémeraudes !");
 							EconomyHandler.withdraw(po, Math.min(amount, rpo.getBank()));
 						}
 					}else rp.sendMessage("§4" + args[1] + " §cn'est jamais venu sur ce serveur ! Utilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
@@ -78,7 +78,7 @@ public class MoneyCommandExecutor extends HybridCommandExecutor {
 						if(amount > 0){
 							RPlayer rpo = RPlayer.get(po);
 							sender.sendMessage("§aYou paid §2" + args[1] + " §aof §e" + amount + " §aemeralds.");
-							rpo.sendMessage("§2§lRubidia§a paid you §e" + amount + " §aemeralds !", "§2§lRubidia§a vous a payé de §e" + amount + " §aémeraudes !");
+							rpo.sendMessage("§2§lRubidia§a vous a payé de §e" + amount + " §aémeraudes !");
 							EconomyHandler.deposit(po, amount);
 						}
 					}
@@ -91,7 +91,7 @@ public class MoneyCommandExecutor extends HybridCommandExecutor {
 						int amount = Integer.valueOf(args[2]);
 						if(rpo.getBank() < amount)sender.sendMessage("§4" + args[1] + " §cdoes not have that much money! All of his emeralds have been taken.");
 						sender.sendMessage("§aYou withdrawed §e" + amount + " §aemeralds from §2" + args[2] + "§a's account.");
-						rpo.sendMessage("§4§lRubidia§c took you §e" + amount + " §cemeralds !", "§4§lRubidia§c vous a pris §e" + amount + " §cémeraudes !");
+						rpo.sendMessage("§4§lRubidia§c vous a pris §e" + amount + " §cémeraudes !");
 						EconomyHandler.withdraw(po, Math.min(amount, rpo.getBank()));
 					}
 				}else sender.sendMessage("§cPlease use: " + (sender.isOp() ? "/money ([player]/pay/take [player] [amount])" : "/money ([player])"));

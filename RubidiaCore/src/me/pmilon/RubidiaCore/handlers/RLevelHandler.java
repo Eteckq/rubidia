@@ -139,7 +139,7 @@ public class RLevelHandler implements Listener{
 		if(!event.isCancelled()){
 			if(event.getRPlayer().getRLevel() <= 5){
 				event.setKeepInventory(true);
-				event.getRPlayer().sendMessage("§6You didn't lose your inventory because you're only level §6" + event.getRPlayer().getRLevel() + "§e!", "§eVous n'avez pas perdu votre inventaire car vous n'êtes que niveau §6" + event.getRPlayer().getRLevel() + " §e!");
+				event.getRPlayer().sendMessage("§eVous n'avez pas perdu votre inventaire car vous n'êtes que niveau §6" + event.getRPlayer().getRLevel() + " §e!");
 			}else{
 				List<Integer> slots = new ArrayList<Integer>();
 				for(int i = 0;i < event.getInventoryDrops().length;i++){

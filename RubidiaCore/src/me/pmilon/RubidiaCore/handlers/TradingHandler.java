@@ -22,7 +22,7 @@ public class TradingHandler implements Listener {
 		final RPlayer rp1 = RPlayer.get(p1);
 		if(!traderequest.containsKey(p1))handleTradeRequest(p1, p2);
 		else{
-			if(traderequest.get(p1).equals(p2))rp1.sendMessage("§cYou already asked §4" + p2.getName() + " §cto trade with you!", "§cVous avez déjà demandé un échange avec §4" + p2.getName() + " §c!");
+			if(traderequest.get(p1).equals(p2))rp1.sendMessage("§cVous avez déjà demandé un échange avec §4" + p2.getName() + " §c!");
 			else handleTradeRequest(p1, p2);
 		}
 	}
@@ -38,16 +38,16 @@ public class TradingHandler implements Listener {
 		canceltraderequest.put(p1, Bukkit.getScheduler().runTaskLater(Core.instance, new Runnable(){
 			public void run(){
 				traderequest.remove(p1);
-				rp1.sendMessage("§4" + p2.getName() + "§c didn't answer your trade request in time.", "§4" + p2.getName() + "§c n'a pas répondu à votre demande d'échange à temps.");
-				rp2.sendMessage("§cYou didn't answer the trade request in time.", "§cVous n'avez pas répondu à la demande d'échange à temps.");
+				rp1.sendMessage("§4" + p2.getName() + "§c n'a pas répondu à votre demande d'échange à temps.");
+				rp2.sendMessage("§cVous n'avez pas répondu à la demande d'échange à temps.");
 			}
 		}, REQUEST_TIME*20).getTaskId());
-		rp1.sendMessage("§eYou asked §6" + p2.getName() + " §eto trade with you.", "§eVous avez demandé un échange à §6" + p2.getName() + "§e.");
-		p2.sendMessage(("§6" + p1.getName() + " §evous a demandé un échange !"));
+		rp1.sendMessage("§eVous avez demandé un échange à §6" + rp2.getName() + "§e.");
+		rp2.sendMessage(("§6" + rp1.getName() + " §evous a demandé un échange !"));
 		if(traderequest.containsKey(p2)){
 			if(traderequest.get(p2).equals(p1)){
-				rp1.sendMessage("§eTrade with §6" + p2.getName() + " §eis going to begin!", "§eL'échange avec §6" + p2.getName() + " §eva débuter !");
-				p2.sendMessage(("§eL'échange avec §6" + p1.getName() + " §eva débuter !"));
+				rp1.sendMessage("§eL'échange avec §6" + rp2.getName() + " §eva débuter !");
+				rp2.sendMessage(("§eL'échange avec §6" + rp1.getName() + " §eva débuter !"));
 				Bukkit.getScheduler().runTaskLater(Core.instance, new Runnable(){
 					public void run(){
 						Bukkit.getScheduler().cancelTask(canceltraderequest.get(p1));

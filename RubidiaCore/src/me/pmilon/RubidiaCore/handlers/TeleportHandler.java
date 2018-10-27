@@ -95,10 +95,10 @@ public class TeleportHandler implements Listener{
 			if(teleporter != null){
 				if(scroll.getType().equals(ScrollType.FRDCALL)){
 					scroll.cancel(teleporter);
-					RPlayer.get(teleporter).sendMessage("§4" + player.getName() + "§c moved during invocation establishment!", "§4" + player.getName() + "§c a bougé durant l'établissement de l'invocation !");
+					RPlayer.get(teleporter).sendMessage("§4" + player.getName() + "§c a bougé durant l'établissement de l'invocation !");
 				}else if(scroll.getType().equals(ScrollType.FRDTP)){
 					scroll.cancel(teleported);
-					RPlayer.get(teleported).sendMessage("§4" + player.getName() + "§c moved during teleportation establishment!", "§4" + player.getName() + "§c a bougé durant l'établissement de la téléportation !");
+					RPlayer.get(teleported).sendMessage("§4" + player.getName() + "§c a bougé durant l'établissement de la téléportation !");
 				}
 			}else scroll.cancel(event.getPlayer());
 		}
@@ -183,7 +183,7 @@ public class TeleportHandler implements Listener{
 		TeleportHandler.invoke_tasks.put(invoked, new BukkitTask(Core.instance){
 			@Override
 			public void run(){
-				RPlayer.get(invocator).sendMessage("§4" + invoked.getName() + " §chas not answered your invocation request.", "§4" + invoked.getName() + " §cn'a pas répondu à votre invocation.");
+				RPlayer.get(invocator).sendMessage("§4" + invoked.getName() + " §cn'a pas répondu à votre invocation.");
 				TeleportHandler.invoke_tasks.remove(invoked);
 			}
 
@@ -194,14 +194,14 @@ public class TeleportHandler implements Listener{
 			}
 		}.runTaskLater(15*20).getTaskId());
 		invocator.sendMessage("§eInvocation...");
-		RPlayer.get(invoked).sendMessage("§6" + invocator.getName() + " §ehas invoked you! Type §6/tp §eto accept : you have §615 §eseconds.", "§6" + invocator.getName() + " §evous a invoqué ! Tapez §6/tp §epour accepter : vous avez §615 §esecondes.");
+		RPlayer.get(invoked).sendMessage("§6" + invocator.getName() + " §evous a invoqué ! Tapez §6/tp §epour accepter : vous avez §615 §esecondes.");
 	}
 	
 	public static void requestTeleportation(final Player teleported, final Player teleporter, final Scroll scroll) {
 		TeleportHandler.tp_tasks.put(teleporter, new BukkitTask(Core.instance){
 			@Override
 			public void run(){
-				RPlayer.get(teleported).sendMessage("§4" + teleporter.getName() + " §chas not answered your teleportation request.", "§4" + teleporter.getName() + " §cn'a pas répondu à votre demande de téléportation.");
+				RPlayer.get(teleported).sendMessage("§4" + teleporter.getName() + " §cn'a pas répondu à votre demande de téléportation.");
 				TeleportHandler.tp_tasks.remove(teleporter);
 			}
 
@@ -212,6 +212,6 @@ public class TeleportHandler implements Listener{
 			}
 		}.runTaskLater(15*20).getTaskId());
 		teleported.sendMessage("§eTéléportation...");
-		RPlayer.get(teleporter).sendMessage("§6" + teleported.getName() + " §einvoked god powers to teleport to you! Type §6/tp §eto accept : you have §615 §eseconds.", "§6" + teleported.getName() + " §ea invoqué les puissances divines pour se téléporter vers vous ! Tapez §6/tp §epour accepter : vous avez §615 §esecondes.");
+		RPlayer.get(teleporter).sendMessage("§6" + teleported.getName() + " §ea invoqué les puissances divines pour se téléporter vers vous ! Tapez §6/tp §epour accepter : vous avez §615 §esecondes.");
 	}
 }

@@ -103,19 +103,19 @@ public class PlayerMenu extends UIHandler {
 							rp.fiance(null);
 							rpfrom.fiance(null);
 							rp.sendMessage("§cVous avez annulé votre demande en mariage...");
-							rpfrom.sendMessage("§4" + rp.getName() + " §ccancelled the wedding proposal...", "§4" + rp.getName() + " §ca annulé la demande en mariage...");
+							rpfrom.sendMessage("§4" + rp.getName() + " §ca annulé la demande en mariage...");
 						}else{
 							if(rp.isOp() || rp.getLastDivorce()+Settings.TIME_BEFORE_WEDDING_PROPOSAL <= System.currentTimeMillis()){
 								rp.fiance(rpfrom);
 								if(rp.equals(rpfrom.fiance)){
 									rp.sendMessage("§aVous êtes désormais fiancé(e) à §2" + rpfrom.getName() + " §a!");
-									rpfrom.sendMessage("§aYou are now fianced to §2" + rp.getName() + "§a!", "§aVous êtes désormais fiancé(e) à §2" + rp.getName() + " §a!");
+									rpfrom.sendMessage("§aVous êtes désormais fiancé(e) à §2" + rp.getName() + " §a!");
 									
 									rp.sendMessage("§eVous avez maintenant besoin de l'aide d'un pasteur pour organiser votre mariage !");
-									rpfrom.sendMessage("§eYou now need to ask a pastor to organize your wedding!", "§eVous avez désormais besoin de demander à un pasteur d'organiser votre mariage !");
+									rpfrom.sendMessage("§eVous avez désormais besoin de demander à un pasteur d'organiser votre mariage !");
 								}else{
 									rp.sendMessage("§eVous avez demandé §6" + rpfrom.getName() + " §een mariage...");
-									rpfrom.sendMessage("§6" + rp.getName() + " §eproposed you!", "§6" + rp.getName() + " §evous a demandé en mariage !");
+									rpfrom.sendMessage("§6" + rp.getName() + " §evous a demandé en mariage !");
 								}
 							}else{
 								long time1 = rp.getLastDivorce()+Settings.TIME_BEFORE_WEDDING_PROPOSAL-System.currentTimeMillis();

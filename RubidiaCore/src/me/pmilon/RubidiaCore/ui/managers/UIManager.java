@@ -33,7 +33,6 @@ public class UIManager {
 		return uiHandler.openWindow("");
 	}
 	
-	@Deprecated
 	public void registerUI(UIHandler uiHandler){
 		if(this.hasActiveSession(uiHandler.getHolder()))this.getSession(uiHandler.getHolder()).getUIHandler().close(false);
 		UISession uiSession = new UISession(uiHandler);

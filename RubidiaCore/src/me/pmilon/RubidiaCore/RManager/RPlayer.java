@@ -1599,7 +1599,7 @@ public class RPlayer {
 			RPlayer rp2 = event.getOpponent();
 			if(!rp1.isInDuel()){
 				if(rp2.isInDuel()){
-					rp1.sendMessage("§4" + rp2.getName() + " §cis already in duel against §4" + rp2.getDuelOpponent().getName() + "§c!", "§4" + rp2.getName() + " §cest déjà en duel contre §4" + rp2.getDuelOpponent().getName() + " §c!");
+					rp1.sendMessage("§4" + rp2.getName() + " §cest déjà en duel contre §4" + rp2.getDuelOpponent().getName() + " §c!");
 				}else{
 					RDuel duel = rp1.getRequestedDuelTo(rp2);
 					if(duel != null){

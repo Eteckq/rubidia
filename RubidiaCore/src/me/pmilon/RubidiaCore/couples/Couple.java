@@ -114,7 +114,7 @@ public class Couple {
 		if(divorcer.isOnline()){
 			divorcer.getPlayer().playSound(divorcer.getPlayer().getLocation(), Sound.BLOCK_ANVIL_BREAK, 1, .5F);
 			divorcer.getPlayer().sendMessage(" ");
-			divorcer.sendMessage("§cYou divorced!", "§cVous avez divorcé !");
+			divorcer.sendMessage("§cVous avez divorcé !");
 			divorcer.getPlayer().sendMessage(" ");
 		}
 	}

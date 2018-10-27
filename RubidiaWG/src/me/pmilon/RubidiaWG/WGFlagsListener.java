@@ -158,7 +158,7 @@ public class WGFlagsListener implements Listener {
 		int z = e.getClaim().getZ() << 4;
 		if(!WGUtils.testState(p, p.getWorld(), new Vector(x, 0, z), new Vector(x + 15, 256, z + 15), Flags.CLAIM)){
 			e.setCancelled(true);
-			RPlayer.get(p).sendMessage("§cYou cannot claim here.", "§cVous ne pouvez conquérir ce territoire.");
+			RPlayer.get(p).sendMessage("§cVous ne pouvez conquérir ce territoire.");
 		}
 	}
 

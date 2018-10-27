@@ -75,7 +75,7 @@ public class AeroplaneListener implements Listener {
 										}
 										
 									}.runTaskTimer(10, 0);
-								}else RPlayer.get(player).sendMessage("§cYou cannot lift you up here!", "§cVous ne pouvez vous élever ici !");
+								}else RPlayer.get(player).sendMessage("§cVous ne pouvez vous élever ici !");
 							}else rp.sendMessage("§cVous n'avez pas assez de vigueur pour vous élever !");
 						}
 					}
