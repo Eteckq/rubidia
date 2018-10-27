@@ -43,11 +43,11 @@ public class TradingHandler implements Listener {
 			}
 		}, REQUEST_TIME*20).getTaskId());
 		rp1.sendMessage("§eYou asked §6" + p2.getName() + " §eto trade with you.", "§eVous avez demandé un échange à §6" + p2.getName() + "§e.");
-		p2.sendMessage(rp2.translateString("§6" + p1.getName() + " §easked you to trade with him!", "§6" + p1.getName() + " §evous a demandé un échange !"));
+		p2.sendMessage(("§6" + p1.getName() + " §evous a demandé un échange !"));
 		if(traderequest.containsKey(p2)){
 			if(traderequest.get(p2).equals(p1)){
 				rp1.sendMessage("§eTrade with §6" + p2.getName() + " §eis going to begin!", "§eL'échange avec §6" + p2.getName() + " §eva débuter !");
-				p2.sendMessage(rp2.translateString("§eTrade with §6" + p1.getName() + " §eis going to begin!", "§eL'échange avec §6" + p1.getName() + " §eva débuter !"));
+				p2.sendMessage(("§eL'échange avec §6" + p1.getName() + " §eva débuter !"));
 				Bukkit.getScheduler().runTaskLater(Core.instance, new Runnable(){
 					public void run(){
 						Bukkit.getScheduler().cancelTask(canceltraderequest.get(p1));

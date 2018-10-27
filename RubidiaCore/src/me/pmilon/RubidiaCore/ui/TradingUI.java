@@ -177,32 +177,32 @@ public class TradingUI extends UIHandler {
 	
 	private ItemStack getNotReadyTrader(){
 		ItemMeta imn2 = ITEM_NONE.getItemMeta();
-		imn2.setDisplayName("§4§l" + rp.translateString("Not Ready", "Pas prêt"));
-		imn2.setLore(Arrays.asList(rp.translateString("§c" + this.getTrader().getName() + " §cis not ready to trade", "§c" + this.getTrader().getName() + " §cn'est pas prêt à échanger")));
+		imn2.setDisplayName("§4§l" + ("Pas prêt"));
+		imn2.setLore(Arrays.asList(("§c" + this.getTrader().getName() + " §cn'est pas prêt à échanger")));
 		ITEM_NONE.setItemMeta(imn2);
 		ITEM_NONE.setAmount(1);
 		return ITEM_NONE;
 	}
 	private ItemStack getNotReady(){
 		ItemMeta imn = ITEM_NONE.getItemMeta();
-		imn.setDisplayName("§4§l" + rp.translateString("Not Ready", "Pas prêt"));
-		imn.setLore(Arrays.asList(rp.translateString("§cClick here to confirm trade", "§cCliquez ici pour confirmer l'échange"), rp.translateString("§cYou are not ready to trade", "§cVous n'êtes pas prêt à échanger")));
+		imn.setDisplayName("§4§l" + ("Pas prêt"));
+		imn.setLore(Arrays.asList(("§cCliquez ici pour confirmer l'échange"), ("§cVous n'êtes pas prêt à échanger")));
 		ITEM_NONE.setItemMeta(imn);
 		ITEM_NONE.setAmount(1);
 		return ITEM_NONE;
 	}
 	private ItemStack getReadyTrader(){
 		ItemMeta im2 = ITEM_AGREE.getItemMeta();
-		im2.setDisplayName("§2§l" + rp.translateString("Ready", "Prêt"));
-		im2.setLore(Arrays.asList(rp.translateString("§a" + this.getTrader().getName() + " §ais ready to trade", "§a" + this.getTrader().getName() + " §aest prêt")));
+		im2.setDisplayName("§2§l" + ("Prêt"));
+		im2.setLore(Arrays.asList(("§a" + this.getTrader().getName() + " §aest prêt")));
 		ITEM_AGREE.setItemMeta(im2);
 		ITEM_AGREE.setAmount(1);
 		return ITEM_AGREE;
 	}
 	private ItemStack getReady(){
 		ItemMeta im = ITEM_AGREE.getItemMeta();
-		im.setDisplayName("§2§l" + rp.translateString("Ready", "Prêt"));
-		im.setLore(Arrays.asList(rp.translateString("§aClick here to cancel trade", "§aCliquez ici pour annuler l'échange"), rp.translateString("§aYou are ready to trade", "§aVous êtes prêt à échanger")));
+		im.setDisplayName("§2§l" + ("Prêt"));
+		im.setLore(Arrays.asList(("§aCliquez ici pour annuler l'échange"), ("§aVous êtes prêt à échanger")));
 		ITEM_AGREE.setItemMeta(im);
 		ITEM_AGREE.setAmount(1);
 		return ITEM_AGREE;
@@ -210,8 +210,8 @@ public class TradingUI extends UIHandler {
 	private ItemStack getSeparator(){
 		ItemStack is = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 		ItemMeta im = is.getItemMeta();
-		im.setDisplayName("§8" + rp.translateString("Inventory Separator", "Séparateur"));
-		im.setLore(Arrays.asList(rp.translateString("§7You can't access right part of this inventory", "§7Vous ne pouvez accéder à la partie droite de cet inventaire")));
+		im.setDisplayName("§8" + ("Séparateur"));
+		im.setLore(Arrays.asList(("§7Vous ne pouvez accéder à la partie droite de cet inventaire")));
 		is.setItemMeta(im);
 		return is;
 	}

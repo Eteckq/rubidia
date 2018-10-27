@@ -73,7 +73,7 @@ public class WeaponSetSelectionMenu extends ListMenuUIHandler<Set> {
 		ItemStack infos = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList(rp.translateString("§7Choose set to select", "§7Choisissez une arme à éditer"), rp.translateString("§7or click here to create new", "§7ou cliquez ici pour un créer un nouveau")));
+		meta.setLore(Arrays.asList(("§7Choisissez une arme à éditer"), ("§7ou cliquez ici pour un créer un nouveau")));
 		infos.setItemMeta(meta);
 		return infos;
 	}

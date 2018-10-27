@@ -37,7 +37,7 @@ public class SkillTree extends UIHandler {
 	
 	public SkillTree(Player p) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), 9, rp.translateString("SkillTree", "Arbre des compétences"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 9, ("Arbre des compétences"));
 	}
 
 	@Override
@@ -146,8 +146,8 @@ public class SkillTree extends UIHandler {
 		ItemMeta meta = item.getItemMeta();
 		String color = (rp.getSkillPoints() > 0 ? "§2" : "§4");
 		String ccolor = (rp.getSkillPoints() > 0 ? "§a" : "§c");
-		meta.setDisplayName(ccolor + "§l" + rp.getSkillPoints() + color + " " + rp.translateString("skillpoints", "point" + (rp.getSkillPoints() > 1 ? "s" : "") + " de compétences"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("SkillPoints are gained everytime you level up.", "Les points de compétences sont gagnés à chaque niveau."), "§7" + rp.translateString("They allow you to level up one of the following", "Ils vous permettent d'augmenter le niveau d'une des"), "§7" + rp.translateString("abilities, modifying its damages and its cost.", "compétences suivantes, modifiant ses dégâts et son coût."), "", rp.getRClass().equals(RClass.VAGRANT) ? rp.translateString("§6Showcasing " + rClass.toString().toLowerCase() + "s' abilties.", "§6Présentation des compétences des " + rClass.toString().toLowerCase() + "s.") : rp.translateString("§8Left click to increase level by 1.", "§8Clic gauche pour augmenter d'un niveau."), rp.getRClass().equals(RClass.VAGRANT) ? rp.translateString("§e§lClick to change class showcasing.", "§e§lCliquez pour changer de classe présentée.") : rp.translateString("§8Sneak + left click to increase level by 5.", "§8Sneak + clic gauche pour augmenter de 5 niveaux.")));
+		meta.setDisplayName(ccolor + "§l" + rp.getSkillPoints() + color + " " + ("point" + (rp.getSkillPoints() > 1 ? "s" : "") + " de compétences"));
+		meta.setLore(Arrays.asList("§7" + ("Les points de compétences sont gagnés à chaque niveau."), "§7" + ("Ils vous permettent d'augmenter le niveau d'une des"), "§7" + ("compétences suivantes, modifiant ses dégâts et son coût."), "", rp.getRClass().equals(RClass.VAGRANT) ? ("§6Présentation des compétences des " + rClass.toString().toLowerCase() + "s.") : ("§8Clic gauche pour augmenter d'un niveau."), rp.getRClass().equals(RClass.VAGRANT) ? ("§e§lCliquez pour changer de classe présentée.") : ("§8Sneak + clic gauche pour augmenter de 5 niveaux.")));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -162,11 +162,11 @@ public class SkillTree extends UIHandler {
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
 		String color = has ? "§2" : "§4";
 		String ccolor = has ? "§a" : "§c";
-		meta.setDisplayName(color + (ability.getMastery().equals(Mastery.MASTER) ? rp.translateString("§l[MASTER] ", "§l[MAITRE] ") : (ability.getMastery().equals(Mastery.HERO) ? rp.translateString("§l[HERO] ", "§l[HEROS] ") : "")) + ccolor + ability.getName() + color + (ability.isPassive() ? " - PASSIVE" : " - ACTIVE"));
+		meta.setDisplayName(color + (ability.getMastery().equals(Mastery.MASTER) ? ("§l[MAITRE] ") : (ability.getMastery().equals(Mastery.HERO) ? ("§l[HEROS] ") : "")) + ccolor + ability.getName() + color + (ability.isPassive() ? " - PASSIVE" : " - ACTIVE"));
 		List<String> lore = new ArrayList<String>();
 		List<String> description = ability.getDescription();
 		for(int i = 0;i < (description.size()/2);i++){
-			lore.add("§7" + rp.translateString(description.get(i), description.get(i+(description.size()/2))));
+			lore.add("§7" + (description.get(i+(description.size()/2))));
 		}
 		String keystroke = "";
 		if(ability.isPassive()){
@@ -179,13 +179,13 @@ public class SkillTree extends UIHandler {
 				if(part[1].contains("SP") && !part[1].contains("!SP"))keystroke = "Sprint + ";
 			}
 			String[] clicks = part[0].split("");
-			if(clicks.length > 0)keystroke += rp.translateString("", "Clic ");
+			if(clicks.length > 0)keystroke += ("Clic ");
 			for(int i = 0;i < clicks.length;i++){
-				if(clicks[i].equals("D"))keystroke += rp.translateString("Right", "Droit");
-				else if(clicks[i].equals("G"))keystroke += rp.translateString("Left", "Gauche");
+				if(clicks[i].equals("D"))keystroke += ("Droit");
+				else if(clicks[i].equals("G"))keystroke += ("Gauche");
 				if(i != clicks.length-1)keystroke += "/";
 			}
-			if(clicks.length > 0)keystroke += rp.translateString(" Click", "");
+			if(clicks.length > 0)keystroke += ("");
 		}
 		double damages = Utils.round(ability.getDamages(rp)*(ability.isPassive() ? 1 : rp.getAbilityDamagesFactor()), 2);
 		double upDamages = Utils.round(((rp.getAbilityLevel(ability.getIndex())+1)*ability.getSettings().getDamagesPerLevel()+ability.getSettings().getDamagesMin())*(ability.isPassive() ? 1 : rp.getAbilityDamagesFactor()), 2);

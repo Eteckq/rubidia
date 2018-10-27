@@ -57,16 +57,16 @@ public class PrefsUI extends UIHandler {
 	
 	public PrefsUI(Player p) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), 18, rp.translateString("Preferences", "Préférences"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 18, ("Préférences"));
 		ItemMeta META = ITEM_DISABLED.getItemMeta();
-		META.setDisplayName(rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer"));
+		META.setDisplayName(("§e§lCliquez pour basculer"));
 		ITEM_DISABLED.setItemMeta(META);
 		ITEM_ENABLED.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir"));
+		META.setDisplayName(("§e§lCliquez pour ouvrir"));
 		ITEM_INFO.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§e§lClick to cycle", "§e§lCliquez pour cycler"));
+		META.setDisplayName(("§e§lCliquez pour cycler"));
 		ITEM_RANKINFO.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§e§lClick to choose", "§e§lCliquez pour choisir"));
+		META.setDisplayName(("§e§lCliquez pour choisir"));
 		ITEM_CHOOSE.setItemMeta(META);
 	}
 
@@ -216,94 +216,94 @@ public class PrefsUI extends UIHandler {
 
 	private ItemStack getNotifOnFriendJoin(){
 		SkullMeta META_NOTIFJOIN = (SkullMeta) ITEM_NOTIFJOIN.getItemMeta();
-		META_NOTIFJOIN.setDisplayName((rp.getNotifOnFriendJoin() ? "§a" : "§c") + rp.translateString("§lLogin notification", "§lNotification de connexion"));
-		META_NOTIFJOIN.setLore(Arrays.asList(rp.translateString("§7Get notified when a team mate logs in", "§7Soyez notifié de la connexion d'un équipier"), rp.translateString("§7by a little sound and a chat message!", "§7par un doux son et un message !"), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_NOTIFJOIN.setDisplayName((rp.getNotifOnFriendJoin() ? "§a" : "§c") + ("§lNotification de connexion"));
+		META_NOTIFJOIN.setLore(Arrays.asList(("§7Soyez notifié de la connexion d'un équipier"), ("§7par un doux son et un message !"), "", ("§e§lCliquez pour basculer")));
 		META_NOTIFJOIN.setOwningPlayer(Bukkit.getOfflinePlayer(this.getHolder().getUniqueId()));
 		ITEM_NOTIFJOIN.setItemMeta(META_NOTIFJOIN);
 		return ITEM_NOTIFJOIN;
 	}
 	private ItemStack getClickSound(){
 		ItemMeta META_INVOCATION = ITEM_CLICKSOUND.getItemMeta();
-		META_INVOCATION.setDisplayName((rp.getClickSound() ? "§a" : "§c") + rp.translateString("§lClick Sound", "§lSon de clic"));
-		META_INVOCATION.setLore(Arrays.asList(rp.translateString("§7Enable or not the little but quickly annoying", "§7Activez ou non le son de clic - rapidement"), rp.translateString("§7sound made every time you click (to confirm", "§7ennuyant - produit lorsque vous cliquez avec"), rp.translateString("§7your click has been registered).", "§7votre item de classe."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_INVOCATION.setDisplayName((rp.getClickSound() ? "§a" : "§c") + ("§lSon de clic"));
+		META_INVOCATION.setLore(Arrays.asList(("§7Activez ou non le son de clic - rapidement"), ("§7ennuyant - produit lorsque vous cliquez avec"), ("§7votre item de classe."), "", ("§e§lCliquez pour basculer")));
 		ITEM_CLICKSOUND.setItemMeta(META_INVOCATION);
 		return ITEM_CLICKSOUND;
 	}
 	private ItemStack getInvocation(){
 		ItemMeta META_INVOCATION = ITEM_INVOCATION.getItemMeta();
 		META_INVOCATION.setDisplayName((rp.getWouldLikeInvocation() ? "§a" : "§c") + "§lInvocation");
-		META_INVOCATION.setLore(Arrays.asList(rp.translateString("§7Enable or not your invocation by scroll.", "§7Activez ou non votre invocation par parchemin."), rp.translateString("§7You won't be visible in invokeable", "§7Si désactivé, vous ne serez pas visible"), rp.translateString("§7player list if disabled.", "§7dans la liste des joueurs invocables."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_INVOCATION.setLore(Arrays.asList(("§7Activez ou non votre invocation par parchemin."), ("§7Si désactivé, vous ne serez pas visible"), ("§7dans la liste des joueurs invocables."), "", ("§e§lCliquez pour basculer")));
 		ITEM_INVOCATION.setItemMeta(META_INVOCATION);
 		return ITEM_INVOCATION;
 	}
 	private ItemStack getTeleportation(){
 		ItemMeta META_TELEPORTATION = ITEM_TELEPORTATION.getItemMeta();
-		META_TELEPORTATION.setDisplayName((rp.getWouldLikeTeleportation() ? "§a" : "§c") + rp.translateString("§lTeleportation", "§lTéléportation"));
-		META_TELEPORTATION.setLore(Arrays.asList(rp.translateString("§7Enable or not teleportation to you by scroll.", "§7Activez ou non la téléportation à vous par parchemin."), rp.translateString("§7You won't be visible in teleportable", "§7Si désactivé, vous ne serez pas visible"), rp.translateString("§7player list if disabled.", "§7dans la liste des joueurs cibles."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_TELEPORTATION.setDisplayName((rp.getWouldLikeTeleportation() ? "§a" : "§c") + ("§lTéléportation"));
+		META_TELEPORTATION.setLore(Arrays.asList(("§7Activez ou non la téléportation à vous par parchemin."), ("§7Si désactivé, vous ne serez pas visible"), ("§7dans la liste des joueurs cibles."), "", ("§e§lCliquez pour basculer")));
 		ITEM_TELEPORTATION.setItemMeta(META_TELEPORTATION);
 		return ITEM_TELEPORTATION;
 	}
 	private ItemStack getMusic(){
 		ItemMeta META_MUSIC = ITEM_MUSIC.getItemMeta();
-		META_MUSIC.setDisplayName((rp.getMusic() ? "§a" : "§c") + "§l" + rp.translateString("Music", "Musique"));
-		META_MUSIC.setLore(Arrays.asList(rp.translateString("§7Enable or disable music available in common places.", "§7Activer ou désactiver la musique des lieux communs."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_MUSIC.setDisplayName((rp.getMusic() ? "§a" : "§c") + "§l" + ("Musique"));
+		META_MUSIC.setLore(Arrays.asList(("§7Activer ou désactiver la musique des lieux communs."), "", ("§e§lCliquez pour basculer")));
 		ITEM_MUSIC.setItemMeta(META_MUSIC);
 		return ITEM_MUSIC;
 	}
 	private ItemStack getNext() {
 		ItemMeta META_CHATSETTINGS = ITEM_NEXT.getItemMeta();
-		META_CHATSETTINGS.setDisplayName(rp.translateString("§6§lChat Settings", "§6§lParamètres du Chat"));
-		META_CHATSETTINGS.setLore(Arrays.asList(rp.translateString("§7Select what you want and what you don't want to see!", "§7Choisissez quels messages afficher et lesquels cacher !"), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META_CHATSETTINGS.setDisplayName(("§6§lParamètres du Chat"));
+		META_CHATSETTINGS.setLore(Arrays.asList(("§7Choisissez quels messages afficher et lesquels cacher !"), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_NEXT.setItemMeta(META_CHATSETTINGS);
 		return ITEM_NEXT;
 	}
 	private ItemStack getCombatLevel() {
 		ItemMeta META_BLOOD = ITEM_COMBAT.getItemMeta();
-		META_BLOOD.setDisplayName((rp.getCombatLevel() == 0 ? "§c" : rp.getCombatLevel() == 1 ? "§6" : "§a") + "§l" + rp.translateString("Combat ambiance", "Ambiance de combat"));
-		META_BLOOD.setLore(Arrays.asList(rp.translateString("§7Cycle among different comabt ambiances:", "§7Cyclez parmis les différents niveaux d'ambiance de combat :"), (rp.getCombatLevel() == 0 ? "§8>>" : "§7-") + " 0 :: " + rp.translateString("No ambiance", "Aucune ambiance"), (rp.getCombatLevel() == 1 ? "§8>>" : "§7-") + " 1 :: " + rp.translateString("Health bar", "Barre de vie"), (rp.getCombatLevel() == 2 ? "§8>>" : "§7-") + " 2 :: " + rp.translateString("Dynamic damages", "Dégâts dynamiques"), (rp.getCombatLevel() == 3 ? "§8>>" : "§7-") + " 3 :: " + rp.translateString("Blood", "Sang"), "", rp.translateString("§e§lClick to cycle", "§e§lCliquez pour cycler")));
+		META_BLOOD.setDisplayName((rp.getCombatLevel() == 0 ? "§c" : rp.getCombatLevel() == 1 ? "§6" : "§a") + "§l" + ("Ambiance de combat"));
+		META_BLOOD.setLore(Arrays.asList(("§7Cyclez parmis les différents niveaux d'ambiance de combat :"), (rp.getCombatLevel() == 0 ? "§8>>" : "§7-") + " 0 :: " + ("Aucune ambiance"), (rp.getCombatLevel() == 1 ? "§8>>" : "§7-") + " 1 :: " + ("Barre de vie"), (rp.getCombatLevel() == 2 ? "§8>>" : "§7-") + " 2 :: " + ("Dégâts dynamiques"), (rp.getCombatLevel() == 3 ? "§8>>" : "§7-") + " 3 :: " + ("Sang"), "", ("§e§lCliquez pour cycler")));
 		ITEM_COMBAT.setItemMeta(META_BLOOD);
 		return ITEM_COMBAT;
 	}
 	private ItemStack getEffects() {
 		ItemMeta META_EFFECTS = ITEM_EFFECTS.getItemMeta();
 		META_EFFECTS.setDisplayName((rp.getEffects() ? "§a" : "§c") + "§lAnimations");
-		META_EFFECTS.setLore(Arrays.asList(rp.translateString("§7Disable this option if you are victim of lags.", "§7Désactivez cette option si vous êtes victime de lags."), rp.translateString("§7It displays particle animations depending on what you do.", "§7Elle permet d'ajouter des animations de particules lors du jeu."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_EFFECTS.setLore(Arrays.asList(("§7Désactivez cette option si vous êtes victime de lags."), ("§7Elle permet d'ajouter des animations de particules lors du jeu."), "", ("§e§lCliquez pour basculer")));
 		ITEM_EFFECTS.setItemMeta(META_EFFECTS);
 		return ITEM_EFFECTS;
 	}
 
 	private ItemStack getBack(){
 		ItemMeta META_BACK = ITEM_BACK.getItemMeta();
-		META_BACK.setDisplayName(rp.translateString("§6§lPreferences", "§6§lPréférences"));
-		META_BACK.setLore(Arrays.asList(rp.translateString("§7Get back to the preferences menu.", "§7Retourner au menu des préférences."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META_BACK.setDisplayName(("§6§lPréférences"));
+		META_BACK.setLore(Arrays.asList(("§7Retourner au menu des préférences."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_BACK.setItemMeta(META_BACK);
 		return ITEM_BACK;
 	}
 	private ItemStack getTextures(){
 		ItemMeta META_CHAT = ITEM_TEXTURES.getItemMeta();
-		META_CHAT.setDisplayName((rp.isUsingTextures() ? "§a" : "§c") + "§l" + rp.translateString("Custom textures", "Textures approfondies"));
-		META_CHAT.setLore(Arrays.asList(rp.translateString("§7If enabled, you will be using our custom bloc textures.", "§7Si activé, vous utilisez nos textures personnalisées."), rp.translateString("§7(Additional resource pack size: 3.08MB)", "§7(Taille additionnelle du resource pack : 3.08 Mo)"), rp.translateString("§7Disable this if you don't want to use them.", "§7Désactivez cette option si vous ne souhaitez pas les utiliser."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_CHAT.setDisplayName((rp.isUsingTextures() ? "§a" : "§c") + "§l" + ("Textures approfondies"));
+		META_CHAT.setLore(Arrays.asList(("§7Si activé, vous utilisez nos textures personnalisées."), ("§7(Taille additionnelle du resource pack : 3.08 Mo)"), ("§7Désactivez cette option si vous ne souhaitez pas les utiliser."), "", ("§e§lCliquez pour basculer")));
 		ITEM_TEXTURES.setItemMeta(META_CHAT);
 		return ITEM_TEXTURES;
 	}
 	private ItemStack getChatSize(){
 		ItemMeta META_CHAT = ITEM_CHATSETTINGS.getItemMeta();
-		META_CHAT.setDisplayName("§6§l" + rp.translateString("Chat size", "Taille du chat"));
-		META_CHAT.setLore(Arrays.asList(rp.translateString("§7Change the size of your chatbox according", "§7Modifiez la taille de la chatbox en fonction"), rp.translateString("§7to your minecraft chat settings.", "§7de vos paramètres de discussion minecraft."), "", rp.translateString("§e§lClick to choose", "§e§lCliquez pour choisir")));
+		META_CHAT.setDisplayName("§6§l" + ("Taille du chat"));
+		META_CHAT.setLore(Arrays.asList(("§7Modifiez la taille de la chatbox en fonction"), ("§7de vos paramètres de discussion minecraft."), "", ("§e§lCliquez pour choisir")));
 		ITEM_CHATSETTINGS.setItemMeta(META_CHAT);
 		return ITEM_CHATSETTINGS;
 	}
 	private ItemStack getChat(){
 		ItemMeta META_CHAT = ITEM_CHAT.getItemMeta();
-		META_CHAT.setDisplayName("§6§l" + rp.translateString("Custom chat", "Chat personnalisé"));
-		META_CHAT.setLore(Arrays.asList(rp.translateString("§7Enable or disable our custom chat.", "§7Activez ou désactivez notre chat personnalisé."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_CHAT.setDisplayName("§6§l" + ("Chat personnalisé"));
+		META_CHAT.setLore(Arrays.asList(("§7Activez ou désactivez notre chat personnalisé."), "", ("§e§lCliquez pour basculer")));
 		ITEM_CHAT.setItemMeta(META_CHAT);
 		return ITEM_CHAT;
 	}
 	private ItemStack getCycle(){
 		ItemMeta META_CYCLE = ITEM_CYCLE.getItemMeta();
-		META_CYCLE.setDisplayName("§6§l" + rp.translateString("Inventory cycle", "Cycle d'inventaire"));
-		META_CYCLE.setLore(Arrays.asList(rp.translateString("§7Enable or disable the inventory cycle", "§7Activez ou désactivez le cycle d'inventaire"), rp.translateString("§7when hovering last hotbar slot.", "§7au survol du dernier slot de la hotbar."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_CYCLE.setDisplayName("§6§l" + ("Cycle d'inventaire"));
+		META_CYCLE.setLore(Arrays.asList(("§7Activez ou désactivez le cycle d'inventaire"), ("§7au survol du dernier slot de la hotbar."), "", ("§e§lCliquez pour basculer")));
 		ITEM_CYCLE.setItemMeta(META_CYCLE);
 		return ITEM_CYCLE;
 	}

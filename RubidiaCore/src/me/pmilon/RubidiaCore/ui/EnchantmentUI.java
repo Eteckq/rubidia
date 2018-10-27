@@ -33,7 +33,7 @@ public class EnchantmentUI extends UIHandler {
 	
 	public EnchantmentUI(Location location, Player p) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), 9, rp.translateString("Enchantment", "Enchantement"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 9, ("Enchantement"));
 		this.item = this.getHolder().getEquipment().getItemInMainHand().clone();
 		this.location = location;
 		for(int i = 0;i < 4;i++) {
@@ -75,8 +75,8 @@ public class EnchantmentUI extends UIHandler {
 		ItemStack itemb = this.item.clone();
 		for(int i = 1;i < 5;i++){
 			if(bLevel >= i){
-				meta.setDisplayName(rp.translateString("§aRandom enchantment | §aPalliate §2" + i, "§aEnchantement aléatoire | §aPallier §2" + i));
-				meta.setLore(Arrays.asList("§8§m                                               ", "", rp.translateString("§7Randomly enchant this", "§7Enchantez cet item aléatoirement"), rp.translateString("§7item by clicking it.", "§7en cliquant dessus."), rp.translateString("§7Enchantments level " + (i == 4 ? "4-5" : (i == 3 ? "2-5" : (i == 2 ? "1-3" : "1-2"))) + " (max)", "§7Enchantements niveau " + (i == 4 ? "4-5" : (i == 3 ? "2-5" : (i == 2 ? "1-3" : "1-2"))) + " (max)"), "", rp.translateString("§cCost: §4" + this.getCost(i) + "§c emeralds", "§cCoût : §4" + this.getCost(i) + "§c émeraudes")));
+				meta.setDisplayName(("§aEnchantement aléatoire | §aPallier §2" + i));
+				meta.setLore(Arrays.asList("§8§m                                               ", "", ("§7Enchantez cet item aléatoirement"), ("§7en cliquant dessus."), ("§7Enchantements niveau " + (i == 4 ? "4-5" : (i == 3 ? "2-5" : (i == 2 ? "1-3" : "1-2"))) + " (max)"), "", ("§cCoût : §4" + this.getCost(i) + "§c émeraudes")));
 				itemb.setItemMeta(meta);
 				itemb.setAmount(i);
 				this.getMenu().setItem(i*2-1, itemb);
@@ -197,8 +197,8 @@ public class EnchantmentUI extends UIHandler {
 	private ItemStack getNo(int level){
 		ItemStack stack = new ItemStack(Material.BARRIER, level);
 		ItemMeta meta = stack.getItemMeta();
-		meta.setDisplayName(rp.translateString("§4Palliate locked - Enchantments lvl." + (level == 4 ? "3-5" : (level == 3 ? "2-4" : (level == 2 ? "1-3" : "1-2"))), "§4Pallier bloqué - Enchantements n." + (level == 4 ? "3-5" : (level == 3 ? "2-4" : (level == 2 ? "1-3" : "1-2")))));
-		meta.setLore(Arrays.asList(rp.translateString("§cYou need " + (level*9) + " bookshelfs around this", "§cVous avez besoin de positionner " + (level*9) + " bibliothèques"), rp.translateString("§ctable to unlock this palliate!", "§cautour de cette table pour débloquer ce pallier !")));
+		meta.setDisplayName(("§4Pallier bloqué - Enchantements n." + (level == 4 ? "3-5" : (level == 3 ? "2-4" : (level == 2 ? "1-3" : "1-2")))));
+		meta.setLore(Arrays.asList(("§cVous avez besoin de positionner " + (level*9) + " bibliothèques"), ("§cautour de cette table pour débloquer ce pallier !")));
 		stack.setItemMeta(meta);
 		return stack;
 	}

@@ -112,8 +112,8 @@ public class PetDistinctionsMenu extends UIHandler {
 		ItemStack item = new ItemStack(Material.BOOK, this.getPet().getDistinctionPoints() > 0 ? (this.getPet().getDistinctionPoints() > 64 ? 64 : this.getPet().getDistinctionPoints()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = this.getPet().getDistinctionPoints() > 0 ? "§2" : "§4";
-		meta.setDisplayName(color + "§l" + this.getPet().getDistinctionPoints() + color + " " + rp.translateString("distinction point", "point") + (this.getPet().getDistinctionPoints() > 1 ? "s" : "") + rp.translateString("", " de distinction"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Distinction points are gained everytime your pet level up.", "Les points de distinction sont gagnés à chaque niveau que votre compagnon gagne."), "§7" + rp.translateString("They allow you to level up one of the following distinctions.", "Ils vous permettent d'augmenter le niveau des distinctions suivantes."), "§7" + rp.translateString("Details on the effects of each distinction available on hover.", "Les détails sur les effets de chaque distinction sont disponibles au survol.")));
+		meta.setDisplayName(color + "§l" + this.getPet().getDistinctionPoints() + color + " " + ("point") + (this.getPet().getDistinctionPoints() > 1 ? "s" : "") + (" de distinction"));
+		meta.setLore(Arrays.asList("§7" + ("Les points de distinction sont gagnés à chaque niveau que votre compagnon gagne."), "§7" + ("Ils vous permettent d'augmenter le niveau des distinctions suivantes."), "§7" + ("Les détails sur les effets de chaque distinction sont disponibles au survol.")));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -121,8 +121,8 @@ public class PetDistinctionsMenu extends UIHandler {
 		ItemStack item = new ItemStack(Material.LIGHT_GRAY_DYE, this.getPet().getArdor() > 0 ? (this.getPet().getArdor() > 64 ? 64 : this.getPet().getArdor()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = this.getPet().getArdor() > 0 ? "§2" : "§4";
-		meta.setDisplayName(color + "§l" + this.getPet().getArdor() + color + " " + rp.translateString("ardor point", "point") + (this.getPet().getArdor() > 1 ? "s" : "") + rp.translateString("", " d'ardeur"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Ardor enhances all damages your", "L'ardeur améliore tous les dégâts"), rp.translateString("§7pet deals to enemies.", "§7que votre compagnon inflige aux ennemis."), "§4" + Utils.round(this.getPet().getDamages(), 2) + " " + (this.getPet().getDistinctionPoints() > 0 ? "§c§o(+" + Utils.round(Settings.ARDOR_DAMAGES_FACTOR, 2) + ")" : "") + "§l §8" + rp.translateString("damages", "dégâts")));
+		meta.setDisplayName(color + "§l" + this.getPet().getArdor() + color + " " + ("point") + (this.getPet().getArdor() > 1 ? "s" : "") + (" d'ardeur"));
+		meta.setLore(Arrays.asList("§7" + ("L'ardeur améliore tous les dégâts"), ("§7que votre compagnon inflige aux ennemis."), "§4" + Utils.round(this.getPet().getDamages(), 2) + " " + (this.getPet().getDistinctionPoints() > 0 ? "§c§o(+" + Utils.round(Settings.ARDOR_DAMAGES_FACTOR, 2) + ")" : "") + "§l §8" + ("dégâts")));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -130,8 +130,8 @@ public class PetDistinctionsMenu extends UIHandler {
 		ItemStack item = new ItemStack(Material.CACTUS_GREEN, this.getPet().getPatience() > 0 ? (this.getPet().getPatience() > 64 ? 64 : this.getPet().getPatience()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = this.getPet().getPatience() > 0 ? "§2" : "§4";
-		meta.setDisplayName(color + "§l" + this.getPet().getPatience() + color + " " + rp.translateString("patience point", "point") + (this.getPet().getPatience() > 1 ? "s" : "") + rp.translateString("", " de patience"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Patience increases your pet's health points.", "La patience augmente les points de vie de votre compagnon."), "§4" + Utils.round(this.getPet().getMaxHealth(), 2) + " " + (this.getPet().getDistinctionPoints() > 0 ? "§c§o(+" + Utils.round(Settings.PATIENCE_HEALTH_FACTOR, 2) + ")" : "") + "§l §8" + rp.translateString("health points", "points de vie")));
+		meta.setDisplayName(color + "§l" + this.getPet().getPatience() + color + " " + ("point") + (this.getPet().getPatience() > 1 ? "s" : "") + (" de patience"));
+		meta.setLore(Arrays.asList("§7" + ("La patience augmente les points de vie de votre compagnon."), "§4" + Utils.round(this.getPet().getMaxHealth(), 2) + " " + (this.getPet().getDistinctionPoints() > 0 ? "§c§o(+" + Utils.round(Settings.PATIENCE_HEALTH_FACTOR, 2) + ")" : "") + "§l §8" + ("points de vie")));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -139,15 +139,15 @@ public class PetDistinctionsMenu extends UIHandler {
 		ItemStack item = new ItemStack(Material.PURPLE_DYE, this.getPet().getAcuity() > 0 ? (this.getPet().getAcuity() > 64 ? 64 : this.getPet().getAcuity()) : 1);
 		ItemMeta meta = item.getItemMeta();
 		String color = this.getPet().getAcuity() > 0 ? "§2" : "§4";
-		meta.setDisplayName(color + "§l" + this.getPet().getAcuity() + color + " " + rp.translateString("acuity point", "point") + (this.getPet().getAcuity() > 1 ? "s" : "") + rp.translateString("", " d'acuité"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Acuity improves your pet's attack speed.", "L'acuité améliore la vitesse d'attaque de votre compagnon."), "§4" + Utils.round(this.getPet().getAttackSpeed(), 2) + " " + (this.getPet().getDistinctionPoints() > 0 ? "§c§o(+" + Utils.round(Settings.ACUITY_ATTACKSPEED_FACTOR, 2) + ")" : "") + "§l §8" + rp.translateString("attack/second", "attaque/seconde")));
+		meta.setDisplayName(color + "§l" + this.getPet().getAcuity() + color + " " + ("point") + (this.getPet().getAcuity() > 1 ? "s" : "") + (" d'acuité"));
+		meta.setLore(Arrays.asList("§7" + ("L'acuité améliore la vitesse d'attaque de votre compagnon."), "§4" + Utils.round(this.getPet().getAttackSpeed(), 2) + " " + (this.getPet().getDistinctionPoints() > 0 ? "§c§o(+" + Utils.round(Settings.ACUITY_ATTACKSPEED_FACTOR, 2) + ")" : "") + "§l §8" + ("attaque/seconde")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getBack(){
 		ItemStack back = new ItemStack(Material.MELON, 1);
 		ItemMeta meta = back.getItemMeta();
-		meta.setDisplayName("§7" + rp.translateString("Get back", "Retour"));
+		meta.setDisplayName("§7" + ("Retour"));
 		back.setItemMeta(meta);
 		return back;
 	}

@@ -164,7 +164,7 @@ public enum ScrollType {
 					player.showPlayer(Core.instance, p);
 				}
 				p.removePotionEffect(PotionEffectType.BLINDNESS);
-				rp.sendTitle(rp.translateString("§6You have been revived!", "§6Vous avez été réanimé !"), rp.translateString("§eWith only 60% of your life", "§eAvec uniquement 60% de votre vie"), 5, 30, 15);
+				rp.sendTitle(("§6Vous avez été réanimé !"), ("§eAvec uniquement 60% de votre vie"), 5, 30, 15);
 				this.setUsed(true);
 			}else{
 				this.setUsed(false);

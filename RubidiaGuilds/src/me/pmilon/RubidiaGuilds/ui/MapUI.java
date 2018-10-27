@@ -38,7 +38,7 @@ public class MapUI extends UIHandler {
 			this.p = 4;
 		}
 		this.center = location.getChunk();
-		this.menu = Bukkit.createInventory(this.getHolder(), 45, rp.translateString("Map of nearby claims", "Carte des territoires"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 45, ("Carte des territoires"));
 	}
 
 	@Override
@@ -98,12 +98,12 @@ public class MapUI extends UIHandler {
 				if(WGUtils.testState(null, this.getHolder().getWorld(), new Vector(x*16,0,z*16), new Vector(x*16+15,255,z*16+15), Flags.CLAIM)){
 					item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 					meta = item.getItemMeta();
-					meta.setDisplayName("§f§l" + rp.translateString("Free territory", "Territoire libre"));
+					meta.setDisplayName("§f§l" + ("Territoire libre"));
 					item.setItemMeta(meta);
 				}else{
 					item = new ItemStack(Material.ORANGE_STAINED_GLASS_PANE, 1);
 					meta = item.getItemMeta();
-					meta.setDisplayName("§6§l" + rp.translateString("Protected territory", "Territoire protégé"));
+					meta.setDisplayName("§6§l" + ("Territoire protégé"));
 					item.setItemMeta(meta);
 				}
 			}else{
@@ -111,37 +111,37 @@ public class MapUI extends UIHandler {
 				if(claimGuild.isPeaceful()){
 					item = new ItemStack(Material.YELLOW_STAINED_GLASS_PANE, 1);
 					meta = item.getItemMeta();
-					meta.setDisplayName("§6§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
-					lore.add("§e§o" + rp.translateString("by","par") + " " + claimGuild.getName());
+					meta.setDisplayName("§6§l" + ("Territoire revendiqué"));
+					lore.add("§e§o" + ("par") + " " + claimGuild.getName());
 				}else{
 					if(gm.hasGuild()){
 						Guild guild = gm.getGuild();
 						if(guild.getRelationTo(claimGuild).equals(Relation.ALLY)){
 							item = new ItemStack(Material.MAGENTA_STAINED_GLASS_PANE, 1);
 							meta = item.getItemMeta();
-							meta.setDisplayName("§5§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
-							lore.add("§d§o" + rp.translateString("by","par") + " " + claimGuild.getName());
+							meta.setDisplayName("§5§l" + ("Territoire revendiqué"));
+							lore.add("§d§o" + ("par") + " " + claimGuild.getName());
 						}else if(guild.getRelationTo(claimGuild).equals(Relation.ENEMY)){
 							item = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
 							meta = item.getItemMeta();
-							meta.setDisplayName("§4§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
-							lore.add("§c§o" + rp.translateString("by","par") + " " + claimGuild.getName());
+							meta.setDisplayName("§4§l" + ("Territoire revendiqué"));
+							lore.add("§c§o" + ("par") + " " + claimGuild.getName());
 						}else if(guild.getRelationTo(claimGuild).equals(Relation.MEMBER)){
 							item = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
 							meta = item.getItemMeta();
-							meta.setDisplayName("§2§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
-							lore.add("§a§o" + rp.translateString("by","par") + " " + claimGuild.getName());
+							meta.setDisplayName("§2§l" + ("Territoire revendiqué"));
+							lore.add("§a§o" + ("par") + " " + claimGuild.getName());
 						}else if(guild.getRelationTo(claimGuild).equals(Relation.NEUTRAL)){
 							item = new ItemStack(Material.BLUE_STAINED_GLASS_PANE, 1);
 							meta = item.getItemMeta();
-							meta.setDisplayName("§9§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
-							lore.add("§b§o" + rp.translateString("by","par") + " " + claimGuild.getName());
+							meta.setDisplayName("§9§l" + ("Territoire revendiqué"));
+							lore.add("§b§o" + ("par") + " " + claimGuild.getName());
 						}
 					}else{
 						item = new ItemStack(Material.BLUE_STAINED_GLASS_PANE, 1);
 						meta = item.getItemMeta();
-						meta.setDisplayName("§9§l" + rp.translateString("Claimed territory", "Territoire revendiqué"));
-						lore.add("§b§o" + rp.translateString("by","par") + " " + claimGuild.getName());
+						meta.setDisplayName("§9§l" + ("Territoire revendiqué"));
+						lore.add("§b§o" + ("par") + " " + claimGuild.getName());
 					}
 				}
 			}
@@ -149,7 +149,7 @@ public class MapUI extends UIHandler {
 			if(i == 2 && j == 4){
 				item = new ItemStack(Material.BROWN_STAINED_GLASS_PANE, 1);
 				lore.add("");
-				lore.add("§7" + rp.translateString("You are here","Vous êtes ici"));
+				lore.add("§7" + ("Vous êtes ici"));
 			}
 			lore.add("§8(" + x + "," + z + ")");
 			if(meta == null)meta = item.getItemMeta();

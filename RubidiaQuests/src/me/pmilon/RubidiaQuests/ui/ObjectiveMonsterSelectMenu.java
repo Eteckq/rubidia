@@ -37,7 +37,7 @@ public class ObjectiveMonsterSelectMenu extends ListMenuUIHandler<Monster>{
 		ItemStack infos = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList(rp.translateString("§7Choose monster to select", "§7Choisissez un monstre à ajouter"), rp.translateString("§7or click here to get back", "§7ou cliquez ici pour retourner au menu précédent")));
+		meta.setLore(Arrays.asList(("§7Choisissez un monstre à ajouter"), ("§7ou cliquez ici pour retourner au menu précédent")));
 		infos.setItemMeta(meta);
 		return infos;
 	}

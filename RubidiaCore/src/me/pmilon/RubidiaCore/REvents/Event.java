@@ -86,13 +86,13 @@ public class Event {
 		this.startDate = System.currentTimeMillis();
 		this.started = true;
 		for(RPlayer rp : RPlayer.getOnlines()){
-			rp.sendTitle(rp.translateString("§5§lEVENT STARTED", "§5§lEVENEMENT EN COURS"), "§d" + this.getSubtitle(), 0, 100, 40);
+			rp.sendTitle(("§5§lEVENEMENT EN COURS"), "§d" + this.getSubtitle(), 0, 100, 40);
 		}
 	}
 	
 	public void finish(){
 		for(RPlayer rp : RPlayer.getOnlines()){
-			rp.sendTitle(rp.translateString("§5§lEVENT STARTED", "§5§lEVENEMENT EN COURS"), "§d" + this.getSubtitle(), 0, 100, 40);
+			rp.sendTitle(("§5§lEVENEMENT EN COURS"), "§d" + this.getSubtitle(), 0, 100, 40);
 		}
 		this.started = false;
 	}

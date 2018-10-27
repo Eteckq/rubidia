@@ -40,10 +40,10 @@ public abstract class ConfirmationUI extends UIHandler {
 		ItemStack ok = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
 		ItemStack notok = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = ok.getItemMeta();
-		meta.setDisplayName(rp.translateString("§2§lYES", "§2§lOUI"));
+		meta.setDisplayName(("§2§lOUI"));
 		if(details.length > 1)meta.setLore(Arrays.asList(details[0]));
 		ok.setItemMeta(meta);
-		meta.setDisplayName(rp.translateString("§4§lNO", "§4§lNON"));
+		meta.setDisplayName(("§4§lNON"));
 		if(details.length > 1)meta.setLore(Arrays.asList(details[1]));
 		notok.setItemMeta(meta);
 		for(int i = 0;i < 4;i++){

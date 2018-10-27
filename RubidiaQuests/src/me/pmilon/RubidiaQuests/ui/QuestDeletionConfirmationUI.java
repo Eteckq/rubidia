@@ -13,8 +13,8 @@ public class QuestDeletionConfirmationUI extends ConfirmationUI {
 	private Quest quest;
 	private QuestPNJ pnj;
 	public QuestDeletionConfirmationUI(RPlayer rp, Quest quest, QuestPNJ pnj) {
-		super(rp.getPlayer(), rp.translateString("Quest deletion", "Suppression de quête"), new String[]{rp.translateString("§aDelete quest", "§aSupprimer la quête"), rp.translateString("§cKeep quest", "§cConserver la quête")},
-				quest.getColoredTitle(), Arrays.asList(quest.getColoredSubtitle(), rp.translateString("§8Are you sure you want to delete this quest?", "§8Êtes-vous sûr de vouloir supprimer cette quête ?")));
+		super(rp.getPlayer(), ("Suppression de quête"), new String[]{("§aSupprimer la quête"), ("§cConserver la quête")},
+				quest.getColoredTitle(), Arrays.asList(quest.getColoredSubtitle(), ("§8Êtes-vous sûr de vouloir supprimer cette quête ?")));
 		this.quest = quest;
 		this.pnj = pnj;
 	}

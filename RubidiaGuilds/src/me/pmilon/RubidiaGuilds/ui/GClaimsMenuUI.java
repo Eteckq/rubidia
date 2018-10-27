@@ -59,27 +59,27 @@ public class GClaimsMenuUI extends UIHandler {
 		super(p);
 		this.guild = guild;
 		this.claim = claim;
-		this.menu = Bukkit.createInventory(this.getHolder(), 18, StringUtils.abbreviate(this.getGuild().getName() + rp.translateString(" : Claims menu"," : Menu des territoires"), 32));
+		this.menu = Bukkit.createInventory(this.getHolder(), 18, StringUtils.abbreviate(this.getGuild().getName() + (" : Menu des territoires"), 32));
 		
 		ItemMeta META = ITEM_DISABLED.getItemMeta();
-		META.setDisplayName(rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer"));
+		META.setDisplayName(("§e§lCliquez pour basculer"));
 		ITEM_DISABLED.setItemMeta(META);
 		ITEM_ENABLED.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir"));
+		META.setDisplayName(("§e§lCliquez pour ouvrir"));
 		ITEM_INFO.setItemMeta(META);
 		ITEM_CLAIMED = ITEM_ENABLED.clone();
 		ITEM_NOT_CLAIMED = ITEM_DISABLED.clone();
-		META.setDisplayName(rp.translateString("§e§lClick to unclaim", "§e§lCliquez pour céder"));
+		META.setDisplayName(("§e§lCliquez pour céder"));
 		ITEM_CLAIMED.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§e§lClick to claim", "§e§lCliquez pour conquérir"));
+		META.setDisplayName(("§e§lCliquez pour conquérir"));
 		ITEM_NOT_CLAIMED.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§e§lClick to set", "§e§lCliquez pour redéfinir"));
+		META.setDisplayName(("§e§lCliquez pour redéfinir"));
 		ITEM_SET.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§e§lClick to set", "§e§lCliquez pour définir"));
+		META.setDisplayName(("§e§lCliquez pour définir"));
 		ITEM_NOTSET.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§c§lNot available", "§c§lNon disponible"));
+		META.setDisplayName(("§c§lNon disponible"));
 		ITEM_UNAVAILABLE.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§6§lStart raid", "§6§lLancer une offensive"));
+		META.setDisplayName(("§6§lLancer une offensive"));
 		META.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		ITEM_STARTRAID.setItemMeta(META);
 	}
@@ -192,57 +192,57 @@ public class GClaimsMenuUI extends UIHandler {
 
 	private ItemStack getBack(){
 		ItemMeta META_BACK = ITEM_BACK.getItemMeta();
-		META_BACK.setDisplayName("§6§l" + rp.translateString("Main menu", "Menu principal"));
-		META_BACK.setLore(Arrays.asList(rp.translateString("§7Get back to the main menu.", "§7Retourner au menu principal."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META_BACK.setDisplayName("§6§l" + ("Menu principal"));
+		META_BACK.setLore(Arrays.asList(("§7Retourner au menu principal."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_BACK.setItemMeta(META_BACK);
 		return ITEM_BACK;
 	}
 	private ItemStack getClaimer(){
 		ItemMeta META_CLAIMER = ITEM_CLAIMER.getItemMeta();
-		META_CLAIMER.setDisplayName((this.getClaim() != null ? (this.getGuild().equals(this.getClaim().getGuild()) ? "§a§l" : "§c§l") : "§a§l") + rp.translateString("Claim chunk", "Conquérir le territoire"));
-		META_CLAIMER.setLore(Arrays.asList(rp.translateString("§7Claim or unclaim the chunk you are currently in.", "§7Conquérir ou céder le territoire sur lequel vous vous trouvez."), rp.translateString("§6§lTerritories: §e", "§6§lTerritoires : §e") + this.getGuild().getClaims().size(), rp.translateString("§6§lClaims available: ", "§6§lConquêtes disponibles : ") + "§e" + (this.getGuild().getLevel()-this.getGuild().getClaims().size()), "", rp.translateString("§e§lClick to claim", "§e§lCliquez pour conquérir")));
+		META_CLAIMER.setDisplayName((this.getClaim() != null ? (this.getGuild().equals(this.getClaim().getGuild()) ? "§a§l" : "§c§l") : "§a§l") + ("Conquérir le territoire"));
+		META_CLAIMER.setLore(Arrays.asList(("§7Conquérir ou céder le territoire sur lequel vous vous trouvez."), ("§6§lTerritoires : §e") + this.getGuild().getClaims().size(), ("§6§lConquêtes disponibles : ") + "§e" + (this.getGuild().getLevel()-this.getGuild().getClaims().size()), "", ("§e§lCliquez pour conquérir")));
 		ITEM_CLAIMER.setItemMeta(META_CLAIMER);
 		return ITEM_CLAIMER;
 	}
 	private ItemStack getClaimName(){
 		ItemMeta META_CLAIMNAME = ITEM_CLAIMNAME.getItemMeta();
-		META_CLAIMNAME.setDisplayName((this.getClaim() != null ? (this.getGuild().equals(this.getClaim().getGuild()) ? "§a§l" : "§c§l") : "§a§l") + rp.translateString("Name claim", "Nommer le territoire"));
-		META_CLAIMNAME.setLore(Arrays.asList(rp.translateString("§7Name the claim you are currently in.", "§7Nommer le territoire conquis dans lequel vous êtes."), rp.translateString("§7This name will be displayed to members and allies.", "§7Ce nom sera affiché aux membres et aux alliés."), rp.translateString("§6§lCurrent name: ", "§6§lNom du territoire : ") + "§e" + (this.getClaim() != null ? this.getClaim().getName() : "non conquis"), "", rp.translateString("§e§lClick to name", "§e§lCliquez pour nommer")));
+		META_CLAIMNAME.setDisplayName((this.getClaim() != null ? (this.getGuild().equals(this.getClaim().getGuild()) ? "§a§l" : "§c§l") : "§a§l") + ("Nommer le territoire"));
+		META_CLAIMNAME.setLore(Arrays.asList(("§7Nommer le territoire conquis dans lequel vous êtes."), ("§7Ce nom sera affiché aux membres et aux alliés."), ("§6§lNom du territoire : ") + "§e" + (this.getClaim() != null ? this.getClaim().getName() : "non conquis"), "", ("§e§lCliquez pour nommer")));
 		ITEM_CLAIMNAME.setItemMeta(META_CLAIMNAME);
 		return ITEM_CLAIMNAME;
 	}
 	private ItemStack getBuildable(){
 		ItemMeta META_BUILDABLE = ITEM_BUILDABLE.getItemMeta();
-		META_BUILDABLE.setDisplayName((this.getGuild().isClaimBuildable() ? "§c§l" : "§a§l") + rp.translateString("Build protection", "Protection de construction"));
-		META_BUILDABLE.setLore(Arrays.asList(rp.translateString("§7Prevent non-members to build on your territory.", "§7Interdire les joueurs non membres à construire sur votre territoire."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_BUILDABLE.setDisplayName((this.getGuild().isClaimBuildable() ? "§c§l" : "§a§l") + ("Protection de construction"));
+		META_BUILDABLE.setLore(Arrays.asList(("§7Interdire les joueurs non membres à construire sur votre territoire."), "", ("§e§lCliquez pour basculer")));
 		ITEM_BUILDABLE.setItemMeta(META_BUILDABLE);
 		return ITEM_BUILDABLE;
 	}
 	private ItemStack getDoorsUsable(){
 		ItemMeta META_BUILDABLE = ITEM_DOORS_USABLE.getItemMeta();
-		META_BUILDABLE.setDisplayName((this.getGuild().isClaimDoorsUsable() ? "§c§l" : "§a§l") + rp.translateString("Interact protection", "Protection d'intéraction"));
-		META_BUILDABLE.setLore(Arrays.asList(rp.translateString("§7Prevent non-members to interact on your territory.", "§7Interdire les joueurs non membres à intéragir sur votre territoire."), rp.translateString("§7(Applied to doors, gates, buttons, plates...)", "§7(Applicable sur les portes, boutons, plaques de pression...)"), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_BUILDABLE.setDisplayName((this.getGuild().isClaimDoorsUsable() ? "§c§l" : "§a§l") + ("Protection d'intéraction"));
+		META_BUILDABLE.setLore(Arrays.asList(("§7Interdire les joueurs non membres à intéragir sur votre territoire."), ("§7(Applicable sur les portes, boutons, plaques de pression...)"), "", ("§e§lCliquez pour basculer")));
 		ITEM_DOORS_USABLE.setItemMeta(META_BUILDABLE);
 		return ITEM_DOORS_USABLE;
 	}
 	private ItemStack getChestsUsable(){
 		ItemMeta META_BUILDABLE = ITEM_CHESTS_USABLE.getItemMeta();
-		META_BUILDABLE.setDisplayName((this.getGuild().isClaimChestsUsable() ? "§c§l" : "§a§l") + rp.translateString("Use protection", "Protection d'utilisation du matériel"));
-		META_BUILDABLE.setLore(Arrays.asList(rp.translateString("§7Prevent non-members to use your guild's material.", "§7Interdire les joueurs non membres à utiliser votre matériel."), rp.translateString("§7(Applied to chests, furnaces, enchantment tables...)", "§7(Applicable sur les coffres, fours, tables d'enchantement...)"), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_BUILDABLE.setDisplayName((this.getGuild().isClaimChestsUsable() ? "§c§l" : "§a§l") + ("Protection d'utilisation du matériel"));
+		META_BUILDABLE.setLore(Arrays.asList(("§7Interdire les joueurs non membres à utiliser votre matériel."), ("§7(Applicable sur les coffres, fours, tables d'enchantement...)"), "", ("§e§lCliquez pour basculer")));
 		ITEM_CHESTS_USABLE.setItemMeta(META_BUILDABLE);
 		return ITEM_CHESTS_USABLE;
 	}
 	private ItemStack getMobsDamageable(){
 		ItemMeta META_BUILDABLE = ITEM_MOBS_DAMAGEABLE.getItemMeta();
-		META_BUILDABLE.setDisplayName((this.getGuild().isClaimMobsDamageable() ? "§c§l" : "§a§l") + rp.translateString("Tamed mob damage protection", "Protection de dégâts aux monstres apprivoisés"));
-		META_BUILDABLE.setLore(Arrays.asList(rp.translateString("§7Prevent non-members to damage your tamed mobs.", "§7Interdire les joueurs non membres à endommager vos monstres apprivoisés."), rp.translateString("§7(Applied to any leashed mob)", "§7(Applicable sur n'importe quel monstre en laisse)"), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META_BUILDABLE.setDisplayName((this.getGuild().isClaimMobsDamageable() ? "§c§l" : "§a§l") + ("Protection de dégâts aux monstres apprivoisés"));
+		META_BUILDABLE.setLore(Arrays.asList(("§7Interdire les joueurs non membres à endommager vos monstres apprivoisés."), ("§7(Applicable sur n'importe quel monstre en laisse)"), "", ("§e§lCliquez pour basculer")));
 		ITEM_MOBS_DAMAGEABLE.setItemMeta(META_BUILDABLE);
 		return ITEM_MOBS_DAMAGEABLE;
 	}
 	private ItemStack getHomes(){
 		ItemMeta META_BUILDABLE = ITEM_HOMES.getItemMeta();
-		META_BUILDABLE.setDisplayName("§6§l" + rp.translateString("Guild's homes' list", "Liste des PR de guilde"));
-		META_BUILDABLE.setLore(Arrays.asList(rp.translateString("§7Open your guild's homes' list to set/use them.", "§7Ouvrir le menu des PR de guilde pour en définir/utiliser."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META_BUILDABLE.setDisplayName("§6§l" + ("Liste des PR de guilde"));
+		META_BUILDABLE.setLore(Arrays.asList(("§7Ouvrir le menu des PR de guilde pour en définir/utiliser."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_HOMES.setItemMeta(META_BUILDABLE);
 		return ITEM_HOMES;
 	}

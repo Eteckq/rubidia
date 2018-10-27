@@ -313,7 +313,7 @@ public class Quest extends RequiredHolder {
 			
 			if(rp1.isOnline()){
 				rp1.getPlayer().playSound(rp1.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2F);
-				rp1.sendTitle(quest.getColoredTitle(), rp1.translateString("§eQuest completed!", "§eQuête terminée !"), 5, 100, 10);
+				rp1.sendTitle(quest.getColoredTitle(), ("§eQuête terminée !"), 5, 100, 10);
 			}
 			for(Objective objective : quest.getObjectives()){
 				objective.removeScore(rp1);

@@ -31,8 +31,8 @@ public class PasserPNJ extends DialogerPNJ {
 		RPlayer rp = RPlayer.get(p);
 		p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_AMBIENT, 1, 1);
 		
-	    TextComponent accept = new TextComponent(rp.translateString("§a[ ✔  Accept]", "§a[ ✔  Accepter]"));
-	    TextComponent refuse = new TextComponent(rp.translateString("§c[ ✘  Deny]", "§c[ ✘  Refuser]"));
+	    TextComponent accept = new TextComponent(("§a[ ✔  Accepter]"));
+	    TextComponent refuse = new TextComponent(("§c[ ✘  Refuser]"));
 	    ClickEvent acceptEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pass yes " + this.getUniqueId());
 	    ClickEvent refuseEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pass no");
 	    accept.setClickEvent(acceptEvent);
@@ -41,7 +41,7 @@ public class PasserPNJ extends DialogerPNJ {
 	    answer.addExtra(accept);
 	    answer.addExtra(new TextComponent("   §7§m-§r   "));
 	    answer.addExtra(refuse);
-	   	rp.getChat().addFixDisplay(new RChatFixDisplay(rp,-1,null).setClosable(false).addLines("",rp.translateString("      §e> Would you like to go to " + this.getTargetName() + " ?", "  §e> Souhaitez-vous allez à " + this.getTargetName() + " ?")).addText(answer).addLine(""));
+	   	rp.getChat().addFixDisplay(new RChatFixDisplay(rp,-1,null).setClosable(false).addLines("",("  §e> Souhaitez-vous allez à " + this.getTargetName() + " ?")).addText(answer).addLine(""));
 	}
 
 	@Override

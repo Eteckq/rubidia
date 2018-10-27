@@ -117,7 +117,7 @@ public class WeaponsUI extends ListMenuUIHandler<Weapon> {
 		ItemStack infos = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList(rp.translateString("§7Choose a weapon to edit", "§7Choisissez une arme à éditer"), rp.translateString("§7or click here to create new", "§7ou cliquez ici pour en créer une nouvelle"), rp.translateString("§7Right click to search by name", "§7Clic droit pour rechercher une arme")));
+		meta.setLore(Arrays.asList(("§7Choisissez une arme à éditer"), ("§7ou cliquez ici pour en créer une nouvelle"), ("§7Clic droit pour rechercher une arme")));
 		infos.setItemMeta(meta);
 		return infos;
 	}

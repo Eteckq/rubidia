@@ -15,7 +15,7 @@ public class BackpackUI extends UIHandler {
 	
 	public BackpackUI(Player p, BackPack pack) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), 27, rp.translateString("BackPack", "Sac à dos"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 27, ("Sac à dos"));
 		this.pack = pack;
 		pack.setModified(true);
 	}

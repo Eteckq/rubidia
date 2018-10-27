@@ -31,7 +31,7 @@ public class GHomeListUI extends UIHandler {
 	public GHomeListUI(Player p, Guild guild) {
 		super(p);
 		this.guild = guild;
-		this.menu = Bukkit.createInventory(this.getHolder(), 9, StringUtils.abbreviate(this.getGuild().getName() + rp.translateString(" : homes' list"," : liste des PR"), 32));
+		this.menu = Bukkit.createInventory(this.getHolder(), 9, StringUtils.abbreviate(this.getGuild().getName() + (" : liste des PR"), 32));
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class GHomeListUI extends UIHandler {
 				item = home.getDisplay();
 				ItemMeta meta = item.getItemMeta();
 				meta.setDisplayName("§f§l" + home.getName());
-				meta.setLore(Arrays.asList("§8§o" + rp.translateString("Left-click to use", "Cliquez gauche pour utiliser"), "§8§o" + rp.translateString("Right-click to delete", "Cliquez droit pour supprimer")));
+				meta.setLore(Arrays.asList("§8§o" + ("Cliquez gauche pour utiliser"), "§8§o" + ("Cliquez droit pour supprimer")));
 				item.setItemMeta(meta);
 			}else{
 				if(i < this.getGuild().getLevel()){
@@ -150,8 +150,8 @@ public class GHomeListUI extends UIHandler {
 	private ItemStack getBack(){
 		ItemStack item = new ItemStack(Material.MELON, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Claims menu", "Menu des territoires"));
-		meta.setLore(Arrays.asList(rp.translateString("§7Get back to the claim menu.", "§7Retourner au menu principal."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		meta.setDisplayName("§6§l" + ("Menu des territoires"));
+		meta.setLore(Arrays.asList(("§7Retourner au menu principal."), "", ("§e§lCliquez pour ouvrir")));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -159,16 +159,16 @@ public class GHomeListUI extends UIHandler {
 	private ItemStack getDefault(int index){
 		ItemStack item = new ItemStack(Material.SLIME_BALL, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§f§l" + rp.translateString("Home ", "PR ") + "#" + index);
-		meta.setLore(Arrays.asList("§8§o" + rp.translateString("Click to set", "Cliquez pour définir")));
+		meta.setDisplayName("§f§l" + ("PR ") + "#" + index);
+		meta.setLore(Arrays.asList("§8§o" + ("Cliquez pour définir")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getLocked(){
 		ItemStack item = new ItemStack(Material.BARRIER, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(rp.translateString("§c§lLocked home", "§c§lPR bloqué"));
-		meta.setLore(Arrays.asList(rp.translateString("§8§oLevel up your guild to unlock", "§8§oAugmentez le niveau de votre guilde")));
+		meta.setDisplayName(("§c§lPR bloqué"));
+		meta.setLore(Arrays.asList(("§8§oAugmentez le niveau de votre guilde")));
 		item.setItemMeta(meta);
 		return item;
 	}

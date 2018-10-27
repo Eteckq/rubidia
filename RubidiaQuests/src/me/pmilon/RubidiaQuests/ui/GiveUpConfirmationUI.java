@@ -14,10 +14,10 @@ public class GiveUpConfirmationUI extends ConfirmationUI {
 
 	public final Quest quest;
 	public GiveUpConfirmationUI(RPlayer rp, Quest quest) {
-		super(rp.getPlayer(), rp.translateString("Give up quest", "Abandonner une quête"),
-				new String[]{rp.translateString("§aGive up quest and lose all progression", "§aAbandonner la quête et perdre toute progression"),rp.translateString("§cKeep quest and all progression", "§cGarder la quête et conserver la progression")},
+		super(rp.getPlayer(), ("Abandonner une quête"),
+				new String[]{("§aAbandonner la quête et perdre toute progression"),("§cGarder la quête et conserver la progression")},
 				quest.getColoredTitle(),
-				Arrays.asList(quest.getSubtitle(), "", rp.translateString("§7Are you sure you want to give up this quest?", "§7Êtes-vous certain de vouloir abandonner cette quête ?")));
+				Arrays.asList(quest.getSubtitle(), "", ("§7Êtes-vous certain de vouloir abandonner cette quête ?")));
 		this.quest = quest;
 	}
 

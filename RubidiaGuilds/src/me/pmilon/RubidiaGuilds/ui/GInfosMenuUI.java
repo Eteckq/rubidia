@@ -157,31 +157,31 @@ public class GInfosMenuUI extends UIHandler {
 	
 	private ItemStack getBack(){
 		ItemMeta META_BACK = ITEM_BACK.getItemMeta();
-		META_BACK.setDisplayName("§6§l" + rp.translateString("Main menu", "Menu principal"));
-		META_BACK.setLore(Arrays.asList(rp.translateString("§7Get back to the main menu.", "§7Retourner au menu principal."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META_BACK.setDisplayName("§6§l" + ("Menu principal"));
+		META_BACK.setLore(Arrays.asList(("§7Retourner au menu principal."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_BACK.setItemMeta(META_BACK);
 		return ITEM_BACK;
 	}
 	private ItemStack getGuildName(){
 		ItemMeta paperm = ITEM_NAME.getItemMeta();
-		paperm.setDisplayName("§a§l" + rp.translateString("Guild Name", "Nom de Guilde"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Change your guild name", "§7Changez votre nom de guilde"), "", rp.translateString("§6§lCurrent name: ", "§6§lNom actuel : ") + "§e" + this.getGuild().getName()));
+		paperm.setDisplayName("§a§l" + ("Nom de Guilde"));
+		paperm.setLore(Arrays.asList(("§7Changez votre nom de guilde"), "", ("§6§lNom actuel : ") + "§e" + this.getGuild().getName()));
 		ITEM_NAME.setItemMeta(paperm);
 		return ITEM_NAME;
 	}
 	private ItemStack getGuildDesc(){
 		ItemMeta paperm = ITEM_DESC.getItemMeta();
 		String description  = this.getGuild().getDescription();
-		paperm.setDisplayName("§a§l" + rp.translateString("Guild Description", "Description de Guilde"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Change your guild description", "§7Changez votre description de guilde"), "", rp.translateString("§6§lCurrent description: ", "§6§lDescription actuelle : ") + "§e" + StringUtils.abbreviate(description, 22)));
+		paperm.setDisplayName("§a§l" + ("Description de Guilde"));
+		paperm.setLore(Arrays.asList(("§7Changez votre description de guilde"), "", ("§6§lDescription actuelle : ") + "§e" + StringUtils.abbreviate(description, 22)));
 		ITEM_DESC.setItemMeta(paperm);
 		return ITEM_DESC;
 	}
 	private ItemStack getInfos(){
 		ItemStack infos = this.getGuild().getCape();
 		ItemMeta paperm = infos.getItemMeta();
-		paperm.setDisplayName("§a§l" + rp.translateString(this.getGuild().getName() + "'s cape", "Cape de " + this.getGuild().getName()));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Your guild's wearable cape (order one by right-clicking!)", "§7La cape de votre guilde (cliquez droit pour en commander une !)"), rp.translateString("§7Replace it with another banner by left-clicking.", "§7Remplacez-la par une autre bannière en cliquant gauche."), "", rp.translateString("§7Price: §f" + Settings.CAPE_COST + "⟡", "§7Prix : §f" + Settings.CAPE_COST + "⟡"), rp.translateString("§7§oAdded to the guild's bank.", "§7§oReversées dans la banque de guilde")));
+		paperm.setDisplayName("§a§l" + ("Cape de " + this.getGuild().getName()));
+		paperm.setLore(Arrays.asList(("§7La cape de votre guilde (cliquez droit pour en commander une !)"), ("§7Remplacez-la par une autre bannière en cliquant gauche."), "", ("§7Prix : §f" + Settings.CAPE_COST + "⟡"), ("§7§oReversées dans la banque de guilde")));
 		infos.setItemMeta(paperm);
 		return this.getGuild().isGlowing() ? Utils.setGlowingWithoutAttributes(infos) : infos;
 	}
@@ -189,15 +189,15 @@ public class GInfosMenuUI extends UIHandler {
 		ItemStack ITEM_GLOWING = new ItemStack(Material.GRAY_DYE, 1);
 		if(this.getGuild().isGlowing())ITEM_GLOWING = new ItemStack(Material.LIME_DYE, 1);
 		ItemMeta META = ITEM_GLOWING.getItemMeta();
-		META.setDisplayName((this.getGuild().isGlowing() ? "§a§l" : "§c§l") + rp.translateString("Glowing item", "Item brillant"));
-		META.setLore(Arrays.asList(rp.translateString("§7Enable or disable glowing effect", "§7Activer ou désactiver l'effet brillant"), rp.translateString("§7on your representative item.", "§7de votre item de guilde.")));
+		META.setDisplayName((this.getGuild().isGlowing() ? "§a§l" : "§c§l") + ("Item brillant"));
+		META.setLore(Arrays.asList(("§7Activer ou désactiver l'effet brillant"), ("§7de votre item de guilde.")));
 		ITEM_GLOWING.setItemMeta(META);
 		return ITEM_GLOWING;
 	}
 	private ItemStack getOffer(){
 		ItemMeta META = ITEM_OFFER.getItemMeta();
-		META.setDisplayName("§6§l" + rp.translateString("Offering menu", "Menu des offrandes"));
-		META.setLore(Arrays.asList(rp.translateString("§7Open the menu allowing to make offerings", "§7Ouvrir le menu vous permettant de faire des offrandes"), rp.translateString("§7for your guild (from monsters' loot),", "§7pour votre guilde (à partir du butin des monstres),"), rp.translateString("leveling it up and expanding its power.", "§7lui octroyant de l'expérience et de la puissance.")));
+		META.setDisplayName("§6§l" + ("Menu des offrandes"));
+		META.setLore(Arrays.asList(("§7Ouvrir le menu vous permettant de faire des offrandes"), ("§7pour votre guilde (à partir du butin des monstres),"), ("§7lui octroyant de l'expérience et de la puissance.")));
 		ITEM_OFFER.setItemMeta(META);
 		return ITEM_OFFER;
 	}

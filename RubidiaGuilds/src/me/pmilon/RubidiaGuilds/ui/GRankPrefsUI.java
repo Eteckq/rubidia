@@ -78,12 +78,12 @@ public class GRankPrefsUI extends UIHandler {
 		this.guild = guild;
 		this.rank = rank;
 		this.start_page = page;
-		this.menu = Bukkit.createInventory(this.getHolder(), 18, StringUtils.abbreviate(this.getGuild().getName() + " : " + rp.translateString(this.rank.getName() + "s' permissions", "Permissions des " + this.rank.getName().toLowerCase() + "s" + "s"),32));
+		this.menu = Bukkit.createInventory(this.getHolder(), 18, StringUtils.abbreviate(this.getGuild().getName() + " : " + ("Permissions des " + this.rank.getName().toLowerCase() + "s" + "s"),32));
 		ItemMeta META = ITEM_DISABLED.getItemMeta();
-		META.setDisplayName(rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer"));
+		META.setDisplayName(("§e§lCliquez pour basculer"));
 		ITEM_DISABLED.setItemMeta(META);
 		ITEM_ENABLED.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir"));
+		META.setDisplayName(("§e§lCliquez pour ouvrir"));
 		ITEM_INFO.setItemMeta(META);
 	}
 
@@ -291,144 +291,144 @@ public class GRankPrefsUI extends UIHandler {
 	
 	private ItemStack getBack(){
 		ItemMeta META_BACK = ITEM_BACK.getItemMeta();
-		META_BACK.setDisplayName(rp.translateString("§6§lRanks' List", "§6§lListe des rangs"));
-		META_BACK.setLore(Arrays.asList(rp.translateString("§7Get back to ranks' list.", "§7Retourner à la liste des rangs."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META_BACK.setDisplayName(("§6§lListe des rangs"));
+		META_BACK.setLore(Arrays.asList(("§7Retourner à la liste des rangs."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_BACK.setItemMeta(META_BACK);
 		return ITEM_BACK;
 	}
 	private ItemStack getBack(int index){
 		ItemMeta META_BACK = ITEM_BACK.getItemMeta();
 		META_BACK.setDisplayName("§6§lPage #" + index);
-		META_BACK.setLore(Arrays.asList(rp.translateString("§7Get back to page #" + index + ".", "§7Retourner à la page #" + index + "."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META_BACK.setLore(Arrays.asList(("§7Retourner à la page #" + index + "."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_BACK.setItemMeta(META_BACK);
 		return ITEM_BACK;
 	}
 	private ItemStack getNext(int index){
 		ItemMeta META = ITEM_NEXT.getItemMeta();
 		META.setDisplayName("§6§lPage #" + index);
-		META.setLore(Arrays.asList(rp.translateString("§7Go to page #" + index + ".", "§7Aller à la page #" + index + "."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META.setLore(Arrays.asList(("§7Aller à la page #" + index + "."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_NEXT.setItemMeta(META);
 		return ITEM_NEXT;
 	}
 	private ItemStack getCanClaim(){
 		ItemMeta META = ITEM_CLAIMS.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.CLAIM) ? "§a§l" : "§c§l") + rp.translateString("Claim permission", "Permission de conquérir"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to manage", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à gérer"), rp.translateString("§7your guild's territory.", "§7les territoires de votre guilde."), rp.translateString("§7Includes permission to start a raid.", "§7Inclut la permission de lancer un raid."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.CLAIM) ? "§a§l" : "§c§l") + ("Permission de conquérir"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à gérer"), ("§7les territoires de votre guilde."), ("§7Inclut la permission de lancer un raid."), "", ("§e§lCliquez pour basculer")));
 		ITEM_CLAIMS.setItemMeta(META);
 		return ITEM_CLAIMS;
 	}
 	private ItemStack getCanBuild(){
 		ItemMeta META = ITEM_BUILD.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.BUILD) ? "§a§l" : "§c§l") + rp.translateString("Build permission", "Permission de construire"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to build", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à construire"), rp.translateString("§7inside your guild's territory.", "§7à l'intérieur du territoire."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.BUILD) ? "§a§l" : "§c§l") + ("Permission de construire"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à construire"), ("§7à l'intérieur du territoire."), "", ("§e§lCliquez pour basculer")));
 		ITEM_BUILD.setItemMeta(META);
 		return ITEM_BUILD;
 	}
 	private ItemStack getCanInvite(){
 		ItemMeta META = ITEM_INVITE.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.INVITE) ? "§a§l" : "§c§l") + rp.translateString("Invite permission", "Permission d'invitation"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to invite", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à inviter"), rp.translateString("§7players to join your guild.", "§7d'autres joueurs à rejoindre votre guilde."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.INVITE) ? "§a§l" : "§c§l") + ("Permission d'invitation"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à inviter"), ("§7d'autres joueurs à rejoindre votre guilde."), "", ("§e§lCliquez pour basculer")));
 		ITEM_INVITE.setItemMeta(META);
 		return ITEM_INVITE;
 	}
 	private ItemStack getCanUseDoors(){
 		ItemMeta META = ITEM_USEDOORS.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.USE_DOORS) ? "§a§l" : "§c§l") + rp.translateString("Interact permission", "Permission d'intéraction"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to use", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à utiliser"), rp.translateString("§7doors, gates, buttons, plates...", "§7les portes, boutons, plaques de pression..."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.USE_DOORS) ? "§a§l" : "§c§l") + ("Permission d'intéraction"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à utiliser"), ("§7les portes, boutons, plaques de pression..."), "", ("§e§lCliquez pour basculer")));
 		ITEM_USEDOORS.setItemMeta(META);
 		return ITEM_USEDOORS;
 	}
 	private ItemStack getCanUseChests(){
 		ItemMeta META = ITEM_USECHESTS.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.USE_CHESTS) ? "§a§l" : "§c§l") + rp.translateString("Use permission", "Permission d'utilisation du matériel"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to use", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à utiliser"), rp.translateString("§7chests, furnaces, enchantment tables...", "§7les coffres, fours, tables d'enchantement..."), rp.translateString("§7Remember: trapped chests will §nalways§7 be accessible!", "§7Les coffres piégés seront §ntoujours§7 accessibles !"), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.USE_CHESTS) ? "§a§l" : "§c§l") + ("Permission d'utilisation du matériel"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à utiliser"), ("§7les coffres, fours, tables d'enchantement..."), ("§7Les coffres piégés seront §ntoujours§7 accessibles !"), "", ("§e§lCliquez pour basculer")));
 		ITEM_USECHESTS.setItemMeta(META);
 		return ITEM_USECHESTS;
 	}
 	private ItemStack getCanRename(){
 		ItemMeta META = ITEM_NAME.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.RENAME) ? "§a§l" : "§c§l") + rp.translateString("Rename permission", "Permission de renommer"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s"), rp.translateString("§7rename your guild.", "§7à renommer votre guilde."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.RENAME) ? "§a§l" : "§c§l") + ("Permission de renommer"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s"), ("§7à renommer votre guilde."), "", ("§e§lCliquez pour basculer")));
 		ITEM_NAME.setItemMeta(META);
 		return ITEM_NAME;
 	}
 	private ItemStack getCanChangeDescription(){
 		ItemMeta META = ITEM_DESC.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.DESCRIPTION) ? "§a§l" : "§c§l") + rp.translateString("Change description permission", "Permission de modification de description"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to modify", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), rp.translateString("§7your guild's description.", "§7la description de votre guilde."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.DESCRIPTION) ? "§a§l" : "§c§l") + ("Permission de modification de description"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), ("§7la description de votre guilde."), "", ("§e§lCliquez pour basculer")));
 		ITEM_DESC.setItemMeta(META);
 		return ITEM_DESC;
 	}
 	private ItemStack getCanModifyClaimsPrefs(){
 		ItemMeta META = ITEM_CLAIMSPREFS.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.CLAIM_PREFS) ? "§a§l" : "§c§l") + rp.translateString("Claim preferences modification permission", "Permission de modification des préférences de territoire"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to modify", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), rp.translateString("§7your guild's territory preferences.", "§7les préférences de protection du territoire."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.CLAIM_PREFS) ? "§a§l" : "§c§l") + ("Permission de modification des préférences de territoire"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), ("§7les préférences de protection du territoire."), "", ("§e§lCliquez pour basculer")));
 		ITEM_CLAIMSPREFS.setItemMeta(META);
 		return ITEM_CLAIMSPREFS;
 	}
 	private ItemStack getCanModifyRanksUnderPrefs(){
 		ItemMeta META = ITEM_RANKSPREFS.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.RANK_PREFS) ? "§a§l" : "§c§l") + rp.translateString("Subordinate ranks permissions management permission", "Permission de gestion des permissions de rangs inférieurs"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to manage", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à gérer"), rp.translateString("§7ranks of lower position's permissions.", "§7les permissions des rangs de position inférieure."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.RANK_PREFS) ? "§a§l" : "§c§l") + ("Permission de gestion des permissions de rangs inférieurs"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à gérer"), ("§7les permissions des rangs de position inférieure."), "", ("§e§lCliquez pour basculer")));
 		ITEM_RANKSPREFS.setItemMeta(META);
 		return ITEM_RANKSPREFS;
 	}
 	private ItemStack getCanModifyPerMemberPrefs(){
 		ItemMeta META = ITEM_MEMBERSPREFS.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.MEMBER_PREFS) ? "§a§l" : "§c§l") + rp.translateString("Per member permissions management permission", "Permission de gestion des permissions par membre"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to modify", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), rp.translateString("§7modify your guild's per member permissions.", "§7les permissions par membre de votre guilde."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.MEMBER_PREFS) ? "§a§l" : "§c§l") + ("Permission de gestion des permissions par membre"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), ("§7les permissions par membre de votre guilde."), "", ("§e§lCliquez pour basculer")));
 		ITEM_MEMBERSPREFS.setItemMeta(META);
 		return ITEM_MEMBERSPREFS;
 	}
 	private ItemStack getCanModifyDisplay(){
 		ItemStack ITEM_DISPLAY = this.getGuild().getCape();
 		ItemMeta META = ITEM_DISPLAY.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.CAPE) ? "§a§l" : "§c§l") + rp.translateString("Guild's cape modification permission", "Permission de modification de la cape de guilde"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to modify", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), rp.translateString("§7modify your guild's cape.", "§7la cape de votre guilde."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.CAPE) ? "§a§l" : "§c§l") + ("Permission de modification de la cape de guilde"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), ("§7la cape de votre guilde."), "", ("§e§lCliquez pour basculer")));
 		ITEM_DISPLAY.setItemMeta(META);
 		return ITEM_DISPLAY;
 	}
 	private ItemStack getHomes(){
 		ItemMeta META = ITEM_HOMES.getItemMeta();
-		META.setDisplayName("§6§l" + rp.translateString("Guilds homes permissions", "Permissions des points de rassemblement"));
-		META.setLore(Arrays.asList(rp.translateString("§7Manage " + this.rank.getName().toLowerCase() + "s' per home permissions.", "§7Gérer les permissions par PR des " + this.rank.getName().toLowerCase() + "s."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META.setDisplayName("§6§l" + ("Permissions des points de rassemblement"));
+		META.setLore(Arrays.asList(("§7Gérer les permissions par PR des " + this.rank.getName().toLowerCase() + "s."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_HOMES.setItemMeta(META);
 		return ITEM_HOMES;
 	}
 	private ItemStack getCanSetDefaultRank(){
 		ItemStack ITEM = this.getGuild().getDefaultRank().getItemStack();
 		ItemMeta META = ITEM.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.DEFAULT_RANK) ? "§a§l" : "§c§l") + rp.translateString("Default rank permission", "Permission de modification du rang par défaut"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to modify", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), rp.translateString("§7modify your guild's default rank.", "§7le rang par défaut de votre guilde."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.DEFAULT_RANK) ? "§a§l" : "§c§l") + ("Permission de modification du rang par défaut"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), ("§7le rang par défaut de votre guilde."), "", ("§e§lCliquez pour basculer")));
 		META.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		ITEM.setItemMeta(META);
 		return ITEM;
 	}
 	private ItemStack getCanManageRelations(){
 		ItemMeta META = ITEM_RELATIONS.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.RELATIONS) ? "§a§l" : "§c§l") + rp.translateString("Relations management permission", "Permission de gestion des relations"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to modify", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), rp.translateString("§7manage your guild's relations (alliances/oppositions).", "§7les relations de votre guilde (alliances/oppositions)."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.RELATIONS) ? "§a§l" : "§c§l") + ("Permission de gestion des relations"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à modifier"), ("§7les relations de votre guilde (alliances/oppositions)."), "", ("§e§lCliquez pour basculer")));
 		ITEM_RELATIONS.setItemMeta(META);
 		return ITEM_RELATIONS;
 	}
 	private ItemStack getCanGiveBank(){
 		ItemMeta META = ITEM_BANK.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.BANK_DEPOSIT) ? "§a§l" : "§c§l") + rp.translateString("Bank deposit permission", "Permission de dépôt dans la banque"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to depose", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à déposer"), rp.translateString("§7emeralds in your guild's bank.", "§7des émeraudes dans la banque de votre guilde."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.BANK_DEPOSIT) ? "§a§l" : "§c§l") + ("Permission de dépôt dans la banque"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à déposer"), ("§7des émeraudes dans la banque de votre guilde."), "", ("§e§lCliquez pour basculer")));
 		ITEM_BANK.setItemMeta(META);
 		return ITEM_BANK;
 	}
 	private ItemStack getCanOffer(){
 		ItemMeta META = ITEM_OFFER.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.OFFER) ? "§a§l" : "§c§l") + rp.translateString("Offering permission", "Permission d'offrande"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to offer", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à faire"), rp.translateString("§7and level up your guild.", "§7des offrandes pour votre guilde."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.OFFER) ? "§a§l" : "§c§l") + ("Permission d'offrande"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à faire"), ("§7des offrandes pour votre guilde."), "", ("§e§lCliquez pour basculer")));
 		ITEM_OFFER.setItemMeta(META);
 		return ITEM_OFFER;
 	}
 	private ItemStack getCanDamageMobs(){
 		ItemMeta META = ITEM_MOBSDAMAGE.getItemMeta();
-		META.setDisplayName((this.rank.getPermission(Permission.DAMAGE_MOBS) ? "§a§l" : "§c§l") + rp.translateString("Tamed mob damage permission", "Permission de dégâts aux monstres apprivoisés"));
-		META.setLore(Arrays.asList(rp.translateString("§7Allow " + this.rank.getName().toLowerCase() + "s to damage", "§7Autoriser les " + this.rank.getName().toLowerCase() + "s à infliger"), rp.translateString("§7tamed mobs inside your territory.", "§7des dégâts aux monstres apprivoisés."), "", rp.translateString("§e§lClick to toggle", "§e§lCliquez pour basculer")));
+		META.setDisplayName((this.rank.getPermission(Permission.DAMAGE_MOBS) ? "§a§l" : "§c§l") + ("Permission de dégâts aux monstres apprivoisés"));
+		META.setLore(Arrays.asList(("§7Autoriser les " + this.rank.getName().toLowerCase() + "s à infliger"), ("§7des dégâts aux monstres apprivoisés."), "", ("§e§lCliquez pour basculer")));
 		ITEM_MOBSDAMAGE.setItemMeta(META);
 		return ITEM_MOBSDAMAGE;
 	}

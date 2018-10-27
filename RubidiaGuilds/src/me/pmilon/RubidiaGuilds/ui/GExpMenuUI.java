@@ -32,7 +32,7 @@ public class GExpMenuUI extends UIHandler {
 	public GExpMenuUI(Player p, Guild guild) {
 		super(p);
 		this.guild = guild;
-		this.menu = Bukkit.createInventory(this.getHolder(), 9, StringUtils.abbreviate(this.getGuild().getName() + rp.translateString(" : Offerings", " : Offrandes"), 32));
+		this.menu = Bukkit.createInventory(this.getHolder(), 9, StringUtils.abbreviate(this.getGuild().getName() + (" : Offrandes"), 32));
 	}
 
 	@Override
@@ -140,14 +140,14 @@ public class GExpMenuUI extends UIHandler {
 	
 	protected ItemStack getBack(){
 		ItemMeta META_BACK = ITEM_BACK.getItemMeta();
-		META_BACK.setDisplayName("§6§l" + rp.translateString("Informations menu", "Menu des informations"));
-		META_BACK.setLore(Arrays.asList(rp.translateString("§7Get back to the informations menu.", "§7Retourner au menu des informations."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META_BACK.setDisplayName("§6§l" + ("Menu des informations"));
+		META_BACK.setLore(Arrays.asList(("§7Retourner au menu des informations."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_BACK.setItemMeta(META_BACK);
 		return ITEM_BACK;
 	}
 	protected ItemStack getInfos(double exp){
 		ItemMeta META_BACK = ITEM_INFOS.getItemMeta();
-		META_BACK.setDisplayName("§a§l" + rp.translateString("Confirm offering", "Confirmer l'offrande"));
+		META_BACK.setDisplayName("§a§l" + ("Confirmer l'offrande"));
 		
 		int level = this.getGuild().getLevel();
 		double experience = this.getGuild().getExperience() + exp;
@@ -170,7 +170,7 @@ public class GExpMenuUI extends UIHandler {
 				else xpBar += "§7|";
 			}
 		}
-		META_BACK.setLore(Arrays.asList(rp.translateString("§cAll of your items will disappear.", "§cTous vos items disparaîtront."), "", rp.translateString("§6§lFinal level: ", "§6§lNiveau final : ") + "§e" + level + "     " + xpBar + "   ", "", rp.translateString("§e§lClick to confirm", "§e§lCliquez pour confirmer")));
+		META_BACK.setLore(Arrays.asList(("§cTous vos items disparaîtront."), "", ("§6§lNiveau final : ") + "§e" + level + "     " + xpBar + "   ", "", ("§e§lCliquez pour confirmer")));
 		ITEM_INFOS.setItemMeta(META_BACK);
 		return ITEM_INFOS;
 	}

@@ -126,14 +126,14 @@ public class GRelationsUI extends UIHandler {
 	private ItemStack getEnemy(){
 		ItemMeta meta = ITEM_ENEMY.getItemMeta();
 		if(gm.getGuild().getEnemies().contains(guild) && !guild.getEnemies().contains(gm.getGuild())){
-			meta.setDisplayName(rp.translateString("§c§lBreak opposition", "§c§lBriser l'opposition"));
-			meta.setLore(Arrays.asList(rp.translateString("§7Set a neutral relation between", "§7Définir une relation neutre entre"), rp.translateString("§7your guild and " + guild.getName() + ".", "§7votre guilde et " + guild.getName() + ".")));
+			meta.setDisplayName(("§c§lBriser l'opposition"));
+			meta.setLore(Arrays.asList(("§7Définir une relation neutre entre"), ("§7votre guilde et " + guild.getName() + ".")));
 		}else if(guild.getEnemies().contains(gm.getGuild())){
-			meta.setDisplayName(rp.translateString("§c§lRequest neutral relation", "§c§lDemander une relation neutre"));
-			meta.setLore(Arrays.asList(rp.translateString("§7Send a neutral relation request to " + guild.getName(), "§7Envoyer une requête de neutralité à " + guild.getName())));
+			meta.setDisplayName(("§c§lDemander une relation neutre"));
+			meta.setLore(Arrays.asList(("§7Envoyer une requête de neutralité à " + guild.getName())));
 		}else{
-			meta.setDisplayName(rp.translateString("§c§lSet opposition to §4§l" + guild.getName(), "§c§lDéfinir une opposition à §4§l" + guild.getName()));
-			meta.setLore(Arrays.asList(rp.translateString("§7Set an opposition relation between", "§7Définir une relation d'oppposition entre"), rp.translateString("§7your guild and " + guild.getName() + ".", "§7votre guilde et " + guild.getName() + ".")));
+			meta.setDisplayName(("§c§lDéfinir une opposition à §4§l" + guild.getName()));
+			meta.setLore(Arrays.asList(("§7Définir une relation d'oppposition entre"), ("§7votre guilde et " + guild.getName() + ".")));
 		}
 		ITEM_ENEMY.setItemMeta(meta);
 		return ITEM_ENEMY;
@@ -141,17 +141,17 @@ public class GRelationsUI extends UIHandler {
 	private ItemStack getAlly(){
 		ItemMeta meta = ITEM_ALLY.getItemMeta();
 		if(gm.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
-			meta.setDisplayName(rp.translateString("§a§lBreak alliance", "§a§lBriser l'alliance"));
-			meta.setLore(Arrays.asList(rp.translateString("§7Set a neutral relation between", "§7Définir une relation neutre entre"), rp.translateString("§7your guild and " + guild.getName() + ".", "§7votre guilde et " + guild.getName() + ".")));
+			meta.setDisplayName(("§a§lBriser l'alliance"));
+			meta.setLore(Arrays.asList(("§7Définir une relation neutre entre"), ("§7votre guilde et " + guild.getName() + ".")));
 		}else if(gm.getGuild().getAllies().contains(guild)){
-			meta.setDisplayName(rp.translateString("§a§lCancel sent ally request", "§a§lAnnuler la requête d'alliance"));
-			meta.setLore(Arrays.asList(rp.translateString("§7Cancel alliance request sent to " + guild.getName(), "§7Annuler la requête d'alliance envoyée à " + guild.getName())));
+			meta.setDisplayName(("§a§lAnnuler la requête d'alliance"));
+			meta.setLore(Arrays.asList(("§7Annuler la requête d'alliance envoyée à " + guild.getName())));
 		}else if(guild.getAllies().contains(gm.getGuild())){
-			meta.setDisplayName(rp.translateString("§a§lAccept ally request", "§a§lAccepter la requête d'alliance"));
-			meta.setLore(Arrays.asList(rp.translateString("§7Accept alliance request sent from " + guild.getName(), "§7Accepter la requête d'alliance de " + guild.getName())));
+			meta.setDisplayName(("§a§lAccepter la requête d'alliance"));
+			meta.setLore(Arrays.asList(("§7Accepter la requête d'alliance de " + guild.getName())));
 		}else{
-			meta.setDisplayName(rp.translateString("§a§lRequest alliance", "§a§lDemander une alliance"));
-			meta.setLore(Arrays.asList(rp.translateString("§7Send alliance request to " + guild.getName(), "§7Envoyer une requête d'alliance à " + guild.getName())));
+			meta.setDisplayName(("§a§lDemander une alliance"));
+			meta.setLore(Arrays.asList(("§7Envoyer une requête d'alliance à " + guild.getName())));
 		}
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		ITEM_ALLY.setItemMeta(meta);
@@ -160,7 +160,7 @@ public class GRelationsUI extends UIHandler {
 	private ItemStack getInfos(){
 		ItemMeta meta = ITEM_INFO.getItemMeta();
 		meta.setDisplayName("§6§lInformations");
-		meta.setLore(Arrays.asList(rp.translateString("§eAlliance: §7allows " + guild.getName() + "'s members", "§eAlliance : §7Permet aux membres de la guilde " + guild.getName()), rp.translateString("§7to interact, use and build on your territory.", "§7d'intéragir, utiliser et construire sur votre territoire."), rp.translateString("§7(Based on their permissions)", "§7(En fonction de leurs permissions)"), rp.translateString("§eOpposition: §7allows your guild's members", "§eOpposition : §7permet aux membres de votre guilde"), rp.translateString("§7to raid " + guild.getName() + "'s territories.", "§7de lancer des offensives contre la guilde " + guild.getName() + "."), rp.translateString("§7(Based on their permissions)", "§7(En fonction de leurs permissions)")));
+		meta.setLore(Arrays.asList(("§eAlliance : §7Permet aux membres de la guilde " + guild.getName()), ("§7d'intéragir, utiliser et construire sur votre territoire."), ("§7(En fonction de leurs permissions)"), ("§eOpposition : §7permet aux membres de votre guilde"), ("§7de lancer des offensives contre la guilde " + guild.getName() + "."), ("§7(En fonction de leurs permissions)")));
 		ITEM_INFO.setItemMeta(meta);
 		return ITEM_INFO;
 	}

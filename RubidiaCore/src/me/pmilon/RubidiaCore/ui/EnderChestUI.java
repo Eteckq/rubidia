@@ -26,7 +26,7 @@ public class EnderChestUI extends UIHandler{
 	private boolean open = false;
 	public EnderChestUI(Player p, final Block block) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), 27, StringUtils.abbreviate(rp.translateString("Ender Chest", "Coffre du Néant") + " | " + rp.getName(),32));
+		this.menu = Bukkit.createInventory(this.getHolder(), 27, StringUtils.abbreviate(("Coffre du Néant") + " | " + rp.getName(),32));
 		this.block = block;
 		this.adapter = new PacketAdapter(Core.instance, PacketType.Play.Server.BLOCK_ACTION){
 	        @Override

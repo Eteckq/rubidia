@@ -21,7 +21,7 @@ public class SPlayerManager extends UIHandler{
 	private int SLOT_SKT = 0, SLOT_CRC = 1, SLOT_GLD = 3, SLOT_QST = 4, SLOT_BOOSTERS = 5, SLOT_PLAY = 7, SLOT_PROFILE = 8;
 	public SPlayerManager(Player p) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), 9, rp.translateString("Character menu", "Menu du personnage"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 9, ("Menu du personnage"));
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class SPlayerManager extends UIHandler{
 				else if(slot == SLOT_PLAY)Core.uiManager.requestUI(new SPlayerSelectionMenu(this.getHolder()));
 				else if(slot == SLOT_PROFILE){
 					rp.getChat().addInfo("");
-					rp.getChat().addInfo(rp.translateString("    §6§l/!\\  §ePlease read carefully informations in slot §l#1  §6§l/!\\", "    §6§l/!\\  §eLisez attentivement les informations en slot §l#1  §6§l/!\\"));
+					rp.getChat().addInfo(("    §6§l/!\\  §eLisez attentivement les informations en slot §l#1  §6§l/!\\"));
 					rp.getChat().addInfo("");
 					rp.getChat().update();
 					Core.uiManager.requestUI(new ProfileUI(this.getHolder()));
@@ -82,56 +82,56 @@ public class SPlayerManager extends UIHandler{
 	private ItemStack getSkt(){
 		ItemStack item = new ItemStack(Material.JUNGLE_SAPLING,1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Skilltree", "Arbre des compétences"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Upgrade your skills", "Améliorez vos compétences")));
+		meta.setDisplayName("§6§l" + ("Arbre des compétences"));
+		meta.setLore(Arrays.asList("§7" + ("Améliorez vos compétences")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getCrc(){
 		ItemStack item = new ItemStack(Material.ARMOR_STAND,1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Distinctions menu", "Menu des distinctions"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Upgrade your distinctions", "Améliorez vos distinctions")));
+		meta.setDisplayName("§6§l" + ("Menu des distinctions"));
+		meta.setLore(Arrays.asList("§7" + ("Améliorez vos distinctions")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getGuild(){
 		ItemStack item = gm.hasGuild() ? gm.getGuild().getCape() : new ItemStack(Material.ENCHANTING_TABLE,1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Guild menu", "Menu de guilde"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Manage your guild", "Gérez votre guilde")));
+		meta.setDisplayName("§6§l" + ("Menu de guilde"));
+		meta.setLore(Arrays.asList("§7" + ("Gérez votre guilde")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getQuests(){
 		ItemStack item = new ItemStack(Material.BOOK,1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Quests menu", "Menu des quêtes"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Open active quests list", "Ouvrez la liste de vos quêtes actives")));
+		meta.setDisplayName("§6§l" + ("Menu des quêtes"));
+		meta.setLore(Arrays.asList("§7" + ("Ouvrez la liste de vos quêtes actives")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getBoosters(){
 		ItemStack item = new ItemStack(Material.EXPERIENCE_BOTTLE,1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Boosters menu", "Menu des boosters"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Enable or disable boosters", "Activez ou désactivez des boosters")));
+		meta.setDisplayName("§6§l" + ("Menu des boosters"));
+		meta.setLore(Arrays.asList("§7" + ("Activez ou désactivez des boosters")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getPlay(){
 		ItemStack item = new ItemStack(Material.END_CRYSTAL,1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Character selection menu", "Menu de sélection du personnage"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Select another character to play with", "Sélectionnez un autre personnage avec lequel jouer")));
+		meta.setDisplayName("§6§l" + ("Menu de sélection du personnage"));
+		meta.setLore(Arrays.asList("§7" + ("Sélectionnez un autre personnage avec lequel jouer")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getProfile(){
 		ItemStack item = new ItemStack(Material.MILK_BUCKET,1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Profile menu", "Menu du profil"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Manage your profile informations", "Gérez les informations de votre profil")));
+		meta.setDisplayName("§6§l" + ("Menu du profil"));
+		meta.setLore(Arrays.asList("§7" + ("Gérez les informations de votre profil")));
 		item.setItemMeta(meta);
 		return item;
 	}

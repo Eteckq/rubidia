@@ -193,25 +193,25 @@ public class PetUI extends UIHandler{
 	private ItemStack getName(){
 		  ItemStack name = new ItemStack(Material.MAP);
 		    ItemMeta im = name.getItemMeta();
-		    im.setDisplayName(rp.translateString("§e§lRENAME", "§e§lRENOMMER"));
-		    im.setLore(Arrays.asList("§7" + rp.translateString("Give it a flashy name","Donnez-lui un nom à sa hauteur"), "§7" + rp.translateString("using minecraft color codes!","en utilisant les codes couleurs minecraft !")));
+		    im.setDisplayName(("§e§lRENOMMER"));
+		    im.setLore(Arrays.asList("§7" + ("Donnez-lui un nom à sa hauteur"), "§7" + ("en utilisant les codes couleurs minecraft !")));
 		    name.setItemMeta(im);
 		    return name;
 	}
 	private ItemStack getToggleStay(){
 		  ItemStack togsta = new ItemStack(Material.LEVER);
 		    ItemMeta im2 = togsta.getItemMeta();
-		    if(this.getPet().canMove())im2.setDisplayName(rp.translateString("§e§lSTAY HERE", "§e§lIMMOBILISER"));
-		    else im2.setDisplayName(rp.translateString("§e§lMOVE", "§e§lMOBILISER"));
-		    im2.setLore(Arrays.asList("§7" + rp.translateString("A paralyzed pet will be teleported", "Un compagnon immobilisé sera téléporté"), "§7" + rp.translateString("when you are 50 blocks away.", "lorsque vous serez à 50 blocs de lui.")));
+		    if(this.getPet().canMove())im2.setDisplayName(("§e§lIMMOBILISER"));
+		    else im2.setDisplayName(("§e§lMOBILISER"));
+		    im2.setLore(Arrays.asList("§7" + ("Un compagnon immobilisé sera téléporté"), "§7" + ("lorsque vous serez à 50 blocs de lui.")));
 		    togsta.setItemMeta(im2);
 		    return togsta;
 	}
 	private ItemStack getToggleType(){
 		ItemStack togtyp = new ItemStack(Material.APPLE);
 	    ItemMeta im4 = togtyp.getItemMeta();
-	    im4.setDisplayName(rp.translateString("§e§lAPPEARANCE", "§e§lAPPARENCE"));
-	    im4.setLore(Arrays.asList("§7" + rp.translateString("Cycle through all the possible", "Essayez toutes les apparences"), "§7" + rp.translateString("appearances for your type of pet.", "possibles pour ce type de compagnon.")));
+	    im4.setDisplayName(("§e§lAPPARENCE"));
+	    im4.setLore(Arrays.asList("§7" + ("Essayez toutes les apparences"), "§7" + ("possibles pour ce type de compagnon.")));
 	    togtyp.setItemMeta(im4);
 	    return togtyp;
 	}
@@ -220,8 +220,8 @@ public class PetUI extends UIHandler{
 	    ItemMeta im5 = togage.getItemMeta();
 	    if(this.getEntity() instanceof Ageable){
 	    	if(((Ageable)this.getEntity()).isAdult()){
-	    		im5.setDisplayName(rp.translateString("§e§lSET YOUNG", "§e§lRAJEUNIR"));
-	    	}else im5.setDisplayName(rp.translateString("§e§lSET OLD", "§e§lVIEILLIR"));
+	    		im5.setDisplayName(("§e§lRAJEUNIR"));
+	    	}else im5.setDisplayName(("§e§lVIEILLIR"));
 	    }
 	    togage.setItemMeta(im5);
 	    return togage;
@@ -236,7 +236,7 @@ public class PetUI extends UIHandler{
 	private ItemStack getPearls(){
 		ItemStack pearls = new ItemStack(Material.ENDER_EYE, 1);
 		ItemMeta pearlsm = pearls.getItemMeta();
-		pearlsm.setDisplayName("§a§l" + rp.translateString("PEARLS","PERLES"));
+		pearlsm.setDisplayName("§a§l" + ("PERLES"));
 		pearls.setItemMeta(pearlsm);
 		return me.pmilon.RubidiaCore.utils.Utils.setGlowingWithoutAttributes(pearls);
 	}

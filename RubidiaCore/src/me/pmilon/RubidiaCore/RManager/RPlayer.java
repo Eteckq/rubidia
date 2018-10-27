@@ -319,7 +319,7 @@ public class RPlayer {
 		return this.teleportation;
 	}
 	public String getJobName(){
-		return this.translateString(this.getRJob().getNameEN(), this.getRJob().getNameFR());
+		return this.getRJob().getNameFR();
 	}
 	
 	////////////////////
@@ -459,68 +459,10 @@ public class RPlayer {
 		this.setVigor(this.getVigor()+amount);
 	}
 	public String getClassName(){
-		String classname = "";
-		if(this.getRClass().equals(RClass.PALADIN)){
-			classname = "§aPaladin";
-			if(this.isMaster()){
-				classname = this.translateString("§2§l[MASTER] §aPaladin", "§2§l[MAITRE] §aPaladin");
-			}else if(this.isHero()){
-				classname = this.translateString("§2§l[HERO] §aPaladin", "§2§l[HEROS] §aPaladin");
-			}
-		}else if(this.getRClass().equals(RClass.RANGER)){
-			classname = "§bRanger";
-			if(this.isMaster()){
-				classname = this.translateString("§9§l[MASTER] §bRanger", "§9§l[MAITRE] §bRanger");
-			}else if(this.isHero()){
-				classname = this.translateString("§9§l[HERO] §bRanger", "§9§l[HEROS] §bRanger");
-			}
-		}else if(this.getRClass().equals(RClass.MAGE)){
-			classname = "§eMage";
-			if(this.isMaster()){
-				classname = this.translateString("§6§l[MASTER] §eMage", "§6§l[MAITRE] §eMage");
-			}else if(this.isHero()){
-				classname = this.translateString("§6§l[HERO] §eMage", "§6§l[HEROS] §eMage");
-			}
-		}else if(this.getRClass().equals(RClass.ASSASSIN)){
-			classname = "§cAssassin";
-			if(this.isMaster()){
-				classname = this.translateString("§4§l[MASTER] §cAssassin", "§4§l[MAITRE] §cAssassin");
-			}else if(this.isHero()){
-				classname = this.translateString("§4§l[HERO] §cAssassin", "§4§l[HEROS] §cAssassin");
-			}
-		}else if(this.getRClass().equals(RClass.VAGRANT)){
-			classname = this.translateString("§7Vagrant", "§7Vagabond");
-		}
-		return classname;
+		return (this.getMastery().equals(Mastery.ADVENTURER) ? "" : this.getRClass().getDarkColor() + "§l[" + this.getMastery().getNameFR() + "] ") + this.getRClass().getColor() + this.getRClass().getDisplayFr();
 	}
 	public String getEvolutionClassName(){
-		String classname = "";
-		if(this.getRClass().equals(RClass.PALADIN)){
-			if(this.isMaster()){
-				classname = this.translateString("§2§l[HERO] §aPaladin", "§2§l[HEROS] §aPaladin");
-			}else if(!this.isHero()){
-				classname = this.translateString("§2§l[MASTER] §aPaladin", "§2§l[MAITRE] §aPaladin");
-			}
-		}else if(this.getRClass().equals(RClass.RANGER)){
-			if(this.isMaster()){
-				classname = this.translateString("§9§l[HERO] §bRanger", "§9§l[HEROS] §bRanger");
-			}else if(!this.isHero()){
-				classname = this.translateString("§9§l[MASTER] §bRanger", "§9§l[MAITRE] §bRanger");
-			}
-		}else if(this.getRClass().equals(RClass.MAGE)){
-			if(this.isMaster()){
-				classname = this.translateString("§6§l[HERO] §eMage", "§6§l[HEROS] §eMage");
-			}else if(!this.isHero()){
-				classname = this.translateString("§6§l[MASTER] §eMage", "§6§l[MAITRE] §eMage");
-			}
-		}else if(this.getRClass().equals(RClass.ASSASSIN)){
-			if(this.isMaster()){
-				classname = this.translateString("§4§l[HERO] §cAssassin", "§4§l[HEROS] §cAssassin");
-			}else if(!this.isHero()){
-				classname = this.translateString("§4§l[MASTER] §cAssassin", "§4§l[MAITRE] §cAssassin");
-			}
-		}
-		return classname;
+		return this.getRClass().getDarkColor() + "§l[" + (this.getMastery().equals(Mastery.ADVENTURER) ? Mastery.MASTER.getNameFR() : Mastery.HERO.getNameFR()) + "] " + this.getRClass().getColor() + this.getRClass().getDisplayFr();
 	}
 	public double getMaxHealth(){
 		return (20+this.getEndurance()*.75)*(1+this.getAdditionalFactor(BuffType.MAX_HEALTH));
@@ -551,13 +493,9 @@ public class RPlayer {
 		if(this.isOnline())this.sendMessage("§aYour abilities have been resetted!", "§aVos compétences ont été réinitialisées.");
 		return skp;
 	}
-	public String translateString(String sen, String sfr){
-		return sfr;
-	}
 	public void sendMessage(String sen, String sfr){
 		if(this.isOnline()){
-			String message = this.translateString(sen, sfr);
-			this.getChat().addInfo(message);
+			this.getChat().addInfo(sfr);
 			this.getChat().update();
 		}
 	}
@@ -998,7 +936,7 @@ public class RPlayer {
 
 			@Override
 			public void run() {
-				sendTitle(translateString("§fLoading character...","§fChargement du personnage..."), translateString("§7" + sp.getRClass().getDisplayEn().toUpperCase() + "  |  LEVEL " + sp.getRLevel(),"§7" + sp.getRClass().getDisplayFr().toUpperCase() + "  |  NIVEAU " + sp.getRLevel()), 20, 0, 20);
+				sendTitle("§fChargement du personnage...", "§7" + sp.getRClass().getDisplayFr().toUpperCase() + "  |  NIVEAU " + sp.getRLevel(), 20, 0, 20);
 			}
 
 			@Override
@@ -1059,7 +997,7 @@ public class RPlayer {
 							me.pmilon.RubidiaQuests.utils.Utils.updateFollowedQuest(getPlayer(), true);
 							NameTags.update();
 							getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
-							sendTitle(translateString("§fCharacter loaded!","§fPersonnage chargé !"), translateString("§7Have fun on Rubidia!","§7Bon jeu sur Rubidia !"), 0, 60, 20);
+							sendTitle("§fPersonnage chargé !", "§7Bon jeu sur Rubidia !", 0, 60, 20);
 						}
 
 						@Override
@@ -1920,18 +1858,17 @@ public class RPlayer {
 							String keystroke = "§7";
 							if(e.getPlayer().isSneaking())keystroke += "Sneak + ";
 							if(e.getPlayer().isSprinting())keystroke += "Sprint + ";
-							if(clicks > 0)keystroke += this.translateString("", "Clic ");
+							if(clicks > 0)keystroke += "Clic ";
 							for(int i = 0;i < clicks;i++){
 								if(i != 0)keystroke += "§f/§7";
-								if(seq[i].equals("D"))keystroke += this.translateString("Right", "Droit");
-								else if(seq[i].equals("G"))keystroke += this.translateString("Left", "Gauche");
+								if(seq[i].equals("D"))keystroke += "Droit";
+								else if(seq[i].equals("G"))keystroke += "Gauche";
 							}
 							for(int i = clicks;i < seq.length;i++){
 								if(i != seq.length)keystroke += "§f/§8";
-								if(seq[i].equals("D"))keystroke += this.translateString("Right", "Droit");
-								else if(seq[i].equals("G"))keystroke += this.translateString("Left", "Gauche");
+								if(seq[i].equals("D"))keystroke += "Droit";
+								else if(seq[i].equals("G"))keystroke += "Gauche";
 							}
-							if(clicks > 0)keystroke += this.translateString(" §7Click", "");
 							
 							ItemMessage.sendMessage(e.getPlayer(), keystroke, Settings.ABILITY_CLICK_TICKS);
 							if(this.getClickSound()){

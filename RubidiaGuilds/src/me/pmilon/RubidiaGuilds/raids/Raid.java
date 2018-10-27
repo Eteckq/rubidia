@@ -140,11 +140,11 @@ public class Raid {
 				if(member.getGuild().equals(this.getOffensive())){
 					if(member.getPlayer().getWorld().equals(this.getCenter().getWorld())){
 						if(member.getPlayer().getLocation().distanceSquared(this.getCenter()) <= Math.pow(MAX_DISTANCE, 2)){
-							rp.sendTitle(rp.translateString("§6Raid started", "§6Offensive lancée"), rp.translateString("§ePreparation phase - 20 seconds", "§ePhase de préparation - 20 secondes"), 0, 80, 40);
-						}else rp.sendTitle(rp.translateString("§6Raid started", "§6Offensive lancée"), rp.translateString("§eYou'll be teleported in 20 seconds", "§eVous serez téléporté dans 20 secondes"), 0, 80, 40);
-					}else rp.sendTitle(rp.translateString("§6Raid started", "§6Offensive lancée"), rp.translateString("§eYou'll be teleported in 20 seconds", "§eVous serez téléporté dans 20 secondes"), 0, 80, 40);
+							rp.sendTitle(("§6Offensive lancée"), ("§ePhase de préparation - 20 secondes"), 0, 80, 40);
+						}else rp.sendTitle(("§6Offensive lancée"), ("§eVous serez téléporté dans 20 secondes"), 0, 80, 40);
+					}else rp.sendTitle(("§6Offensive lancée"), ("§eVous serez téléporté dans 20 secondes"), 0, 80, 40);
 				}else{
-					rp.sendTitle(rp.translateString("§4§lEnemy raid", "§4§lOffensive ennemie"), "§c[§l" + this.getClaim().getName() + "§c] " + this.getCenter().getBlockX() + "/" + this.getCenter().getBlockZ(), 0, 80, 40);
+					rp.sendTitle(("§4§lOffensive ennemie"), "§c[§l" + this.getClaim().getName() + "§c] " + this.getCenter().getBlockX() + "/" + this.getCenter().getBlockZ(), 0, 80, 40);
 					new BukkitTask(GuildsPlugin.instance){
 
 						@Override
@@ -183,7 +183,7 @@ public class Raid {
 			public void onCancel() {
 				if(!stopped){
 					for(RPlayer rp : getRPlayers()){
-						rp.sendTitle(rp.translateString("§eEvery one's ready!","§eTout le monde est prêt !"), "§6§l" + getOffensive().getName() + "  §e!§6§l  " + getDefensive().getName(), 0, 30, 10);
+						rp.sendTitle(("§eTout le monde est prêt !"), "§6§l" + getOffensive().getName() + "  §e!§6§l  " + getDefensive().getName(), 0, 30, 10);
 					}
 					new BukkitTask(GuildsPlugin.instance){
 						int index = 3;
@@ -247,7 +247,7 @@ public class Raid {
 					String title = "";
 					if(elapsedTime%(60.0*1000L) == 0)title = "§e>  §6" + ((time - elapsedTime)/(60*1000L)) + "§e min  <";
 					for(RPlayer rp : getRPlayers()){
-						if(elapsedTime >= time)title = "§4" + rp.translateString("Time's up!", "Temps écoulé !");
+						if(elapsedTime >= time)title = "§4" + ("Temps écoulé !");
 						if(titles.get(rp) != null){
 							RaidTitle tle = titles.get(rp);
 							title = tle.getTitle();
@@ -277,18 +277,18 @@ public class Raid {
 						if(rp.isOnline())rp.getPlayer().sendMessage("");
 						if(member.getGuild().equals(getOffensive())){
 							if(ratio >= 1){
-								rp.sendTitle("§6" + rp.translateString("Offensive won!","Offensive gagnée !"), "§e" + rp.translateString("This territory now belongs to your guild!", "Ce territoire appartient désormais à votre guilde !"), 0, 80, 40);
+								rp.sendTitle("§6" + ("Offensive gagnée !"), "§e" + ("Ce territoire appartient désormais à votre guilde !"), 0, 80, 40);
 								rp.sendMessage("§eThis territory cannot be raided for 2 hours.", "§eCe territoire ne peut être réclamé par une guilde pendant 2 heures.");
 							}else{
-								rp.sendTitle("§4" + rp.translateString("Offensive lost!","Offensive perdue !"), "§c" + rp.translateString("You didn't generate enough power!", "Vous n'avez pas généré assez de puissance !"), 0, 80, 40);
+								rp.sendTitle("§4" + ("Offensive perdue !"), "§c" + ("Vous n'avez pas généré assez de puissance !"), 0, 80, 40);
 							}
 							rp.sendMessage("§eYour guild won't be able to attack §6§l" + getDefensive().getName() + "§e's territory for 6 hours.", "§eVotre guilde ne pourra attaquer le territoire de la guilde §6§l" + getDefensive().getName() + "§e pendant 6 heures.");
 						}else{
 							if(ratio >= 1){
-								rp.sendTitle("§4" + rp.translateString("Territory lost!","Territoire perdu !"), "§c" + rp.translateString("This territory now belongs to " + getOffensive().getName() + " guild!", "Ce territoire appartient désormais à la guilde " + getOffensive().getName() + " !"), 0, 80, 40);
+								rp.sendTitle("§4" + ("Territoire perdu !"), "§c" + ("Ce territoire appartient désormais à la guilde " + getOffensive().getName() + " !"), 0, 80, 40);
 								rp.sendMessage("§eYour guild won't be able to raid this territory for 2 hours.", "§eVotre guilde ne pourra réclamer ce territoire pendant 2 heures.");
 							}else{
-								rp.sendTitle("§6" + rp.translateString("Offensive defended!","Offensive défendue !"), "§e" + rp.translateString("Territory preserved!", "Territoire conservé !"), 0, 80, 40);
+								rp.sendTitle("§6" + ("Offensive défendue !"), "§e" + ("Territoire conservé !"), 0, 80, 40);
 							}
 							rp.sendMessage("§eYour guild can no longer be attacked by §6§l" + getOffensive().getName() + "§e guild for 6 hours.", "§eVotre guilde ne pourra plus être attaquée par la guilde §6§l" + getOffensive().getName() + "§e pendant 6 heures.");
 						}

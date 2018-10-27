@@ -419,7 +419,7 @@ public class RChat {
 		}
 		TextComponent filters = new TextComponent(start);
 		for(ChatType type : this.getRP().isOp() ? new ChatType[]{ChatType.GLOBAL, ChatType.SHOUT, ChatType.STAFF, ChatType.GUILD, ChatType.ALLIANCE} : new ChatType[]{ChatType.GLOBAL, ChatType.SHOUT, ChatType.GUILD, ChatType.ALLIANCE}){
-		    TextComponent filter = new TextComponent((this.getShownTypes().contains(type) ? type.getSelectedColor() : "§8") + (type.equals(this.getDefaultType()) ? "§l" : "") + "[" + (type.equals(this.getDefaultType()) ? rp.translateString(type.toString(), type.getDisplayFR()) : rp.translateString(type.toString().split("")[0], type.getDisplayFR().split("")[0])) + "]");
+		    TextComponent filter = new TextComponent((this.getShownTypes().contains(type) ? type.getSelectedColor() : "§8") + (type.equals(this.getDefaultType()) ? "§l" : "") + "[" + (type.equals(this.getDefaultType()) ? (type.getDisplayFR()) : (type.getDisplayFR().split("")[0])) + "]");
 		    ClickEvent click = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chat " + type.toString().toLowerCase());
 		    filter.setClickEvent(click);
 		    filters.addExtra(filter);

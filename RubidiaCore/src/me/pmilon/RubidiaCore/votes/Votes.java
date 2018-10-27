@@ -24,8 +24,8 @@ public class Votes {
 			currentVote = vote;
 			voters.clear();
 			for(RPlayer rp : RPlayer.getOnlines()){
-			    TextComponent accept = new TextComponent(rp.translateString("§a[ ✔ FOR]", "§a[ ✔ POUR]"));
-			    TextComponent refuse = new TextComponent(rp.translateString("§c[ ✘ AGAINST]", "§c[ ✘ CONTRE]"));
+			    TextComponent accept = new TextComponent(("§a[ ✔ POUR]"));
+			    TextComponent refuse = new TextComponent(("§c[ ✘ CONTRE]"));
 			    ClickEvent acceptEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/vote 0 0 0 0 0 true");
 			    ClickEvent refuseEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/vote 0 0 0 0 0 false");
 			    accept.setClickEvent(acceptEvent);
@@ -35,7 +35,7 @@ public class Votes {
 			    text.addExtra(new TextComponent("     "));
 			    text.addExtra(refuse);
 			    rp.getChat().addFixDisplay(new RChatFixDisplay(rp,400,null).addLine("").addLine("   §e> " + vote.getQuestion()).addText(text).addLine(""));
-				rp.sendTitle(rp.translateString("§6§lNew vote submitted!", "§6§lNouveau vote !"), rp.translateString("§eClick in the chat to vote", "§eCliquez dans le chat pour voter"), 5, 90, 30);
+				rp.sendTitle(("§6§lNouveau vote !"), ("§eCliquez dans le chat pour voter"), 5, 90, 30);
 			}
 			task = new BukkitTask(Core.instance){
 
@@ -84,7 +84,7 @@ public class Votes {
 					if(!Votes.hasVoted(rp)){
 						rp.getChat().forceCloseFixDisplay();
 					}
-					rp.sendTitle(rp.translateString("§2§lVote has been accepted!", "§2§lLe vote est passé !"), "", 5, 90, 30);
+					rp.sendTitle(("§2§lLe vote est passé !"), "", 5, 90, 30);
 				}
 				currentVote.run();
 			}else{
@@ -92,7 +92,7 @@ public class Votes {
 					if(!Votes.hasVoted(rp)){
 						rp.getChat().forceCloseFixDisplay();
 					}
-					rp.sendTitle(rp.translateString("§4§lVote has been cancelled", "§4§lLe vote est annulé"), "", 5, 90, 30);
+					rp.sendTitle(("§4§lLe vote est annulé"), "", 5, 90, 30);
 				}
 			}
 			lastVotes.put(currentVote.getType(), System.currentTimeMillis());

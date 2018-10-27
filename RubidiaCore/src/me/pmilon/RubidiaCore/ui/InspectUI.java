@@ -72,7 +72,7 @@ public class InspectUI extends UIHandler {
 		if(item == null || item.getType().equals(Material.AIR)){
 			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName("§f§l" + rp.translateString("Helmet", "Casque"));
+			meta.setDisplayName("§f§l" + ("Casque"));
 			item.setItemMeta(meta);
 		}else item = item.clone();
 		return item;
@@ -82,7 +82,7 @@ public class InspectUI extends UIHandler {
 		if(item == null || item.getType().equals(Material.AIR)){
 			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName("§f§l" + rp.translateString("Chestplate", "Plastron"));
+			meta.setDisplayName("§f§l" + ("Plastron"));
 			item.setItemMeta(meta);
 		}else item = item.clone();
 		return item;
@@ -92,7 +92,7 @@ public class InspectUI extends UIHandler {
 		if(item == null || item.getType().equals(Material.AIR)){
 			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName("§f§l" + rp.translateString("Gloves", "Gants"));
+			meta.setDisplayName("§f§l" + ("Gants"));
 			item.setItemMeta(meta);
 		}else item = item.clone();
 		return item;
@@ -102,7 +102,7 @@ public class InspectUI extends UIHandler {
 		if(item == null || item.getType().equals(Material.AIR)){
 			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName("§f§l" + rp.translateString("Boots", "Bottes"));
+			meta.setDisplayName("§f§l" + ("Bottes"));
 			item.setItemMeta(meta);
 		}else item = item.clone();
 		return item;
@@ -112,7 +112,7 @@ public class InspectUI extends UIHandler {
 		if(item == null || item.getType().equals(Material.AIR)){
 			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName("§f§l" + rp.translateString("Main hand", "Main droite"));
+			meta.setDisplayName("§f§l" + ("Main droite"));
 			item.setItemMeta(meta);
 		}else item = item.clone();
 		return item;
@@ -122,7 +122,7 @@ public class InspectUI extends UIHandler {
 		if(item == null || item.getType().equals(Material.AIR)){
 			item = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1);
 			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName("§f§l" + rp.translateString("Off hand", "Main gauche"));
+			meta.setDisplayName("§f§l" + ("Main gauche"));
 			item.setItemMeta(meta);
 		}else item = item.clone();
 		return item;

@@ -61,7 +61,7 @@ public class GuildsUI extends ListMenuUIHandler<Guild> {
 		ItemStack infos = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Left click a guild to ask to join it", "Cliquez gauche sur une guild pour demander une adhésion"), "§7" + rp.translateString("Right click a guild to manage relations you maintain with", "Cliquez droit pour gérer les relations que vous entretenez"), "§8" + rp.translateString("Click here to search for a guild", "Cliquez ici pour rechercher une guilde")));
+		meta.setLore(Arrays.asList("§7" + ("Cliquez gauche sur une guild pour demander une adhésion"), "§7" + ("Cliquez droit pour gérer les relations que vous entretenez"), "§8" + ("Cliquez ici pour rechercher une guilde")));
 		infos.setItemMeta(meta);
 		return infos;
 	}
@@ -72,7 +72,7 @@ public class GuildsUI extends ListMenuUIHandler<Guild> {
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName((guild.isConnected() ? "§2[✔] §a" : "§4[✘] §c") + guild.getName());
 		double ratio = guild.getExperience()/LevelUtils.getLevelExperienceAmount(guild.getLevel());
-		meta.setLore(Arrays.asList(guild.isPeaceful() ? "§6§o" + rp.translateString("Peaceful guild", "Guilde paisible") : (gm.hasGuild() ? (gm.getGuild().getRelationTo(guild).equals(Relation.ENEMY) ? "§c§o" + rp.translateString("Enemy guild", "Guilde ennemie") : (gm.getGuild().getRelationTo(guild).equals(Relation.ALLY) ? "§d§o" + rp.translateString("Allied guild", "Guilde alliée") : "§e§o" + rp.translateString("Warlike guild", "Guilde belliqueuse"))) : "§8§o" + rp.translateString("Warlike guild", "Guilde belliqueuse")), "", "§7" + StringUtils.abbreviate(guild.getDescription(), this.DESC_LIMIT), "§f§m-----------------------", "§8" + rp.translateString("Level ", "Niveau ") + "§7" + guild.getLevel(), "§8" + rp.translateString("Experience ", "Expérience ") + "§7" + String.valueOf(Utils.round(ratio, 2)) + "%", "§8" + rp.translateString("Claims ", "Territoires ") + "§7" + guild.getClaims().size(), "§8" + rp.translateString("Members ", "Membres ") + "§7" + guild.getMembers().size()));
+		meta.setLore(Arrays.asList(guild.isPeaceful() ? "§6§o" + ("Guilde paisible") : (gm.hasGuild() ? (gm.getGuild().getRelationTo(guild).equals(Relation.ENEMY) ? "§c§o" + ("Guilde ennemie") : (gm.getGuild().getRelationTo(guild).equals(Relation.ALLY) ? "§d§o" + ("Guilde alliée") : "§e§o" + ("Guilde belliqueuse"))) : "§8§o" + ("Guilde belliqueuse")), "", "§7" + StringUtils.abbreviate(guild.getDescription(), this.DESC_LIMIT), "§f§m-----------------------", "§8" + ("Niveau ") + "§7" + guild.getLevel(), "§8" + ("Expérience ") + "§7" + String.valueOf(Utils.round(ratio, 2)) + "%", "§8" + ("Territoires ") + "§7" + guild.getClaims().size(), "§8" + ("Membres ") + "§7" + guild.getMembers().size()));
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS);
 		item.setItemMeta(meta);
 		return guild.isGlowing() ? Utils.setGlowingWithoutAttributes(item) : item;

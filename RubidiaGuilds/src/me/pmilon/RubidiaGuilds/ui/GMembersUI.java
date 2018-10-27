@@ -57,7 +57,7 @@ public class GMembersUI extends ListMenuUIHandler<GMember> {
 		ItemStack infos = new ItemStack(Material.MAP, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList(rp.translateString("§7Choose a member of who you want to edit permissions", "§7Choisissez un membre dont vous souhaitez éditer les permissions"), rp.translateString("§7or click to get back to previous menu.", "§7ou cliquez pour revenir au menu précédent")));
+		meta.setLore(Arrays.asList(("§7Choisissez un membre dont vous souhaitez éditer les permissions"), ("§7ou cliquez pour revenir au menu précédent")));
 		infos.setItemMeta(meta);
 		return infos;
 	}

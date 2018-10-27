@@ -64,8 +64,8 @@ public class PastorPNJ extends PNJHandler {
 														@Override
 														public void run() {
 															p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_AMBIENT, 1, 1);
-														    TextComponent accept = new TextComponent(rp.translateString("§a[ ✔  Accept]", "§a[ ✔  Accepter]"));
-														    TextComponent refuse = new TextComponent(rp.translateString("§c[ ✘  Deny]", "§c[ ✘  Refuser]"));
+														    TextComponent accept = new TextComponent(("§a[ ✔  Accepter]"));
+														    TextComponent refuse = new TextComponent(("§c[ ✘  Refuser]"));
 														    ClickEvent acceptEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/marry " + uuid + " yes");
 														    ClickEvent refuseEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/marry " + uuid + " no");
 														    accept.setClickEvent(acceptEvent);
@@ -74,7 +74,7 @@ public class PastorPNJ extends PNJHandler {
 														    text.addExtra(accept);
 														    text.addExtra(new TextComponent("     "));
 														    text.addExtra(refuse);
-														    rp.getChat().addFixDisplay(new RChatFixDisplay(rp,-1,null).setClosable(false).addLines("",rp.translateString("   §e> Are you sure you want to marry " + rpp.getName() + "?", "   §e> Souhaitez-vous prendre pour épou" + (rpp.getSex().equals(Gender.MALE) ? "x" : (rpp.getSex().equals(Gender.FEMALE) ? "se" : "x(se)")) + " " + rpp.getName() + " ?")).addText(text).addLine(""));
+														    rp.getChat().addFixDisplay(new RChatFixDisplay(rp,-1,null).setClosable(false).addLines("",("   §e> Souhaitez-vous prendre pour épou" + (rpp.getSex().equals(Gender.MALE) ? "x" : (rpp.getSex().equals(Gender.FEMALE) ? "se" : "x(se)")) + " " + rpp.getName() + " ?")).addText(text).addLine(""));
 														}
 														
 													}, true, false);
@@ -112,8 +112,8 @@ public class PastorPNJ extends PNJHandler {
 														@Override
 														public void run() {
 															pp.playSound(pp.getLocation(), Sound.ENTITY_VILLAGER_AMBIENT, 1, 1);
-														    TextComponent accept = new TextComponent(rp.translateString("§a[ ✔  Accept]", "§a[ ✔  Accepter]"));
-														    TextComponent refuse = new TextComponent(rp.translateString("§c[ ✘  Deny]", "§c[ ✘  Refuser]"));
+														    TextComponent accept = new TextComponent(("§a[ ✔  Accepter]"));
+														    TextComponent refuse = new TextComponent(("§c[ ✘  Refuser]"));
 														    ClickEvent acceptEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/marry " + uuid + " yes");
 														    ClickEvent refuseEvent = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/marry " + uuid + " no");
 														    accept.setClickEvent(acceptEvent);
@@ -122,7 +122,7 @@ public class PastorPNJ extends PNJHandler {
 														    text.addExtra(accept);
 														    text.addExtra(new TextComponent("     "));
 														    text.addExtra(refuse);
-														    rpp.getChat().addFixDisplay(new RChatFixDisplay(rpp,-1,null).setClosable(false).addLines("",rpp.translateString("   §e> Are you sure you want to marry " + rp.getName() + "?", "   §e> Souhaitez-vous prendre pour épou" + (rp.getSex().equals(Gender.MALE) ? "x" : (rp.getSex().equals(Gender.FEMALE) ? "se" : "x(se)")) + " " + rp.getName() + " ?")).addText(text).addLine(""));
+														    rpp.getChat().addFixDisplay(new RChatFixDisplay(rpp,-1,null).setClosable(false).addLines("",("   §e> Souhaitez-vous prendre pour épou" + (rp.getSex().equals(Gender.MALE) ? "x" : (rp.getSex().equals(Gender.FEMALE) ? "se" : "x(se)")) + " " + rp.getName() + " ?")).addText(text).addLine(""));
 														}
 														
 													}, true, false);

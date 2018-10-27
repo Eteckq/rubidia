@@ -241,7 +241,7 @@ public class Core extends JavaPlugin implements Listener {
 		
 		if(Configs.getDatabase().getBoolean("maintenancemode")){
 			if(!p.isOp()){
-				p.kickPlayer(RPlayer.get(p).translateString("§4MAINTENANCE MODE: §cCome back later!", "§4MODE MAINTENANCE: §cRevenez plus tard !"));
+				p.kickPlayer("§4MODE MAINTENANCE: §cRevenez plus tard !");
 				return;
 			}
 		}
@@ -489,7 +489,7 @@ public class Core extends JavaPlugin implements Listener {
 											@Override
 											public void run() {
 												p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 5, .8F);
-												rp.sendTitle(rp.translateString("§6Use your resurrection scroll!", "§6Utilisez votre parchemin de résurrection !"), (step > 3 ? "§e" : (step > 1 ? "§c" : "§4")) + step + "...", 0, 25, 0);
+												rp.sendTitle(("§6Utilisez votre parchemin de résurrection !"), (step > 3 ? "§e" : (step > 1 ? "§c" : "§4")) + step + "...", 0, 25, 0);
 												step--;
 											}
 
@@ -801,7 +801,7 @@ public class Core extends JavaPlugin implements Listener {
 					for(Player p : Bukkit.getOnlinePlayers()){
 						if(!p.isOp()){
 							RPlayer rp = RPlayer.get(p);
-							rp.sendTitle(rp.translateString("§4MAINTENANCE MODE", "§4MODE MAINTENANCE"), rp.translateString("§cYou will be kicked in 30 seconds", "§cVous serez expulsé dans 30 secondes"), 0, 150, 5);
+							rp.sendTitle(("§4MODE MAINTENANCE"), ("§cVous serez expulsé dans 30 secondes"), 0, 150, 5);
 						}
 					}
 					Bukkit.getScheduler().runTaskLater(this, new Runnable(){
@@ -991,7 +991,7 @@ public class Core extends JavaPlugin implements Listener {
 				if(p.isOp()){
 					ItemStack beer = new ItemStack(Material.POTION);
 					ItemMeta beerm = beer.getItemMeta();
-					beerm.setDisplayName(rp.translateString("§rBeer","§rBière"));
+					beerm.setDisplayName(("§rBière"));
 					beerm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 					beer.setItemMeta(beerm);
 					p.getInventory().addItem(beer);
@@ -1596,7 +1596,7 @@ public class Core extends JavaPlugin implements Listener {
 		for(Player player : Bukkit.getOnlinePlayers()){
 			RPlayer rp = RPlayer.get(player);
 			rp.sendMessage("§e§l   RUBIDIA IS RESTARTING IN 20 SECONDS...", "§e§l   RUBIDIA REDEMARRE DANS 20 SECONDES...");
-			rp.sendTitle("§aRubidia " + rp.translateString("is restarting", "redémarre") + "...", "§6>  §e20 second" + rp.translateString("", "e") + "s  §6<", 0, 140, 40);
+			rp.sendTitle("§aRubidia " + ("redémarre") + "...", "§6>  §e20 second" + ("e") + "s  §6<", 0, 140, 40);
 		}
 		new BukkitTask(Core.instance){
 
@@ -1605,7 +1605,7 @@ public class Core extends JavaPlugin implements Listener {
 				for(Player player : Bukkit.getOnlinePlayers()){
 					RPlayer rp = RPlayer.get(player);
 					rp.sendMessage("§e§l   RUBIDIA IS RESTARTING IN 5 SECONDS...", "§e§l   RUBIDIA REDEMARRE DANS 5 SECONDES...");
-					rp.sendTitle("§aRubidia " + rp.translateString("is restarting", "redémarre") + "...", "§6>  §e5 second" + rp.translateString("", "e") + "s  §6<", 0, 200, 0);
+					rp.sendTitle("§aRubidia " + ("redémarre") + "...", "§6>  §e5 second" + ("e") + "s  §6<", 0, 200, 0);
 				}
 				new BukkitTask(Core.instance){
 

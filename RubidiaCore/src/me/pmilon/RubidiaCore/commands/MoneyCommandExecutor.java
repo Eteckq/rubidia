@@ -17,11 +17,11 @@ public class MoneyCommandExecutor extends HybridCommandExecutor {
 	@Override
 	public void onPlayerCommand(Player player, RPlayer rp, String[] args) {
 		if(args.length == 0){
-			rp.getChat().addFixDisplay(new RChatFixDisplay(rp,80,null).addLines(Arrays.asList("     §6" + rp.translateString("Bank balance: §e", "Solde bancaire : §e") + rp.getBank() + rp.translateString(" §aemeralds", " §aémeraudes"))));
+			rp.getChat().addFixDisplay(new RChatFixDisplay(rp,80,null).addLines(Arrays.asList("     §6" + ("Solde bancaire : §e") + rp.getBank() + (" §aémeraudes"))));
 		}else if(args.length == 1){
 			RPlayer rpo = RPlayer.getFromName(args[0]);
 			if(rpo != null){
-				rp.getChat().addFixDisplay(new RChatFixDisplay(rp, 80, null).addLines(Arrays.asList("     §6" + args[0].toUpperCase() + " : §e" + rpo.getBank() + rp.translateString(" §aemeralds", " §aémeraudes"))));
+				rp.getChat().addFixDisplay(new RChatFixDisplay(rp, 80, null).addLines(Arrays.asList("     §6" + args[0].toUpperCase() + " : §e" + rpo.getBank() + (" §aémeraudes"))));
 			}else rp.sendMessage("§4" + args[0] + " §chas never been on this server! Use: " + (rp.isOp() ? "/money ([player]/pay/take [player] [amount])" : "/money ([player])"), "§4" + args[0] + " §cn'est jamais venu sur ce serveur ! Utilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
 		}else if(args.length == 3){
 			if(args[0].equalsIgnoreCase("pay")){

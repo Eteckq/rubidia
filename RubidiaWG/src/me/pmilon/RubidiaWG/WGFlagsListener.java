@@ -126,7 +126,7 @@ public class WGFlagsListener implements Listener {
 
 		if(WGUtils.testState(player, player.getLocation(), Flags.CLAIM)){
 			if(rp != null){
-				rp.sendTitle(rp.translateString("§7§lWILDERNESS", "§7§lZONE SAUVAGE"), rp.translateString("§fUnclaimed territory", "§fTerritoire libre"), 5, 45, 10);
+				rp.sendTitle(("§7§lZONE SAUVAGE"), ("§fTerritoire libre"), 5, 45, 10);
 			}
 		}
 	}
@@ -146,7 +146,7 @@ public class WGFlagsListener implements Listener {
 
 		if(!WGUtils.testState(player, player.getLocation(), Flags.CLAIM)){
 			if(rp != null){
-				rp.sendTitle(rp.translateString("§6§lPROTECTED ZONE", "§6§lREGION PROTEGEE"), rp.translateString("§eClaimed territory", "§eTerritoire conquis"), 5, 45, 10);
+				rp.sendTitle(("§6§lREGION PROTEGEE"), ("§eTerritoire conquis"), 5, 45, 10);
 			}
 		}
 	}

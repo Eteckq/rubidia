@@ -16,7 +16,7 @@ public class ShopCommandExecutor extends PlayerCommandExecutor {
 	@Override
 	public void onCommand(Player player, RPlayer rp, String[] args) {
 		if(!rp.isInCombat()){
-			if(rp.getShop() == null)rp.setShop(new PlayerShop(new ArrayList<ItemStack>(), new ArrayList<Integer[]>(), rp.translateString(rp.getName() + "'s shop", "Boutique de " + rp.getName()), player, rp.translateString(rp.getName() + "'s shop", "Boutique de " + rp.getName())));
+			if(rp.getShop() == null)rp.setShop(new PlayerShop(new ArrayList<ItemStack>(), new ArrayList<Integer[]>(), ("Boutique de " + rp.getName()), player, ("Boutique de " + rp.getName())));
 			Core.uiManager.requestUI(new ShopEditionUI(player, rp.getShop(),0));
 		}else rp.sendMessage("§cYou cannot open a shop while in combat!", "§cVous ne pouvez ouvrir de boutique en combat !");
 	}

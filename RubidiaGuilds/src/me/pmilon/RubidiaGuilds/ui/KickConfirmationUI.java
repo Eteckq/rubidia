@@ -14,9 +14,9 @@ public class KickConfirmationUI extends ConfirmationUI {
 	public final Guild guild;
 	public final GMember member;
 	public KickConfirmationUI(RPlayer rp, Guild guild, GMember kicked) {
-		super(rp.getPlayer(), rp.translateString("Kick ", "Ejection de ") + kicked.getName(),
-				new String[]{rp.translateString("§aKick " + kicked.getName() + " from your guild", "§aEjecter " + kicked.getName() + " de votre guilde"),rp.translateString("§cKeep " + kicked.getName() + " as a member of your guild", "§cGarder " + kicked.getName() + " parmis les rangs de votre guilde")},
-				"§7§l" + kicked.getName(), Arrays.asList("", rp.translateString("§8Are you sure you want to kick this player?", "§8Êtes-vous certain de vouloir éjecter ce joueur ?")));
+		super(rp.getPlayer(), ("Ejection de ") + kicked.getName(),
+				new String[]{("§aEjecter " + kicked.getName() + " de votre guilde"),("§cGarder " + kicked.getName() + " parmis les rangs de votre guilde")},
+				"§7§l" + kicked.getName(), Arrays.asList("", ("§8Êtes-vous certain de vouloir éjecter ce joueur ?")));
 		this.guild = guild;
 		this.member = kicked;
 	}

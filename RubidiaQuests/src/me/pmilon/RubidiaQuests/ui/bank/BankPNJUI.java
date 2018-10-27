@@ -21,7 +21,7 @@ public class BankPNJUI extends UIHandler {
 	public BankPNJUI(Player p, BankPNJ pnj) {
 		super(p);
 		this.pnj = pnj;
-		this.menu = Bukkit.createInventory(this.getHolder(), 9, rp.translateString("Bank", "Banque"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 9, ("Banque"));
 	}
 
 	@Override
@@ -90,10 +90,10 @@ public class BankPNJUI extends UIHandler {
 		int count = this.count();
 		ItemStack item = new ItemStack(Material.LAVA_BUCKET,1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Foundry", "Fonderie"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Send these materials to the foundry", "Envoyer ces matériaux à la fonderie"),
-				"§7" + rp.translateString("and add §a" + count + " §7emerald" + (count > 1 ? "s" : "") + " to your bank account.", "et ajouter §a" + count + " §7émeraude" + (count > 1 ? "s" : "") + " à votre banque."),
-				"", "§f§l" + rp.translateString("Current balance: §7" + rp.getBank() + (rp.getMaxBankAmount() == -1 ? "⟡" : "§8/" + rp.getMaxBankAmount()), "Solde actuel : §7" + rp.getBank() + (rp.getMaxBankAmount() == -1 ? "⟡" : "§8/" + rp.getMaxBankAmount()))));
+		meta.setDisplayName("§6§l" + ("Fonderie"));
+		meta.setLore(Arrays.asList("§7" + ("Envoyer ces matériaux à la fonderie"),
+				"§7" + ("et ajouter §a" + count + " §7émeraude" + (count > 1 ? "s" : "") + " à votre banque."),
+				"", "§f§l" + ("Solde actuel : §7" + rp.getBank() + (rp.getMaxBankAmount() == -1 ? "⟡" : "§8/" + rp.getMaxBankAmount()))));
 		item.setItemMeta(meta);
 		return item;
 	}

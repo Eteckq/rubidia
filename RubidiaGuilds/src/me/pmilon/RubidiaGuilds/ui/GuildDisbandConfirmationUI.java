@@ -14,8 +14,8 @@ public class GuildDisbandConfirmationUI extends ConfirmationUI {
 
 	private final Guild guild;
 	public GuildDisbandConfirmationUI(RPlayer rp, Guild guild) {
-		super(rp.getPlayer(), rp.translateString("Guild disband", "Dissolution de guilde"), new String[]{rp.translateString("§aDisband guild and lose all its progression", "§aDissoudre la guilde et perdre toute sa progression"),rp.translateString("§cKeep guild and all its progression", "§cGarder la guilde et conserver sa progression")},
-				"§7§l" + rp.translateString("Disband confirmation", "Confirmation de dissolution"), Arrays.asList(rp.translateString("§8Are you sure you want to disband this guild?", "§8Êtes-vous certain de vouloir dissoudre cette guilde ?")));
+		super(rp.getPlayer(), ("Dissolution de guilde"), new String[]{("§aDissoudre la guilde et perdre toute sa progression"),("§cGarder la guilde et conserver sa progression")},
+				"§7§l" + ("Confirmation de dissolution"), Arrays.asList(("§8Êtes-vous certain de vouloir dissoudre cette guilde ?")));
 		this.guild = guild;
 	}
 

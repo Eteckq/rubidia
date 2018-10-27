@@ -37,7 +37,7 @@ public class GCreateMenuUI extends UIHandler {
 	
 	public GCreateMenuUI(Player p) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), 9, rp.translateString("Guild creation", "Création de guilde"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 9, ("Création de guilde"));
 	}
 
 	@Override
@@ -118,11 +118,11 @@ public class GCreateMenuUI extends UIHandler {
 		ItemMeta paperm = ITEM_NAME.getItemMeta();
 		String name = GuildsPlugin.guildCreationName.get(gm);
 		if(name == null){
-			name = rp.translateString(gm.getName() + "sGuild",gm.getName() + "Guilde");
+			name = (gm.getName() + "Guilde");
 			GuildsPlugin.guildCreationName.put(gm, name);
 		}
-		paperm.setDisplayName("§a§l" + rp.translateString("Guild Name", "Nom de Guilde"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Change your guild name", "§7Changez votre nom de guilde"), "", rp.translateString("§6§lCurrent name: ", "§6§lNom actuel : ") + "§e" + name));
+		paperm.setDisplayName("§a§l" + ("Nom de Guilde"));
+		paperm.setLore(Arrays.asList(("§7Changez votre nom de guilde"), "", ("§6§lNom actuel : ") + "§e" + name));
 		ITEM_NAME.setItemMeta(paperm);
 		return ITEM_NAME;
 	}
@@ -130,25 +130,25 @@ public class GCreateMenuUI extends UIHandler {
 		ItemMeta paperm = ITEM_DESC.getItemMeta();
 		String description  = (GuildsPlugin.guildCreationDescription.get(gm));
 		if(description == null){
-			description = rp.translateString("New Guild!", "Nouvelle Guilde !");
+			description = ("Nouvelle Guilde !");
 			GuildsPlugin.guildCreationDescription.put(gm, description);
 		}
-		paperm.setDisplayName("§a§l" + rp.translateString("Guild Description", "Description de Guilde"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Change your guild description", "§7Changez votre description de guilde"), "", rp.translateString("§6§lCurrent description: ", "§6§lDescription actuelle : ") + "§e" + (description.length() > Guild.DESC_LENGTH ? StringUtils.abbreviate(description, Guild.DESC_LENGTH) : description)));
+		paperm.setDisplayName("§a§l" + ("Description de Guilde"));
+		paperm.setLore(Arrays.asList(("§7Changez votre description de guilde"), "", ("§6§lDescription actuelle : ") + "§e" + (description.length() > Guild.DESC_LENGTH ? StringUtils.abbreviate(description, Guild.DESC_LENGTH) : description)));
 		ITEM_DESC.setItemMeta(paperm);
 		return ITEM_DESC;
 	}
 	private ItemStack getPeace(){
 		ItemStack stack = new ItemStack(this.isPeaceful() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta paperm = stack.getItemMeta();
-		paperm.setDisplayName((this.isPeaceful() ? "§a§l" : "§c§l") + rp.translateString("Peaceful Guild", "Guilde en paix"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Peaceful guilds are invulnerable to TNT,", "§7Les guildes en paix sont invulnérables à la TNT,"), rp.translateString("§7skills and damages in general EVERYWHERE.", "§7aux compétences et aux dégâts en général de PARTOUT."), rp.translateString("§7It's a way to disable PVP and play with your friends!", "§7C'est un moyen de désactiver le PVP tout en jouant avec vos amis !"), rp.translateString("§7Their territories can't be claimed by other guilds", "§7Leurs territoires ne peuvent être conquis par d'autres guildes"), rp.translateString("§7and they can't be declared as enemy to any guild.", "§7et ne peuvent être déclarées ennemies à aucune guilde.")));
+		paperm.setDisplayName((this.isPeaceful() ? "§a§l" : "§c§l") + ("Guilde en paix"));
+		paperm.setLore(Arrays.asList(("§7Les guildes en paix sont invulnérables à la TNT,"), ("§7aux compétences et aux dégâts en général de PARTOUT."), ("§7C'est un moyen de désactiver le PVP tout en jouant avec vos amis !"), ("§7Leurs territoires ne peuvent être conquis par d'autres guildes"), ("§7et ne peuvent être déclarées ennemies à aucune guilde.")));
 		stack.setItemMeta(paperm);
 		return stack;
 	}
 	private ItemStack getCreator(){
 		ItemMeta paperm = ITEM_CREATE.getItemMeta();
-		paperm.setDisplayName("§a§l" + rp.translateString("Found Guild", "Fonder la guilde"));
+		paperm.setDisplayName("§a§l" + ("Fonder la guilde"));
 		ITEM_CREATE.setItemMeta(paperm);
 		return ITEM_CREATE;
 	}

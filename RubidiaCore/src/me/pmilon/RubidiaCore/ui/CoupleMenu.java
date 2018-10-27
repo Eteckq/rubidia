@@ -34,7 +34,7 @@ public class CoupleMenu extends UIHandler {
 	public CoupleMenu(Player p, Couple couple) {
 		super(p);
 		this.couple = couple;
-		this.menu = Bukkit.createInventory(this.getHolder(), 9, StringUtils.abbreviate(rp.translateString("Mariage manager", "Gestion du mariage"), 32));
+		this.menu = Bukkit.createInventory(this.getHolder(), 9, StringUtils.abbreviate(("Gestion du mariage"), 32));
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class CoupleMenu extends UIHandler {
 			ItemStack item = new ItemStack( locked ? Material.LIGHT_GRAY_STAINED_GLASS_PANE : DYES[i], 1);
 			ItemMeta meta = item.getItemMeta();
 			String[] name = buff.getName().split("-");
-			meta.setDisplayName("§" + (locked ? "7" : COLOR_CODES[i]) + "§l❤ " + rp.translateString(name[0], name[1]) + " ❤");
+			meta.setDisplayName("§" + (locked ? "7" : COLOR_CODES[i]) + "§l❤ " + (name[1]) + " ❤");
 			
 			long time2 = locked ? buff.getXpTime()-this.getCouple().getXPTime() : 0L;
 			long days2 = TimeUnit.MILLISECONDS.toDays(time2);
@@ -61,8 +61,8 @@ public class CoupleMenu extends UIHandler {
 			time2 -= TimeUnit.MINUTES.toMillis(minutes2);
 			
 			List<String> lore = new ArrayList<String>();
-			lore.add("§8" + (buff.getLevel() >= 0 ? "+" : "") + buff.getLevel() + "% " + rp.translateString(buff.getType().getDisplayEn(), buff.getType().getDisplayFr()));
-			if(locked)lore.add(rp.translateString("§8Unlocked in: ", "§8Temps d'activation : ") + String.format("§7%02d §8" + rp.translateString("d.", "j.") + " §7%02d §8h. §7%02d §8min.", days2, hours2, minutes2));
+			lore.add("§8" + (buff.getLevel() >= 0 ? "+" : "") + buff.getLevel() + "% " + (buff.getType().getDisplayFr()));
+			if(locked)lore.add(("§8Temps d'activation : ") + String.format("§7%02d §8" + ("j.") + " §7%02d §8h. §7%02d §8min.", days2, hours2, minutes2));
 			meta.setLore(lore);
 			item.setItemMeta(meta);
 			this.getMenu().setItem(i, item);
@@ -116,7 +116,7 @@ public class CoupleMenu extends UIHandler {
 		long minutes2 = TimeUnit.MILLISECONDS.toMinutes(time2);
 		time2 -= TimeUnit.MINUTES.toMillis(minutes2);
 		Date date = new Date(this.getCouple().getWeddingDate());
-		meta.setLore(Arrays.asList(rp.translateString("§8Your wedding date: §7", "§8Votre date de mariage : §7") + new SimpleDateFormat("dd/MM/yyyy").format(date) + rp.translateString(" §8at §7", " §8à §7") + new SimpleDateFormat("HH:mm").format(date), rp.translateString("§8Your total time online together: ", "§8Votre temps total passé ensemble connectés : ") + String.format("§7%02d §8" + rp.translateString("d.", "j.") + " §7%02d §8h. §7%02d §8min.", days1, hours1, minutes1), rp.translateString("§8Time left before next buff unlocked: ", "§8Temps nécessaire à l'activation du prochain buff : ") + String.format("§7%02d §8" + rp.translateString("d.", "j.") + " §7%02d §8h. §7%02d §8min.", days2, hours2, minutes2), "", rp.translateString("§c§oClick here to divorce with §4§o" + this.getCouple().getCompanion(rp).getName(), "§c§oCliquez ici pour divorcer avec §4§o" + this.getCouple().getCompanion(rp).getName())));
+		meta.setLore(Arrays.asList(("§8Votre date de mariage : §7") + new SimpleDateFormat("dd/MM/yyyy").format(date) + (" §8à §7") + new SimpleDateFormat("HH:mm").format(date), ("§8Votre temps total passé ensemble connectés : ") + String.format("§7%02d §8" + ("j.") + " §7%02d §8h. §7%02d §8min.", days1, hours1, minutes1), ("§8Temps nécessaire à l'activation du prochain buff : ") + String.format("§7%02d §8" + ("j.") + " §7%02d §8h. §7%02d §8min.", days2, hours2, minutes2), "", ("§c§oCliquez ici pour divorcer avec §4§o" + this.getCouple().getCompanion(rp).getName())));
 		item.setItemMeta(meta);
 		return item;
 	}

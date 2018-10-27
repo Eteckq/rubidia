@@ -54,20 +54,20 @@ public class PiercingUI extends UIHandler {
 		this.menu = Bukkit.createInventory(this.getHolder(), 9, "Piercing");
 		
 		ItemMeta meta = FREE_SLOT.getItemMeta();
-		meta.setDisplayName("§f§l" + rp.translateString("FREE SLOT", "PORE LIBRE"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Select a joyau to place inside in your inventory.", "Sélectionnez un joyau à placer à l'intérieur dans votre inventaire."), "§7" + rp.translateString("WARNING: once placed, it is sealed!", "ATTENTION : une fois placé, il est scellé !")));
+		meta.setDisplayName("§f§l" + ("PORE LIBRE"));
+		meta.setLore(Arrays.asList("§7" + ("Sélectionnez un joyau à placer à l'intérieur dans votre inventaire."), "§7" + ("ATTENTION : une fois placé, il est scellé !")));
 		FREE_SLOT.setItemMeta(meta);
 		
-		meta.setDisplayName("§8§l" + rp.translateString("LOCKED SLOT", "PORE FERME"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Pierce your weapon/armor to unlock", "Percez votre arme/armure pour ouvrir"), "§7" + rp.translateString("this slot and place a joyau inside.", "ce pore et y placer un joyau.")));
+		meta.setDisplayName("§8§l" + ("PORE FERME"));
+		meta.setLore(Arrays.asList("§7" + ("Percez votre arme/armure pour ouvrir"), "§7" + ("ce pore et y placer un joyau.")));
 		LOCKED_SLOT.setItemMeta(meta);
 		
-		meta.setDisplayName("§f§l" + rp.translateString("WEAPON/ARMOR", "ARME/ARMURE"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Select a weapon/armor to pierce,", "Sélectionnez une arme/armure à percer,"), "§7" + rp.translateString("allowing to place joyaux inside and", "vous permettant d'y placer des joyaux"), "§7" + rp.translateString("increasing your statistics (while you use it).", "augmentant vos statistiques (lorsque vous l'utilisez).")));
+		meta.setDisplayName("§f§l" + ("ARME/ARMURE"));
+		meta.setLore(Arrays.asList("§7" + ("Sélectionnez une arme/armure à percer,"), "§7" + ("vous permettant d'y placer des joyaux"), "§7" + ("augmentant vos statistiques (lorsque vous l'utilisez).")));
 		WPN_SLOT.setItemMeta(meta);
 		
 		meta.setDisplayName("§f§lORICHALQUE");
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Select an Orichalque to use to pierce", "Sélectionnez un Orichalque à utiliser"), "§7" + rp.translateString("your weapon/armor (unlock a slot).", "pour le perçage de votre arme/armure."), "§7" + rp.translateString("You will then be able to place a joyau inside.", "Vous pourrez ensuite y placer un joyau.")));
+		meta.setLore(Arrays.asList("§7" + ("Sélectionnez un Orichalque à utiliser"), "§7" + ("pour le perçage de votre arme/armure."), "§7" + ("Vous pourrez ensuite y placer un joyau.")));
 		ORI_SLOT.setItemMeta(meta);
 		
 	}
@@ -299,8 +299,8 @@ public class PiercingUI extends UIHandler {
 		if(rItem != null){
 			item = rItem.getItemStack();
 			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName(meta.getDisplayName() + " §4§o(" + rp.translateString("sealed", "scellé") + ")");
-			meta.setLore(Arrays.asList("§d" + rp.translateString(piercing.getType().getDisplayEn(), piercing.getType().getDisplayFr()) + " +" + piercing.getType().getAmount()));
+			meta.setDisplayName(meta.getDisplayName() + " §4§o(" + ("scellé") + ")");
+			meta.setLore(Arrays.asList("§d" + (piercing.getType().getDisplayFr()) + " +" + piercing.getType().getAmount()));
 			item.setItemMeta(meta);
 		}
 		return item;
@@ -321,15 +321,15 @@ public class PiercingUI extends UIHandler {
 				ItemMeta meta = start.getItemMeta();
 				meta.setDisplayName("§f§lOrichalque");
 				List<String> lore = new ArrayList<String>();
-				lore.addAll(Arrays.asList(rp.translateString("§7During piercing, this orichalcum", "§7Durant le piercing, cet orichalque"), rp.translateString("§7will pass over all the slots.", "§7va passer au dessus de chacun des pores."), "§7" + rp.translateString("If it stops over a locked slot, it will open.", "S'il s'arrête au dessus d'un pore fermé, il s'ouvre."), "§7" + rp.translateString("If it stops over a filled slot, it will be emptied.", "S'il s'arrête au dessus d'un pore rempli, il sera vidé."), "§7" + rp.translateString("If it stops over an empty slot, it will close.","S'il s'arrête au dessus d'un pore ouvert, il se ferme."), rp.translateString("§7You can use appropriate scrolls to prevent it.", "§7Vous pouvez utiliser des parchemins appropriés pour l'éviter."), ""));
+				lore.addAll(Arrays.asList(("§7Durant le piercing, cet orichalque"), ("§7va passer au dessus de chacun des pores."), "§7" + ("S'il s'arrête au dessus d'un pore fermé, il s'ouvre."), "§7" + ("S'il s'arrête au dessus d'un pore rempli, il sera vidé."), "§7" + ("S'il s'arrête au dessus d'un pore ouvert, il se ferme."), ("§7Vous pouvez utiliser des parchemins appropriés pour l'éviter."), ""));
 				if(!this.scroll.isEmpty()){
-					lore.add("§6§l" + rp.translateString("Active scrolls:", "Parchemins actifs :"));
+					lore.add("§6§l" + ("Parchemins actifs :"));
 					for(Scroll scroll : this.scroll){
-						lore.add("  §e" + rp.translateString(scroll.getType().getNameEn(),scroll.getType().getNameFr()));
+						lore.add("  §e" + (scroll.getType().getNameFr()));
 					}
 					lore.add("");
 				}
-				lore.add(rp.translateString("§fClick here to start piercing.", "§fCliquez ici pour débuter le piercing."));
+				lore.add(("§fCliquez ici pour débuter le piercing."));
 				meta.setLore(lore);
 				start.setItemMeta(meta);
 				this.getMenu().setItem(8, start);

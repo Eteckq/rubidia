@@ -16,7 +16,7 @@ public class MessageManager {
 	public static void left(GMember member) {
 		RPlayer rp = RPlayer.get(member);
 		if(rp != null){
-			rp.sendTitle(rp.translateString("§7§lWILDERNESS", "§7§lZONE SAUVAGE"), rp.translateString("§fUnclaimed territory", "§fTerritoire libre"), 5, 45, 10);
+			rp.sendTitle(("§7§lZONE SAUVAGE"), ("§fTerritoire libre"), 5, 45, 10);
 		}
 	}
 	

@@ -12,10 +12,10 @@ public class HomeRemovalConfirmationUI extends ConfirmationUI {
 	private final Guild guild;
 	private final int home;
 	public HomeRemovalConfirmationUI(RPlayer rp, Guild guild, int home) {
-		super(rp.getPlayer(), rp.translateString("Home removal", "Suppression de PR"),
-				new String[]{rp.translateString("§aRemove home §2" + guild.getHomes()[home].getName(), "§aSupprimer le PR §2" + guild.getHomes()[home].getName()),
-						rp.translateString("§cKeep home " + guild.getHomes()[home].getName(), "§cConserver le PR " + guild.getHomes()[home].getName())},
-				"§7§l" + guild.getHomes()[home].getName(), Arrays.asList(rp.translateString("§8Are you sure you want to remove this home?","§8Êtes-vous sûr de vouloir supprimer ce PR ?")));
+		super(rp.getPlayer(), ("Suppression de PR"),
+				new String[]{("§aSupprimer le PR §2" + guild.getHomes()[home].getName()),
+						("§cConserver le PR " + guild.getHomes()[home].getName())},
+				"§7§l" + guild.getHomes()[home].getName(), Arrays.asList(("§8Êtes-vous sûr de vouloir supprimer ce PR ?")));
 		this.guild = guild;
 		this.home = home;
 	}

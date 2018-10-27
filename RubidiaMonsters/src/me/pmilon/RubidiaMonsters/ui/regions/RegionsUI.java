@@ -56,7 +56,7 @@ public class RegionsUI extends ListMenuUIHandler<Region>{
 		ItemStack infos = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList(rp.translateString("§7Choose region to edit", "§7Choisissez une région à éditer"), rp.translateString("§7or click here to create new", "§7ou cliquez ici pour en créer une nouvelle")));
+		meta.setLore(Arrays.asList(("§7Choisissez une région à éditer"), ("§7ou cliquez ici pour en créer une nouvelle")));
 		infos.setItemMeta(meta);
 		return infos;
 	}

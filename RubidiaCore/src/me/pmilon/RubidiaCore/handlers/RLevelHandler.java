@@ -105,7 +105,7 @@ public class RLevelHandler implements Listener{
 				final Player p = rp.getPlayer();
 				if(e.getSource().getType().equals(RXPSourceType.COMMAND))rp.setRExp(LevelUtils.getRLevelTotalExp(newLevel)*(p.getExp()), new RXPSource(RXPSourceType.ADJUST, null, null));
 				
-				rp.sendTitle(rp.translateString("§6§lLEVEL UP!", "§6§lNIVEAU SUPERIEUR !"), rp.translateString("§eYou gain " + skp + " SKP & " + skd + " DP !", "§eVous gagnez " + skp + " SKP & " + skd + " DP !"), 0, 100, 20);
+				rp.sendTitle(("§6§lNIVEAU SUPERIEUR !"), ("§eVous gagnez " + skp + " SKP & " + skd + " DP !"), 0, 100, 20);
 				LevelUtils.firework(p.getLocation());
 				
 				if(newLevel >= Mastery.ADVENTURER.getLevel() && rp.getMastery().equals(Mastery.VAGRANT)){

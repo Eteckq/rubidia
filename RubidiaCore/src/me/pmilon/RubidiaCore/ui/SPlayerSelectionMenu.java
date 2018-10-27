@@ -28,7 +28,7 @@ public class SPlayerSelectionMenu extends UIHandler{
 	boolean force = true;
 	public SPlayerSelectionMenu(Player p) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), 36, rp.translateString("Character selection","Sélection du personnage"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 36, ("Sélection du personnage"));
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class SPlayerSelectionMenu extends UIHandler{
 	protected boolean openWindow() {
 		ItemStack item = new ItemStack(Material.BARRIER, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§c§l" + rp.translateString("DELETE CHARACTER", "SUPPRIMER CE PERSONNAGE"));
+		meta.setDisplayName("§c§l" + ("SUPPRIMER CE PERSONNAGE"));
 		item.setItemMeta(meta);
 		for(int i = 0;i < 4;i++){
 			ItemStack item1;
@@ -52,15 +52,15 @@ public class SPlayerSelectionMenu extends UIHandler{
 				meta1 = item1.getItemMeta();
 				((Damageable) meta1).setDamage((int) (sp.getRClass().equals(RClass.VAGRANT) ? Material.WOODEN_AXE.getMaxDurability()*.67 : (sp.getRClass().equals(RClass.RANGER) ? Material.BOW.getMaxDurability()*.954 : sp.getRClass().getBaseWeapon().getMaxDurability()*.72)));
 				meta1.setUnbreakable(true);
-				meta1.setDisplayName("§f§l" + rp.translateString(sp.getRClass().getDisplayEn(), sp.getRClass().getDisplayFr()));
+				meta1.setDisplayName("§f§l" + (sp.getRClass().getDisplayFr()));
 				double ratio = sp.getRExp()/LevelUtils.getRLevelTotalExp(sp.getRLevel());
-				lore.addAll(Arrays.asList("§8" + rp.translateString("Level ", "Niveau ") + "§7" + sp.getRLevel(), "§8" + rp.translateString("XP ", "XP ") + "§7" + sp.getRExp() + " (" + Utils.round(ratio, 2) + "%)", "§8" + rp.translateString("Mastery ", "Maîtrise ") + "§7" + rp.translateString(sp.getMastery().getNameEN(), sp.getMastery().getNameFR()), "§8" + rp.translateString("Job ", "Métier ") + "§7" + ChatColor.stripColor(rp.translateString(sp.getRJob().getNameEN(), sp.getRJob().getNameFR())), "§8" + rp.translateString("Skillpoints ", "Points de compétence ") + "§7" + sp.getSkp(), "§8" + rp.translateString("Distinction points ", "Points de distinction ") + "§7" + sp.getSkd(), "§8" + rp.translateString("Strength ", "Force ") + "§7" + sp.getStrength(), "§8" + rp.translateString("Endurance ", "Endurance ") + "§7" + sp.getEndurance(), "§8" + rp.translateString("Agility ", "Agilité ") + "§7" + sp.getAgility(), "§8" + rp.translateString("Intelligence ", "Intelligence ") + "§7" + sp.getIntelligence(), "§8" + rp.translateString("Perception ", "Perception ") + "§7" + sp.getPerception(), "§8" + rp.translateString("Kills ", "Meurtres ") + "§7" + sp.getKills(), "§8" + rp.translateString("Renom ", "Renom ") + "§7" + sp.getRenom(), "", rp.isVip() || i != 3 ? rp.translateString("§e§oClick here to select this character", "§e§oCliquez ici pour sélectionner ce personnage") : rp.translateString("§c§oYou will be able to use this character once VIP again!", "§c§oVous pourrez utiliser ce personnage une fois de nouveau VIP !"), "", "§f§m--------------------------------------"));
+				lore.addAll(Arrays.asList("§8" + ("Niveau ") + "§7" + sp.getRLevel(), "§8" + ("XP ") + "§7" + sp.getRExp() + " (" + Utils.round(ratio, 2) + "%)", "§8" + ("Maîtrise ") + "§7" + (sp.getMastery().getNameFR()), "§8" + ("Métier ") + "§7" + ChatColor.stripColor((sp.getRJob().getNameFR())), "§8" + ("Points de compétence ") + "§7" + sp.getSkp(), "§8" + ("Points de distinction ") + "§7" + sp.getSkd(), "§8" + ("Force ") + "§7" + sp.getStrength(), "§8" + ("Endurance ") + "§7" + sp.getEndurance(), "§8" + ("Agilité ") + "§7" + sp.getAgility(), "§8" + ("Intelligence ") + "§7" + sp.getIntelligence(), "§8" + ("Perception ") + "§7" + sp.getPerception(), "§8" + ("Meurtres ") + "§7" + sp.getKills(), "§8" + ("Renom ") + "§7" + sp.getRenom(), "", rp.isVip() || i != 3 ? ("§e§oCliquez ici pour sélectionner ce personnage") : ("§c§oVous pourrez utiliser ce personnage une fois de nouveau VIP !"), "", "§f§m--------------------------------------"));
 				meta1.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
 			}else{
 				item1 = new ItemStack(Material.BOOK, 1);
 				meta1 = item1.getItemMeta();
 				meta1.setDisplayName("§f§l>  §7Aucun personnage§f§l  <");
-				lore.addAll(Arrays.asList("",rp.isVip() || i != 3? rp.translateString("§e§oClick here to create a new character", "§e§oCliquez ici pour créer un nouveau personnage") : rp.translateString("§c§oThis slot is only available to VIP players!", "§c§oCe slot est uniquement disponible aux joueurs VIP !"), "", "§f§m----------------------------------------"));
+				lore.addAll(Arrays.asList("",rp.isVip() || i != 3? ("§e§oCliquez ici pour créer un nouveau personnage") : ("§c§oCe slot est uniquement disponible aux joueurs VIP !"), "", "§f§m----------------------------------------"));
 			}
 			meta1.setLore(lore);
 			item1.setItemMeta(meta1);

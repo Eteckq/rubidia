@@ -39,8 +39,8 @@ public class PlayerQuestList extends ListMenuUIHandler<Quest> {
 	protected ItemStack getInformations() {
 		ItemStack item = new ItemStack(Material.MELON, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(rp.translateString("§8§lActive quests list", "§8§lListe des quêtes actives"));
-		meta.setLore(Arrays.asList(rp.translateString("§7Left click a quest to get help", "§7Cliquez gauche sur une quête pour obtenir un suivi"), rp.translateString("§7Right click a quest to give up", "§7Cliquez droit sur une quête pour l'abandonner")));
+		meta.setDisplayName(("§8§lListe des quêtes actives"));
+		meta.setLore(Arrays.asList(("§7Cliquez gauche sur une quête pour obtenir un suivi"), ("§7Cliquez droit sur une quête pour l'abandonner")));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -59,7 +59,7 @@ public class PlayerQuestList extends ListMenuUIHandler<Quest> {
 			}
 			lore.add("");
 		}
-		lore.add("§4§l" + rp.translateString("Objectives:", "Objectifs :"));
+		lore.add("§4§l" + ("Objectifs :"));
 		for(Objective objective : quest.getObjectives()){
 			if(!objective.getType().equals(ObjectiveType.TIME))lore.add("  " + objective.getInfos(this.rp));
 		}
@@ -67,17 +67,17 @@ public class PlayerQuestList extends ListMenuUIHandler<Quest> {
 			if(qEvent.getType().equals(QEventType.SPAWN)){
 				int amount = 0;
 				if(qEvent.monsters.containsKey(rp))amount = qEvent.monsters.get(rp).size();
-				if(qEvent.getMonster() != null)lore.add("  " + (amount > 0 ? "§4[✘] §c" : "§2[✔] §a") + rp.translateString(amount + " remaining " + qEvent.getMonster().getName() + (amount > 1 && !qEvent.getMonster().getName().endsWith("s") ? "s" : "") + " to kill", amount + " " + qEvent.getMonster().getName() + (amount > 1 && !qEvent.getMonster().getName().endsWith("s") ? "s" : "") + " restant" + (amount > 1 && !qEvent.getMonster().getName().endsWith("s") ? "s" : "") + " à éliminer"));
+				if(qEvent.getMonster() != null)lore.add("  " + (amount > 0 ? "§4[✘] §c" : "§2[✔] §a") + (amount + " " + qEvent.getMonster().getName() + (amount > 1 && !qEvent.getMonster().getName().endsWith("s") ? "s" : "") + " restant" + (amount > 1 && !qEvent.getMonster().getName().endsWith("s") ? "s" : "") + " à éliminer"));
 			}
 		}
-		lore.addAll(Arrays.asList("", "§6§l" + rp.translateString("Rewards:", "Récompenses :")));
+		lore.addAll(Arrays.asList("", "§6§l" + ("Récompenses :")));
 		for(Reward reward : quest.getRewards()){
 			lore.add("  " + reward.getInfos(this.rp));
 		}
 		lore.add("");
 		if(quest.getHolder(rp) != null){
-			lore.add("§8§l" + rp.translateString("Given by: ", "Donnée par : ") + "§7" + quest.getHolder(rp).getName());
-			if(!quest.isAutoFinish())lore.add(rp.translateString("§8§oGet back to this NPC once you finished the quest!", "§8§oRetournez voir ce PNJ une fois la quête terminée !"));
+			lore.add("§8§l" + ("Donnée par : ") + "§7" + quest.getHolder(rp).getName());
+			if(!quest.isAutoFinish())lore.add(("§8§oRetournez voir ce PNJ une fois la quête terminée !"));
 		}
 		meta.setLore(lore);
 		item.setItemMeta(meta);

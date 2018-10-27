@@ -34,8 +34,8 @@ public class ShopUI extends ListMenuUIHandler<ItemStack>{
 	protected ItemStack getInformations() {
 		ItemStack item = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(rp.translateString("§8§l" + (this.getShop() instanceof PlayerShop ? ((PlayerShop)this.getShop()).getHolder().getName() + "'s s" : "S") + "hop", "§8§lBoutique" + (this.getShop() instanceof PlayerShop ? " de " + ((PlayerShop)this.getShop()).getHolder().getName() : "")));
-		meta.setLore(Arrays.asList(rp.translateString("§f§lClick§7 an item to buy §f§l1§7 copy", "§f§lCliquez§7 un item pour acheter §f§l1§7 exemplaire"), rp.translateString("§f§lSneak + click§7 an item to buy §f§l5§7 copy", "§f§lSneak + cliquez§7 un item pour acheter §f§l5§7 exemplaires")));
+		meta.setDisplayName(("§8§lBoutique" + (this.getShop() instanceof PlayerShop ? " de " + ((PlayerShop)this.getShop()).getHolder().getName() : "")));
+		meta.setLore(Arrays.asList(("§f§lCliquez§7 un item pour acheter §f§l1§7 exemplaire"), ("§f§lSneak + cliquez§7 un item pour acheter §f§l5§7 exemplaires")));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -52,7 +52,7 @@ public class ShopUI extends ListMenuUIHandler<ItemStack>{
 		String ccolorCode = rp.getBank() > cost ? "§a" : "§c";
 		String dcolorCode = rp.getBank() > cost ? "§2" : "§4";
 		int quantity = this.getShop() instanceof PlayerShop ? ((PlayerShop)this.getShop()).getEditionUI().getQuantity(items) : 1;
-		lore.addAll(Arrays.asList("§8§m-------------------", "", rp.translateString("§7Cost: " + ccolorCode + cost + " " + dcolorCode + "emeralds", "§7Coût : " + ccolorCode + cost + " " + dcolorCode + "émeraudes"), rp.translateString("§7Remaining quantity: §8" + quantity, "§7Quantité restante : §8" + quantity)));
+		lore.addAll(Arrays.asList("§8§m-------------------", "", ("§7Coût : " + ccolorCode + cost + " " + dcolorCode + "émeraudes"), ("§7Quantité restante : §8" + quantity)));
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;

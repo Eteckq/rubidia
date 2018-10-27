@@ -67,7 +67,7 @@ public class FriendTPUI extends ListMenuUIHandler<Player> {
 		ItemStack infos = new ItemStack(Material.MAP, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList(rp.translateString("§7Choose someone to teleport to", "§7Choisissez quelqu'un vers qui se téléporter")));
+		meta.setLore(Arrays.asList(("§7Choisissez quelqu'un vers qui se téléporter")));
 		infos.setItemMeta(meta);
 		return infos;
 	}

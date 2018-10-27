@@ -69,25 +69,25 @@ public class RPlayerManagerMenu extends UIHandler {
 		List<String> lore = new ArrayList<String>();
 		lore.add("§f§m-------------------");
 		if(!rpp.isPublicData()){
-			lore.add("§4§l/!\\ §c" + rp.translateString("Confidential data", "Données confidentielles"));
+			lore.add("§4§l/!\\ §c" + ("Données confidentielles"));
 		}
 		if(!rpp.isProfileUpdated()){
-			lore.add("§8" + rp.translateString("Outdated profile", "Profil non à jour"));
+			lore.add("§8" + ("Profil non à jour"));
 		}
 		double age = (double) ((long)(System.currentTimeMillis()-rpp.getBirthDate()))/Utils.MILLIS_IN_YEAR;
-		lore.add("§8" + rp.translateString("Gender ", "Sexe ") + "§7" + rp.translateString(rpp.getSex().getEn().toLowerCase(), rpp.getSex().getFr().toLowerCase()));
-		lore.add("§8" + rp.translateString("Age ", "Âge ") + "§7" + String.valueOf(Utils.round(age, 2)) +  rp.translateString("", " ans"));
-		lore.add("§8" + rp.translateString("Birth date ", "Date de naissance ") + "§7" + new SimpleDateFormat("dd/MM/yyyy").format(rpp.getBirthDate()));
+		lore.add("§8" + ("Sexe ") + "§7" + (rpp.getSex().getFr().toLowerCase()));
+		lore.add("§8" + ("Âge ") + "§7" + String.valueOf(Utils.round(age, 2)) +  (" ans"));
+		lore.add("§8" + ("Date de naissance ") + "§7" + new SimpleDateFormat("dd/MM/yyyy").format(rpp.getBirthDate()));
 		lore.add("");
 		long time = System.currentTimeMillis()-rpp.getLastDivorce();
-		lore.addAll(Arrays.asList("§8" + rp.translateString("Kills ", "Meurtres ") + "§7" + rpp.getKills(), "§8" + rp.translateString("Gaming time ", "Temps de jeu ") + "§7" + TimeUnit.MILLISECONDS.toHours(rpp.getGamingTime()) + "h", "§8" + (rpp.getCouple() == null ? (time >= Settings.TIME_BEFORE_WEDDING_PROPOSAL ? rp.translateString("Single", "Célibataire") : rp.translateString("Divorced for ", "Divorcé depuis ") + "§7" + TimeUnit.MILLISECONDS.toHours(time) + "h") : rp.translateString("Married to ", "Marié à ") + "§7" + rpp.getCouple().getCompanion(rpp).getName())));
+		lore.addAll(Arrays.asList("§8" + ("Meurtres ") + "§7" + rpp.getKills(), "§8" + ("Temps de jeu ") + "§7" + TimeUnit.MILLISECONDS.toHours(rpp.getGamingTime()) + "h", "§8" + (rpp.getCouple() == null ? (time >= Settings.TIME_BEFORE_WEDDING_PROPOSAL ? ("Célibataire") : ("Divorcé depuis ") + "§7" + TimeUnit.MILLISECONDS.toHours(time) + "h") : ("Marié à ") + "§7" + rpp.getCouple().getCompanion(rpp).getName())));
 		GMember member = GMember.get(rpp);
 		if(member.hasGuild()){
 			Guild guild = member.getGuild();
-			lore.addAll(Arrays.asList("", "§8" + rp.translateString("Guild ", "Guilde ") + "§7" + guild.getName(), "§8" + rp.translateString("Rank ", "Rang ") + "§7" + member.getRank().getName(), ""));
+			lore.addAll(Arrays.asList("", "§8" + ("Guilde ") + "§7" + guild.getName(), "§8" + ("Rang ") + "§7" + member.getRank().getName(), ""));
 		}
 		Date date = new Date(rpp.getLastConnectionDate());
-		lore.addAll(Arrays.asList("§8" + rp.translateString("Last connected on ", "Dernière connexion le "), "§7" + new SimpleDateFormat("dd/MM/yyyy").format(date) + rp.translateString("§8,§7 ", " §8à§7 ") + new SimpleDateFormat("HH:mm").format(date)));
+		lore.addAll(Arrays.asList("§8" + ("Dernière connexion le "), "§7" + new SimpleDateFormat("dd/MM/yyyy").format(date) + (" §8à§7 ") + new SimpleDateFormat("HH:mm").format(date)));
 		meta.setLore(lore);
 		meta.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(rpp.getUniqueId())));
 		skull.setItemMeta(meta);
@@ -105,8 +105,8 @@ public class RPlayerManagerMenu extends UIHandler {
 		}
 		SPlayer sp = rpp.getSaves()[rpp.getLastLoadedSPlayerId()];
 		double ratio = sp.getRExp()/LevelUtils.getRLevelTotalExp(sp.getRLevel());
-		meta.setDisplayName("§6" + rp.translateString("Characters", "Personnages") + "§8(" + n + ")");
-		meta.setLore(Arrays.asList("§8" + rp.translateString("Level ", "Niveau ") + "§7" + sp.getRLevel(), "§8" + rp.translateString("XP ", "XP ") + "§7" + sp.getRExp() + " (" + Utils.round(ratio, 2) + "%)", "§8" + rp.translateString("Mastery ", "Maîtrise ") + "§7" + rp.translateString(sp.getMastery().getNameEN(), sp.getMastery().getNameFR()), "§8" + rp.translateString("Job ", "Métier ") + "§7" + ChatColor.stripColor(rp.translateString(sp.getRJob().getNameEN(), sp.getRJob().getNameFR())), "§8" + rp.translateString("Skillpoints ", "Points de compétence ") + "§7" + sp.getSkp(), "§8" + rp.translateString("Distinction points ", "Points de distinction ") + "§7" + sp.getSkd(), "§8" + rp.translateString("Strength ", "Force ") + "§7" + sp.getStrength(), "§8" + rp.translateString("Endurance ", "Endurance ") + "§7" + sp.getEndurance(), "§8" + rp.translateString("Agility ", "Agilité ") + "§7" + sp.getAgility(), "§8" + rp.translateString("Intelligence ", "Intelligence ") + "§7" + sp.getIntelligence(), "§8" + rp.translateString("Perception ", "Perception ") + "§7" + sp.getPerception(), "§8" + rp.translateString("Kills ", "Meurtres ") + "§7" + sp.getKills(), "§8" + rp.translateString("Renom ", "Renom ") + "§7" + sp.getRenom()));
+		meta.setDisplayName("§6" + ("Personnages") + "§8(" + n + ")");
+		meta.setLore(Arrays.asList("§8" + ("Niveau ") + "§7" + sp.getRLevel(), "§8" + ("XP ") + "§7" + sp.getRExp() + " (" + Utils.round(ratio, 2) + "%)", "§8" + ("Maîtrise ") + "§7" + (sp.getMastery().getNameFR()), "§8" + ("Métier ") + "§7" + ChatColor.stripColor((sp.getRJob().getNameFR())), "§8" + ("Points de compétence ") + "§7" + sp.getSkp(), "§8" + ("Points de distinction ") + "§7" + sp.getSkd(), "§8" + ("Force ") + "§7" + sp.getStrength(), "§8" + ("Endurance ") + "§7" + sp.getEndurance(), "§8" + ("Agilité ") + "§7" + sp.getAgility(), "§8" + ("Intelligence ") + "§7" + sp.getIntelligence(), "§8" + ("Perception ") + "§7" + sp.getPerception(), "§8" + ("Meurtres ") + "§7" + sp.getKills(), "§8" + ("Renom ") + "§7" + sp.getRenom()));
 		item.setItemMeta(meta);
 		return item;
 	}

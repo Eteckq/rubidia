@@ -189,7 +189,7 @@ public class Set {
 		List<String> states = new ArrayList<String>();
 		List<Buff> available = player != null ? this.getActiveBuffs(player) : new ArrayList<Buff>();
 		for(Buff buff : this.getBuffs()){
-			String state = (player != null ? "    " : "") + (available.contains(buff) ? "§e" : "§8") + (buff.getFactor() >= 0 ? "+" : "") + (Utils.round(buff.getFactor()*100, 1)) + "% " + (player != null ? rp.translateString(buff.getType().getDisplayEn(), buff.getType().getDisplayFr()) : buff.getType().getDisplayFr());
+			String state = (player != null ? "    " : "") + (available.contains(buff) ? "§e" : "§8") + (buff.getFactor() >= 0 ? "+" : "") + (Utils.round(buff.getFactor()*100, 1)) + "% " + (player != null ? (buff.getType().getDisplayFr()) : buff.getType().getDisplayFr());
 			if(player == null)state = ChatColor.stripColor(state);
 			states.add(state);
 		}

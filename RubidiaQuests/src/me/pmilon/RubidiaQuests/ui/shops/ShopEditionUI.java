@@ -186,24 +186,24 @@ public class ShopEditionUI extends UIHandler{
 	public ItemStack getInvTitle(){
 		ItemStack RENAME = new ItemStack(Material.NAME_TAG, 1);
 		ItemMeta mRENAME = RENAME.getItemMeta();
-		mRENAME.setDisplayName(rp.translateString("§6§lRename shop menu", "§6§lRenommer le menu boutique"));
-		mRENAME.setLore(Arrays.asList(rp.translateString("§7Give a flashy name to your shop menu!", "§7Donnez un nom accrochant à votre menu !"), "", "§r" + this.getShop().getInventoryTitle()));
+		mRENAME.setDisplayName(("§6§lRenommer le menu boutique"));
+		mRENAME.setLore(Arrays.asList(("§7Donnez un nom accrochant à votre menu !"), "", "§r" + this.getShop().getInventoryTitle()));
 		RENAME.setItemMeta(mRENAME);
 		return RENAME;
 	}
 	public ItemStack getTitle(){
 		ItemStack RENAME = new ItemStack(Material.SIGN, 1);
 		ItemMeta mRENAME = RENAME.getItemMeta();
-		mRENAME.setDisplayName(rp.translateString("§6§lRename shop", "§6§lRenommer la boutique"));
-		mRENAME.setLore(Arrays.asList(rp.translateString("§7Give a flashy name to your shop!", "§7Donnez un nom accrochant à votre boutique !"), "", "§r" + ((PlayerShop) this.getShop()).getTitle()));
+		mRENAME.setDisplayName(("§6§lRenommer la boutique"));
+		mRENAME.setLore(Arrays.asList(("§7Donnez un nom accrochant à votre boutique !"), "", "§r" + ((PlayerShop) this.getShop()).getTitle()));
 		RENAME.setItemMeta(mRENAME);
 		return RENAME;
 	}
 	public ItemStack getClearIS(){
 		ItemStack CLEAR = new ItemStack(Material.REDSTONE_BLOCK, 1);
 		ItemMeta mCLEAR = CLEAR.getItemMeta();
-		mCLEAR.setDisplayName(rp.translateString("§4§lClear shop", "§4§lVider la boutique"));
-		mCLEAR.setLore(Arrays.asList(rp.translateString("§cClear all items in the shop", "§7Vider entièrement le contenu de la boutique")));
+		mCLEAR.setDisplayName(("§4§lVider la boutique"));
+		mCLEAR.setLore(Arrays.asList(("§7Vider entièrement le contenu de la boutique")));
 		CLEAR.setItemMeta(mCLEAR);
 		return CLEAR;
 	}
@@ -212,11 +212,11 @@ public class ShopEditionUI extends UIHandler{
 		ItemStack START = new ItemStack(shop.isStart() ? Material.BOOK : Material.WRITABLE_BOOK, 1);
 		ItemMeta mSTART = START.getItemMeta();
 		if(shop.isStart()){
-			mSTART.setDisplayName(rp.translateString("§6§lClose shop", "§6§lFermer la boutique"));
-			mSTART.setLore(Arrays.asList(rp.translateString("§7Stop selling and cancel running transactions", "§7Terminer la vente et interrompre les transactions en cours")));
+			mSTART.setDisplayName(("§6§lFermer la boutique"));
+			mSTART.setLore(Arrays.asList(("§7Terminer la vente et interrompre les transactions en cours")));
 		}else {
-			mSTART.setDisplayName(rp.translateString("§6§lOpen shop", "§6§lOuvrir la boutique"));
-			mSTART.setLore(Arrays.asList(rp.translateString("§7Click items in your inventory to add them to your shop.", "§7Cliquez sur les items dans votre inventaire pour les ajouter à la boutique."), rp.translateString("§7Click here to open your shop!", "§7Cliquez ici pour ouvrir votre boutique !")));
+			mSTART.setDisplayName(("§6§lOuvrir la boutique"));
+			mSTART.setLore(Arrays.asList(("§7Cliquez sur les items dans votre inventaire pour les ajouter à la boutique."), ("§7Cliquez ici pour ouvrir votre boutique !")));
 		}
 		START.setItemMeta(mSTART);
 		return START;
@@ -224,8 +224,8 @@ public class ShopEditionUI extends UIHandler{
 	public ItemStack getShopMsg(){
 		ItemStack CLEAR = new ItemStack(Material.PAPER, 1);
 		ItemMeta mCLEAR = CLEAR.getItemMeta();
-		mCLEAR.setDisplayName(rp.translateString("§6§lSend server message", "§6§lEnvoyer un message au serveur"));
-		mCLEAR.setLore(Arrays.asList(rp.translateString("§7Send a server-wide message", "§7Lancer un message au serveur pour laisser"), rp.translateString("§7to let players see what you sell!", "§7les joueurs voir ce que vous vendez !")));
+		mCLEAR.setDisplayName(("§6§lEnvoyer un message au serveur"));
+		mCLEAR.setLore(Arrays.asList(("§7Lancer un message au serveur pour laisser"), ("§7les joueurs voir ce que vous vendez !")));
 		CLEAR.setItemMeta(mCLEAR);
 		return CLEAR;
 	}
@@ -233,14 +233,14 @@ public class ShopEditionUI extends UIHandler{
 	public ItemStack bigPriceIS(int amount){
 		ItemStack BIGPRICE = new ItemStack(Material.EMERALD_BLOCK, amount);
 		ItemMeta mBIGPRICE = BIGPRICE.getItemMeta();
-		mBIGPRICE.setDisplayName(rp.translateString("§2§lPrice", "§2§lPrix"));
+		mBIGPRICE.setDisplayName(("§2§lPrix"));
 		BIGPRICE.setItemMeta(mBIGPRICE);
 		return BIGPRICE;
 	}
 	public ItemStack priceIS(int amount){
 		ItemStack PRICE = new ItemStack(Material.EMERALD, amount);
 		ItemMeta mPRICE = PRICE.getItemMeta();
-		mPRICE.setDisplayName(rp.translateString("§a§lPrice", "§a§lPrix"));
+		mPRICE.setDisplayName(("§a§lPrix"));
 		PRICE.setItemMeta(mPRICE);
 		return PRICE;
 	}
@@ -350,14 +350,14 @@ public class ShopEditionUI extends UIHandler{
 		if(index != 0){
 			ItemStack prev = new ItemStack(Material.MELON, 1);
 			ItemMeta meta = prev.getItemMeta();
-			meta.setDisplayName(rp.translateString("§cPrevious page", "§cPage précédente"));
+			meta.setDisplayName(("§cPage précédente"));
 			prev.setItemMeta(meta);
 			this.menu.setItem(this.SLOT_PREV, prev);
 		}
 		if(index != size-1){
 			ItemStack next = new ItemStack(Material.ARROW, 1);
 			ItemMeta meta = next.getItemMeta();
-			meta.setDisplayName(rp.translateString("§aNext page", "§aPage suivante"));
+			meta.setDisplayName(("§aPage suivante"));
 			next.setItemMeta(meta);
 			this.menu.setItem(this.SLOT_NEXT, next);
 		}

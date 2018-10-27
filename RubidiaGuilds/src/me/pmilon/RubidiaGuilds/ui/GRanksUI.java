@@ -37,13 +37,13 @@ public class GRanksUI extends UIHandler {
 	public GRanksUI(Player p, Guild guild) {
 		super(p);
 		this.guild = guild;
-		this.menu = Bukkit.createInventory(this.getHolder(), 18, StringUtils.abbreviate(this.getGuild().getName() + rp.translateString(" : Ranks", " : Rangs"),32));
+		this.menu = Bukkit.createInventory(this.getHolder(), 18, StringUtils.abbreviate(this.getGuild().getName() + (" : Rangs"),32));
 		ItemMeta META = ITEM_INFO.getItemMeta();
-		META.setDisplayName(rp.translateString("§e§lClick to manage permissions", "§e§lCliquez pour gérer les permissions"));
+		META.setDisplayName(("§e§lCliquez pour gérer les permissions"));
 		ITEM_INFO.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir"));
+		META.setDisplayName(("§e§lCliquez pour ouvrir"));
 		ITEM_OPEN.setItemMeta(META);
-		META.setDisplayName(rp.translateString("§e§lClick to cycle", "§e§lCliquez pour cycler"));
+		META.setDisplayName(("§e§lCliquez pour cycler"));
 		ITEM_RANKINFO.setItemMeta(META);
 	}
 
@@ -185,7 +185,7 @@ public class GRanksUI extends UIHandler {
 				item = rank.getItemStack();
 				ItemMeta meta = item.getItemMeta();
 				meta.setDisplayName("§6§l" + rank.getName());
-				meta.setLore(Arrays.asList("§7" + rp.translateString("Left-click to edit name and item.", "Cliquez gauche pour éditer le nom et l'item."), "§7" + rp.translateString("Right-click to delete this rank.", "Cliquez droit pour supprimer ce rang."), "§8§o" + rp.translateString("All members of this rank will then become recruits.", "Tous les membres de ce rang seront alors des recrues."), "", "§7" + rp.translateString("Click on the button below to manage this rank's permissions.", "Cliquez sur le bouton ci-dessous pour gérer les permissions de ce rang.")));
+				meta.setLore(Arrays.asList("§7" + ("Cliquez gauche pour éditer le nom et l'item."), "§7" + ("Cliquez droit pour supprimer ce rang."), "§8§o" + ("Tous les membres de ce rang seront alors des recrues."), "", "§7" + ("Cliquez sur le bouton ci-dessous pour gérer les permissions de ce rang.")));
 				item.setItemMeta(meta);
 			}else item = this.getDefault();
 			
@@ -198,16 +198,16 @@ public class GRanksUI extends UIHandler {
 
 	private ItemStack getBack(){
 		ItemMeta META_BACK = ITEM_BACK.getItemMeta();
-		META_BACK.setDisplayName("§6§l" + rp.translateString("Main menu", "Menu principal"));
-		META_BACK.setLore(Arrays.asList(rp.translateString("§7Get back to the main menu.", "§7Retourner au menu principal."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		META_BACK.setDisplayName("§6§l" + ("Menu principal"));
+		META_BACK.setLore(Arrays.asList(("§7Retourner au menu principal."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_BACK.setItemMeta(META_BACK);
 		return ITEM_BACK;
 	}
 	private ItemStack getDefault(){
 		ItemStack item = new ItemStack(Material.SLIME_BALL, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("NEW RANK", "NOUVEAU RANG"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Left-click to create a new rank at this position.", "Cliquez gauche pour créer un nouveau rang à cette position.")));
+		meta.setDisplayName("§6§l" + ("NOUVEAU RANG"));
+		meta.setLore(Arrays.asList("§7" + ("Cliquez gauche pour créer un nouveau rang à cette position.")));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -215,8 +215,8 @@ public class GRanksUI extends UIHandler {
 	private ItemStack getDefaultRank(){
 		ItemStack ITEM_DEFAULTRANK = this.getGuild().getDefaultRank().getItemStack();
 		ItemMeta META = ITEM_DEFAULTRANK.getItemMeta();
-		META.setDisplayName("§6§l" + rp.translateString("Default Rank", "Rang attribué par défaut"));
-		META.setLore(Arrays.asList(rp.translateString("§7Cycle through the 4 different available", "§7Cyclez parmis les 4 différents rangs"), rp.translateString("§7ranks to choose the one that will be", "§7disponible pour choisir celui qui sera"), rp.translateString("§7assigned to a new member by default.", "§7attribué par défaut à un nouveau membre."),"", rp.translateString("§7This rank's permissions will be the same for your allies.", "§7Les permissions de ce rang seront les mêmes pour vos alliés."), rp.translateString("§7(Only concerns territory protection permissions)", "§7(Ne concerne que les permissions de protection des territoires))"), "", rp.translateString("§e§lClick to cycle", "§e§lCliquez pour cycler")));
+		META.setDisplayName("§6§l" + ("Rang attribué par défaut"));
+		META.setLore(Arrays.asList(("§7Cyclez parmis les 4 différents rangs"), ("§7disponible pour choisir celui qui sera"), ("§7attribué par défaut à un nouveau membre."),"", ("§7Les permissions de ce rang seront les mêmes pour vos alliés."), ("§7(Ne concerne que les permissions de protection des territoires))"), "", ("§e§lCliquez pour cycler")));
 		META.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		ITEM_DEFAULTRANK.setItemMeta(META);
 		return ITEM_DEFAULTRANK;

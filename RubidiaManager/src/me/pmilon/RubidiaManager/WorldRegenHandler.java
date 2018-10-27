@@ -43,7 +43,7 @@ public class WorldRegenHandler implements Listener {
 					GMember member = GMember.get(killer);
 					for(final Player player : Bukkit.getOnlinePlayers()){
 						RPlayer rp = RPlayer.get(player);
-						rp.sendTitle("", rp.translateString("§6§l" + (member.hasGuild() ? member.getGuild().getName() : member.getName()) + " §ahas ended the Ender Dragon !", "§6§l" + (member.hasGuild() ? member.getGuild().getName() : member.getName()) + " §een a fini avec l'Ender Dragon !"), 5, 120, 10);
+						rp.sendTitle("", ("§6§l" + (member.hasGuild() ? member.getGuild().getName() : member.getName()) + " §een a fini avec l'Ender Dragon !"), 5, 120, 10);
 						this.fireworkFinish.put(player, Bukkit.getScheduler().runTaskTimer(this.getPlugin(), new Runnable(){
 							int time = 0;
 							public void run(){

@@ -43,7 +43,7 @@ public class ItemListUI extends ListMenuUIHandler<RItemStack> {
 		ItemStack infos = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList(rp.translateString("§7Click an item to get a copy of it.", "§7Cliquez sur un item pour en obtenir une copie.")));
+		meta.setLore(Arrays.asList(("§7Cliquez sur un item pour en obtenir une copie.")));
 		infos.setItemMeta(meta);
 		return infos;
 	}

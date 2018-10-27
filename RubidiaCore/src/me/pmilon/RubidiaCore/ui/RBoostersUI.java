@@ -78,7 +78,7 @@ public class RBoostersUI extends UIHandler {
 		ItemStack item = new ItemStack(active ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName((active ? "§a" : "§7") + "Booster " + booster.getBoosterType().toString());
-		meta.setLore(Arrays.asList("§8" + (booster.getBoosterType().getLevel() >= 0 ? "+" : "") + Utils.round(booster.getFactor()*100, 1) + "% " + rp.translateString(booster.getBoosterType().getType().getDisplayEn(), booster.getBoosterType().getType().getDisplayFr()), "§e" + booster.getBoosterType().getCost() + rp.translateString(" points of renown per minute", " points de renom par minute")));
+		meta.setLore(Arrays.asList("§8" + (booster.getBoosterType().getLevel() >= 0 ? "+" : "") + Utils.round(booster.getFactor()*100, 1) + "% " + (booster.getBoosterType().getType().getDisplayFr()), "§e" + booster.getBoosterType().getCost() + (" points de renom par minute")));
 		item.setItemMeta(meta);
 		boosters[i] = booster;
 		return item;

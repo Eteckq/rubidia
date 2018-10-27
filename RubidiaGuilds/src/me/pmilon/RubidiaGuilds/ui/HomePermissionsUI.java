@@ -34,7 +34,7 @@ public class HomePermissionsUI extends UIHandler {
 		this.guild = guild;
 		this.subject = subject;
 		this.page = page;
-		this.menu = Bukkit.createInventory(this.getHolder(), 18, StringUtils.abbreviate(this.getName() + " : " + rp.translateString("Home permissions", "Permissions de PR"), 32));
+		this.menu = Bukkit.createInventory(this.getHolder(), 18, StringUtils.abbreviate(this.getName() + " : " + ("Permissions de PR"), 32));
 	}
 
 	@Override
@@ -95,26 +95,26 @@ public class HomePermissionsUI extends UIHandler {
 	private ItemStack getCanHome(int index){
 		ItemStack item = new ItemStack(this.getSubject().canHome(index) ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName((this.getSubject().canHome(index) ? "§a§l" : "§c§l") + rp.translateString("Use permission", "Permission d'utilisation"));
+		meta.setDisplayName((this.getSubject().canHome(index) ? "§a§l" : "§c§l") + ("Permission d'utilisation"));
 		String name = this.getGuild().getHomes()[index] != null ? " (§f§l" + this.getGuild().getHomes()[index].getName() + "§7)" : "";
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Allow " + this.getName() + " to use home #" + index + name, "Autoriser " + this.getName() + " à utiliser le PR #" + index + name)));
+		meta.setLore(Arrays.asList("§7" + ("Autoriser " + this.getName() + " à utiliser le PR #" + index + name)));
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getCanSetHome(int index){
 		ItemStack item = new ItemStack(this.getSubject().canSetHome(index) ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName((this.getSubject().canSetHome(index) ? "§a§l" : "§c§l") + rp.translateString("Set permission", "Permission de définition"));
+		meta.setDisplayName((this.getSubject().canSetHome(index) ? "§a§l" : "§c§l") + ("Permission de définition"));
 		String name = this.getGuild().getHomes()[index] != null ? " (§f§l" + this.getGuild().getHomes()[index].getName() + "§7)" : "";
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Allow " + this.getName() + " to set home #" + index + name, "Autoriser " + this.getName() + " à définir le PR #" + index + name)));
+		meta.setLore(Arrays.asList("§7" + ("Autoriser " + this.getName() + " à définir le PR #" + index + name)));
 		item.setItemMeta(meta);
 		return item;
 	}
 	private ItemStack getBack(){
 		ItemStack item = new ItemStack(Material.MELON, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Other permissions", "Autres permissions"));
-		meta.setLore(Arrays.asList(rp.translateString("§7Get back to the permissions menu.", "§7Retourner au menu des permissions."), "", rp.translateString("§e§lClick to open", "§e§lCliquez pour ouvrir")));
+		meta.setDisplayName("§6§l" + ("Autres permissions"));
+		meta.setLore(Arrays.asList(("§7Retourner au menu des permissions."), "", ("§e§lCliquez pour ouvrir")));
 		item.setItemMeta(meta);
 		return item;
 	}

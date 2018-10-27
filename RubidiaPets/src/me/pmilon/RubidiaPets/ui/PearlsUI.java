@@ -37,7 +37,7 @@ public class PearlsUI extends UIHandler {
 		super(p);
 		this.pet = pet;
 		this.entity = (LivingEntity) pet.getEntity();
-		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.HOPPER, StringUtils.abbreviate(pet.getName() + rp.translateString(" §r: Pearls", " §r: Perles"), 32));
+		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.HOPPER, StringUtils.abbreviate(pet.getName() + (" §r: Perles"), 32));
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class PearlsUI extends UIHandler {
 			for(int j = 0;j < pearl.getAmplifier();j++){
 				lvl += "I";
 			}
-			meta.setDisplayName("§a" + rp.translateString("Pearl of " + pearl.getType().getDisplay()[0], "Perle de " + pearl.getType().getDisplay()[1]) + " " + lvl + " §2(" + (int)(pearl.getDuration()/3600000.0) + "h)");
+			meta.setDisplayName("§a" + ("Perle de " + pearl.getType().getDisplay()[1]) + " " + lvl + " §2(" + (int)(pearl.getDuration()/3600000.0) + "h)");
 			stack.setItemMeta(meta);
 			getMenu().setItem(i, stack);
 		}
@@ -188,7 +188,7 @@ public class PearlsUI extends UIHandler {
 	private ItemStack getBack(){
 		ItemStack back = new ItemStack(Material.ARROW, 1);
 		ItemMeta backm = back.getItemMeta();
-		backm.setDisplayName(rp.translateString("§7Return to pet menu", "§7Retour au menu du compagnon"));
+		backm.setDisplayName(("§7Retour au menu du compagnon"));
 		back.setItemMeta(backm);
 		return back;
 	}

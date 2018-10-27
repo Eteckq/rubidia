@@ -97,13 +97,13 @@ public class Utils {
 						}.runTaskTimer(20, 20);
 					}
 				}
-				display.addAll(Arrays.asList("","§7§l" + rp.translateString("Objectives:", "Objectifs :")));
+				display.addAll(Arrays.asList("","§7§l" + ("Objectifs :")));
 				for(int i = 0; i < events.size();i++){
 					if(index >= 8 && size > 9)break;
 					QEvent event = events.get(i);
 					int amount = 0;
 					if(event.monsters.containsKey(rp))amount = event.monsters.get(rp).size();
-					displayS = "  " + (amount > 0 ? "§4[✘] §c" : "§2[✔] §a") + rp.translateString(amount + " remaining " + event.getMonster().getName() + (amount > 1 && !event.getMonster().getName().endsWith("s") ? "s" : "") + " to kill", amount + " " + event.getMonster().getName() + (amount > 1 && !event.getMonster().getName().endsWith("s") ? "s" : "") + " restant" + (amount > 1 && !event.getMonster().getName().endsWith("s") ? "s" : "") + " à éliminer");
+					displayS = "  " + (amount > 0 ? "§4[✘] §c" : "§2[✔] §a") + (amount + " " + event.getMonster().getName() + (amount > 1 && !event.getMonster().getName().endsWith("s") ? "s" : "") + " restant" + (amount > 1 && !event.getMonster().getName().endsWith("s") ? "s" : "") + " à éliminer");
 					display.add(displayS);
 					max = Math.max(max, ChatColor.stripColor(displayS).length());
 					index++;
@@ -128,13 +128,13 @@ public class Utils {
 						index++;
 					}
 				}
-				if(index >= 8 && quest.getObjectives().size() > 9)display.add("    §7" + rp.translateString("and " + (quest.getObjectives().size()-index) + " more...", "et " + (quest.getObjectives().size()-index) + " autres..."));
+				if(index >= 8 && quest.getObjectives().size() > 9)display.add("    §7" + ("et " + (quest.getObjectives().size()-index) + " autres..."));
 				String separation = "";
 				for(int i = 0;i < max && i < 36;i++){
 					separation += "-";
 				}
 				display.addAll(Arrays.asList("", "§7§m" + separation));
-				Utils.display("§7§l" + rp.translateString("Quest help", "Quête suivie"), display.toArray(new String[display.size()]), player);
+				Utils.display("§7§l" + ("Quête suivie"), display.toArray(new String[display.size()]), player);
 			}else rp.setFollowedQuest(null);
 		}
 	}

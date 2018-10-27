@@ -23,7 +23,7 @@ public abstract class ListMenuUIHandler<E> extends UIHandler {
 		this.SLOT_INFOS = 4+9*lines;
 		this.SLOT_NEXT = 8+9*lines;
 		this.SLOT_PREV = 9*lines;
-		this.menu = Bukkit.createInventory(this.getHolder(), lines < 5 ? 9*(lines+1) : 54, StringUtils.abbreviate(rp.translateString(titleen, titlefr),32));
+		this.menu = Bukkit.createInventory(this.getHolder(), lines < 5 ? 9*(lines+1) : 54, StringUtils.abbreviate((titlefr),32));
 	}
 
 	@Override
@@ -100,14 +100,14 @@ public abstract class ListMenuUIHandler<E> extends UIHandler {
 		if(index != 0){
 			ItemStack prev = new ItemStack(Material.MELON, 1);
 			ItemMeta meta = prev.getItemMeta();
-			meta.setDisplayName(rp.translateString("§cPrevious page", "§cPage précédente"));
+			meta.setDisplayName(("§cPage précédente"));
 			prev.setItemMeta(meta);
 			this.menu.setItem(this.SLOT_PREV, prev);
 		}
 		if(index != pages.size()-1){
 			ItemStack next = new ItemStack(Material.ARROW, 1);
 			ItemMeta meta = next.getItemMeta();
-			meta.setDisplayName(rp.translateString("§aNext page", "§aPage suivante"));
+			meta.setDisplayName(("§aPage suivante"));
 			next.setItemMeta(meta);
 			this.menu.setItem(this.SLOT_NEXT, next);
 		}

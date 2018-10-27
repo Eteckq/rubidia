@@ -43,7 +43,7 @@ public class GMenuUI extends UIHandler {
 	public GMenuUI(Player p, Guild guild) {
 		super(p);
 		this.guild = guild;
-		this.menu = Bukkit.createInventory(this.getHolder(), 9, StringUtils.abbreviate(this.getGuild().getName() + rp.translateString(" : Guild menu", " : Menu de guilde"), 32));
+		this.menu = Bukkit.createInventory(this.getHolder(), 9, StringUtils.abbreviate(this.getGuild().getName() + (" : Menu de guilde"), 32));
 	}
 
 	@Override
@@ -119,51 +119,51 @@ public class GMenuUI extends UIHandler {
 	private ItemStack getInfos(){
 		ItemStack infos = this.getGuild().getCape();
 		ItemMeta paperm = infos.getItemMeta();
-		paperm.setDisplayName("§6§l" + rp.translateString("Informations menu", "Menu des informations"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Go to the Informations Menu (Stats, Display...)", "§7Aller au menu des informations (Statistiques, Affichage...)"), "", rp.translateString("§6§lGuild name: ", "§6§lNom de guilde : ") + "§e" + this.getGuild().getName(), rp.translateString("§6§lDescription: ", "§6§lDescription : ") + "§e" + StringUtils.abbreviate(this.getGuild().getDescription(), this.DESC_LIMIT)));
+		paperm.setDisplayName("§6§l" + ("Menu des informations"));
+		paperm.setLore(Arrays.asList(("§7Aller au menu des informations (Statistiques, Affichage...)"), "", ("§6§lNom de guilde : ") + "§e" + this.getGuild().getName(), ("§6§lDescription : ") + "§e" + StringUtils.abbreviate(this.getGuild().getDescription(), this.DESC_LIMIT)));
 		paperm.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_POTION_EFFECTS);
 		infos.setItemMeta(paperm);
 		return this.getGuild().isGlowing() ? Utils.setGlowingWithoutAttributes(infos) : infos;
 	}
 	private ItemStack getClaims(){
 		ItemMeta paperm = ITEM_CLAIMS.getItemMeta();
-		paperm.setDisplayName("§a§l" + rp.translateString("Claims menu", "Menu des territoires"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Go to the Claims Menu (Management, Preferences...)", "§7Aller au menu des Claims (Gestion, Préférences...)"), "", rp.translateString("§6§lClaims owned: ", "§6§lNombre de territoires : ") + "§e" + this.getGuild().getClaims().size()));
+		paperm.setDisplayName("§a§l" + ("Menu des territoires"));
+		paperm.setLore(Arrays.asList(("§7Aller au menu des Claims (Gestion, Préférences...)"), "", ("§6§lNombre de territoires : ") + "§e" + this.getGuild().getClaims().size()));
 		ITEM_CLAIMS.setItemMeta(paperm);
 		return ITEM_CLAIMS;
 	}
 	private ItemStack getMembers(){
 		ItemMeta paperm = ITEM_MEMBERS.getItemMeta();
-		paperm.setDisplayName("§a§l" + rp.translateString("Members menu", "Menu des membres"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Go to the Members Menu (Per member preferences)", "§7Aller au menu des Membres (Préférences par membre)"), "", rp.translateString("§6§lTotal members amount: ", "§6§lNombre de membres : ") + "§e" + this.getGuild().getMembers().size()));
+		paperm.setDisplayName("§a§l" + ("Menu des membres"));
+		paperm.setLore(Arrays.asList(("§7Aller au menu des Membres (Préférences par membre)"), "", ("§6§lNombre de membres : ") + "§e" + this.getGuild().getMembers().size()));
 		ITEM_MEMBERS.setItemMeta(paperm);
 		return ITEM_MEMBERS;
 	}
 	private ItemStack getRanks(){
 		ItemMeta paperm = ITEM_RANKS.getItemMeta();
-		paperm.setDisplayName("§a§l" + rp.translateString("Ranks menu", "Menu des rangs"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Go to the Ranks Menu (Per rank preferences)", "§7Aller au menu des Rangs (Préférences par rang)"), "", rp.translateString("§6§lYour rank: ", "§6§lVotre rang : ") + "§e" + gm.getRank().getName()));
+		paperm.setDisplayName("§a§l" + ("Menu des rangs"));
+		paperm.setLore(Arrays.asList(("§7Aller au menu des Rangs (Préférences par rang)"), "", ("§6§lVotre rang : ") + "§e" + gm.getRank().getName()));
 		ITEM_RANKS.setItemMeta(paperm);
 		return ITEM_RANKS;
 	}
 	private ItemStack getLeave(){
 		ItemMeta paperm = ITEM_LEAVE.getItemMeta();
-		paperm.setDisplayName("§c§l" + rp.translateString("Leave guild", "Quitter la guilde"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7If you are LEADER, you must give leadership first.", "§7Si vous êtes le LEADER, vous devez donner la direction à un membre.")));
+		paperm.setDisplayName("§c§l" + ("Quitter la guilde"));
+		paperm.setLore(Arrays.asList(("§7Si vous êtes le LEADER, vous devez donner la direction à un membre.")));
 		ITEM_LEAVE.setItemMeta(paperm);
 		return ITEM_LEAVE;
 	}
 	private ItemStack getBank(){
 		ItemMeta paperm = ITEM_BANK.getItemMeta();
-		paperm.setDisplayName("§a§l" + rp.translateString("Guild bank", "Banque de guilde"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Open your guild's bank to share emeralds with members.", "§7Ouvrir la banque de guilde pour partager des émeraudes.")));
+		paperm.setDisplayName("§a§l" + ("Banque de guilde"));
+		paperm.setLore(Arrays.asList(("§7Ouvrir la banque de guilde pour partager des émeraudes.")));
 		ITEM_BANK.setItemMeta(paperm);
 		return ITEM_BANK;
 	}
 	private ItemStack getDisband(){
 		ItemMeta paperm = ITEM_DISBAND.getItemMeta();
-		paperm.setDisplayName("§4§l" + rp.translateString("Disband guild", "Dissoudre la guilde"));
-		paperm.setLore(Arrays.asList(rp.translateString("§7Think about it : everyone will be without guild...", "§7Tout le monde se retrouvera sans guilde...")));
+		paperm.setDisplayName("§4§l" + ("Dissoudre la guilde"));
+		paperm.setLore(Arrays.asList(("§7Tout le monde se retrouvera sans guilde...")));
 		ITEM_DISBAND.setItemMeta(paperm);
 		return ITEM_DISBAND;
 	}

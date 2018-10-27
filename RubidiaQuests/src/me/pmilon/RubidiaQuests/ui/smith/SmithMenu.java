@@ -20,7 +20,7 @@ public class SmithMenu extends UIHandler {
 	
 	public SmithMenu(Player p) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.HOPPER, rp.translateString("FORGE","FORGE"));
+		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.HOPPER, ("FORGE"));
 	}
 
 	@Override
@@ -62,8 +62,8 @@ public class SmithMenu extends UIHandler {
 	private ItemStack getEnhancement(){
 		ItemStack item = new ItemStack(Material.ANVIL,1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6" + rp.translateString("Enhancement", "Renforcement"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Power up your weapon/armor and increase", "Améliorez la puissance de votre arme/armure"), "§7" + rp.translateString("its statistics by enhancing it!", "en y appliquant un renforcement !"), "§7" + rp.translateString("Pierre étoile is necessary", "Pierre étoile requise")));
+		meta.setDisplayName("§6" + ("Renforcement"));
+		meta.setLore(Arrays.asList("§7" + ("Améliorez la puissance de votre arme/armure"), "§7" + ("en y appliquant un renforcement !"), "§7" + ("Pierre étoile requise")));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -72,7 +72,7 @@ public class SmithMenu extends UIHandler {
 		ItemStack item = new ItemStack(Material.BOOK,1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6Piercing");
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Pierce your weapon/armor to place joyaux", "Percez votre arme/armure afin d'y placer des"), "§7" + rp.translateString("inside and increase your characteristics!", "joyaux et augmenter vos caractéristiques !"), "§7" + rp.translateString("Orichalque is necessary", "Orichalque requis")));
+		meta.setLore(Arrays.asList("§7" + ("Percez votre arme/armure afin d'y placer des"), "§7" + ("joyaux et augmenter vos caractéristiques !"), "§7" + ("Orichalque requis")));
 		item.setItemMeta(meta);
 		return item;
 	}

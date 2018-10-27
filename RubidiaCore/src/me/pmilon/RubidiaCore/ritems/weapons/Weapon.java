@@ -264,51 +264,51 @@ public class Weapon {
 			lore.remove(i);
 		}
 		if(rp != null){
-			lore.addAll(Arrays.asList("§8" + (this.isAttack() ? rp.translateString(this.getWeaponUse().getDisplayEn() + " weapon", "Arme " + this.getWeaponUse().getDisplayFr()) : rp.translateString("Piece of armor","Pièce d'armure")), rp.translateString("§7Rarity: ", "§7Rareté : ") + this.getRarity().getPrefix() + rp.translateString(this.getRarity().getDisplayEn(), this.getRarity().getDisplayFr()), "", (this.isAttack() ? rp.translateString("§7Damages: §4", "§7Dégâts : §4") : rp.translateString("§7Defense: §4", "§7Défense : §4")) + this.getMinDamages() + " §8- §4" + this.getMaxDamages()));
-			if(this.isAttack())lore.add("§7" + rp.translateString("Attack speed:", "Vitesse d'attaque :") + " §8" + (this.getAttackSpeed() >= 1.75 ? rp.translateString("Very fast", "Très rapide") : this.getAttackSpeed() >= 1.25 ? rp.translateString("Fast", "Rapide") : this.getAttackSpeed() >= .9 ? rp.translateString("Average", "Moyenne") : this.getAttackSpeed() >= .5 ? rp.translateString("Slow", "Lente") : rp.translateString("Very slow", "Très lente")));
-			lore.addAll(Arrays.asList("", rp.translateString("§7Class: ", "§7Classe : ") + (this.getRClass().equals(rp.getRClass()) || this.getRClass().equals(RClass.VAGRANT) ? "§e" : "§8") + rp.translateString(this.getRClass().getDisplayEn(), this.getRClass().getDisplayFr()), rp.translateString("§7Level: ", "§7Niveau : ") + (rp.getRLevel() >= this.getLevel() ? "§e" : "§8") + this.getLevel()));
+			lore.addAll(Arrays.asList("§8" + (this.isAttack() ? ("Arme " + this.getWeaponUse().getDisplayFr()) : ("Pièce d'armure")), ("§7Rareté : ") + this.getRarity().getPrefix() + (this.getRarity().getDisplayFr()), "", (this.isAttack() ? ("§7Dégâts : §4") : ("§7Défense : §4")) + this.getMinDamages() + " §8- §4" + this.getMaxDamages()));
+			if(this.isAttack())lore.add("§7" + ("Vitesse d'attaque :") + " §8" + (this.getAttackSpeed() >= 1.75 ? ("Très rapide") : this.getAttackSpeed() >= 1.25 ? ("Rapide") : this.getAttackSpeed() >= .9 ? ("Moyenne") : this.getAttackSpeed() >= .5 ? ("Lente") : ("Très lente")));
+			lore.addAll(Arrays.asList("", ("§7Classe : ") + (this.getRClass().equals(rp.getRClass()) || this.getRClass().equals(RClass.VAGRANT) ? "§e" : "§8") + (this.getRClass().getDisplayFr()), ("§7Niveau : ") + (rp.getRLevel() >= this.getLevel() ? "§e" : "§8") + this.getLevel()));
 			if(this.isSetItem()){
 				lore.addAll(Arrays.asList("", "  §2§oSet " + this.getSet().getName()));
 				lore.addAll(this.getSet().getWeaponState(rp.getPlayer()));
-				lore.addAll(Arrays.asList("", "  §6§o" + rp.translateString("Set attributes", "Attributs de set")));
+				lore.addAll(Arrays.asList("", "  §6§o" + ("Attributs de set")));
 				lore.addAll(this.getSet().getBuffState(rp.getPlayer()));
 			}
 			if(this.hasEnchants()){
-				lore.addAll(Arrays.asList("", "  §9§o" + rp.translateString("Enchants", "Enchantements")));
+				lore.addAll(Arrays.asList("", "  §9§o" + ("Enchantements")));
 				for(Enchantment enchant : this.getEnchants().keySet()){
 					int level = this.getEnchants().get(enchant);
 					meta.addEnchant(enchant, level, true);
 					String name = "§7    §l";
 					name += level == 1 ? "I  " : level == 2 ? "II " : level == 3 ? "III" : level == 4 ? "IV §7" : level == 5 ? "V  §7" : "???";//colorcodesto align enchants
 					name += "  §7";
-					if(enchant.equals(Enchantment.ARROW_DAMAGE))name += rp.translateString("Power", "Puissance");
-					else if(enchant.equals(Enchantment.ARROW_FIRE))name += rp.translateString("Flame", "Flamme");
-					else if(enchant.equals(Enchantment.ARROW_INFINITE))name += rp.translateString("Infinity", "Infinité");
-					else if(enchant.equals(Enchantment.ARROW_KNOCKBACK))name += rp.translateString("Punch", "Frappe");
-					else if(enchant.equals(Enchantment.DAMAGE_ALL))name += rp.translateString("Power", "Puissance");
-					else if(enchant.equals(Enchantment.DAMAGE_ARTHROPODS))name += rp.translateString("Bane of arthropods", "Fléau des arthropodes");
-					else if(enchant.equals(Enchantment.DAMAGE_UNDEAD))name += rp.translateString("Smite", "Châtiment");
-					else if(enchant.equals(Enchantment.DEPTH_STRIDER))name += rp.translateString("Depth strider", "Agilité aquatique");
-					else if(enchant.equals(Enchantment.DIG_SPEED))name += rp.translateString("Efficiency", "Efficacité");
-					else if(enchant.equals(Enchantment.DURABILITY))name += rp.translateString("Durability", "Durabilité");
-					else if(enchant.equals(Enchantment.FIRE_ASPECT))name += rp.translateString("Fire aspect", "Aura de feu");
-					else if(enchant.equals(Enchantment.FROST_WALKER))name += rp.translateString("Frost walker", "Semelles givrantes");
-					else if(enchant.equals(Enchantment.KNOCKBACK))name += rp.translateString("Knockback", "Recul");
-					else if(enchant.equals(Enchantment.LOOT_BONUS_BLOCKS))name += rp.translateString("Fortune", "Fortune");
-					else if(enchant.equals(Enchantment.LOOT_BONUS_MOBS))name += rp.translateString("Looting", "Butin");
-					else if(enchant.equals(Enchantment.LUCK))name += rp.translateString("Luck", "Chance");
-					else if(enchant.equals(Enchantment.LURE))name += rp.translateString("Lure", "Appât");
-					else if(enchant.equals(Enchantment.MENDING))name += rp.translateString("Mending", "Raccomodage");
-					else if(enchant.equals(Enchantment.OXYGEN))name += rp.translateString("Respiration", "Apnée");
+					if(enchant.equals(Enchantment.ARROW_DAMAGE))name += ("Puissance");
+					else if(enchant.equals(Enchantment.ARROW_FIRE))name += ("Flamme");
+					else if(enchant.equals(Enchantment.ARROW_INFINITE))name += ("Infinité");
+					else if(enchant.equals(Enchantment.ARROW_KNOCKBACK))name += ("Frappe");
+					else if(enchant.equals(Enchantment.DAMAGE_ALL))name += ("Puissance");
+					else if(enchant.equals(Enchantment.DAMAGE_ARTHROPODS))name += ("Fléau des arthropodes");
+					else if(enchant.equals(Enchantment.DAMAGE_UNDEAD))name += ("Châtiment");
+					else if(enchant.equals(Enchantment.DEPTH_STRIDER))name += ("Agilité aquatique");
+					else if(enchant.equals(Enchantment.DIG_SPEED))name += ("Efficacité");
+					else if(enchant.equals(Enchantment.DURABILITY))name += ("Durabilité");
+					else if(enchant.equals(Enchantment.FIRE_ASPECT))name += ("Aura de feu");
+					else if(enchant.equals(Enchantment.FROST_WALKER))name += ("Semelles givrantes");
+					else if(enchant.equals(Enchantment.KNOCKBACK))name += ("Recul");
+					else if(enchant.equals(Enchantment.LOOT_BONUS_BLOCKS))name += ("Fortune");
+					else if(enchant.equals(Enchantment.LOOT_BONUS_MOBS))name += ("Butin");
+					else if(enchant.equals(Enchantment.LUCK))name += ("Chance");
+					else if(enchant.equals(Enchantment.LURE))name += ("Appât");
+					else if(enchant.equals(Enchantment.MENDING))name += ("Raccomodage");
+					else if(enchant.equals(Enchantment.OXYGEN))name += ("Apnée");
 					else if(enchant.equals(Enchantment.PROTECTION_ENVIRONMENTAL))name += "Protection";
-					else if(enchant.equals(Enchantment.PROTECTION_EXPLOSIONS))name += rp.translateString("Blast protection", "Protection contre les explosions");
-					else if(enchant.equals(Enchantment.PROTECTION_FALL))name += rp.translateString("Feather falling", "Chute amortie");
-					else if(enchant.equals(Enchantment.PROTECTION_FIRE))name += rp.translateString("Fire protection", "Protection contre le feu");
-					else if(enchant.equals(Enchantment.PROTECTION_PROJECTILE))name += rp.translateString("Projectile protection", "Protection contre les projectiles");
-					else if(enchant.equals(Enchantment.SILK_TOUCH))name += rp.translateString("Silk touch", "Touché de soie");
-					else if(enchant.equals(Enchantment.THORNS))name += rp.translateString("Thorns", "Épines");
-					else if(enchant.equals(Enchantment.WATER_WORKER))name += rp.translateString("Aqua affinity", "Affinité aquatique");
-					else if(enchant.equals(REnchantment.SOUL_BIND))name += rp.translateString("Soul bind", "Liaison spirituelle");
+					else if(enchant.equals(Enchantment.PROTECTION_EXPLOSIONS))name += ("Protection contre les explosions");
+					else if(enchant.equals(Enchantment.PROTECTION_FALL))name += ("Chute amortie");
+					else if(enchant.equals(Enchantment.PROTECTION_FIRE))name += ("Protection contre le feu");
+					else if(enchant.equals(Enchantment.PROTECTION_PROJECTILE))name += ("Protection contre les projectiles");
+					else if(enchant.equals(Enchantment.SILK_TOUCH))name += ("Touché de soie");
+					else if(enchant.equals(Enchantment.THORNS))name += ("Épines");
+					else if(enchant.equals(Enchantment.WATER_WORKER))name += ("Affinité aquatique");
+					else if(enchant.equals(REnchantment.SOUL_BIND))name += ("Liaison spirituelle");
 					lore.add(name);
 				}
 			}
@@ -321,7 +321,7 @@ public class Weapon {
 							amount++;
 						}
 					}
-					if(amount > 0)lore.addAll(Arrays.asList("§d" + rp.translateString(type.getDisplayEn(), type.getDisplayFr()) + " +" + amount*type.getAmount()));
+					if(amount > 0)lore.addAll(Arrays.asList("§d" + (type.getDisplayFr()) + " +" + amount*type.getAmount()));
 				}
 			}
 			meta.setLore(lore);

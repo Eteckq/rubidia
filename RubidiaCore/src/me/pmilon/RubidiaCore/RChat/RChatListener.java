@@ -24,7 +24,7 @@ public class RChatListener implements Listener {
 			if(!rp.isVanished()){
 				for(RPlayer rpp : RPlayer.getOnlines()){
 					if(!rpp.equals(rp)){
-						rpp.getChat().addInfo("§6[+] §e" + rp.getName() + rpp.translateString(" joined the game", " vient de se connecter"));
+						rpp.getChat().addInfo("§6[+] §e" + rp.getName() + (" vient de se connecter"));
 						rpp.getChat().update();
 					}
 				}
@@ -38,7 +38,7 @@ public class RChatListener implements Listener {
 			if(!rp.isVanished()){
 				for(RPlayer rpp : RPlayer.getOnlines()){
 					if(!rpp.equals(rp)){
-						rpp.getChat().addInfo("§6[-] §e" + rp.getName() + rpp.translateString(" left the game", " vient de se déconnecter"));
+						rpp.getChat().addInfo("§6[-] §e" + rp.getName() + (" vient de se déconnecter"));
 						rpp.getChat().update();
 					}
 				}
@@ -132,7 +132,7 @@ public class RChatListener implements Listener {
 			if(rp.isOnline()){
 				for(RPlayer rpp : RPlayer.getOnlines()){
 					if(rpp.knows(rp)){
-						rpp.getChat().addInfo(rpp.translateString("§eYour team mate §6" + rp.getName() + "§e has just died!", "§eVotre équipier §6" + rp.getName() + "§e vient de mourir !"));
+						rpp.getChat().addInfo(("§eVotre équipier §6" + rp.getName() + "§e vient de mourir !"));
 						rpp.getChat().update();
 					}
 				}

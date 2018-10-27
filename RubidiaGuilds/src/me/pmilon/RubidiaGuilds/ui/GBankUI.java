@@ -22,7 +22,7 @@ public class GBankUI extends UIHandler {
 	public GBankUI(Player p, Guild guild) {
 		super(p);
 		this.guild = guild;
-		this.menu = Bukkit.createInventory(this.getHolder(), 9, this.getGuild().getName() + " : " + rp.translateString("Guild bank", "Banque de guilde"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 9, this.getGuild().getName() + " : " + ("Banque de guilde"));
 	}
 
 	@Override
@@ -91,10 +91,10 @@ public class GBankUI extends UIHandler {
 		int count = this.count();
 		ItemStack item = new ItemStack(Material.LAVA_BUCKET,1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Guild foundry", "Fonderie de guilde"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Send these materials to the guild foundry", "Envoyer ces matériaux à la fonderie de la guilde"),
-				"§7" + rp.translateString("and add §a" + count + " §7emerald" + (count > 1 ? "s" : "") + " to your guild bank account.", "et ajouter §a" + count + " §7émeraude" + (count > 1 ? "s" : "") + " à votre banque de guilde."),
-				"", "§f§l" + rp.translateString("Current balance: §7" + this.getGuild().getBank() + (this.getGuild().getMaxBankAmount() == -1 ? "⟡" : "§8/" + this.getGuild().getMaxBankAmount()), "Solde actuel : §7" + this.getGuild().getBank() + (this.getGuild().getMaxBankAmount() == -1 ? "⟡" : "§8/" + this.getGuild().getMaxBankAmount()))));
+		meta.setDisplayName("§6§l" + ("Fonderie de guilde"));
+		meta.setLore(Arrays.asList("§7" + ("Envoyer ces matériaux à la fonderie de la guilde"),
+				"§7" + ("et ajouter §a" + count + " §7émeraude" + (count > 1 ? "s" : "") + " à votre banque de guilde."),
+				"", "§f§l" + ("Solde actuel : §7" + this.getGuild().getBank() + (this.getGuild().getMaxBankAmount() == -1 ? "⟡" : "§8/" + this.getGuild().getMaxBankAmount()))));
 		item.setItemMeta(meta);
 		return item;
 	}

@@ -89,7 +89,7 @@ public class RDuel {
 			}
 			
 		}.runTaskLater(Settings.DUEL_REQUEST_TIME*20));
-		this.getChallenged().sendTitle(this.getChallenged().translateString("§6§lNew" + (this.isCompetitive() ? " competitive" : "") + " duel", "§6§lNouveau duel" + (this.isCompetitive() ? " compétitif" : "")), this.getChallenged().translateString("§eYou have been challenged by ", "§eVous avez été défié par ") + this.getChallenger().getName(), 10, 160, 10);
+		this.getChallenged().sendTitle("§6§lNouveau duel" + (this.isCompetitive() ? " compétitif" : ""), ("§eVous avez été défié par ") + this.getChallenger().getName(), 10, 160, 10);
 		this.getChallenger().sendMessage("§eYou just challenged §6" + this.getChallenged().getName() + "§e in a " + (this.isCompetitive() ? "competitive " : "") + "duel.", "§eVous venez de défier §6" + this.getChallenged().getName() + "§e en duel" + (this.isCompetitive() ? " compétitif" : "") + ".");
 	}
 	
@@ -135,8 +135,8 @@ public class RDuel {
 	public void count(){
 		final Player p1 = this.getChallenger().getPlayer();
 		final Player p2 = this.getChallenged().getPlayer();
-		this.getChallenger().sendTitle(this.getChallenger().translateString("§eDuel will begin...", "§eLe duel va débuter..."), "§6" + this.getChallenger().getName() + " §eVS §6" + this.getChallenged().getName(), 0, 30, 5);
-		this.getChallenged().sendTitle(this.getChallenged().translateString("§eDuel will begin...", "§eLe duel va débuter..."), "§6" + this.getChallenged().getName() + " §eVS §6" + this.getChallenger().getName(), 0, 30, 5);
+		this.getChallenger().sendTitle(("§eLe duel va débuter..."), "§6" + this.getChallenger().getName() + " §eVS §6" + this.getChallenged().getName(), 0, 30, 5);
+		this.getChallenged().sendTitle(("§eLe duel va débuter..."), "§6" + this.getChallenged().getName() + " §eVS §6" + this.getChallenger().getName(), 0, 30, 5);
 		Bukkit.getScheduler().runTaskLater(Core.instance, new Runnable(){
 			public void run(){
 				getChallenger().sendTitle("§c3...", "", 0, 10, 5);
@@ -272,8 +272,8 @@ public class RDuel {
 		int old_renom2 = this.getChallenged().getRenom();
 		switch(outcome){
 		case CHALLENGER_WINNER:
-			this.getChallenger().sendTitle(this.getChallenger().translateString("§2§lVictory!", "§2§lVictoire !"), this.getChallenger().translateString("§aYou win the duel", "§aVous remportez le duel"), 10, 160, 10);
-			this.getChallenged().sendTitle(this.getChallenged().translateString("§4§lDefeat...", "§4§lDéfaite..."), this.getChallenged().translateString("§cYou lose the duel", "§cVous perdez le duel"), 10, 160, 10);
+			this.getChallenger().sendTitle(("§2§lVictoire !"), ("§aVous remportez le duel"), 10, 160, 10);
+			this.getChallenged().sendTitle(("§4§lDéfaite..."), ("§cVous perdez le duel"), 10, 160, 10);
 			if(this.isCompetitive()){
 				int bonus = 0;
 				if(this.getChallenged().getRenom() > this.getChallenger().getRenom()){
@@ -291,8 +291,8 @@ public class RDuel {
 			return;
 		case TIE:
 			RChatUtils.broadcastInfo("§6§l" + this.getChallenger().getName() + " §e⚔§6§l " + this.getChallenged().getName() + "  §8Égalité !");
-			this.getChallenger().sendTitle(this.getChallenger().translateString("§6§lIt's a tie!", "§6§lÉgalité !"), this.getChallenger().translateString("§eNo kill in 3 min...", "§eAucun meurtre en 3 minutes..."), 10, 160, 10);
-			this.getChallenged().sendTitle(this.getChallenged().translateString("§6§lIt's a tie!", "§6§lÉgalité !"), this.getChallenged().translateString("§eNo kill in 3 min...", "§eAucun meurtre en 3 minutes..."), 10, 160, 10);
+			this.getChallenger().sendTitle(("§6§lÉgalité !"), ("§eAucun meurtre en 3 minutes..."), 10, 160, 10);
+			this.getChallenged().sendTitle(("§6§lÉgalité !"), ("§eAucun meurtre en 3 minutes..."), 10, 160, 10);
 			if(this.isCompetitive()){
 				this.getChallenger().setRenom(this.getChallenger().getRenom()+Settings.COMPETITIVE_DUEL_TIE_RENOM);
 				this.getChallenged().setRenom(this.getChallenged().getRenom()+Settings.COMPETITIVE_DUEL_TIE_RENOM);
@@ -301,8 +301,8 @@ public class RDuel {
 			}
 			return;
 		case CHALLENGER_LOSER:
-			this.getChallenged().sendTitle(this.getChallenged().translateString("§2§lVictory!", "§2§lVictoire !"), this.getChallenged().translateString("§aYou win the duel", "§aVous remportez le duel"), 10, 160, 10);
-			this.getChallenger().sendTitle(this.getChallenger().translateString("§4§lDefeat...", "§4§lDéfaite..."), this.getChallenger().translateString("§cYou lose the duel", "§cVous perdez le duel"), 10, 160, 10);
+			this.getChallenged().sendTitle(("§2§lVictoire !"), ("§aVous remportez le duel"), 10, 160, 10);
+			this.getChallenger().sendTitle(("§4§lDéfaite..."), ("§cVous perdez le duel"), 10, 160, 10);
 			if(this.isCompetitive()){
 				int bonus = 0;
 				if(this.getChallenger().getRenom() > this.getChallenged().getRenom()){
@@ -319,7 +319,7 @@ public class RDuel {
 			}
 			return;
 		case CHALLENGED_FORFAIT:
-			this.getChallenger().sendTitle(this.getChallenger().translateString("§6§lForfait!", "§6§lForfait !"), this.getChallenger().translateString("§eWhat a coward...", "§eQuel lâche..."), 10, 160, 10);
+			this.getChallenger().sendTitle(("§6§lForfait !"), ("§eQuel lâche..."), 10, 160, 10);
 			if(this.isCompetitive()){
 				this.getChallenger().setRenom(this.getChallenger().getRenom()+Settings.COMPETITIVE_DUEL_FORFAIT_RENOM);
 				this.getChallenged().setRenom(this.getChallenged().getRenom()-2*Settings.COMPETITIVE_DUEL_FORFAIT_RENOM);
@@ -330,7 +330,7 @@ public class RDuel {
 			}
 			return;
 		case CHALLENGER_FORFAIT:
-			this.getChallenged().sendTitle(this.getChallenged().translateString("§6§lForfait!", "§6§lForfait !"), this.getChallenged().translateString("§eWhat a coward...", "§eQuel lâche..."), 10, 160, 10);
+			this.getChallenged().sendTitle(("§6§lForfait !"), ("§eQuel lâche..."), 10, 160, 10);
 			if(this.isCompetitive()){
 				this.getChallenged().setRenom(this.getChallenged().getRenom()+Settings.COMPETITIVE_DUEL_FORFAIT_RENOM);
 				this.getChallenger().setRenom(this.getChallenger().getRenom()-2*Settings.COMPETITIVE_DUEL_FORFAIT_RENOM);

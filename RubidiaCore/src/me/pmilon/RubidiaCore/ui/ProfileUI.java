@@ -29,7 +29,7 @@ public class ProfileUI extends UIHandler {
 	
 	public ProfileUI(Player p) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.HOPPER, rp.translateString("My profile","Mon profil"));
+		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.HOPPER, ("Mon profil"));
 	}
 
 	@Override
@@ -101,15 +101,15 @@ public class ProfileUI extends UIHandler {
 		ItemStack item = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§7§lInformations");
-		meta.setLore(Arrays.asList("§8" + rp.translateString("The following data is only collected for statistical purposes.", "Les données suivantes sont recueillies à des fins statistiques."), "§8" + rp.translateString("No player is forced to provide us data.", "Aucun joueur n'est forcé à nous fournir des données."), "", "§8" + rp.translateString("If you do, please provide us valid data (not a fake birth date!).", "Le cas échéant, fournissez-nous des données valides !"), "§8" + rp.translateString("You will always be able to change these data by coming back here.", "Vous serez toujours capable de modifier ces données ici."), "§c" + rp.translateString("These data will always stay ours.", "Ces données resteront toujours notre propriété.")));
+		meta.setLore(Arrays.asList("§8" + ("Les données suivantes sont recueillies à des fins statistiques."), "§8" + ("Aucun joueur n'est forcé à nous fournir des données."), "", "§8" + ("Le cas échéant, fournissez-nous des données valides !"), "§8" + ("Vous serez toujours capable de modifier ces données ici."), "§c" + ("Ces données resteront toujours notre propriété.")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	public ItemStack getGender(){
 		ItemStack item = new ItemStack(rp.getSex().equals(Gender.UNKNOWN) ? Material.BUCKET : (rp.getSex().equals(Gender.MALE) ? Material.LAVA_BUCKET : Material.WATER_BUCKET), 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString(rp.getSex().getEn().toUpperCase(), rp.getSex().getFr().toUpperCase()));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Click to cycle through de 3 genders available.", "Cliquez pour cycler à travers les 3 genres disponibles.")));
+		meta.setDisplayName("§6§l" + (rp.getSex().getFr().toUpperCase()));
+		meta.setLore(Arrays.asList("§7" + ("Cliquez pour cycler à travers les 3 genres disponibles.")));
 		item.setItemMeta(meta);
 		return item;
 	}
@@ -117,23 +117,23 @@ public class ProfileUI extends UIHandler {
 		ItemStack item = new ItemStack(Material.CAKE, 1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6§l" + rp.getFormattedBirthDate());
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Your birth date (default is 01/01/1970).", "Votre date de naissance (par défaut : 01/01/1970).")));
+		meta.setLore(Arrays.asList("§7" + ("Votre date de naissance (par défaut : 01/01/1970).")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	public ItemStack getData(){
 		ItemStack item = new ItemStack(rp.isPublicData() ? Material.LIME_DYE : Material.ROSE_RED, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Confidentiality: ", "Confidentialité : ") + (rp.isPublicData() ? "§a" + rp.translateString("public", "publique") : "§c" + rp.translateString("private", "privée")));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Toggle your profile's confidentiality.", "Basculez la confidentialité de votre profil."), "§7" + rp.translateString("Private: no player can access this data", "Privée : aucun joueur ne peut accéder à ces données"), "§7" + rp.translateString("Public: anyone can access this data (/rplayers)", "Publique : tous les joueurs peuvent accéder à ces données (/rplayers)")));
+		meta.setDisplayName("§6§l" + ("Confidentialité : ") + (rp.isPublicData() ? "§a" + ("publique") : "§c" + ("privée")));
+		meta.setLore(Arrays.asList("§7" + ("Basculez la confidentialité de votre profil."), "§7" + ("Privée : aucun joueur ne peut accéder à ces données"), "§7" + ("Publique : tous les joueurs peuvent accéder à ces données (/rplayers)")));
 		item.setItemMeta(meta);
 		return item;
 	}
 	public ItemStack getUpdate(){
 		ItemStack item = new ItemStack(rp.isProfileUpdated() ? Material.LIME_DYE : Material.GRAY_DYE, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + rp.translateString("Profile up to date", "Profil à jour"));
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Enable this option once your profile is up to date.", "Activez cette option une fois votre profil mis à jour.")));
+		meta.setDisplayName("§6§l" + ("Profil à jour"));
+		meta.setLore(Arrays.asList("§7" + ("Activez cette option une fois votre profil mis à jour.")));
 		item.setItemMeta(meta);
 		return item;
 	}

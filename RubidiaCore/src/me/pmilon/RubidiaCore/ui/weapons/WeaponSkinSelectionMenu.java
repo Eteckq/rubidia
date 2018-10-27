@@ -56,7 +56,7 @@ public class WeaponSkinSelectionMenu extends ListMenuUIHandler<Integer> {
 		ItemStack infos = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList(rp.translateString("§7Click a skin to choose it.", "§7Cliquez sur un skin pour le choisir."),rp.translateString("§7Right click here to erase current skin", "§7Cliquez-droit ici pour supprimer le skin actuel"),rp.translateString("§7Left click to get back", "§7Cliquez gauche pour retour")));
+		meta.setLore(Arrays.asList(("§7Cliquez sur un skin pour le choisir."),("§7Cliquez-droit ici pour supprimer le skin actuel"),("§7Cliquez gauche pour retour")));
 		infos.setItemMeta(meta);
 		return infos;
 	}

@@ -26,7 +26,7 @@ public class ChatCommandExecutor extends PlayerCommandExecutor {
 				}else{
 					rp.getChat().setEditMode(false);
 					rp.getChat().clear();
-					rp.getChat().addInfo(rp.translateString("§aYour chatbox settings has been saved and updated!", "§aVos paramètres de chatbox ont été modifiés et sauvegardés !"));
+					rp.getChat().addInfo(("§aVos paramètres de chatbox ont été modifiés et sauvegardés !"));
 				}
 				rp.getChat().update();
 			}else if(args[0].equalsIgnoreCase("up")){

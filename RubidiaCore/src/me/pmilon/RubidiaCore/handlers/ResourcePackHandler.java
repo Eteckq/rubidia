@@ -24,7 +24,7 @@ public class ResourcePackHandler implements Listener {
 
 					@Override
 					public void run() {
-						player.kickPlayer(rp.translateString("§cResource pack download has failed. Try reconnecting.\nIf it persists, delete your .minecraft/server-resource-packs/ folder and try recconnecting again.", "§cLe téléchargement de notre resource pack a échoué. Tentez de vous reconnecter.\nSi cela persiste, supprimez votre dossier .minecraft/server-resource-packs/ et reconnectez-vous."));
+						player.kickPlayer(("§cLe téléchargement de notre resource pack a échoué. Tentez de vous reconnecter.\nSi cela persiste, supprimez votre dossier .minecraft/server-resource-packs/ et reconnectez-vous."));
 					}
 
 					@Override
@@ -37,7 +37,7 @@ public class ResourcePackHandler implements Listener {
 
 					@Override
 					public void run() {
-						player.kickPlayer(rp.translateString("§cOur resource pack is §4§lnecessary§c!\nGo check Multiplayer menu > Rubidia > Edit > Server Textures.", "§cNotre resource pack est §4§lindispensable§c.\nAutorisez-le dans le menu multijoueur > Rubidia > Modifier > Packs de ressources."));
+						player.kickPlayer(("§cNotre resource pack est §4§lindispensable§c.\nAutorisez-le dans le menu multijoueur > Rubidia > Modifier > Packs de ressources."));
 					}
 
 					@Override

@@ -40,7 +40,7 @@ public class ChunksUI extends UIHandler {
 		}else if(location.getYaw() > 45 && location.getYaw() <= 135){
 			this.p = 4;
 		}
-		this.menu = Bukkit.createInventory(this.getHolder(), 54, rp.translateString("Map of nearby chunks", "Carte des chunks"));
+		this.menu = Bukkit.createInventory(this.getHolder(), 54, ("Carte des chunks"));
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class ChunksUI extends UIHandler {
 		ItemStack infos = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Left click: toggles regeneration feature", "Clic gauche : active ou désactive l'option de régénération"), "§7" + rp.translateString("Sneak + Left click: regenerate chunk", "Sneak + Clic gauche : régénère le chunk"), "§7" + rp.translateString("Right click: undo regeneration", "Clic droit : annule la régénération"), "§7" + rp.translateString("Sneak + right click: force regeneration", "Sneak + clic droit : force la régénération"), "§4§l" + rp.translateString("WARNING", "ATTENTION") + "§c " + rp.translateString("This option can quickly turn to a disaster!", "Cette option peut rapidement virer au désastre !")));
+		meta.setLore(Arrays.asList("§7" + ("Clic gauche : active ou désactive l'option de régénération"), "§7" + ("Sneak + Clic gauche : régénère le chunk"), "§7" + ("Clic droit : annule la régénération"), "§7" + ("Sneak + clic droit : force la régénération"), "§4§l" + ("ATTENTION") + "§c " + ("Cette option peut rapidement virer au désastre !")));
 		infos.setItemMeta(meta);
 		return infos;
 	}
@@ -162,24 +162,24 @@ public class ChunksUI extends UIHandler {
 			if(!WGUtils.testState(null, this.getHolder().getWorld(), new Vector(chunk.getOrigin().getX(),chunk.getOrigin().getY(),chunk.getOrigin().getZ()), new Vector(chunk.getDestination().getX(),chunk.getDestination().getY(),chunk.getDestination().getZ()), Flags.REGEN)){
 				item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 				meta = item.getItemMeta();
-				meta.setDisplayName("§7§l" + rp.translateString("Protected region", "Région protégée"));
+				meta.setDisplayName("§7§l" + ("Région protégée"));
 			}else{
 				if(chunk instanceof NChunk){
 					item = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
 					meta = item.getItemMeta();
 					meta.setDisplayName("§4§lNChunk");
-					lore.add("§c§o" + rp.translateString("Regeneration disabled","Régénération désactivée"));
+					lore.add("§c§o" + ("Régénération désactivée"));
 				}else{
 					if(((RChunk)chunk).isRegenerated()){
 						item = new ItemStack(Material.GREEN_STAINED_GLASS_PANE, 1);
 						meta = item.getItemMeta();
 						meta.setDisplayName("§2§lRChunk");
-						lore.add("§a§o" + rp.translateString("Regeneration enabled | Regenerated chunk","Régénération activée | Chunk régénéré"));
+						lore.add("§a§o" + ("Régénération activée | Chunk régénéré"));
 					}else{
 						item = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
 						meta = item.getItemMeta();
 						meta.setDisplayName("§6§lRChunk");
-						lore.add("§e§o" + rp.translateString("Regeneration enabled | Damaged chunk","Régénération activée | Chunk endommagé"));
+						lore.add("§e§o" + ("Régénération activée | Chunk endommagé"));
 					}
 				}
 			}
@@ -187,9 +187,9 @@ public class ChunksUI extends UIHandler {
 			if(claim != null){
 				Guild guild = claim.getGuild();
 				item = new ItemStack(Material.ORANGE_STAINED_GLASS_PANE, 1);
-				lore.add("§d" + rp.translateString("Chunk claimed by", "Chunk revendiqué par") + " §o" + guild.getName());
+				lore.add("§d" + ("Chunk revendiqué par") + " §o" + guild.getName());
 				if(!guild.isActive()){
-					lore.add("§c" + rp.translateString("Inactive guild", "Guilde inactive"));
+					lore.add("§c" + ("Guilde inactive"));
 				}
 			}
 		}
@@ -197,7 +197,7 @@ public class ChunksUI extends UIHandler {
 		if(i == 2 && j == 4){
 			item = new ItemStack(Material.BROWN_STAINED_GLASS_PANE, 1);
 			lore.add("");
-			lore.add("§7" + rp.translateString("You are here","Vous êtes ici"));
+			lore.add("§7" + ("Vous êtes ici"));
 		}
 		lore.add("§8(" + chunk.getX() + "," + chunk.getZ() + ")");
 		if(meta == null)meta = item.getItemMeta();

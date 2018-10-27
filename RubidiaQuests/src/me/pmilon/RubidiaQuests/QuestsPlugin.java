@@ -150,7 +150,7 @@ public class QuestsPlugin extends JavaPlugin {
 					if(start + timed.getAmount()*1000L < System.currentTimeMillis()){
 						rp.getActiveQuests().remove(timed.getQuest());
 						timed.removeScore(rp);
-						rp.sendTitle("§4" + timed.getQuest().getColoredTitle(), rp.translateString("§cNot finished in time!", "§cNon terminée à temps !"), 5, 80, 10);
+						rp.sendTitle("§4" + timed.getQuest().getColoredTitle(), ("§cNon terminée à temps !"), 5, 80, 10);
 						if(rp.isOnline()){
 							if(rp.getFollowedQuest() != null){
 								if(rp.getFollowedQuest().equals(timed.getQuest())){

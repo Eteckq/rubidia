@@ -29,7 +29,7 @@ public class PetsUI extends ListMenuUIHandler<Pet> {
 		ItemStack infos = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§7Informations");
-		meta.setLore(Arrays.asList("§8" + rp.translateString("Click a pet to release or catch back.", "Cliquez sur un compagnon à faire sortir ou à ranger.")));
+		meta.setLore(Arrays.asList("§8" + ("Cliquez sur un compagnon à faire sortir ou à ranger.")));
 		infos.setItemMeta(meta);
 		return infos;
 	}
@@ -41,20 +41,20 @@ public class PetsUI extends ListMenuUIHandler<Pet> {
 		meta.setDisplayName("§f" + pet.getName());
 		List<String> lore = new ArrayList<String>();
 		lore.addAll(Arrays.asList("§f§m----------------------------",
-				"§8" + rp.translateString("Level", "Niveau") + " §7" + pet.getLevel(),
-				"§8" + rp.translateString("Experience:", "Expérience :") + " §7" + Utils.round(pet.getExp(),2) + "/" + Utils.round(LevelUtils.getPLevelTotalExp(pet.getLevel()),2) + "XP  (" + Utils.round((pet.getExp()/LevelUtils.getPLevelTotalExp(pet.getLevel())*100), 2) + "%)",
-				"§8" + rp.translateString("Damages:", "Attaque :") + " §7" + Utils.round(pet.getDamages(),2),
-				"§8" + rp.translateString("Health:", "Vie :") + " §7" + Utils.round(pet.getHealth(),2) + "/" + Utils.round(pet.getMaxHealth(),2),
-				"§8" + rp.translateString("Attack speed:", "Vitesse d'attaque :") + " §7" + Utils.round(pet.getAttackSpeed(),2)));
+				"§8" + ("Niveau") + " §7" + pet.getLevel(),
+				"§8" + ("Expérience :") + " §7" + Utils.round(pet.getExp(),2) + "/" + Utils.round(LevelUtils.getPLevelTotalExp(pet.getLevel()),2) + "XP  (" + Utils.round((pet.getExp()/LevelUtils.getPLevelTotalExp(pet.getLevel())*100), 2) + "%)",
+				"§8" + ("Attaque :") + " §7" + Utils.round(pet.getDamages(),2),
+				"§8" + ("Vie :") + " §7" + Utils.round(pet.getHealth(),2) + "/" + Utils.round(pet.getMaxHealth(),2),
+				"§8" + ("Vitesse d'attaque :") + " §7" + Utils.round(pet.getAttackSpeed(),2)));
 		if(!pet.getActivePearls().isEmpty()){
 			lore.addAll(Arrays.asList("§f§m----------------------------","",
-					"§8" + rp.translateString("Active pearls", "Perles actives")));
+					"§8" + ("Perles actives")));
 			for(Pearl pearl : pet.getActivePearls()){
 				String lvl = "";
 				for(int i = 0;i < pearl.getAmplifier();i++){
 					lvl += "I";
 				}
-				lore.add("§7" + rp.translateString("Pearl of", "Perle de") + " " + rp.translateString(pearl.getType().getDisplay()[0], pearl.getType().getDisplay()[1]) + " " + lvl + " (" + (int)(pearl.getDuration()/3600000) + "h)");
+				lore.add("§7" + ("Perle de") + " " + (pearl.getType().getDisplay()[1]) + " " + lvl + " (" + (int)(pearl.getDuration()/3600000) + "h)");
 			}
 			lore.addAll(Arrays.asList("","§f§m----------------------------"));
 		}

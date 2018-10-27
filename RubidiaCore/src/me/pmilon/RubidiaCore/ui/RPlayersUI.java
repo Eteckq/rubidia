@@ -84,7 +84,7 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 		ItemStack infos = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = infos.getItemMeta();
 		meta.setDisplayName("§8Informations");
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Click here to search for a profile", "Cliquez ici pour chercher un profil")));
+		meta.setLore(Arrays.asList("§7" + ("Cliquez ici pour chercher un profil")));
 		infos.setItemMeta(meta);
 		return infos;
 	}
@@ -117,21 +117,21 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 		lore.add("§f§m-------------------");
 		if(e.isPublicData() && e.isProfileUpdated()){
 			if(!e.getSex().equals(Gender.UNKNOWN)){
-				lore.add("§8" + rp.translateString("Gender ", "Sexe ") + "§7" + rp.translateString(e.getSex().getEn().toLowerCase(), e.getSex().getFr().toLowerCase()));
+				lore.add("§8" + ("Sexe ") + "§7" + (e.getSex().getFr().toLowerCase()));
 			}
 			if(e.getBirthDate() > 10*Utils.MILLIS_IN_YEAR && e.getBirthDate() < System.currentTimeMillis()-6*Utils.MILLIS_IN_YEAR){
 				double age = (double) ((long)(System.currentTimeMillis()-e.getBirthDate()))/Utils.MILLIS_IN_YEAR;
-				lore.add("§8" + rp.translateString("Age ", "Âge ") + "§7" + String.valueOf(Utils.round(age, 2)) +  rp.translateString("", " ans"));
+				lore.add("§8" + ("Âge ") + "§7" + String.valueOf(Utils.round(age, 2)) +  (" ans"));
 			}
 			lore.add("");
 		}
 		double ratio = e.getRExp()/LevelUtils.getRLevelTotalExp(e);
 		long time = System.currentTimeMillis()-e.getLastDivorce();
-		lore.addAll(Arrays.asList("§8" + rp.translateString("Level ", "Niveau ") + "§7" + e.getRLevel(), "§8" + rp.translateString("Experience ", "Expérience ") + "§7" + String.valueOf(Utils.round(ratio,2)) + "%", "§8" + rp.translateString("Class ", "Classe ") + "§7" + rp.translateString(e.getRClass().getDisplayEn(), e.getRClass().getDisplayFr()), "§8" + rp.translateString("Kills ", "Meurtres ") + "§7" + e.getKills(), "§8" + rp.translateString("Gaming time ", "Temps de jeu ") + "§7" + TimeUnit.MILLISECONDS.toHours(e.getGamingTime()) + "h", "§8" + (e.getCouple() == null ? (time >= Settings.TIME_BEFORE_WEDDING_PROPOSAL ? rp.translateString("Single", "Célibataire") : rp.translateString("Divorced for ", "Divorcé depuis ") + "§7" + TimeUnit.MILLISECONDS.toHours(time) + "h") : rp.translateString("Married to ", "Marié à ") + "§7" + e.getCouple().getCompanion(e).getName())));
+		lore.addAll(Arrays.asList("§8" + ("Niveau ") + "§7" + e.getRLevel(), "§8" + ("Expérience ") + "§7" + String.valueOf(Utils.round(ratio,2)) + "%", "§8" + ("Classe ") + "§7" + (e.getRClass().getDisplayFr()), "§8" + ("Meurtres ") + "§7" + e.getKills(), "§8" + ("Temps de jeu ") + "§7" + TimeUnit.MILLISECONDS.toHours(e.getGamingTime()) + "h", "§8" + (e.getCouple() == null ? (time >= Settings.TIME_BEFORE_WEDDING_PROPOSAL ? ("Célibataire") : ("Divorcé depuis ") + "§7" + TimeUnit.MILLISECONDS.toHours(time) + "h") : ("Marié à ") + "§7" + e.getCouple().getCompanion(e).getName())));
 		GMember member = GMember.get(e);
 		if(member.hasGuild()){
 			Guild guild = member.getGuild();
-			lore.addAll(Arrays.asList("", "§8" + rp.translateString("Guild ", "Guilde ") + "§7" + guild.getName(), "§8" + rp.translateString("Rank ", "Rang ") + "§7" + member.getRank().getName(), ""));
+			lore.addAll(Arrays.asList("", "§8" + ("Guilde ") + "§7" + guild.getName(), "§8" + ("Rang ") + "§7" + member.getRank().getName(), ""));
 		}
 		Date date = new Date(e.getLastConnectionDate());
 		int n = 0;
@@ -140,7 +140,7 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 				n++;
 			}
 		}
-		lore.addAll(Arrays.asList("§8" + rp.translateString("Characters ", "Personnages ") + "§7" + n, "§8" + rp.translateString("Last connected on ", "Dernière connexion le "), "§7" + new SimpleDateFormat("dd/MM/yyyy").format(date) + rp.translateString("§8,§7 ", " §8à§7 ") + new SimpleDateFormat("HH:mm").format(date)));
+		lore.addAll(Arrays.asList("§8" + ("Personnages ") + "§7" + n, "§8" + ("Dernière connexion le "), "§7" + new SimpleDateFormat("dd/MM/yyyy").format(date) + (" §8à§7 ") + new SimpleDateFormat("HH:mm").format(date)));
 		meta.setLore(lore);
 		meta.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(e.getUniqueId())));
 		skull.setItemMeta(meta);

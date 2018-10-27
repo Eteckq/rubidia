@@ -49,7 +49,7 @@ public class TeleportHandler implements Listener{
 			rp.sendTitle("§7Nether", "", 5, 30, 20);
 		}else if(to.getWorld().getEnvironment().equals(Environment.THE_END)){
 			p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 255, true, false), true);
-			rp.sendTitle(rp.translateString("§7The End", "§7Le Néant"), "", 5, 30, 20);
+			rp.sendTitle(("§7Le Néant"), "", 5, 30, 20);
 		}
 		
 		if(!e.getFrom().getWorld().equals(to.getWorld())){

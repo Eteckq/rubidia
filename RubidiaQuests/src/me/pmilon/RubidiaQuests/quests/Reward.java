@@ -224,14 +224,14 @@ public class Reward {
 	
 	public String getInfos(RPlayer rp){
 		String reward= "§6[+] §e";
-		if(this.getType().equals(RewardType.CLASS))reward += rp.translateString("Class: ", "Classe : ") + this.getInformation();
-		else if(this.getType().equals(RewardType.ITEM))reward += rp.translateString("Item: ","Item : ") + this.getInformation();
-		else if(this.getType().equals(RewardType.JOB))reward += rp.translateString("Job: ", "Métier : ") + this.getInformation();
-		else if(this.getType().equals(RewardType.MASTERY))reward += rp.translateString("Mastery: ", "Spécialisation : ") + this.getInformation();
-		else if(this.getType().equals(RewardType.MONEY))reward += this.getInformation() + rp.translateString(" emeralds", " émeraudes");
-		else if(this.getType().equals(RewardType.QUEST))reward += rp.translateString("Quest: ", "Quête : ") + this.getInformation();
-		else if(this.getType().equals(RewardType.SKP))reward += this.getInformation() +rp.translateString(" skillpoints", " points de compétence");
-		else if(this.getType().equals(RewardType.SKD))reward += this.getInformation() +rp.translateString(" distinction points", " points de distinction");
+		if(this.getType().equals(RewardType.CLASS))reward += ("Classe : ") + this.getInformation();
+		else if(this.getType().equals(RewardType.ITEM))reward += ("Item : ") + this.getInformation();
+		else if(this.getType().equals(RewardType.JOB))reward += ("Métier : ") + this.getInformation();
+		else if(this.getType().equals(RewardType.MASTERY))reward += ("Spécialisation : ") + this.getInformation();
+		else if(this.getType().equals(RewardType.MONEY))reward += this.getInformation() + (" émeraudes");
+		else if(this.getType().equals(RewardType.QUEST))reward += ("Quête : ") + this.getInformation();
+		else if(this.getType().equals(RewardType.SKP))reward += this.getInformation() +(" points de compétence");
+		else if(this.getType().equals(RewardType.SKD))reward += this.getInformation() +(" points de distinction");
 		else if(this.getType().equals(RewardType.XP))reward += this.getInformation() + " XP";
 		return reward;
 	}

@@ -52,8 +52,8 @@ public class EventListUI extends ListMenuUIHandler<Event> {
 	protected ItemStack getInformations() {
 		ItemStack item = new ItemStack(Material.BOOK, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(rp.translateString("§8§lCurrent event list", "§8§lListe des évènements en cours"));
-		meta.setLore(Arrays.asList(rp.translateString("§7Left click an event to manage it", "§7Cliquez gauche sur un évènement pour le gérer"), rp.translateString("§7or click here to create one", "§7ou cliquez ici pour en créer un nouveau")));
+		meta.setDisplayName(("§8§lListe des évènements en cours"));
+		meta.setLore(Arrays.asList(("§7Cliquez gauche sur un évènement pour le gérer"), ("§7ou cliquez ici pour en créer un nouveau")));
 		item.setItemMeta(meta);
 		return item;
 	}

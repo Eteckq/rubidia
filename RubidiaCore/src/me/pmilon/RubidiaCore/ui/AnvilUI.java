@@ -31,7 +31,7 @@ public class AnvilUI extends UIHandler {
 	
 	public AnvilUI(Player p, Block anvil, ItemStack is_0, ItemStack is_1, ItemStack is_2) {
 		super(p);
-		this.setMenu(Bukkit.createInventory(this.getHolder(), 9, rp.translateString("Anvil", "Forge")));
+		this.setMenu(Bukkit.createInventory(this.getHolder(), 9, ("Forge")));
 		this.item0 = is_0;
 		this.item1 = is_1;
 		this.item = is_2;
@@ -71,8 +71,8 @@ public class AnvilUI extends UIHandler {
 	private ItemStack getFinalInfos() {
 		ItemStack is = new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = is.getItemMeta();
-		meta.setDisplayName(rp.translateString("§aFinal item", "§aItem final"));
-		meta.setLore(Arrays.asList("§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-", rp.translateString("§7Confirm your item forging", "§7Confirmez la modification"), rp.translateString("§7by clicking it.", "§7en cliquant dessus."), rp.translateString("§cCost: §4" + this.cost + "§c Emeralds", "§cCoût : §4" + this.cost + "§c émeraudes"), "§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-"));
+		meta.setDisplayName(("§aItem final"));
+		meta.setLore(Arrays.asList("§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-", ("§7Confirmez la modification"), ("§7en cliquant dessus."), ("§cCoût : §4" + this.cost + "§c émeraudes"), "§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-§e-§6-"));
 		is.setItemMeta(meta);
 		return is;
 	}
@@ -80,8 +80,8 @@ public class AnvilUI extends UIHandler {
 	private ItemStack getItemInfos() {
 		ItemStack is = new ItemStack(Material.RED_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = is.getItemMeta();
-		meta.setDisplayName(rp.translateString("§4Base items", "§4Items de base"));
-		meta.setLore(Arrays.asList(rp.translateString("§cUsed items for the item forging", "§cItems utilisés pour la modification")));
+		meta.setDisplayName(("§4Items de base"));
+		meta.setLore(Arrays.asList(("§cItems utilisés pour la modification")));
 		is.setItemMeta(meta);
 		return is;
 	}
@@ -89,8 +89,8 @@ public class AnvilUI extends UIHandler {
 	private ItemStack getInfos() {
 		ItemStack is = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
 		ItemMeta meta = is.getItemMeta();
-		meta.setDisplayName(rp.translateString("§8Anvil", "§8Forge"));
-		meta.setLore(Arrays.asList(rp.translateString("§7Validation menu", "§7Menu de validation")));
+		meta.setDisplayName(("§8Forge"));
+		meta.setLore(Arrays.asList(("§7Menu de validation")));
 		is.setItemMeta(meta);
 		return is;
 	}

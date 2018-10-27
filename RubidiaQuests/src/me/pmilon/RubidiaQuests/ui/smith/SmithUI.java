@@ -50,15 +50,15 @@ public class SmithUI extends UIHandler {
 	
 	public SmithUI(Player p) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.DISPENSER, rp.translateString("Enhancement", "Renforcement"));
+		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.DISPENSER, ("Renforcement"));
 		
 		ItemMeta meta = this.FAILURE.getItemMeta();
-		meta.setDisplayName("§4§l" + rp.translateString("FAILURE", "ECHEC"));
-		meta.setLore(Arrays.asList("§c" + rp.translateString("Operation fails if the star stone stops here", "L'opération échoue si la pierre étoile s'arrête ici")));
+		meta.setDisplayName("§4§l" + ("ECHEC"));
+		meta.setLore(Arrays.asList("§c" + ("L'opération échoue si la pierre étoile s'arrête ici")));
 		FAILURE.setItemMeta(meta);
 		
 		meta.setDisplayName("§8§lINFORMATIONS");
-		meta.setLore(Arrays.asList("§7" + rp.translateString("Choose in your inventory a weapon/armor to enhance", "Choisissez dans votre inventaire une arme/armure à renforcer"), "§7" + rp.translateString("and a star stone to use (necessary).", "et une pierre étoile à utiliser (nécessaire)."), "§7" + rp.translateString("You can also select an appropriate scroll to use.", "Vous pouvez également sélectionner un parchemin approprié à utiliser."), "", "§f" + rp.translateString("Then click on the star stone to start the enhancement!", "Cliquez ensuite sur la pierre étoile pour débuter le renforcement !")));
+		meta.setLore(Arrays.asList("§7" + ("Choisissez dans votre inventaire une arme/armure à renforcer"), "§7" + ("et une pierre étoile à utiliser (nécessaire)."), "§7" + ("Vous pouvez également sélectionner un parchemin approprié à utiliser."), "", "§f" + ("Cliquez ensuite sur la pierre étoile pour débuter le renforcement !")));
 		HELP.setItemMeta(meta);
 	}
 
@@ -289,15 +289,15 @@ public class SmithUI extends UIHandler {
 			ItemMeta meta = startStone.getItemMeta();
 			meta.setDisplayName("§f§lPierre étoile");
 			List<String> lore = new ArrayList<String>();
-			lore.addAll(Arrays.asList(rp.translateString("§7During enhancement, this star stone", "§7Durant le renforcement, cette pierre étoile"), rp.translateString("§7will spin around your " + (this.weapon.isAttack() ? "weapon" : "armor") + ".", "§7va tourner autour de votre " + (this.weapon.isAttack() ? "arme" : "armure") + "."), rp.translateString("§7If it stops over a failure item,", "§7Si elle s'arrête au dessus d'un item échec,"), rp.translateString("§7enhancement fails and your item is broken forever.", "§7le renforcement échoue et votre item est cassé à jamais."), rp.translateString("§7You can use appropriate scrolls to prevent it.", "§7Vous pouvez utiliser des parchemins appropriés pour l'éviter."), ""));
+			lore.addAll(Arrays.asList(("§7Durant le renforcement, cette pierre étoile"), ("§7va tourner autour de votre " + (this.weapon.isAttack() ? "arme" : "armure") + "."), ("§7Si elle s'arrête au dessus d'un item échec,"), ("§7le renforcement échoue et votre item est cassé à jamais."), ("§7Vous pouvez utiliser des parchemins appropriés pour l'éviter."), ""));
 			if(!this.scroll.isEmpty()){
-				lore.add("§6§l" + rp.translateString("Active scrolls:", "Parchemins actifs :"));
+				lore.add("§6§l" + ("Parchemins actifs :"));
 				for(Scroll scroll : this.scroll){
-					lore.add("  §e" + rp.translateString(scroll.getType().getNameEn(),scroll.getType().getNameFr()));
+					lore.add("  §e" + (scroll.getType().getNameFr()));
 				}
 				lore.add("");
 			}
-			lore.add(rp.translateString("§fClick here to start enhancement.", "§fCliquez ici pour débuter le renforcement."));
+			lore.add(("§fCliquez ici pour débuter le renforcement."));
 			meta.setLore(lore);
 			startStone.setItemMeta(meta);
 			this.getMenu().setItem(5, startStone);

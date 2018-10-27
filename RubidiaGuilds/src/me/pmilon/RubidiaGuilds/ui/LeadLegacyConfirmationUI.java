@@ -15,9 +15,9 @@ public class LeadLegacyConfirmationUI extends ConfirmationUI {
 	public final Guild guild;
 	public final GMember member;
 	public LeadLegacyConfirmationUI(RPlayer rp, Guild guild, GMember leader) {
-		super(rp.getPlayer(), rp.translateString("Leadership management", "Gestion de la direction"),
-				new String[]{rp.translateString("§aGive leadership of your guild to " + leader.getName(), "§aLéguer la direction de votre guilde à " + leader.getName()),rp.translateString("§cKeep leadership of your guild", "§cConserver la direction de votre guilde")},
-				leader.getName(), Arrays.asList("", rp.translateString("§7Are you sure you want to give your leadership?", "§7Êtes-vous certain de vouloir léguer la direction ?")));
+		super(rp.getPlayer(), ("Gestion de la direction"),
+				new String[]{("§aLéguer la direction de votre guilde à " + leader.getName()),("§cConserver la direction de votre guilde")},
+				leader.getName(), Arrays.asList("", ("§7Êtes-vous certain de vouloir léguer la direction ?")));
 		this.guild = guild;
 		this.member = leader;
 	}
