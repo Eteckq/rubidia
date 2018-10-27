@@ -79,21 +79,17 @@ public abstract class Ability {
 					this.run(rp);
 
 					if(this.isToggleable()) {
-						player.setMetadata("abilityTask" + this.getIndex(), new FixedMetadataValue(Core.instance, new BukkitTask(Abilities.getPlugin()){
-							int step = 0;
+						player.setMetadata("abilityTask" + this.getIndex(), new FixedMetadataValue(Core.instance, new BukkitTask(Core.instance){
 							int step2 = 0;
 
 							@Override
 							public void run() {
-								if(step >= 4){
-									double vigor = getInstance().getVigorCost(rp);
-									if(rp.hasVigor(vigor)){
-										rp.addVigor(-vigor);
-										step = 0;
-									}else{
-										getInstance().vigorless(player);
-										this.cancel();
-									}
+								double vigor = getInstance().getVigorCost(rp)/4.;
+								if(rp.hasVigor(vigor)){
+									rp.addVigor(-vigor);
+								}else{
+									getInstance().vigorless(player);
+									this.cancel();
 								}
 								
 								if(step2 >= getInstance().getToggleableTicks()/5.){
@@ -102,7 +98,6 @@ public abstract class Ability {
 								}
 								
 								Core.playAnimEffect(Particle.VILLAGER_ANGRY, player.getEyeLocation(), .25F, .25F, .25F, .5F, 5);
-								step++;
 								step2++;
 							}
 
@@ -130,9 +125,9 @@ public abstract class Ability {
 	
 	public abstract void animate(RPlayer rp, LivingEntity target);
 	
-	public void damage(RPlayer rp, List<LivingEntity> targets) {
+	public void damage(RPlayer rp, List<LivingEntity> targets, double... factor) {
 		for(LivingEntity target : targets) {
-			DamageManager.damage(target, rp.getPlayer(), this.getDamages(rp), RDamageCause.ABILITY);
+			DamageManager.damage(target, rp.getPlayer(), this.getDamages(rp)*(factor != null ? factor[0] : 1.), RDamageCause.ABILITY);
 			this.animate(rp, target);
 		}
 	}

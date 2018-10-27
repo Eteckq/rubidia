@@ -114,7 +114,7 @@ public class AbilitiesListener implements Listener{
 			}else if(rp.getRClass().equals(RClass.ASSASSIN)){
 				if(rp.isActiveAbility(7)){
 					if(p.getGameMode().equals(GameMode.SPECTATOR)){
-						p.setGameMode(GameMode.valueOf(p.getMetadata("AssassinGamemode").get(0).asString()));
+						p.setGameMode(GameMode.valueOf(p.getMetadata("assassinGamemode").get(0).asString()));
 					}
 				}
 			}

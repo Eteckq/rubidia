@@ -17,8 +17,8 @@ import me.pmilon.RubidiaCore.REvents.Events;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.RManager.RPlayerColl;
-import me.pmilon.RubidiaCore.abilities.Abilities;
 import me.pmilon.RubidiaCore.abilities.AbilitiesListener;
+import me.pmilon.RubidiaCore.abilities.RAbility;
 import me.pmilon.RubidiaCore.aeroplane.AeroplaneListener;
 import me.pmilon.RubidiaCore.chairs.ChairListener;
 import me.pmilon.RubidiaCore.commands.BienvenueCommandExecutor;
@@ -1830,7 +1830,7 @@ public class Core extends JavaPlugin implements Listener {
 								player.getInventory().setItem(17, new ItemStack(Material.ARROW, 3));
 							}
 						}else if(rp.getRClass().equals(RClass.ASSASSIN)){
-							speedFactor += Abilities.doASSASSIN3(player);
+							speedFactor += RAbility.ASSASSIN_3.getDamages(rp)*.01 - 1;
 						}
 						
 						if(player.getOpenInventory() != null){

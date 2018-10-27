@@ -6,11 +6,14 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Snow;
@@ -23,6 +26,7 @@ import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -888,22 +892,21 @@ public enum RAbility {
 		public void animate(final RPlayer rp, final LivingEntity target) {
 			target.setFallDistance(-255);
 			final Player player = rp.getPlayer();
-			final double damages = this.getDamages(rp);
 			BukkitTask.tasks.get(player.getMetadata("legendaryCharged").get(0).asInt()).cancel();
-			player.removeMetadata("legendaryCharged", Abilities.getPlugin());
-			new BukkitTask(Abilities.getPlugin()){
+			player.removeMetadata("legendaryCharged", Core.instance);
+			new BukkitTask(Core.instance){
 
 				@Override
 				public void run() {
 					target.setVelocity(new Vector(0,1.75,0));
-					new BukkitTask(Abilities.getPlugin()){
+					new BukkitTask(Core.instance){
 
 						@Override
 						public void run() {
 							final double number = 9;
 							for(int i = 0;i < number;i++){
 								final int index = i;
-								new BukkitTask(Abilities.getPlugin()){
+								new BukkitTask(Core.instance){
 
 									@Override
 									public void run() {
@@ -914,7 +917,7 @@ public enum RAbility {
 											arrow.setCritical(false);
 											arrow.setBounce(false);
 											arrow.setKnockbackStrength(0);
-											new BukkitTask(Abilities.getPlugin()){
+											new BukkitTask(Core.instance){
 
 												@Override
 												public void run() {
@@ -929,14 +932,14 @@ public enum RAbility {
 												
 											}.runTaskLater(5);
 										}else if(index == number-1){
-											new BukkitTask(Abilities.getPlugin()){
+											new BukkitTask(Core.instance){
 
 												@Override
 												public void run() {
 													target.setVelocity(new Vector(0,-1.75,0));
 													Core.playAnimEffect(Particle.EXPLOSION_HUGE, target.getLocation(), 1, 1, 1, .5F, 5);
 													target.getWorld().playSound(target.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 2, .5F);
-													new BukkitTask(Abilities.getPlugin()){
+													new BukkitTask(Core.instance){
 
 														@Override
 														public void run() {
@@ -947,7 +950,7 @@ public enum RAbility {
 																Core.playAnimEffect(Particle.LAVA, target.getLocation(), .3F, .3F, .3F, 1, 23);
 																Core.playAnimEffect(Particle.CLOUD, target.getLocation(), .5F, .5F, .5F, .1F, 46);
 																target.getWorld().playSound(target.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 2, 1);
-																DamageManager.damage(target, player, damages, RDamageCause.ABILITY);
+																DamageManager.damage(target, player, getInstance().getDamages(rp), RDamageCause.ABILITY);
 															}
 														}
 
@@ -1008,11 +1011,11 @@ public enum RAbility {
 			MageMeteor explo = new MageMeteor(loc.clone().add(0, 3, 0), loc.clone().subtract(0, 3, 0));
 			explo.setPlayer(player);
 			explo.run();
-			new BukkitTask(Abilities.getPlugin()){
+			new BukkitTask(Core.instance){
 
 				@Override
 				public void run() {
-					new BukkitTask(Abilities.getPlugin()){
+					new BukkitTask(Core.instance){
 						int step = 0;
 
 						@Override
@@ -1022,7 +1025,7 @@ public enum RAbility {
 								double dist = RandomUtils.random.nextDouble() * 3;
 								Location loc = (new Location(player.getWorld(), x, y+5, z)).clone().add(dist * Math.sin(a), 0, dist * Math.cos(a));
 								Fireball f = player.getWorld().spawn(loc, Fireball.class);
-								f.setMetadata("mageMeteor", new FixedMetadataValue(Abilities.getPlugin(), player.getUniqueId().toString()));
+								f.setMetadata("mageMeteor", new FixedMetadataValue(Core.instance, player.getUniqueId().toString()));
 								f.setDirection(new Vector(0, -2.5, 0));
 								f.setYield(0);
 								f.setShooter(player);
@@ -1063,32 +1066,26 @@ public enum RAbility {
 		
 		@Override
 		public void run(final RPlayer rp) {
-			rp.setActiveAbility(2, true);
 			final Player player = rp.getPlayer();
-			final List<Entity> near = player.getNearbyEntities(4, 4, 4);
-			if(!Core.toDamageableLivingEntityList(player, near, RDamageCause.ABILITY).isEmpty()){
+			final List<LivingEntity> targets = Core.toDamageableLivingEntityList(player, player.getNearbyEntities(4, 4, 4), RDamageCause.ABILITY);
+			if(!targets.isEmpty()){
 				this.takeVigor(rp);
-				for(final LivingEntity enear : Core.toDamageableLivingEntityList(player, near, RDamageCause.ABILITY)){
-					player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GHAST_SCREAM, 1, .25F);
-					player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GHAST_SCREAM, 1, .25F);
-					player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GHAST_SCREAM, 1, .25F);
-					player.getWorld().playSound(player.getLocation(), Sound.ENTITY_CREEPER_PRIMED, 1, .25F);
-					final FakeLightning lightning = new FakeLightning(false);
-					new BukkitTask(Abilities.getPlugin()){
+				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GHAST_SCREAM, 1, .25F);
+				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GHAST_SCREAM, 1, .25F);
+				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GHAST_SCREAM, 1, .25F);
+				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_CREEPER_PRIMED, 1, .25F);
+				new BukkitTask(Core.instance){
 
-						@Override
-						public void run() {
-							lightning.display(enear);
-						}
+					@Override
+					public void run() {
+						getInstance().damage(rp, targets);
+					}
 
-						@Override
-						public void onCancel() {
-							DamageManager.damage(enear, player, getInstance().getDamages(rp), RDamageCause.ABILITY);
-							rp.setActiveAbility(2, false);
-						}
-						
-					}.runTaskTimerCancelling(0,4,16);
-				}
+					@Override
+					public void onCancel() {
+					}
+					
+				}.runTaskTimerCancelling(0,4,16);
 			}else{
 				rp.sendMessage("§cIl n'y a personne à foudroyer ici !");
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
@@ -1106,6 +1103,8 @@ public enum RAbility {
 
 		@Override
 		public void animate(RPlayer rp, LivingEntity target) {
+			FakeLightning lightning = new FakeLightning(false);
+			lightning.display(target);
 		}
 				
 	}),
@@ -1127,7 +1126,7 @@ public enum RAbility {
 			player.setFallDistance(-100);
 			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
 	    	Core.playAnimEffect(Particle.FLAME, player.getLocation(), .5F, .5F, .5F, .001F, 75);
-		    new BukkitTask(Abilities.getPlugin()){
+		    new BukkitTask(Core.instance){
 
 				@Override
 				public void run() {
@@ -1211,7 +1210,7 @@ public enum RAbility {
 		public void run(final RPlayer rp) {
 			this.takeVigor(rp);
 			final Player player = rp.getPlayer();
-			new BukkitTask(Abilities.getPlugin()){
+			new BukkitTask(Core.instance){
 
 				@Override
 				public void run() {
@@ -1283,7 +1282,7 @@ public enum RAbility {
 				}
 				target.setGravity(false);
 				
-				new BukkitTask(Abilities.getPlugin()){
+				new BukkitTask(Core.instance){
 
 					@Override
 					public void run() {
@@ -1292,7 +1291,7 @@ public enum RAbility {
 
 					@Override
 					public void onCancel() {
-						new BukkitTask(Abilities.getPlugin()){
+						new BukkitTask(Core.instance){
 
 							@Override
 							public void run() {
@@ -1301,7 +1300,7 @@ public enum RAbility {
 
 							@Override
 							public void onCancel() {
-								new BukkitTask(Abilities.getPlugin()){
+								new BukkitTask(Core.instance){
 
 									@Override
 									public void run() {
@@ -1310,7 +1309,7 @@ public enum RAbility {
 
 									@Override
 									public void onCancel() {
-										new BukkitTask(Abilities.getPlugin()){
+										new BukkitTask(Core.instance){
 
 											@Override
 											public void run() {
@@ -1319,7 +1318,7 @@ public enum RAbility {
 
 											@Override
 											public void onCancel() {
-												new BukkitTask(Abilities.getPlugin()){
+												new BukkitTask(Core.instance){
 
 													@Override
 													public void run() {
@@ -1344,7 +1343,7 @@ public enum RAbility {
 					
 				}.runTaskTimerCancelling(0,5,25);
 				
-				new BukkitTask(Abilities.getPlugin()){
+				new BukkitTask(Core.instance){
 
 					@Override
 					public void run() {
@@ -1402,7 +1401,7 @@ public enum RAbility {
 			final Player player = rp.getPlayer();
 			final double damages = this.getDamages(rp);
 			for(int i = 0;i < damages;i++){
-				new BukkitTask(Abilities.getPlugin()){
+				new BukkitTask(Core.instance){
 					
 					@Override
 					public void run(){
@@ -1451,7 +1450,7 @@ public enum RAbility {
 			            Core.playAnimEffect(Particle.LAVA, zombie.getLocation(), .5F, .5F, .5F, .1F, 11);
 			            zombie.getWorld().playSound(zombie.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, .8F, 1);
 			            
-			            new BukkitTask(Abilities.getPlugin()){
+			            new BukkitTask(Core.instance){
 
 							@Override
 							public void run() {
@@ -1477,7 +1476,7 @@ public enum RAbility {
 				}.runTaskLater(i*7);
 			}
 	        
-			new BukkitTask(Abilities.getPlugin()){
+			new BukkitTask(Core.instance){
 
 				@Override
 				public void run() {
@@ -1529,7 +1528,7 @@ public enum RAbility {
 			
 			final int duration = 50;
 			final int ticksBetween = duration/(blocks.size()+1);
-			new BukkitTask(Abilities.getPlugin()){
+			new BukkitTask(Core.instance){
 				int step = 0;
 				int ticks = 0;
 				int ticksStep = 0;
@@ -1543,7 +1542,7 @@ public enum RAbility {
 							if(blocks.size() > ticksStep){
 								final int id = ticksStep;
 								blocks.get(id).setType(Material.FIRE);
-								new BukkitTask(Abilities.getPlugin()){
+								new BukkitTask(Core.instance){
 
 									@Override
 									public void run() {
@@ -1590,7 +1589,7 @@ public enum RAbility {
 
 				@Override
 				public void onCancel() {
-					new BukkitTask(Abilities.getPlugin()){
+					new BukkitTask(Core.instance){
 
 						@Override
 						public void run() {
@@ -1623,15 +1622,133 @@ public enum RAbility {
 
 		@Override
 		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
 		}
 				
 	}),
 	
 	
-	ASSASSIN_1(new Ability("Frappe du golem", Arrays.asList("Le paladin frappe le sol", "en libérant une onde de choc"),
-			RClass.ASSASSIN, Mastery.ADVENTURER, 8, false, "GDD,SN", "", "", 0) {
+	ASSASSIN_1(new Ability("Attaque furtive", Arrays.asList("L'assassin transperce l'ennemi cible", "extrêmement rapidement"),
+			RClass.ASSASSIN, Mastery.ADVENTURER, 1, false, "DDG,!SN", "", "", 0) {
+		
+		@Override
+		public void run(final RPlayer rp) {
+			Player player = rp.getPlayer();
+			LivingEntity entity = Utils.getInSightDamageableEntity(player, RDamageCause.ABILITY, 4.0);
+			if(entity != null){
+				Location edloc = entity.getLocation();
+				if(edloc.distanceSquared(player.getLocation()) < 33){
+					this.takeVigor(rp);
+					double xedloc = edloc.getX();
+					double yedloc = edloc.getY();
+					double zedloc = edloc.getZ();
+					Location ploc = player.getLocation();
+					double xploc = ploc.getX();
+					double zploc = ploc.getZ();
+					Vector v = new Vector((xedloc-xploc)*1.4, 0, (zedloc-zploc)*1.4);
+					double xv = xploc + v.getX();
+					double yv = yedloc + v.getY();
+					double zv = zploc + v.getZ();
+					float yaw = player.getEyeLocation().getYaw();
+					if(yaw > 0){
+						yaw = yaw-180;
+					}else{
+						yaw = yaw+180;
+					}
+					player.getWorld().playEffect(player.getLocation().add(0, -1, 0), Effect.MOBSPAWNER_FLAMES, 1);
+					player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, .25F);
+					Location finalloc = Locations.getSafeLocation(new Location(player.getWorld(), xv, yv, zv, yaw, 0.0f));
+					TeleportHandler.teleport(player, finalloc);
+					player.getWorld().playEffect(player.getLocation().add(0, -1, 0), Effect.MOBSPAWNER_FLAMES, 1);
+
+					List<LivingEntity> targets = Core.toDamageableLivingEntityList(player, player.getNearbyEntities(2, 2, 2), RDamageCause.ABILITY);
+					this.damage(rp, targets);
+				}else{
+					rp.sendMessage("§cLa cible est trop loin !");
+				}
+			}else{
+				rp.sendMessage("§cIl n'y a personne en face de vous !");
+			}
+			rp.setActiveAbility(1, false);
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
+		}
+				
+	}),
+	ASSASSIN_2(new Ability("Camouflage", Arrays.asList("L'assassin se camoufle entièrement", "pendant un laps de temps"),
+			RClass.ASSASSIN, Mastery.ADVENTURER, 2, false, "DDD,SN", "Durée", " sec", 0) {
+		
+		@Override
+		public void run(final RPlayer rp) {
+			this.takeVigor(rp);
+			final Player player = rp.getPlayer();
+			Core.playAnimEffect(Particle.FLAME, player.getLocation(), .5F, .5F, .5F, .1F, 100);
+			Core.playAnimEffect(Particle.CLOUD, player.getEyeLocation(), .5F, .5F, .5F, .1F, 100);
+			if(rp.isVanished())rp.setVanished(false);
+			for(Player target : Bukkit.getOnlinePlayers()){
+				target.hidePlayer(Core.instance, player);
+			}
+			final ItemStack helmet = player.getEquipment().getHelmet();
+			if(helmet != null){
+				ItemStack pumpkin = helmet.clone();
+				pumpkin.setType(Material.PUMPKIN);
+				player.getEquipment().setHelmet(pumpkin);
+			}else player.getEquipment().setHelmet(new ItemStack(Material.PUMPKIN, 1));
+			rp.sendMessage("§7Viouf! Plus personne ne vous voit !");
+			new BukkitTask(Core.instance){
+				public void run(){
+					rp.sendMessage("§cVotre camouflage commence à disparaître !");
+					new BukkitTask(Core.instance){
+						public void run(){
+							Core.playAnimEffect(Particle.FLAME, player.getLocation(), .5F, .5F, .5F, .1F, 100);
+							Core.playAnimEffect(Particle.CLOUD, player.getEyeLocation(), .5F, .5F, .5F, .1F, 100);
+							for(Player target : Bukkit.getOnlinePlayers()){
+								target.showPlayer(Core.instance, player);
+							}
+							if(helmet != null)player.getEquipment().setHelmet(helmet);
+							else player.getEquipment().setHelmet(new ItemStack(Material.AIR, 1));
+							rp.sendMessage("§4Votre camouflage a disparu !");
+							rp.setActiveAbility(2, false);
+						}
+
+						@Override
+						public void onCancel() {
+						}
+						
+					}.runTaskLater(70);
+				}
+
+				@Override
+				public void onCancel() {
+				}
+				
+			}.runTaskLater((long) (this.getDamages(rp)*20));
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
+		}
+				
+	}),
+	ASSASSIN_3(new Ability("Vitesse flash", Arrays.asList("L'assassin se déplacer naturellement", "plus rapidement que quiconque"),
+			RClass.ASSASSIN, Mastery.ADVENTURER, 3, false, "", "Vitesse", "%", 0) {
 		
 		@Override
 		public void run(final RPlayer rp) {
@@ -1647,20 +1764,145 @@ public enum RAbility {
 
 		@Override
 		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
 		}
 				
 	}),
-	ASSASSIN_2(new Ability("Frappe du golem", Arrays.asList("Le paladin frappe le sol", "en libérant une onde de choc"),
-			RClass.ASSASSIN, Mastery.ADVENTURER, 8, false, "GDD,SN", "", "", 0) {
+	ASSASSIN_4(new Ability("Évasion", Arrays.asList("L'assassin s'échappe du combat en lâchant", "une grenade le propulsant haut et loin"),
+			RClass.ASSASSIN, Mastery.ADVENTURER, 4, false, "DGD,SN", "", "", 0) {
 		
 		@Override
 		public void run(final RPlayer rp) {
+			this.takeVigor(rp);
+			final Player player = rp.getPlayer();
+			Location eyes = player.getEyeLocation().getDirection().normalize().toLocation(player.getWorld());
+			double x = eyes.getX()*1.65;
+			double z = eyes.getZ()*1.65;
+			player.getWorld().createExplosion(player.getLocation(), 0);
+			List<LivingEntity> targets = Core.toDamageableLivingEntityList(player, player.getNearbyEntities(3, 3, 3), RDamageCause.ABILITY);
+			this.damage(rp, targets);
+			player.setVelocity(new Vector(-x*rp.getAbLevel(4)*.21, rp.getAbilityLevel(4)*0.07+.28, -z*rp.getAbLevel(4)*.21));
+			player.setFallDistance(-100);
+			new BukkitTask(Core.instance){
+
+				@Override
+				public void run() {
+		        	if(player.isDead()){
+		        		this.cancel();
+		        	}else{
+		                if (((LivingEntity)player).isOnGround()){
+							player.setFallDistance((float) 0.0);
+							player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 2, true, false), true);
+							this.cancel();
+			            }
+		        	}
+				}
+
+				@Override
+				public void onCancel() {
+					rp.setActiveAbility(4, false);
+				}
+				
+			}.runTaskTimer(25, 2);
 		}
 
 		@Override
 		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
+		}
+				
+	}),
+	ASSASSIN_5(new Ability("Piège", Arrays.asList("L'assassin enlace sa cible de sorte qu'elle", "ne puisse bouger pendant un laps de temps"),
+			RClass.ASSASSIN, Mastery.MASTER, 5, false, "DDG,SN", "Durée", " sec", 0) {
+		
+		@Override
+		public void run(final RPlayer rp) {
+			int range = 9;
+			final Player player = rp.getPlayer();
+			final LivingEntity target = Utils.getInSightDamageableEntity(player, RDamageCause.ABILITY, 50.0);
+			if(target != null){
+				if(target.getLocation().distanceSquared(player.getLocation()) <= range*range){
+					this.takeVigor(rp);
+					final AttributeModifier modifier = new AttributeModifier("RubidiaAssassinTrap", -10000.0, Operation.ADD_NUMBER);
+					if(target instanceof Player){
+						((Player) target).setWalkSpeed(0);
+					}else{
+						target.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).addModifier(modifier);
+					}
+					target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 999999, 444, true, false), true);
+					new BukkitTask(Core.instance){
+
+						@Override
+						public void run() {
+							Block block = target.getLocation().subtract(0,1,0).getBlock();
+							Core.playAnimEffect(Particle.SPELL_WITCH, target.getLocation(), .3F, .1F, .3F, .1F, 4);
+							Core.playAnimEffect(Particle.SPELL_INSTANT, target.getLocation(), .1F, .1F, .1F, .1F, 1);
+							Core.playAnimEffect(Particle.BLOCK_CRACK, target.getLocation(), .3F, .1F, .3F, .1F, 4, block.getBlockData());
+						}
+
+						@Override
+						public void onCancel() {
+							if(target instanceof Player){
+								((Player) target).setWalkSpeed(.2F);
+							}else{
+								target.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).removeModifier(modifier);
+							}
+							target.removePotionEffect(PotionEffectType.JUMP);
+							rp.setActiveAbility(5, false);
+						}
+						
+					}.runTaskTimerCancelling(0, 1, (long) this.getDamages(rp)*20);
+				}else{
+					player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+					rp.sendMessage("§cCet ennemi est trop loin !");
+					rp.setActiveAbility(5, false);
+				}
+			}else{
+				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+				rp.sendMessage("§cIl n'y a personne en face de vous !");
+				rp.setActiveAbility(5, false);
+			}
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
+		}
+				
+	}),
+	ASSASSIN_6(new Ability("Diversion", Arrays.asList("L'assassin crée un épais nuage", "empoisonné autour de lui"),
+			RClass.ASSASSIN, Mastery.MASTER, 6, false, "DDD,!SN", "", " / sec", 5) {
+		
+		@Override
+		public void run(final RPlayer rp) {
+			Player player = rp.getPlayer();
+			Core.playAnimEffect(Particle.CLOUD, player.getLocation().add(0,1,0), 1, 1, 1, .001F, 50);
+			Core.playAnimEffect(Particle.REDSTONE, player.getLocation().add(0,1,0), 1, 1, 1, 0, 42);
+			Core.playAnimEffect(Particle.SMOKE_NORMAL, player.getLocation().add(0,1,0), 1, 1, 1, .001F, 22);
+			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1, 1);
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+			Player player = rp.getPlayer();
+			Core.playAnimEffect(Particle.CLOUD, player.getLocation().add(0,1,0), 1, 1, 1, .001F, 50);
+			Core.playAnimEffect(Particle.REDSTONE, player.getLocation().add(0,1,0), 1, 1, 1, 0, 42);
+			Core.playAnimEffect(Particle.SMOKE_NORMAL, player.getLocation().add(0,1,0), 1, 1, 1, .001F, 22);
+			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1, 1);
+			this.damage(rp, Core.toDamageableLivingEntityList(player, player.getNearbyEntities(3, 3, 3), RDamageCause.ABILITY), .25);
 		}
 
 		@Override
@@ -1674,11 +1916,54 @@ public enum RAbility {
 		}
 				
 	}),
-	ASSASSIN_3(new Ability("Frappe du golem", Arrays.asList("Le paladin frappe le sol", "en libérant une onde de choc"),
-			RClass.ASSASSIN, Mastery.ADVENTURER, 8, false, "GDD,SN", "", "", 0) {
+	ASSASSIN_7(new Ability("Attaque perçante", Arrays.asList("L'assassin traverse sa cible,", "l'obligeant à reculer de quelques blocs"),
+			RClass.ASSASSIN, Mastery.HERO, 7, false, "GGD,SP", "", "", 0) {
 		
 		@Override
 		public void run(final RPlayer rp) {
+			double range = 7;
+			
+			final Player player = rp.getPlayer();
+			final LivingEntity e = Utils.getInSightDamageableEntity(player, RDamageCause.ABILITY, 50.0);
+			if(e != null){
+				if(e.getLocation().distanceSquared(player.getLocation()) <= range*range){
+					this.takeVigor(rp);
+					Location entityLoc = e.getLocation();
+					Location pLoc = player.getLocation();
+					Vector motion = new Vector(entityLoc.getX()-pLoc.getX(), entityLoc.getY()-pLoc.getY(),entityLoc.getZ()-pLoc.getZ()).multiply(.45);
+					player.setMetadata("assassinGamemode", new FixedMetadataValue(Core.instance, player.getGameMode().toString()));
+					player.setGameMode(GameMode.SPECTATOR);
+					player.setVelocity(motion);
+					new BukkitTask(Core.instance){
+
+						@Override
+						public void run() {
+							if(player.getLocation().distanceSquared(e.getLocation()) < 3){
+								player.setGameMode(GameMode.valueOf(player.getMetadata("assassinGamemode").get(0).asString()));
+								DamageManager.damage(e, player, getInstance().getDamages(rp), RDamageCause.ABILITY);
+								e.getWorld().createExplosion(e.getLocation(), 0);
+								Core.playAnimEffect(Particle.LAVA, e.getLocation(), .3F, .3F, .3F, 1, 16);
+								e.setVelocity(new Vector(1/(e.getLocation().getX()-player.getLocation().getX()),1,1/(e.getLocation().getZ()-player.getLocation().getZ())));
+								this.cancel();
+							}
+						}
+
+						@Override
+						public void onCancel() {
+							rp.setActiveAbility(7, false);
+						}
+						
+					}.runTaskTimer(0, 0);
+				}else{
+					player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+					rp.sendMessage("§cCet ennemi est trop loin !");
+					rp.setActiveAbility(7, true);
+				}
+			}else{
+				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+				rp.sendMessage("§cIl n'y a personne en face de vous !");
+				rp.setActiveAbility(7, true);
+			}
 		}
 
 		@Override
@@ -1691,104 +1976,122 @@ public enum RAbility {
 
 		@Override
 		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
 		}
 				
 	}),
-	ASSASSIN_4(new Ability("Frappe du golem", Arrays.asList("Le paladin frappe le sol", "en libérant une onde de choc"),
-			RClass.ASSASSIN, Mastery.ADVENTURER, 8, false, "GDD,SN", "", "", 0) {
+	ASSASSIN_8(new Ability("Super Smash", Arrays.asList("L'assassin dash très violemment sur sa cible"),
+			RClass.ASSASSIN, Mastery.HERO, 8, false, "DGD", "", "", 0) {
 		
 		@Override
 		public void run(final RPlayer rp) {
-		}
-
-		@Override
-		public void onEffect(RPlayer rp) {
-		}
-
-		@Override
-		public void onCancel(RPlayer rp) {
-		}
-
-		@Override
-		public void animate(RPlayer rp, LivingEntity target) {
+			double range = 6;
 			
-			
-		}
-				
-	}),
-	ASSASSIN_5(new Ability("Frappe du golem", Arrays.asList("Le paladin frappe le sol", "en libérant une onde de choc"),
-			RClass.ASSASSIN, Mastery.MASTER, 8, false, "GDD,SN", "", "", 0) {
-		
-		@Override
-		public void run(final RPlayer rp) {
-		}
+			final Player player = rp.getPlayer();
+			final double damages = this.getDamages(rp);
+			final LivingEntity e = Utils.getInSightDamageableEntity(player, RDamageCause.ABILITY, 50.0);
+			if(e != null){
+				if(e.getLocation().distanceSquared(player.getLocation()) <= range*range){
+					player.setSprinting(false);
+					this.takeVigor(rp);
+					Vector toe = e.getLocation().toVector().subtract(player.getLocation().toVector());
+					player.setVelocity(toe.multiply(.5).add(new Vector(0,1,0)));
+					new BukkitTask(Core.instance){
 
-		@Override
-		public void onEffect(RPlayer rp) {
-		}
+						@Override
+						public void run() {
+							Vector toe = e.getLocation().toVector().subtract(player.getLocation().toVector());
+							player.setVelocity(toe);
+							new BukkitTask(Core.instance){
 
-		@Override
-		public void onCancel(RPlayer rp) {
-		}
+								@Override
+								public void run() {
+									Core.playAnimEffect(Particle.ENCHANTMENT_TABLE, player.getLocation(), .5F, .5F, .5F, 1, 20);
+									if(player.isOnGround()){
+										Block block = player.getLocation().subtract(0,1,0).getBlock();
+										Core.playAnimEffect(Particle.BLOCK_CRACK, player.getLocation(), .5F, .5F, .5F, 1, 50, block.getBlockData());
+										player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 1, 1);
+										final List<LivingEntity> nearest = Core.toDamageableLivingEntityList(player, player.getNearbyEntities(2, 2, 2), RDamageCause.ABILITY);
+										if(!nearest.isEmpty()){
+											for(LivingEntity enear : nearest){
+												DamageManager.damage(enear, player, damages/2., RDamageCause.ABILITY);
+												enear.setVelocity(new Vector(0,1.5,0));
+												enear.setFallDistance(-100);
+											}
+											TeleportHandler.teleport(player, new Location(nearest.get(0).getWorld(), nearest.get(0).getLocation().getX(),nearest.get(0).getLocation().getY(),nearest.get(0).getLocation().getZ(), player.getEyeLocation().getYaw(), player.getEyeLocation().getPitch()));
+											player.setVelocity(new Vector(0,1.62,0));
+											player.setFallDistance(-100);
+											new BukkitTask(Core.instance){
 
-		@Override
-		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
-		}
-				
-	}),
-	ASSASSIN_6(new Ability("Frappe du golem", Arrays.asList("Le paladin frappe le sol", "en libérant une onde de choc"),
-			RClass.ASSASSIN, Mastery.MASTER, 8, false, "GDD,SN", "", "", 0) {
-		
-		@Override
-		public void run(final RPlayer rp) {
-		}
+												@Override
+												public void run() {
+													Core.playAnimEffect(Particle.EXPLOSION_LARGE, player.getLocation(), 1, 1, 1, 1, 7);
+													player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
+													
+													for(LivingEntity enear : nearest){
+														enear.setVelocity(new Vector(0,-2,0));
+													}
 
-		@Override
-		public void onEffect(RPlayer rp) {
-		}
+													final List<LivingEntity> onGround = new ArrayList<LivingEntity>();
+													new BukkitTask(Core.instance){
 
-		@Override
-		public void onCancel(RPlayer rp) {
-		}
+														@Override
+														public void run() {
+															if(!onGround.containsAll(nearest)){
+																for(LivingEntity enear : nearest){
+																	if(enear.isOnGround()){
+																		if(!onGround.contains(enear)){
+																			Core.playAnimEffect(Particle.LAVA, enear.getLocation(), .5F, .5F, .5F, 1, 50);
+																			enear.getWorld().playSound(enear.getLocation(), Sound.ENTITY_SKELETON_HURT, 1, 1);
+																			DamageManager.damage(enear, player, damages/2., RDamageCause.ABILITY);
+																			enear.setFallDistance(0);
+																			onGround.add(enear);
+																		}
+																	}
+																}
+															}else this.cancel();
+														}
 
-		@Override
-		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
-		}
-				
-	}),
-	ASSASSIN_7(new Ability("Frappe du golem", Arrays.asList("Le paladin frappe le sol", "en libérant une onde de choc"),
-			RClass.ASSASSIN, Mastery.HERO, 8, false, "GDD,SN", "", "", 0) {
-		
-		@Override
-		public void run(final RPlayer rp) {
-		}
+														@Override
+														public void onCancel() {
+															player.setFallDistance(0);
+															rp.setActiveAbility(8, false);
+														}
+														
+													}.runTaskTimerCancelling(0, 0, 100);
+												}
 
-		@Override
-		public void onEffect(RPlayer rp) {
-		}
+												@Override
+												public void onCancel() {
+												}
+												
+											}.runTaskLater(20);
+										}
+										this.cancel();
+									}
+								}
 
-		@Override
-		public void onCancel(RPlayer rp) {
-		}
+								@Override
+								public void onCancel() {
+								}
+								
+							}.runTaskTimer(0, 0);
+						}
 
-		@Override
-		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
-		}
-				
-	}),
-	ASSASSIN_8(new Ability("Frappe du golem", Arrays.asList("Le paladin frappe le sol", "en libérant une onde de choc"),
-			RClass.ASSASSIN, Mastery.HERO, 8, false, "GDD,SN", "", "", 0) {
-		
-		@Override
-		public void run(final RPlayer rp) {
+						@Override
+						public void onCancel() {
+						}
+						
+					}.runTaskLater(10);
+				}else{
+					player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+					rp.sendMessage("§cCet ennemi est trop loin !");
+					rp.setActiveAbility(8, false);
+				}
+			}else{
+				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+				rp.sendMessage("§cIl n'y a personne en face de vous !");
+				rp.setActiveAbility(8, false);
+			}
 		}
 
 		@Override
