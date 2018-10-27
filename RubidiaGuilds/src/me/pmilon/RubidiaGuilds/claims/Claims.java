@@ -62,7 +62,6 @@ public class Claims{
 															tTime -= TimeUnit.HOURS.toMillis(hrs);
 															long min = TimeUnit.MILLISECONDS.toMinutes(tTime);
 															tTime -= TimeUnit.MINUTES.toMillis(min);
-															String sEnTime = String.format("§4%02d §chours & §4%02d §cminutes.", hrs, min);
 															String sFrTime = String.format("§4%02d §cheures & §4%02d §cminutes.", hrs, min);
 															rp.sendMessage("§cVotre guilde ne peut attaquer le territoire de la guilde §6§l" + claimed.getName() + "§e pendant "+sFrTime);
 															return;
@@ -77,7 +76,6 @@ public class Claims{
 															tTime -= TimeUnit.HOURS.toMillis(hrs);
 															long min = TimeUnit.MILLISECONDS.toMinutes(tTime);
 															tTime -= TimeUnit.MINUTES.toMillis(min);
-															String sEnTime = String.format("§4%02d §chours & §4%02d §cminutes.", hrs, min);
 															String sFrTime = String.format("§4%02d §cheures & §4%02d §cminutes.", hrs, min);
 															rp.sendMessage("§cCe territoire ne peut être réclamé par une guilde pendant "+sFrTime);
 															return;
@@ -128,15 +126,15 @@ public class Claims{
 				Guild last = claim.getGuild();
 				if(last != null){
 					last.getClaims().remove(newClaim);
-					last.broadcastMessage(Relation.MEMBER, "§4§lWARNING §cYour guild just lost a claim at x: " + newClaim.getX()*16 + " / z: " + newClaim.getZ()*16 + " in world: " + newClaim.getWorld().getName(), "§4§lATTENTION §cVotre guilde vient de perdre du territoire à x: " + newClaim.getX()*16 + " / z: " + newClaim.getZ() + " dans " + newClaim.getWorld().getName());
-					last.broadcastAllyMessage("§5§l" + last.getName() + " §djust lost a claim at x: " + newClaim.getX() + " / z: " + newClaim.getZ()*16 + " in world: " + newClaim.getWorld().getName(),"§5§l" + last.getName() + " §dvient de perdre du territoire à x: " + newClaim.getX()*16 + " / z: " + newClaim.getZ() + " dans " + newClaim.getWorld().getName());
+					last.broadcastMessage(Relation.MEMBER, "§4§lATTENTION §cVotre guilde vient de perdre du territoire à x: " + newClaim.getX()*16 + " / z: " + newClaim.getZ() + " dans " + newClaim.getWorld().getName());
+					last.broadcastAllyMessage("§5§l" + last.getName() + " §dvient de perdre du territoire à x: " + newClaim.getX()*16 + " / z: " + newClaim.getZ() + " dans " + newClaim.getWorld().getName());
 				}
 			}
 			Guild newGuild = event.getGuild();
 			newGuild.getClaims().add(newClaim);
 			newClaim.setGuild(newGuild);
 			newClaim.setName(name);
-			newGuild.broadcastMessage(Relation.MEMBER, "§aYou just claimed a new chunk!", "§aVous venez de conquérir un nouveau territoire !");
+			newGuild.broadcastMessage(Relation.MEMBER, "§aVous venez de conquérir un nouveau territoire !");
 			for(int i = 1;i <= 16;i++){
 				final int r = i;
 				new BukkitTask(GuildsPlugin.instance){
@@ -168,7 +166,7 @@ public class Claims{
 			final Claim unclaim = event.getClaim();
 			Guild guild = event.getGuild();
 			guild.getClaims().remove(unclaim);
-			guild.broadcastMessage(Relation.MEMBER, "§eYour guild just unclaimed territory at x: " + unclaim.getX()*16 + " / z: " + unclaim.getZ()*16, "§eVotre guilde vient de céder du territoire à x: " + unclaim.getX()*16 + " / z: " + unclaim.getZ()*16);
+			guild.broadcastMessage(Relation.MEMBER, "§eVotre guilde vient de céder du territoire à x: " + unclaim.getX()*16 + " / z: " + unclaim.getZ()*16);
 			
 			for(int x = 0;x < 16;x++){
 				for(int z = 0;z < 16;z++){

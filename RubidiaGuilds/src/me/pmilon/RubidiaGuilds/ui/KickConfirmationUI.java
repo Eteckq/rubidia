@@ -29,10 +29,10 @@ public class KickConfirmationUI extends ConfirmationUI {
 	@Override
 	protected void yes() {
 		if(member.isOnline()){
-			RPlayer.get(member).sendMessage("§cYou've been kicked out of the guild!", "§cVous avez été éjecté de la guilde !");
+			RPlayer.get(member).sendMessage("§cVous avez été éjecté de la guilde !");
 		}
 		guild.removeMember(member);
-		guild.broadcastMessage(Relation.MEMBER, "§4" + member.getName() + " §chas been kicked out of the guild!", "§4" + member.getName() + " §ca été éjecté de la guilde !");
+		guild.broadcastMessage(Relation.MEMBER, "§4" + member.getName() + " §ca été éjecté de la guilde !");
 		this.getUIManager().requestUI(new GMembersUI(this.getHolder(), guild));
 	}
 

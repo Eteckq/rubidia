@@ -270,21 +270,21 @@ public class Guild {
 		return Relation.NEUTRAL;
 	}
 
-	public void broadcastAllMessage(String en, String fr){
-		this.broadcastMessage(Relation.MEMBER, en, fr);
-		this.broadcastAllyMessage(en, fr);
+	public void broadcastAllMessage(String message){
+		this.broadcastMessage(Relation.MEMBER, message);
+		this.broadcastAllyMessage(message);
 	}
 	
-	public void broadcastAllyMessage(String en, String fr){
+	public void broadcastAllyMessage(String message){
 		for(Guild allied : this.getAllies()){
-			allied.broadcastMessage(Relation.ALLY, en, fr);
+			allied.broadcastMessage(Relation.ALLY, message);
 		}
 	}
 	
-	public void broadcastMessage(Relation type, String en, String fr){
+	public void broadcastMessage(Relation type, String message){
 		for(GMember member : this.getMembers()){
 			if(RPlayer.get(member) != null){
-				RPlayer.get(member).sendMessage(en.replaceAll("§&d", type.getDColorCode()).replaceAll("§&c", type.getCColorCode()), fr.replaceAll("§&d", type.getDColorCode()).replaceAll("§&c", type.getCColorCode()));
+				RPlayer.get(member).sendMessage(message.replaceAll("§&d", type.getDColorCode()).replaceAll("§&c", type.getCColorCode()));
 			}
 		}
 	}
@@ -382,14 +382,14 @@ public class Guild {
 			if(this.askers.contains(member)){
 				this.askers.remove(member);
 				this.addMember(member);
-				RPlayer.get(member).sendMessage("§eGuild §6§l" + this.getName() + " §eaccepted your join request!", "§6§l" + this.getName() + " §ea accepté votre demande d'adhésion !");
-				this.broadcastAllMessage("§&d" + member.getName() + " §&cjoined §&d§l" + this.getName() + "§&c!", "§&d" + member.getName() + " §&ca rejoint la guilde §&d§l" + this.getName() + "§&c !");
+				RPlayer.get(member).sendMessage("§6§l" + this.getName() + " §ea accepté votre demande d'adhésion !");
+				this.broadcastAllMessage("§&d" + member.getName() + " §&ca rejoint la guilde §&d§l" + this.getName() + "§&c !");
 			}else if(this.invited.contains(member)){
 				this.invited.remove(member);
-				RPlayer.get(member).sendMessage("§eGuild §6§l" + this.getName() + " §ecancelled its join invitation.", "§eLa guilde §6§l" + this.getName() + " §ea annulé son invitation.");
+				RPlayer.get(member).sendMessage("§eLa guilde §6§l" + this.getName() + " §ea annulé son invitation.");
 			}else{
 				this.invited.add(member);
-				RPlayer.get(member).sendMessage("§eGuild §6§l" + this.getName() + " §einvited you to join them!", "§eLa guilde §6§l" + this.getName() + " §evous a invité à rejoindre ses membres !");
+				RPlayer.get(member).sendMessage("§eLa guilde §6§l" + this.getName() + " §evous a invité à rejoindre ses membres !");
 			}
 		}
 	}
@@ -401,16 +401,16 @@ public class Guild {
 			if(this.invited.contains(member)){
 				this.invited.remove(member);
 				this.addMember(member);
-				RPlayer.get(member).sendMessage("§eYou just joined guild §6§l" + this.getName() + "§e!", "§eVous avez rejoint la guilde §6§l" + this.getName() + " §e!");
-				this.broadcastAllMessage("§&d" + member.getName() + " §&cjoined §&d§l" + this.getName() + "§&c!", "§&d" + member.getName() + " §&ca rejoint la guilde §&d§l" + this.getName() + "§&c !");
+				RPlayer.get(member).sendMessage("§eVous avez rejoint la guilde §6§l" + this.getName() + " §e!");
+				this.broadcastAllMessage("§&d" + member.getName() + " §&ca rejoint la guilde §&d§l" + this.getName() + "§&c !");
 			}else if(this.askers.contains(member)){
 				this.askers.remove(member);
-				RPlayer.get(member).sendMessage("§eYou cancelled your join request to §6§l" + this.getName() + "§e.", "§eVous avez annulé votre requête d'adhésion envoyée à la guilde §6§l" + this.getName() + "§e.");
-				this.broadcastMessage(Relation.MEMBER, "§&d" + member.getName() + " §&ccancelled his join request.", "§&d" + member.getName() + " §&ca annulé sa demande d'adhésion.");
+				RPlayer.get(member).sendMessage("§eVous avez annulé votre requête d'adhésion envoyée à la guilde §6§l" + this.getName() + "§e.");
+				this.broadcastMessage(Relation.MEMBER, "§&d" + member.getName() + " §&ca annulé sa demande d'adhésion.");
 			}else{
 				this.askers.add(member);
-				RPlayer.get(member).sendMessage("§eYou asked §6§l" + this.getName() + " §eto join their members.", "§eVous avez demandé à la guilde §6§l" + this.getName() + " §ede rejoindre ses membres.");
-				this.broadcastMessage(Relation.MEMBER, "§&d" + member.getName() + " §&casked to join your guild!", "§&d" + member.getName() + " §&ca demandé à rejoindre votre guilde !");
+				RPlayer.get(member).sendMessage("§eVous avez demandé à la guilde §6§l" + this.getName() + " §ede rejoindre ses membres.");
+				this.broadcastMessage(Relation.MEMBER, "§&d" + member.getName() + " §&ca demandé à rejoindre votre guilde !");
 			}
 		}
 	}
@@ -533,14 +533,14 @@ public class Guild {
 
 	public void withdraw(int cost){
 		this.setBank(this.getBank()-cost);
-		this.broadcastMessage(Relation.MEMBER, "§&d" + cost + "⟡  §&chave been withdrawed from your guild bank.", "§4" + cost + "⟡  §cont été retirées de votre banque de guilde.");
-		this.broadcastMessage(Relation.MEMBER, "§7Your new guild balance is: §f" + this.getBank() + "⟡", "§7Votre nouveau solde est de §f" + this.getBank() + "⟡");
+		this.broadcastMessage(Relation.MEMBER, "§4" + cost + "⟡  §cont été retirées de votre banque de guilde.");
+		this.broadcastMessage(Relation.MEMBER, "§7Votre nouveau solde est de §f" + this.getBank() + "⟡");
 	}
 	
 	public void deposit(int amount) {
 		this.setBank(this.getBank()+amount);
-		this.broadcastMessage(Relation.MEMBER, "§&d" + amount + "⟡  §&chave been added to your guild bank.", "§4" + amount + "⟡  §cont été ajoutées à votre banque de guilde.");
-		this.broadcastMessage(Relation.MEMBER, "§7Your new guild balance is: §f" + this.getBank() + "⟡", "§7Votre nouveau solde est de §f" + this.getBank() + "⟡");
+		this.broadcastMessage(Relation.MEMBER, "§4" + amount + "⟡  §cont été ajoutées à votre banque de guilde.");
+		this.broadcastMessage(Relation.MEMBER, "§7Votre nouveau solde est de §f" + this.getBank() + "⟡");
 	}
 
 	public GHome[] getHomes() {

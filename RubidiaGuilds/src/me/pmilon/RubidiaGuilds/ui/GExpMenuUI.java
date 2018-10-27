@@ -102,9 +102,9 @@ public class GExpMenuUI extends UIHandler {
 							}
 						}
 						int newLevel = this.getGuild().getLevel();
-						this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> §&cYour guild has gain §&d" + value + " §&cmore XP!", "§&d>>> §&cVotre guilde a gagné §&d" + value + " §&cpoint d'XP supplémentaire !");
-						if(oldLevel < newLevel)this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> §&cLevel up! §&d" + this.getGuild().getName() + " §&cis now level §&d" + newLevel + "§&c!", "§&d>>> §&cNiveau supérieur atteint ! §&d" + this.getGuild().getName() + " §&cest désormais niveau §&d" + newLevel + " §&c!");
-						this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> " + xpBar, "§&d>>> " + xpBar);
+						this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> §&cVotre guilde a gagné §&d" + value + " §&cpoint d'XP supplémentaire !");
+						if(oldLevel < newLevel)this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> §&cNiveau supérieur atteint ! §&d" + this.getGuild().getName() + " §&cest désormais niveau §&d" + newLevel + " §&c!");
+						this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> " + xpBar);
 						
 						for(int invSlot = 0;invSlot < 7;invSlot++){
 							this.menu.setItem(invSlot, new ItemStack(Material.AIR));

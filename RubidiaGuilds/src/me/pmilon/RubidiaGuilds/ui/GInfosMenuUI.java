@@ -89,7 +89,7 @@ public class GInfosMenuUI extends UIHandler {
 						}else rp.sendMessage("§cVous n'avez pas la permission de modifier l'item de votre guilde !");
 					}else{
 						if(this.getGuild().getBank() >= Settings.CAPE_COST || rp.isOp()){
-							this.getGuild().broadcastMessage(Relation.MEMBER, "§&d" + gm.getName() + " §&chas purchased a cape!", "§&d" + gm.getName() + " §&ca acheté une cape de guilde !");
+							this.getGuild().broadcastMessage(Relation.MEMBER, "§&d" + gm.getName() + " §&ca acheté une cape de guilde !");
 							this.getHolder().getInventory().addItem(this.getGuild().getCape());
 							if(!rp.isOp()){
 								this.getGuild().withdraw(Settings.CAPE_COST);

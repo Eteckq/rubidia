@@ -38,9 +38,9 @@ public class LeadLegacyConfirmationUI extends ConfirmationUI {
 		}
 		guild.getLeader().setRank(rank);
 		member.setRank(guild.getRanks()[0]);
-		guild.broadcastAllMessage("§&d" + member.getName() + " §&cgave leadership to §&d" + member.getName() + "§&c!", "§&d" + member.getName() + " §&ca léguer la direction à §&d" + member.getName() + " §&c!");
-		guild.broadcastMessage(Relation.MEMBER, "§2" + member.getName() + " §agave leadership to §2" + member.getName() + "§c!", "§2" + member.getName() + " §aa léguer la direction à §2" + member.getName() + " §a!");
-		guild.broadcastAllyMessage("§5" + member.getName() + " §dgave leadership to §5" + member.getName() + "§d!", "§5" + member.getName() + " §da léguer la direction à §5" + member.getName() + " §d!");
+		guild.broadcastAllMessage("§&d" + member.getName() + " §&ca léguer la direction à §&d" + member.getName() + " §&c!");
+		guild.broadcastMessage(Relation.MEMBER, "§2" + member.getName() + " §aa léguer la direction à §2" + member.getName() + " §a!");
+		guild.broadcastAllyMessage("§5" + member.getName() + " §da léguer la direction à §5" + member.getName() + " §d!");
 		Core.uiManager.requestUI(new GMemberPrefsUI(this.getHolder(), guild, member, 3));
 	}
 }
