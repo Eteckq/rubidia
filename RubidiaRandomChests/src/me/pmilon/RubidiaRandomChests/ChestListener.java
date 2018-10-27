@@ -58,7 +58,7 @@ public class ChestListener implements Listener {
 								if(this.getPlugin().getLocations().contains(block.getLocation())){
 									if(rplayer.isOp() && player.isSneaking()){
 										this.getPlugin().getLocations().remove(block.getLocation());
-										rplayer.sendMessage("§aYou successfully removed this location from the lucky chests' locations!", "§aVous avez supprimé ce lieu des lieux de coffre chance.");
+										rplayer.sendMessage("§aVous avez supprimé ce lieu des lieux de coffre chance.");
 										event.setCancelled(true);
 										
 										if(this.getPlugin().getActiveLocations().contains(block.getLocation())){
@@ -72,7 +72,7 @@ public class ChestListener implements Listener {
 								}else{
 									this.getPlugin().getLocations().add(block.getLocation());
 									block.setType(Material.AIR);
-									rplayer.sendMessage("§aYou successfully added this location to the lucky chests' locations!", "§aVous avez ajouté ce lieu comme lieu de coffre chance.");
+									rplayer.sendMessage("§aVous avez ajouté ce lieu comme lieu de coffre chance.");
 									event.setCancelled(true);
 								}
 							}
@@ -112,7 +112,7 @@ public class ChestListener implements Listener {
 										f.setFireworkMeta(fm);
 									}
 								}, 18);
-								rplayer.sendMessage("§aYou found a lucky chest!", "§aVous avez trouvé un coffre chance !");
+								rplayer.sendMessage("§aVous avez trouvé un coffre chance !");
 								RandomChestsPlugin.console.sendMessage("§6" + rplayer.getName() + " §efound a lucky chest!");
 							}
 						}
