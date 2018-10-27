@@ -35,6 +35,7 @@ import me.pmilon.RubidiaCore.events.RPlayerRequestDuelEvent;
 import me.pmilon.RubidiaCore.events.RPlayerXPEvent;
 import me.pmilon.RubidiaCore.events.RXPSource;
 import me.pmilon.RubidiaCore.jobs.RJob;
+import me.pmilon.RubidiaCore.handlers.ResourcePackHandler;
 import me.pmilon.RubidiaCore.handlers.TradingHandler;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerChat;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSetSlot;
@@ -1118,13 +1119,11 @@ public class RPlayer {
 	public void updateResourcePack(){
 		if(this.isOnline()){
 			if(this.isUsingTextures()){
-				String version = "1.5.5";
-				this.sendMessage("§eInstallation de §6§lRubidiaPack§e (v" + version + ")...");
-				this.getPlayer().setResourcePack("http://r.milon.pro/downloads/RubidiaPack" + version + ".zip");
+				this.sendMessage("§eInstallation de §6§lRubidiaPack§e (v" + ResourcePackHandler.RESOURCE_PACK_VERSION + ")...");
+				this.getPlayer().setResourcePack("http://r.milon.pro/downloads/RubidiaPack" + ResourcePackHandler.RESOURCE_PACK_VERSION + ".zip");
 			}else{
-				String version = "1.3.5";
-				this.sendMessage("§eInstallation de §6§lRubidiaPackLight§e (v" + version + ")...");
-				this.getPlayer().setResourcePack("http://r.milon.pro/downloads/RubidiaPackLight" + version + ".zip");
+				this.sendMessage("§eInstallation de §6§lRubidiaPackLight§e (v" + ResourcePackHandler.RESOURCE_PACK_LITE_VERSION + ")...");
+				this.getPlayer().setResourcePack("http://r.milon.pro/downloads/RubidiaPackLight" + ResourcePackHandler.RESOURCE_PACK_LITE_VERSION + ".zip");
 			}
 		}
 		return;
