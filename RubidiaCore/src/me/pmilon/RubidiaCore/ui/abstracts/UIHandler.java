@@ -82,7 +82,7 @@ public abstract class UIHandler {
 		if(temporary){
 			this.getUIManager().tempSessions.put(this.getHolder(), this);
 			this.listeningId = listeningId[listeningId.length-1];//for multiple message listening
-			rp.sendMessage("§aLeave edit mode by typing \"-\".", "§aQuittez le mode d'édition en tapant \"-\".");
+			rp.sendMessage("§aQuittez le mode d'édition en tapant \"-\".");
 		}else if(this.getUIManager().playerSessions.containsKey(this.getHolder().getName()))this.getUIManager().playerSessions.remove(this.getHolder().getName());
 		this.closeUI();
 	}

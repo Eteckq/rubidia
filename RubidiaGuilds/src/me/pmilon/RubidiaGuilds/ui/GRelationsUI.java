@@ -70,21 +70,21 @@ public class GRelationsUI extends UIHandler {
 							guild.broadcastMessage(Relation.MEMBER, "§&d§l" + gm.getGuild().getName() + " §&chas accepted the alliance !", "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&ca accepté l'alliance !");
 						}else if(gm.getGuild().getAllies().contains(guild)){//we cancel request if already asked
 							gm.getGuild().removeAlly(guild);
-							rp.sendMessage("§eYou cancelled alliance request sent to §6§l" + guild.getName() + ".", "§eVous avez annulé la requête d'alliance envoyée à §6§l" + guild.getName() + "§e.");
+							rp.sendMessage("§eVous avez annulé la requête d'alliance envoyée à §6§l" + guild.getName() + "§e.");
 							guild.broadcastMessage(Relation.MEMBER, "§&d§l" + gm.getGuild().getName() + " §&ccancelled its alliance request.", "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&ca annulé sa requête d'alliance.");
 						}else{//else we request an alliance
 							gm.getGuild().addAlly(guild);
-							rp.sendMessage("§eYou requested an alliance to §6§l" + guild.getName() + "§e.", "§eVous avez demandé une alliance à la guilde §6§l" + guild.getName() + "§e.");
+							rp.sendMessage("§eVous avez demandé une alliance à la guilde §6§l" + guild.getName() + "§e.");
 							guild.broadcastMessage(Relation.MEMBER, "§&d§l" + gm.getGuild().getName() + " §&chas asked an alliance !", "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&ca demandé une alliance !");
 						}
 					}
-				}else rp.sendMessage("§cYou don't have permission to manage guild relations!", "§cVous n'avez pas la permission de gérer les relations de guilde !");
+				}else rp.sendMessage("§cVous n'avez pas la permission de gérer les relations de guilde !");
 			}else if(slot == this.SLOT_ENEMY){
 				if(gm.getPermission(Permission.RELATIONS)){
 					if(gm.getGuild().getRelationTo(guild).equals(Relation.ENEMY)){//if enemies, we request a neutrality
 						gm.getGuild().removeEnemy(guild);//they are no longer our enemies either way
 						if(guild.getEnemies().contains(gm.getGuild())){//if 
-							rp.sendMessage("§eYou asked §6§l" + guild.getName() + " a neutral relation.", "§eVous avez demandé à §6§l" + guild.getName() + " §eune relation neutre.");
+							rp.sendMessage("§eVous avez demandé à §6§l" + guild.getName() + " §eune relation neutre.");
 							guild.broadcastMessage(Relation.MEMBER, "§&d§l" + gm.getGuild().getName() + " §&chas sent a neutral relation wish.", "§&d§l" + gm.getGuild().getName() + " §&ca envoyé une requête de neutralité.");
 						}else{
 							guild.broadcastMessage(Relation.MEMBER, "§&d§l" + gm.getGuild().getName() + " §&care now longer our enemies!", "§&d§l" + gm.getGuild().getName() + " §&cne sont plus nos ennemis !");
@@ -101,10 +101,10 @@ public class GRelationsUI extends UIHandler {
 								gm.getGuild().addEnemy(guild);
 								gm.getGuild().broadcastMessage(Relation.ENEMY, "§&d§l" + guild.getName() + " §&care now our enemies!", "§&d§l" + guild.getName() + " §&csont désormais nos ennemis !");
 								guild.broadcastMessage(Relation.ENEMY, "§&d§l" + gm.getGuild().getName() + " §&care now our enemies!", "§&d§l" + gm.getGuild().getName() + " §&csont désormais nos ennemis !");
-							}else rp.sendMessage("§4" + guild.getName() + " §cis a peaceful guild! They cannot maintain any opposition.","§4" + guild.getName() + " §cest une guilde en paix ! Elle ne peut entretenir aucune opposition.");
-						}else rp.sendMessage("§cYour guild is a peaceful one! You cannot maintain any opposition.","§cVotre guilde est en paix ! Vous ne pouvez entretenir aucune opposition.");
+							}else rp.sendMessage("§4" + guild.getName() + " §cest une guilde en paix ! Elle ne peut entretenir aucune opposition.");
+						}else rp.sendMessage("§cVotre guilde est en paix ! Vous ne pouvez entretenir aucune opposition.");
 					}
-				}else rp.sendMessage("§cYou don't have permission to manage guild relations!", "§cVous n'avez pas la permission de gérer les relations de guilde !");
+				}else rp.sendMessage("§cVous n'avez pas la permission de gérer les relations de guilde !");
 			}
 		}
 	}

@@ -23,7 +23,7 @@ public class HomeRemovalConfirmationUI extends ConfirmationUI {
 	@Override
 	protected void yes() {
 		this.getGuild().getHomes()[this.getHome()] = null;
-		rp.sendMessage("§cHome successfully deleted.", "§cPoint de rassemblement supprimé.");
+		rp.sendMessage("§cPoint de rassemblement supprimé.");
 		Core.uiManager.requestUI(new GHomeListUI(this.getHolder(), this.getGuild()));
 	}
 

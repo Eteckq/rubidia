@@ -28,7 +28,7 @@ public class Claims{
 	public static void manageClaim(String name, Guild claiming, Location location, GMember member){
 		RPlayer rp = RPlayer.get(member);
 		if(location.getWorld().getName().contains("nether") || location.getWorld().getName().contains("the_end")){
-			rp.sendMessage("§cYou cannot claim this territory!", "§cVous ne pouvez conquérir ce territoire !");
+			rp.sendMessage("§cVous ne pouvez conquérir ce territoire !");
 			return;
 		}
 		Claim claim = Claim.get(location);
@@ -64,7 +64,7 @@ public class Claims{
 															tTime -= TimeUnit.MINUTES.toMillis(min);
 															String sEnTime = String.format("§4%02d §chours & §4%02d §cminutes.", hrs, min);
 															String sFrTime = String.format("§4%02d §cheures & §4%02d §cminutes.", hrs, min);
-															rp.sendMessage("§cYour guild can't attack §6§l" + claimed.getName() + "§e's territory for "+sEnTime, "§cVotre guilde ne peut attaquer le territoire de la guilde §6§l" + claimed.getName() + "§e pendant "+sFrTime);
+															rp.sendMessage("§cVotre guilde ne peut attaquer le territoire de la guilde §6§l" + claimed.getName() + "§e pendant "+sFrTime);
 															return;
 														}
 													}
@@ -79,21 +79,21 @@ public class Claims{
 															tTime -= TimeUnit.MINUTES.toMillis(min);
 															String sEnTime = String.format("§4%02d §chours & §4%02d §cminutes.", hrs, min);
 															String sFrTime = String.format("§4%02d §cheures & §4%02d §cminutes.", hrs, min);
-															rp.sendMessage("§cThis territory cannot be raided for "+sEnTime, "§cCe territoire ne peut être réclamé par une guilde pendant "+sFrTime);
+															rp.sendMessage("§cCe territoire ne peut être réclamé par une guilde pendant "+sFrTime);
 															return;
 														}
 													}
 												}
 												GuildsPlugin.raidcoll.startNew(guild, location);
-											}else rp.sendMessage("§cYour guild has too much territories for its level!", "§cVotre guilde possède trop de territoires pour son niveau !");
-										}else rp.sendMessage("§cYou cannot start a raid against a not connected guild!", "§cVous ne pouvez lancer de raid contre une guilde non connectée !");
-									}else rp.sendMessage("§cYou can only start a raid against an enemy guild!", "§cVous ne pouvez lancer un raid que contre une guilde ennemie !");
+											}else rp.sendMessage("§cVotre guilde possède trop de territoires pour son niveau !");
+										}else rp.sendMessage("§cVous ne pouvez lancer de raid contre une guilde non connectée !");
+									}else rp.sendMessage("§cVous ne pouvez lancer un raid que contre une guilde ennemie !");
 								}else Claims.newClaim(name, guild, claim, rp, member, location);
-							}else rp.sendMessage("§cYou cannot claim territory from another guild while your guild is peaceful!", "§cVous ne pouvez conquérir de territoire appartenant à une autre guilde tant que votre guilde est en paix !");
-						}else rp.sendMessage("§cThis guild is peaceful! You cannot claim on its territory.", "§cCette guilde est en paix ! Vous ne pouvez conquérir son territoire.");
+							}else rp.sendMessage("§cVous ne pouvez conquérir de territoire appartenant à une autre guilde tant que votre guilde est en paix !");
+						}else rp.sendMessage("§cCette guilde est en paix ! Vous ne pouvez conquérir son territoire.");
 					}
 				}else Claims.newClaim(name, guild, claim, rp, member, location);
-			}else rp.sendMessage("§cYou only are a " + member.getRank().getName().toLowerCase() + "! You cannot claim territory for your guild.", "§cVous n'êtes que " + member.getRank().getName().toLowerCase() + " ! Vous ne pouvez conquérir de territoire pour votre guilde.");
+			}else rp.sendMessage("§cVous n'êtes que " + member.getRank().getName().toLowerCase() + " ! Vous ne pouvez conquérir de territoire pour votre guilde.");
 		}else Claims.newClaim(name, guild, claim, rp, member, location);
 	}
 	
@@ -104,7 +104,7 @@ public class Claims{
 				claim = new Claim(UUID.randomUUID().toString(), name, location.getWorld(), location.getChunk().getX(), location.getChunk().getZ(), null);
 			}
 			Claims.rawClaim(name, guild, member, claim, location);
-		}else rp.sendMessage("§cYour guild has too much territories for its level!", "§cVotre guilde possède trop de territoires pour son niveau !");
+		}else rp.sendMessage("§cVotre guilde possède trop de territoires pour son niveau !");
 	}
 
 	private static void unclaim(Guild guild, Claim claim, GMember member, RPlayer rp, Location location) {
@@ -113,9 +113,9 @@ public class Claims{
 			if(claimed != null){
 				if(claimed.equals(guild)){
 					Claims.rawUnclaim(guild, member, claim, location);
-				}else rp.sendMessage("§cThis territory is not your guild's property.", "§cCe territoire n'est pas la propriété de votre guilde.");
-			}else rp.sendMessage("§cThis territory is not your guild's property.", "§cCe territoire n'est pas la propriété de votre guilde.");
-		}else rp.sendMessage("§cYou only are a " + member.getRank().getName().toLowerCase() + "! You cannot unclaim territory for your guild.", "§cVous n'êtes que " + member.getRank().getName().toLowerCase() + " ! Vous ne pouvez céder de territoire pour votre guilde.");
+				}else rp.sendMessage("§cCe territoire n'est pas la propriété de votre guilde.");
+			}else rp.sendMessage("§cCe territoire n'est pas la propriété de votre guilde.");
+		}else rp.sendMessage("§cVous n'êtes que " + member.getRank().getName().toLowerCase() + " ! Vous ne pouvez céder de territoire pour votre guilde.");
 	}
 	
 	private static void rawClaim(String name, Guild guild, GMember member, Claim claim, final Location location){

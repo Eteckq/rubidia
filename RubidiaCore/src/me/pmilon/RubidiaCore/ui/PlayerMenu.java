@@ -90,10 +90,10 @@ public class PlayerMenu extends UIHandler {
 					}else if(gm.hasGuild()){
 						if(gm.getPermission(Permission.INVITE) || gm.isLeader()){
 							gm.getGuild().invite(mfrom);
-							if(mfrom.isInvited(gm.getGuild()))rp.sendMessage("§eYou invited §6" + mfrom.getName() + " §eto join your guild.", "§eVous avez invité §6" + mfrom.getName() + " §eà rejoindre votre guilde.");
-							else rp.sendMessage("§eYou cancelled §6" + mfrom.getName() + "§e's invitation to join the guild.", "§eVous avez annulé l'invitation à rejoindre la guilde de §6" + mfrom.getName() + "§e.");
-						}else rp.sendMessage("§cYou don't have permission to invite players to join your guild!","§cVous n'avez pas la permission d'inviter des joueurs à rejoindre votre guilde !");
-					}else rp.sendMessage("§cYou don't belong to any guild!", "§cVous n'appartenez à aucune guilde !");
+							if(mfrom.isInvited(gm.getGuild()))rp.sendMessage("§eVous avez invité §6" + mfrom.getName() + " §eà rejoindre votre guilde.");
+							else rp.sendMessage("§eVous avez annulé l'invitation à rejoindre la guilde de §6" + mfrom.getName() + "§e.");
+						}else rp.sendMessage("§cVous n'avez pas la permission d'inviter des joueurs à rejoindre votre guilde !");
+					}else rp.sendMessage("§cVous n'appartenez à aucune guilde !");
 					this.getMenu().setItem(this.SLOT_INVITE, this.getInvite());
 				}else if(e.getRawSlot() == SLOT_MARRY){
 					if(rp.getCouple() != null && this.showFiancer){
@@ -102,19 +102,19 @@ public class PlayerMenu extends UIHandler {
 						if(rpfrom.equals(rp.fiance)){
 							rp.fiance(null);
 							rpfrom.fiance(null);
-							rp.sendMessage("§cYou cancelled your wedding proposal...", "§cVous avez annulé votre demande en mariage...");
+							rp.sendMessage("§cVous avez annulé votre demande en mariage...");
 							rpfrom.sendMessage("§4" + rp.getName() + " §ccancelled the wedding proposal...", "§4" + rp.getName() + " §ca annulé la demande en mariage...");
 						}else{
 							if(rp.isOp() || rp.getLastDivorce()+Settings.TIME_BEFORE_WEDDING_PROPOSAL <= System.currentTimeMillis()){
 								rp.fiance(rpfrom);
 								if(rp.equals(rpfrom.fiance)){
-									rp.sendMessage("§aYou are now fianced to §2" + rpfrom.getName() + "§a!", "§aVous êtes désormais fiancé(e) à §2" + rpfrom.getName() + " §a!");
+									rp.sendMessage("§aVous êtes désormais fiancé(e) à §2" + rpfrom.getName() + " §a!");
 									rpfrom.sendMessage("§aYou are now fianced to §2" + rp.getName() + "§a!", "§aVous êtes désormais fiancé(e) à §2" + rp.getName() + " §a!");
 									
-									rp.sendMessage("§eYou now need the help of a pastor to organize your wedding!", "§eVous avez maintenant besoin de l'aide d'un pasteur pour organiser votre mariage !");
+									rp.sendMessage("§eVous avez maintenant besoin de l'aide d'un pasteur pour organiser votre mariage !");
 									rpfrom.sendMessage("§eYou now need to ask a pastor to organize your wedding!", "§eVous avez désormais besoin de demander à un pasteur d'organiser votre mariage !");
 								}else{
-									rp.sendMessage("§eYou proposed to §6" + rpfrom.getName() + "§e...", "§eVous avez demandé §6" + rpfrom.getName() + " §een mariage...");
+									rp.sendMessage("§eVous avez demandé §6" + rpfrom.getName() + " §een mariage...");
 									rpfrom.sendMessage("§6" + rp.getName() + " §eproposed you!", "§6" + rp.getName() + " §evous a demandé en mariage !");
 								}
 							}else{
@@ -126,7 +126,7 @@ public class PlayerMenu extends UIHandler {
 								long seconds1 = TimeUnit.MILLISECONDS.toSeconds(time1);
 								time1 -= TimeUnit.SECONDS.toMillis(seconds1);
 								String time = String.format("§4%02d §ch. §4%02d §cmin. §4%02d §cs.", hours1, minutes1, seconds1);
-								rp.sendMessage("§cYou just divorced! Please wait " + time, "§cVous venez de divorcer ! Attendez encore " + time);
+								rp.sendMessage("§cVous venez de divorcer ! Attendez encore " + time);
 							}
 						}
 					}

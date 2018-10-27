@@ -113,12 +113,12 @@ public class EventsHandler implements Listener {
 									}else if(item.getType().equals(Material.SHEARS)){
 										if(entity instanceof Snowman){
 											e.setCancelled(true);
-											rp.sendMessage("§cYou cannot remove its pumpkin this way! Change its appearance instead.", "§cEnlevez-lui sa citrouille en changeant son apparence !");
+											rp.sendMessage("§cEnlevez-lui sa citrouille en changeant son apparence !");
 										}
 									}else if(item.getType().equals(Material.SADDLE)){
 										if(entity instanceof Pig){
 											e.setCancelled(true);
-											rp.sendMessage("§cYou cannot put a saddle on it this way! Change its appearance instead.", "§cEquipez-le d'une selle en changeant son apparence !");
+											rp.sendMessage("§cEquipez-le d'une selle en changeant son apparence !");
 										}
 									}
 								}

@@ -34,7 +34,7 @@ public enum ScrollType {
 			if(Configs.getCitiesConfig().contains("cities." + this.getScroll().getArg())){
 				TeleportHandler.startTeleportation(p, (Location) Configs.getCitiesConfig().get("cities." + this.getScroll().getArg() + ".location"), new RTeleportCause(RTeleportType.CITY_TELEPORTATION,this.getScroll(),null,null));
 			}
-			else rp.sendMessage("§cPlease contact an operator: this city does not exist.", "§cContactez un opérateur : cette ville n'existe pas.");
+			else rp.sendMessage("§cContactez un opérateur : cette ville n'existe pas.");
 		}
 		
 	}),
@@ -46,7 +46,7 @@ public enum ScrollType {
 			RPlayer rp = RPlayer.get(p);
 			if(!p.getWorld().getName().contains("_nether")){
 				if(!p.getWorld().getName().contains("_end")){
-					rp.sendMessage("§6Please wait while terrain is loading...", "§6Patientez pendant le chargement du terrain...");
+					rp.sendMessage("§6Patientez pendant le chargement du terrain...");
 					new BukkitTask(Core.instance){
 						int x;
 						int z;
@@ -76,8 +76,8 @@ public enum ScrollType {
 						}
 						
 					}.runTaskTimer(0,0);
-				}else rp.sendMessage("§cYou cannot use this scroll in the End!", "§cVous ne pouvez pas utiliser ce parchemin dans l'End !");			
-			}else rp.sendMessage("§cYou cannot use this scroll in the Nether!", "§cVous ne pouvez pas utiliser ce parchemin dans le Néant !");
+				}else rp.sendMessage("§cVous ne pouvez pas utiliser ce parchemin dans l'End !");			
+			}else rp.sendMessage("§cVous ne pouvez pas utiliser ce parchemin dans le Néant !");
 		}
 		
 	}),
@@ -132,7 +132,7 @@ public enum ScrollType {
 			RPlayer rp = RPlayer.get(this.getPlayer());
 			int nb = Integer.valueOf(this.getScroll().getArg());
 			rp.setSkillPoints(rp.getSkillPoints()+nb);
-			rp.sendMessage("§aYou gained §2" + nb + " §askillpoint" + (nb > 1 ? "s" : "") + "!", "§aVous avez gagné §2" + nb + " §apoint" + (nb > 1 ? "s" : "") + " de compétence !");
+			rp.sendMessage("§aVous avez gagné §2" + nb + " §apoint" + (nb > 1 ? "s" : "") + " de compétence !");
 		}
 		
 	}),
@@ -143,7 +143,7 @@ public enum ScrollType {
 			RPlayer rp = RPlayer.get(this.getPlayer());
 			int nb = Integer.valueOf(this.getScroll().getArg());
 			rp.setSkillDistinctionPoints(rp.getSkillDistinctionPoints()+nb);
-			rp.sendMessage("§aYou gained §2" + nb + " §adistinction points!", "§aVous avez gagné §2" + nb + " §apoints de distinction !");
+			rp.sendMessage("§aVous avez gagné §2" + nb + " §apoints de distinction !");
 		}
 		
 	}),
@@ -168,7 +168,7 @@ public enum ScrollType {
 				this.setUsed(true);
 			}else{
 				this.setUsed(false);
-				rp.sendMessage("§cYou can only use it once you are dead.","§cCe parchemin est consommable une fois mort.");
+				rp.sendMessage("§cCe parchemin est consommable une fois mort.");
 			}
 		}
 		
@@ -180,7 +180,7 @@ public enum ScrollType {
 			Player p = this.getPlayer();
 			RPlayer rp = RPlayer.get(p);
 			this.setUsed(false);
-			rp.sendMessage("§cYou can only use it with a SMITH during a weapon/armor enhancement.","§cCe parchemin est consommable uniquement avec un FORGERON durant un renforcement.");
+			rp.sendMessage("§cCe parchemin est consommable uniquement avec un FORGERON durant un renforcement.");
 		}
 		
 	}),
@@ -191,7 +191,7 @@ public enum ScrollType {
 			Player p = this.getPlayer();
 			RPlayer rp = RPlayer.get(p);
 			this.setUsed(false);
-			rp.sendMessage("§cYou can only use it with a SMITH during a weapon/armor enhancement.","§cCe parchemin est consommable uniquement avec un FORGERON durant un renforcement.");
+			rp.sendMessage("§cCe parchemin est consommable uniquement avec un FORGERON durant un renforcement.");
 		}
 		
 	}),
@@ -202,7 +202,7 @@ public enum ScrollType {
 			Player p = this.getPlayer();
 			RPlayer rp = RPlayer.get(p);
 			this.setUsed(false);
-			rp.sendMessage("§cYou can only use it with a SMITH during a weapon/armor enhancement.","§cCe parchemin est consommable uniquement avec un FORGERON durant un renforcement.");
+			rp.sendMessage("§cCe parchemin est consommable uniquement avec un FORGERON durant un renforcement.");
 		}
 		
 	}),
@@ -213,7 +213,7 @@ public enum ScrollType {
 			Player p = this.getPlayer();
 			RPlayer rp = RPlayer.get(p);
 			this.setUsed(false);
-			rp.sendMessage("§cYou can only use it with a SMITH during a weapon/armor enhancement.","§cCe parchemin est consommable uniquement avec un FORGERON durant un renforcement.");
+			rp.sendMessage("§cCe parchemin est consommable uniquement avec un FORGERON durant un renforcement.");
 		}
 		
 	}),
@@ -224,7 +224,7 @@ public enum ScrollType {
 			Player p = this.getPlayer();
 			RPlayer rp = RPlayer.get(p);
 			this.setUsed(false);
-			rp.sendMessage("§cYou can only use it with a SMITH during a weapon/armor piercing.","§cCe parchemin est consommable uniquement avec un FORGERON durant un piercing.");
+			rp.sendMessage("§cCe parchemin est consommable uniquement avec un FORGERON durant un piercing.");
 		}
 		
 	}),
@@ -235,7 +235,7 @@ public enum ScrollType {
 			Player p = this.getPlayer();
 			RPlayer rp = RPlayer.get(p);
 			this.setUsed(false);
-			rp.sendMessage("§cYou can only use it with a SMITH during a weapon/armor piercing.","§cCe parchemin est consommable uniquement avec un FORGERON durant un piercing.");
+			rp.sendMessage("§cCe parchemin est consommable uniquement avec un FORGERON durant un piercing.");
 		}
 		
 	}),
@@ -246,7 +246,7 @@ public enum ScrollType {
 			Player p = this.getPlayer();
 			RPlayer rp = RPlayer.get(p);
 			this.setUsed(false);
-			rp.sendMessage("§cYou can only use it with a SMITH during a weapon/armor piercing.","§cCe parchemin est consommable uniquement avec un FORGERON durant un piercing.");
+			rp.sendMessage("§cCe parchemin est consommable uniquement avec un FORGERON durant un piercing.");
 		}
 		
 	});

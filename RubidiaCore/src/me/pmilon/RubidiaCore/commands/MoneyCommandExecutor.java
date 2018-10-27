@@ -22,7 +22,7 @@ public class MoneyCommandExecutor extends HybridCommandExecutor {
 			RPlayer rpo = RPlayer.getFromName(args[0]);
 			if(rpo != null){
 				rp.getChat().addFixDisplay(new RChatFixDisplay(rp, 80, null).addLines(Arrays.asList("     §6" + args[0].toUpperCase() + " : §e" + rpo.getBank() + (" §aémeraudes"))));
-			}else rp.sendMessage("§4" + args[0] + " §chas never been on this server! Use: " + (rp.isOp() ? "/money ([player]/pay/take [player] [amount])" : "/money ([player])"), "§4" + args[0] + " §cn'est jamais venu sur ce serveur ! Utilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
+			}else rp.sendMessage("§4" + args[0] + " §cn'est jamais venu sur ce serveur ! Utilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
 		}else if(args.length == 3){
 			if(args[0].equalsIgnoreCase("pay")){
 				if(Bukkit.getPlayer(args[1]) != null){
@@ -32,14 +32,14 @@ public class MoneyCommandExecutor extends HybridCommandExecutor {
 						if(amount > 0){
 							RPlayer rpo = RPlayer.get(po);
 							if(rp.getBank() >= amount){
-								rp.sendMessage("§aYou paid §2" + args[1] + " §aof §e" + amount + " §aemeralds.", "§aVous avez payé §2" + args[1] + " §ade §e" + amount + " §aémeraudes !");
+								rp.sendMessage("§aVous avez payé §2" + args[1] + " §ade §e" + amount + " §aémeraudes !");
 								rpo.sendMessage("§2" + rp.getName() + " §apaid you §e" + amount + " §aemeralds !", "§2" + rp.getName() + " §avous a payé de §e" + amount + " §aémeraudes !");
 								EconomyHandler.withdraw(player, amount);
 								EconomyHandler.deposit(po, amount);
 							}
 						}
 					}
-				}else rp.sendMessage("§4" + args[1] + " §chas never been on this server! Use: " + (rp.isOp() ? "/money ([player]/pay/take [player] [amount])" : "/money ([player])"), "§4" + args[1] + " §cn'est jamais venu sur ce serveur ! Utilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
+				}else rp.sendMessage("§4" + args[1] + " §cn'est jamais venu sur ce serveur ! Utilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
 			}else if(args[0].equalsIgnoreCase("take")){
 				if(rp.isOp()){
 					if(Bukkit.getPlayer(args[1]) != null){
@@ -47,15 +47,15 @@ public class MoneyCommandExecutor extends HybridCommandExecutor {
 						if(Utils.isInteger(args[2])){
 							RPlayer rpo = RPlayer.get(po);
 							int amount = Integer.valueOf(args[2]);
-							if(rpo.getBank() < amount)rp.sendMessage("§4" + args[1] + " §cn'avait pas autant d'argent! Toutes ses émeraudes ont été prélevées.", "§4" + args[1] + " §cdid not have that much money! All of his emeralds have been taken.");
-							rp.sendMessage("§aYou withdrawed §e" + amount + " §aemeralds from §2" + args[1] + "§a's account.", "§aVous avez retiré §e" + amount + " §aémeraudes du compte de §2" + args[1] + "§a.");
+							if(rpo.getBank() < amount)rp.sendMessage("§4" + args[1] + " §cdid not have that much money! All of his emeralds have been taken.");
+							rp.sendMessage("§aVous avez retiré §e" + amount + " §aémeraudes du compte de §2" + args[1] + "§a.");
 							rpo.sendMessage("§4" + rp.getName() + " §ctook you §e" + amount + " §cemeralds !", "§4" + rp.getName() + " §cvous a pris §e" + amount + " §cémeraudes !");
 							EconomyHandler.withdraw(po, Math.min(amount, rpo.getBank()));
 						}
-					}else rp.sendMessage("§4" + args[1] + " §chas never been on this server! Use: " + (rp.isOp() ? "/money ([player]/pay/take [player] [amount])" : "/money ([player])"), "§4" + args[1] + " §cn'est jamais venu sur ce serveur ! Utilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
-				}else rp.sendMessage("§cYou really thought you could do that without being operator?", "§cVous avez vraiment cru pouvoir faire ça sans être opérateur ?");
-			}else rp.sendMessage("§cPlease use: " + (rp.isOp() ? "/money ([player]/pay/take [player] [amount])" : "/money ([player])"), "§cUtilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
-		}else rp.sendMessage("§cPlease use: " + (rp.isOp() ? "/money ([player]/pay/take [player] [amount])" : "/money ([player])"), "§cUtilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
+					}else rp.sendMessage("§4" + args[1] + " §cn'est jamais venu sur ce serveur ! Utilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
+				}else rp.sendMessage("§cVous avez vraiment cru pouvoir faire ça sans être opérateur ?");
+			}else rp.sendMessage("§cUtilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
+		}else rp.sendMessage("§cUtilisez : " + (rp.isOp() ? "/money ([joueur]/pay/take [joueur] [montant])" : "/money ([joueur])"));
 	}
 
 	@Override

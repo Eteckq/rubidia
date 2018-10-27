@@ -73,20 +73,20 @@ public class GInfosMenuUI extends UIHandler {
 					Core.uiManager.requestUI(new GMenuUI(this.getHolder(), this.getGuild()));
 				}else if(slot == this.SLOT_NAME){
 					if(gm.getPermission(Permission.RENAME)){
-						rp.sendMessage("§aRename your guild by typing the desired name in the chat! (MAX: " + Guild.NAME_LENGTH + " characters)", "§aRenommez votre guilde en entrant le nom désiré dans le chat ! (MAX : " + Guild.NAME_LENGTH + "caractères)");
+						rp.sendMessage("§aRenommez votre guilde en entrant le nom désiré dans le chat ! (MAX : " + Guild.NAME_LENGTH + "caractères)");
 						this.close(true, this.LISTENINGID_NAME);
-					}else rp.sendMessage("§cYou don't have permission to rename your guild.", "§cVous n'avez pas la permission de renommer votre guilde.");
+					}else rp.sendMessage("§cVous n'avez pas la permission de renommer votre guilde.");
 				}else if(slot == this.SLOT_DESC){
 					if(gm.getPermission(Permission.RENAME)){
-						rp.sendMessage("§aChange your guild's description by typing the desired one in the chat!", "§aModifiez votre description de guilde en entrant celle désirée dans le chat !");
+						rp.sendMessage("§aModifiez votre description de guilde en entrant celle désirée dans le chat !");
 						this.close(true, this.LISTENINGID_DESC);
-					}else rp.sendMessage("§cYou don't have permission to change your guild's description.", "§cVous n'avez pas la permission de modifier la description de votre guilde.");
+					}else rp.sendMessage("§cVous n'avez pas la permission de modifier la description de votre guilde.");
 				}else if(slot == this.SLOT_DISPLAY){
 					if(e.isLeftClick()){
 						if(gm.getPermission(Permission.CAPE) || gm.isLeader()){
 							this.close(true, this.LISTID_CAPE);
-							rp.sendMessage("§aTake a banner in your hands and type in the cost you want to set (members will pay this amount for each cape they order).", "§aPrenez une bannière entre vos mains et entrez son coût (les membres paieront ce montant pour chaque cape commandée).");
-						}else rp.sendMessage("§cYou don't have permission to modify your guild's representative item!", "§cVous n'avez pas la permission de modifier l'item de votre guilde !");
+							rp.sendMessage("§aPrenez une bannière entre vos mains et entrez son coût (les membres paieront ce montant pour chaque cape commandée).");
+						}else rp.sendMessage("§cVous n'avez pas la permission de modifier l'item de votre guilde !");
 					}else{
 						if(this.getGuild().getBank() >= Settings.CAPE_COST || rp.isOp()){
 							this.getGuild().broadcastMessage(Relation.MEMBER, "§&d" + gm.getName() + " §&chas purchased a cape!", "§&d" + gm.getName() + " §&ca acheté une cape de guilde !");
@@ -94,7 +94,7 @@ public class GInfosMenuUI extends UIHandler {
 							if(!rp.isOp()){
 								this.getGuild().withdraw(Settings.CAPE_COST);
 							}
-						}else rp.sendMessage("§cYour guild doesn't have enough emeralds!", "§cVotre guilde n'a pas suffisamment d'émeraudes !");
+						}else rp.sendMessage("§cVotre guilde n'a pas suffisamment d'émeraudes !");
 					}
 				}else if(slot == this.SLOT_GLOWING){
 					if(gm.getPermission(Permission.CAPE) || gm.isLeader()) {
@@ -127,7 +127,7 @@ public class GInfosMenuUI extends UIHandler {
 						GMemberChangeGuildNameEvent event = new GMemberChangeGuildNameEvent(this.getGuild(), gm, name);
 						Bukkit.getPluginManager().callEvent(event);
 						if(!event.isCancelled())event.getGuild().setName(name);
-					}else rp.sendMessage("§cA guild with this name already exists!", "§cUne guilde avec le même nom existe déjà !");
+					}else rp.sendMessage("§cUne guilde avec le même nom existe déjà !");
 				}else if(this.getListeningId() == this.LISTENINGID_DESC){
 					this.getGuild().setDescription(this.getMessage().replace('§', '?'));
 				}else if(this.getListeningId() == this.LISTID_CAPE){
@@ -141,7 +141,7 @@ public class GInfosMenuUI extends UIHandler {
 						ItemStack cape = item.clone();
 						cape.setAmount(1);
 						this.getGuild().setCape(cape);
-					}else rp.sendMessage("§cYou can only use a banner as your guild's cape!","§cVous ne pouvez utiliser qu'une bannière en tant que cape de votre guilde !");
+					}else rp.sendMessage("§cVous ne pouvez utiliser qu'une bannière en tant que cape de votre guilde !");
 				}
 			}
 		}

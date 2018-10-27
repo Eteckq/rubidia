@@ -273,24 +273,24 @@ public class Raid {
 					double ratio = ((double)getPoints())/getMaxPoints();
 					for(RPlayer rp : getRPlayers()){
 						GMember member = GMember.get(rp);
-						rp.sendMessage("                  §b§m-----§8§m[  §r    §7RAID FINISHED    §8§m  ]§b§m-----", "                  §b§m-----§8§m[  §r    §7RAID TERMINE    §8§m  ]§b§m-----");
+						rp.sendMessage("                  §b§m-----§8§m[  §r    §7RAID TERMINE    §8§m  ]§b§m-----");
 						if(rp.isOnline())rp.getPlayer().sendMessage("");
 						if(member.getGuild().equals(getOffensive())){
 							if(ratio >= 1){
 								rp.sendTitle("§6" + ("Offensive gagnée !"), "§e" + ("Ce territoire appartient désormais à votre guilde !"), 0, 80, 40);
-								rp.sendMessage("§eThis territory cannot be raided for 2 hours.", "§eCe territoire ne peut être réclamé par une guilde pendant 2 heures.");
+								rp.sendMessage("§eCe territoire ne peut être réclamé par une guilde pendant 2 heures.");
 							}else{
 								rp.sendTitle("§4" + ("Offensive perdue !"), "§c" + ("Vous n'avez pas généré assez de puissance !"), 0, 80, 40);
 							}
-							rp.sendMessage("§eYour guild won't be able to attack §6§l" + getDefensive().getName() + "§e's territory for 6 hours.", "§eVotre guilde ne pourra attaquer le territoire de la guilde §6§l" + getDefensive().getName() + "§e pendant 6 heures.");
+							rp.sendMessage("§eVotre guilde ne pourra attaquer le territoire de la guilde §6§l" + getDefensive().getName() + "§e pendant 6 heures.");
 						}else{
 							if(ratio >= 1){
 								rp.sendTitle("§4" + ("Territoire perdu !"), "§c" + ("Ce territoire appartient désormais à la guilde " + getOffensive().getName() + " !"), 0, 80, 40);
-								rp.sendMessage("§eYour guild won't be able to raid this territory for 2 hours.", "§eVotre guilde ne pourra réclamer ce territoire pendant 2 heures.");
+								rp.sendMessage("§eVotre guilde ne pourra réclamer ce territoire pendant 2 heures.");
 							}else{
 								rp.sendTitle("§6" + ("Offensive défendue !"), "§e" + ("Territoire conservé !"), 0, 80, 40);
 							}
-							rp.sendMessage("§eYour guild can no longer be attacked by §6§l" + getOffensive().getName() + "§e guild for 6 hours.", "§eVotre guilde ne pourra plus être attaquée par la guilde §6§l" + getOffensive().getName() + "§e pendant 6 heures.");
+							rp.sendMessage("§eVotre guilde ne pourra plus être attaquée par la guilde §6§l" + getOffensive().getName() + "§e pendant 6 heures.");
 						}
 						if(rp.isOnline()){
 							rp.getPlayer().sendMessage("");

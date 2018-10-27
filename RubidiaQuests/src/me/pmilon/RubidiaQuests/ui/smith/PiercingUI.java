@@ -112,8 +112,8 @@ public class PiercingUI extends UIHandler {
 								e.setCurrentItem(item);
 								this.update();
 							}
-						}else rp.sendMessage("§cChoose a weapon/armor to pierce first.", "§cChoisissez d'abord une arme/armure à percer.");
-					}else rp.sendMessage("§cThis scroll cannot be used during a piercing.", "§cCe parchemin ne peut être utilisé durant un piercing.");
+						}else rp.sendMessage("§cChoisissez d'abord une arme/armure à percer.");
+					}else rp.sendMessage("§cCe parchemin ne peut être utilisé durant un piercing.");
 				}else if(item.isSimilar(RItemStacks.ORICHALCUM.getItemStack())){
 					e.setCancelled(true);
 					if(weapon != null){
@@ -125,8 +125,8 @@ public class PiercingUI extends UIHandler {
 								this.orichalcum = true;
 								this.update();
 							}
-						}else rp.sendMessage("§cYour " + (this.weapon.isAttack() ? "weapon" : "armor") + " already has too many holes!", "§cVotre " + (this.weapon.isAttack() ? "arme" : "armure") + " a déjà trop été percée !");
-					}else rp.sendMessage("§cChoose a weapon/armor to pierce first.", "§cChoisissez d'abord une arme/armure à percer.");
+						}else rp.sendMessage("§cVotre " + (this.weapon.isAttack() ? "arme" : "armure") + " a déjà trop été percée !");
+					}else rp.sendMessage("§cChoisissez d'abord une arme/armure à percer.");
 				}else{
 					piercing = null;
 					for(Field field : RItemStacks.class.getFields()){
@@ -145,7 +145,7 @@ public class PiercingUI extends UIHandler {
 						}
 					}
 					if(piercing != null){
-						rp.sendMessage("§ePlace this joyau inside an open slot!", "§ePlacez ce joyau à l'intérieur d'un pore ouvert !");
+						rp.sendMessage("§ePlacez ce joyau à l'intérieur d'un pore ouvert !");
 					}else e.setCancelled(true);
 				}
 			}else piercing = null;
@@ -179,17 +179,17 @@ public class PiercingUI extends UIHandler {
 								ItemStack item = getMenu().getItem(finalSlot);
 								if(item.isSimilar(LOCKED_SLOT)){
 									weapon.setHoles(weapon.getHoles()+1);
-									rp.sendMessage("§aPiercing successful! Your " + (weapon.isAttack() ? "weapon" : "armor") + " has now an additional hole.", "§aPiercing réussi ! Votre " + (weapon.isAttack() ? "arme" : "armure") + " a désormais un pore ouvert supplémentaire.");
+									rp.sendMessage("§aPiercing réussi ! Votre " + (weapon.isAttack() ? "arme" : "armure") + " a désormais un pore ouvert supplémentaire.");
 								}else if(item.isSimilar(FREE_SLOT)){
 									if(isScrollActive(ScrollType.PIERCING_PROTECTION_B)){
 										weapon.setHoles(weapon.getHoles()-1);
-										rp.sendMessage("§cPiercing failed! A hole in your " + (weapon.isAttack() ? "weapon" : "armor") + " has been filled.", "§cEchec du piercing ! Un pore de votre " + (weapon.isAttack() ? "arme" : "armure") + " a été fermé.");
-									}else rp.sendMessage("§ePiercing failed! But the scroll protected a hole from being closed.", "§eEchec du piercing ! Mais le parchemin a empêché un pore d'être refermé.");
+										rp.sendMessage("§cEchec du piercing ! Un pore de votre " + (weapon.isAttack() ? "arme" : "armure") + " a été fermé.");
+									}else rp.sendMessage("§eEchec du piercing ! Mais le parchemin a empêché un pore d'être refermé.");
 								}else if(weapon.getPiercings().size() >= finalSlot){
 									if(isScrollActive(ScrollType.PIERCING_PROTECTION_A)){
 										weapon.getPiercings().remove(finalSlot-1);
-										rp.sendMessage("§cPiercing failed! A hole in your " + (weapon.isAttack() ? "weapon" : "armor") + " has been emptied.", "§cEchec du piercing ! Un pore de votre " + (weapon.isAttack() ? "arme" : "armure") + " a été vidé.");
-									}else rp.sendMessage("§ePiercing failed! But the scroll protected a hole from being emptied.", "§eEchec du piercing ! Mais le parchemin a empêché un pore d'être vidé.");
+										rp.sendMessage("§cEchec du piercing ! Un pore de votre " + (weapon.isAttack() ? "arme" : "armure") + " a été vidé.");
+									}else rp.sendMessage("§eEchec du piercing ! Mais le parchemin a empêché un pore d'être vidé.");
 								}
 								orichalcum = false;
 								scroll.clear();
@@ -236,7 +236,7 @@ public class PiercingUI extends UIHandler {
 					}
 				}else{
 					if(item.isSimilar(LOCKED_SLOT)){
-						rp.sendMessage("§cYou need an orichalque to unlock this slot.", "§cVous avez besoin d'un orichalque pour débloquer ce pore.");
+						rp.sendMessage("§cVous avez besoin d'un orichalque pour débloquer ce pore.");
 					}else if(item.isSimilar(FREE_SLOT)){
 						if(piercing != null){
 							weapon.getPiercings().add(piercing);
@@ -261,7 +261,7 @@ public class PiercingUI extends UIHandler {
 								}
 								
 							}.runTaskLater(0);
-						}else rp.sendMessage("§cYou can only place joyau inside your " + (weapon.isAttack() ? "weapon" : "armor") + "!", "§cVous ne pouvez placer que des joyaux à l'intérieur de votre " + (this.weapon.isAttack() ? "arme" : "armure") + " !");
+						}else rp.sendMessage("§cVous ne pouvez placer que des joyaux à l'intérieur de votre " + (this.weapon.isAttack() ? "arme" : "armure") + " !");
 					}
 				}
 			}

@@ -84,7 +84,7 @@ public class SkillTree extends UIHandler {
 									amount = ability.getSettings().getLevelMax()-rp.getAbLevel(slot);
 								}
 								if(amount == 0){
-									rp.sendMessage("§cYou've already reached level max for this ability.", "§cVous avez déjà atteint le niveau maximal pour cette capacité.");
+									rp.sendMessage("§cVous avez déjà atteint le niveau maximal pour cette capacité.");
 									this.getHolder().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 								}else{
 									if(rp.isAtLeast(ability.getMastery())){
@@ -103,15 +103,15 @@ public class SkillTree extends UIHandler {
 												if(slot != ability1.getIndex())getMenu().setItem(ability1.getIndex(), this.getAbility(ability1));
 											}
 										}
-										if(ability.getSettings().getLevelMax() == rp.getAbLevel(slot))rp.sendMessage("§aYou reached level max for this ability.", "§aVous avez atteint le niveau maximal pour cette capacité.");
+										if(ability.getSettings().getLevelMax() == rp.getAbLevel(slot))rp.sendMessage("§aVous avez atteint le niveau maximal pour cette capacité.");
 									}else{
-										if(ability.getMastery().equals(Mastery.MASTER))rp.sendMessage("§cThis ability is locked! Unlock it being a master at level " + Mastery.MASTER.getLevel() + "!", "§cCette compétence est bloquée ! Utilisez-la au niveau " + Mastery.MASTER.getLevel() + " en devenant maître !");
-										else if(ability.getMastery().equals(Mastery.HERO))rp.sendMessage("§cThis ability is locked! Unlock it being a hero at level " + Mastery.HERO.getLevel() + "!", "§cCette compétence est bloquée ! Utilisez-la au niveau " + Mastery.HERO.getLevel() + " en devenant héros !");
+										if(ability.getMastery().equals(Mastery.MASTER))rp.sendMessage("§cCette compétence est bloquée ! Utilisez-la au niveau " + Mastery.MASTER.getLevel() + " en devenant maître !");
+										else if(ability.getMastery().equals(Mastery.HERO))rp.sendMessage("§cCette compétence est bloquée ! Utilisez-la au niveau " + Mastery.HERO.getLevel() + " en devenant héros !");
 									}
 								}
 							}else{
 								this.getHolder().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-								rp.sendMessage("§cYou don't have enough skillpoints!", "§cVous n'avez pas assez de points de compétence !");
+								rp.sendMessage("§cVous n'avez pas assez de points de compétence !");
 							}
 						}
 					}
@@ -121,11 +121,11 @@ public class SkillTree extends UIHandler {
 						else if(rClass.equals(RClass.RANGER))rClass = RClass.MAGE;
 						else if(rClass.equals(RClass.MAGE))rClass = RClass.ASSASSIN;
 						else if(rClass.equals(RClass.ASSASSIN))rClass = RClass.PALADIN;
-						rp.sendMessage("§cNow showcasing " + rClass.toString().toLowerCase() + "' abilities.", "§cPrésentation des compétences des " + rClass.toString().toLowerCase() + "s.");
+						rp.sendMessage("§cPrésentation des compétences des " + rClass.toString().toLowerCase() + "s.");
 						this.close(false);
 						Core.uiManager.requestUI(this);
 					}else{
-						rp.sendMessage("§cYou are vagrant! These abilities are only here in showcase.", "§cVous êtes vagabond ! Ces compétences ne sont qu'en présentation.");
+						rp.sendMessage("§cVous êtes vagabond ! Ces compétences ne sont qu'en présentation.");
 					}
 				}
 			}

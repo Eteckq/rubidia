@@ -56,8 +56,8 @@ public class PNJCommandExecutor extends PlayerAdminCommandExecutor {
 					QuestsPlugin.pnjManager.spawn(new PasserPNJ(UUID.randomUUID().toString(), "PNJ" + new Random().nextInt(), player.getLocation(), 0, new ArrayList<String>(), false, "ici", player.getLocation()));
 					break;
 				}
-			}else rp.sendMessage("§cInvalid PNJ type.", "§cType de PNJ invalide.");
-		}else rp.sendMessage("§cUse /pnj [TYPE]", "§cUtilisez /pnj [TYPE]");
+			}else rp.sendMessage("§cType de PNJ invalide.");
+		}else rp.sendMessage("§cUtilisez /pnj [TYPE]");
 	}
 
 }

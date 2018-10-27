@@ -21,7 +21,7 @@ public class PassCommandExecutor extends PlayerCommandExecutor {
 			if(args.length > 1){
 				PNJHandler handler = PNJManager.getPNJByUniqueId(args[1]);
 				if(handler.getType().equals(PNJType.PASSER)){
-					rp.sendMessage("§9§lEn route §cfor new adventures...", "§9§lEn route §bpour de nouvelles aventures...");
+					rp.sendMessage("§9§lEn route §bpour de nouvelles aventures...");
 					player.teleport(((PasserPNJ)handler).getTargetLocation());
 				}
 			}

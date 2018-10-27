@@ -92,7 +92,7 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 	@Override
 	protected void onInfosClick(InventoryClickEvent e) {
 		this.close(true, this.LIST_ID_SEARCH);
-		rp.sendMessage("§aEnter the name of the profile you are looking for", "§aEntrez le nom du profil que vous recherchez");
+		rp.sendMessage("§aEntrez le nom du profil que vous recherchez");
 	}
 
 	@Override

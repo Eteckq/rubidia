@@ -72,7 +72,7 @@ public class GMenuUI extends UIHandler {
 				}else if(slot == this.SLOT_BANK){
 					if(gm.getPermission(Permission.BANK_DEPOSIT) || rp.isOp()) {
 						Core.uiManager.requestUI(new GBankUI(this.getHolder(), this.getGuild()));
-					}else rp.sendMessage("§cYou don't have permission to deposit emeralds in your guild bank.", "§cVous n'avez pas la permission de déposer des émeraudes dans la banque de votre guilde.");
+					}else rp.sendMessage("§cVous n'avez pas la permission de déposer des émeraudes dans la banque de votre guilde.");
 				}else if(slot == this.SLOT_CLAIMS){
 					Core.uiManager.requestUI(new GClaimsMenuUI(this.getHolder(), this.getGuild(), Claim.get(this.getHolder().getLocation())));
 				}else if(slot == this.SLOT_MEMBERS){
@@ -86,13 +86,13 @@ public class GMenuUI extends UIHandler {
 						if(!event.isCancelled()){
 							event.getGuild().removeMember(gm);
 							this.close(false);
-							rp.sendMessage("§cYou left §a§l" + event.getGuild().getName() + "§c.", "§cVous avez quitté la guilde §4§l" + event.getGuild().getName() + "§c.");
+							rp.sendMessage("§cVous avez quitté la guilde §4§l" + event.getGuild().getName() + "§c.");
 						}
-					}else rp.sendMessage("§cYou must give leadership first!", "§cVous devez d'abord léguer la direction !");
+					}else rp.sendMessage("§cVous devez d'abord léguer la direction !");
 				}else if(slot == this.SLOT_DISBAND){
 					if(gm.isLeader() || rp.isOp()){
 						Core.uiManager.requestUI(new GuildDisbandConfirmationUI(rp, this.getGuild()));
-					}else rp.sendMessage("§cYou must be leader to disband this guild!", "§cVous devez être chef pour dissoudre cette guilde !");
+					}else rp.sendMessage("§cVous devez être chef pour dissoudre cette guilde !");
 				}
 			}
 		}

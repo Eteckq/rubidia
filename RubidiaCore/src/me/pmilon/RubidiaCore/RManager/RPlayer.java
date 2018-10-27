@@ -228,7 +228,7 @@ public class RPlayer {
 	
 	public static void broadcastMessage(String en, String fr){
 		for(RPlayer rp : RPlayer.getOnlines()){
-			rp.sendMessage(en == null ? fr : en, fr);
+			rp.sendMessage(fr);
 		}
 	}
 
@@ -479,7 +479,7 @@ public class RPlayer {
 		if(this.isOnline()){
 			this.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20.0);
 			this.getPlayer().setHealth(this.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
-			this.sendMessage("§aYour statistics have been resetted!", "§aVos statistiques ont été réinitialisées.");
+			this.sendMessage("§aVos statistiques ont été réinitialisées.");
 		}
 		return skd;
 	}
@@ -490,12 +490,12 @@ public class RPlayer {
 			this.getLoadedSPlayer().setAbilityLevel(i, 0);
 		}
 		this.setSkillPoints(skp);
-		if(this.isOnline())this.sendMessage("§aYour abilities have been resetted!", "§aVos compétences ont été réinitialisées.");
+		if(this.isOnline())this.sendMessage("§aVos compétences ont été réinitialisées.");
 		return skp;
 	}
-	public void sendMessage(String sen, String sfr){
+	public void sendMessage(String message){
 		if(this.isOnline()){
-			this.getChat().addInfo(sfr);
+			this.getChat().addInfo(message);
 			this.getChat().update();
 		}
 	}
@@ -1119,11 +1119,11 @@ public class RPlayer {
 		if(this.isOnline()){
 			if(this.isUsingTextures()){
 				String version = "1.5.5";
-				this.sendMessage("§eInstalling §6§lRubidiaPack§e (v" + version + ")...", "§eInstallation de §6§lRubidiaPack§e (v" + version + ")...");
+				this.sendMessage("§eInstallation de §6§lRubidiaPack§e (v" + version + ")...");
 				this.getPlayer().setResourcePack("http://r.milon.pro/downloads/RubidiaPack" + version + ".zip");
 			}else{
 				String version = "1.3.5";
-				this.sendMessage("§eInstalling §6§lRubidiaPackLight§e (v" + version + ")...", "§eInstallation de §6§lRubidiaPackLight§e (v" + version + ")...");
+				this.sendMessage("§eInstallation de §6§lRubidiaPackLight§e (v" + version + ")...");
 				this.getPlayer().setResourcePack("http://r.milon.pro/downloads/RubidiaPackLight" + version + ".zip");
 			}
 		}
@@ -1185,7 +1185,7 @@ public class RPlayer {
 			}
 			
 		};
-		if(duration == 0)this.sendMessage("§eYou have been muted.", "§eVotre langue a été coupée.");
+		if(duration == 0)this.sendMessage("§eVotre langue a été coupée.");
 		else{
 			this.muteTask.runTaskLater(duration*20);
 			duration *= 1000;
@@ -1194,14 +1194,14 @@ public class RPlayer {
 			long seconds = TimeUnit.MILLISECONDS.toSeconds(duration);
 			duration -= TimeUnit.SECONDS.toMillis(seconds);
 			String time = String.format("%02dm %02ds", minutes, seconds);
-			this.sendMessage("§eYou have been muted for §6" + time, "§eVotre langue a été coupée pour §6" + time);
+			this.sendMessage("§eVotre langue a été coupée pour §6" + time);
 		}
 	}
 	
 	public void unmute(boolean killTask){
 		if(killTask)this.muteTask.cancel();
 		this.muteTask = null;
-		this.sendMessage("§eYou have been unmuted.", "§eVotre langue vous a été rendue.");
+		this.sendMessage("§eVotre langue vous a été rendue.");
 	}
 	
 	public boolean isMuted(){
@@ -1311,14 +1311,14 @@ public class RPlayer {
 					this.setCoupleUUID(couple.getUUID());
 					this.fiance.setCoupleUUID(couple.getUUID());
 					
-					this.sendMessage("§aYou are now married to " + this.fiance.getName() + "! Type /x to open your couple menu.", "§aVous êtes désormais marié à " + this.fiance.getName() + " ! Entrez /x pour ouvrir le menu du couple.");
-					this.fiance.sendMessage("§aYou are now married to " + this.getName() + "! Type /x to open your couple menu.", "§aVous êtes désormais marié à " + this.getName() + " ! Entrez /x pour ouvrir le menu du couple.");
+					this.sendMessage("§aVous êtes désormais marié à " + this.fiance.getName() + " ! Entrez /x pour ouvrir le menu du couple.");
+					this.fiance.sendMessage("§aVous êtes désormais marié à " + this.getName() + " ! Entrez /x pour ouvrir le menu du couple.");
 					
 					this.fiance.fiance = null;
 					this.fiance = null;
 					
 					return true;
-				}else this.sendMessage("§eWaiting for §6" + this.fiance.getName() + "§e's answer...", "§eEn attente de la réponse de §6" + this.fiance.getName() + "§e...");
+				}else this.sendMessage("§eEn attente de la réponse de §6" + this.fiance.getName() + "§e...");
 			}
 		}
 		return false;

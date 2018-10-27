@@ -6,7 +6,6 @@ import java.util.UUID;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.damages.DamageManager;
 import me.pmilon.RubidiaCore.damages.RDamageCause;
 import me.pmilon.RubidiaCore.events.RubidiaEntityDamageEvent;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
@@ -36,8 +35,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class AbilitiesListener implements Listener{
 

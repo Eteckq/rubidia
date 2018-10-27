@@ -13,7 +13,7 @@ public class BienvenueCommandExecutor extends PlayerCommandExecutor {
 		if(rp.lastWelcome != null){
 			rp.prechat("Bienvenue " + rp.lastWelcome.getName() + " !", ChatType.GLOBAL);
 			rp.lastWelcome = null;
-		}else rp.sendMessage("§cThere is nobody to welcome!","§cIl n'y a personne à accueillir !");
+		}else rp.sendMessage("§cIl n'y a personne à accueillir !");
 	}
 
 }

@@ -42,13 +42,13 @@ public class GHomeCommandExecutor extends PlayerCommandExecutor {
 				if(home != null){
 					if(member.canHome(home.getIndex())){
 						TeleportHandler.startTeleportation(player, home.getLocation(), new RTeleportCause(RTeleportType.GUILD_HOME,null,null,null));
-					}else rp.sendMessage("§cYou don't have permission to use your guild home!", "§cVous n'avez pas la permission d'utiliser le point de rassemblement de votre guilde !");
+					}else rp.sendMessage("§cVous n'avez pas la permission d'utiliser le point de rassemblement de votre guilde !");
 				}else{
-					if(id)rp.sendMessage("§cCannot find any home with this index.", "§cImpossible de trouver un PR avec cet index.");
-					else rp.sendMessage("§cCannot find any home with this name.", "§cImpossible de trouver un PR avec ce nom.");
+					if(id)rp.sendMessage("§cImpossible de trouver un PR avec cet index.");
+					else rp.sendMessage("§cImpossible de trouver un PR avec ce nom.");
 				}
 			}else Core.uiManager.requestUI(new GHomeListUI(player, guild));
-		}else rp.sendMessage("§cYou don't belong to any guild!", "§cVous n'appartenez à aucune guilde !");
+		}else rp.sendMessage("§cVous n'appartenez à aucune guilde !");
 	}
 
 }

@@ -110,13 +110,13 @@ public class TeleportHandler implements Listener{
 		RPlayer rp = RPlayer.get(p);
 		if(teleportationtask.containsKey(p) && e.getFrom().distanceSquared(e.getTo()) > .04){
 			BukkitTask.tasks.get(teleportationtask.get(p)).cancel();
-			rp.sendMessage("§cYou moved! Teleportation cancelled!", "§cVous avez bougé ! Téléportation annulée !");
+			rp.sendMessage("§cVous avez bougé ! Téléportation annulée !");
 		}
 	}
 	
 	public static void startTeleportation(final Player player, final Location location, final RTeleportCause cause){
 		RPlayer rp = RPlayer.get(player);
-		rp.sendMessage("§eDo not move or Teleportation will be cancelled!", "§eNe bougez pas, ou la téléportation sera annulée !");
+		rp.sendMessage("§eNe bougez pas, ou la téléportation sera annulée !");
 		teleportationtask.put(player, new BukkitTask(Core.instance){
 
 			@Override

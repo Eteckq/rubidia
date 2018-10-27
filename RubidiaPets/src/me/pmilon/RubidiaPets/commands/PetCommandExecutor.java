@@ -65,7 +65,7 @@ public class PetCommandExecutor implements CommandExecutor {
 								Pets.pets.add(pet);
 								rp.getPets().add(pet);
 								sender.sendMessage("§4§l" + rp.getName() + " §ahas been given §4" + name + " §a!");
-								rp.sendMessage("§aYou have received a new pet! You can spawn it by typing /pets.","§aVous avez reçu un nouveau compagnon ! Vous pouvez le sortir en utilisant /pets.");
+								rp.sendMessage("§aVous avez reçu un nouveau compagnon ! Vous pouvez le sortir en utilisant /pets.");
 							}
 						}else sender.sendMessage("§cThis type of pet is invalid.");
 					}else sender.sendMessage("§cPlease use /pet " + args[0] + "[type] (name)");

@@ -63,7 +63,7 @@ public class WeaponsListener implements Listener {
 								if(weapon != null){
 									if(!weapon.isAttack() && !weapon.canUse(rp)){
 										event.setCancelled(true);
-										rp.sendMessage("§cYou cannot use this piece of armor!", "§cVous ne pouvez utiliser cette pièce d'armure !");
+										rp.sendMessage("§cVous ne pouvez utiliser cette pièce d'armure !");
 										player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 										return;
 									}
@@ -310,7 +310,7 @@ public class WeaponsListener implements Listener {
 				wrongDamages.put(rp, damages);
 			}else wrongDamages.put(rp, 1);
 			
-			if(wrongDamages.get(rp) == 1)rp.sendMessage("§cYou don't know how to use this weapon!","§cVous ne savez pas manier cette arme !");
+			if(wrongDamages.get(rp) == 1)rp.sendMessage("§cVous ne savez pas manier cette arme !");
 		}
 		
 	}

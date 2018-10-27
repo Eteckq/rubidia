@@ -85,14 +85,14 @@ public class GuildsUI extends ListMenuUIHandler<Guild> {
 			if(rp.isOp()){
 				Core.uiManager.requestUI(new GMenuUI(this.getHolder(), guild));
 			}else{
-				if(gm.hasGuild())rp.sendMessage("§cYou already have a guild!", "§cVous êtes déjà dans une guilde !");
+				if(gm.hasGuild())rp.sendMessage("§cVous êtes déjà dans une guilde !");
 				else guild.ask(gm);
 			}
 		}else{
 			if(gm.hasGuild()){
 				if(!gm.getGuild().equals(guild)){
 					Core.uiManager.requestUI(new GRelationsUI(this.getHolder(), guild));
-				}else rp.sendMessage("§cYou cannot manage relations between your guild and your guild!", "§cVous ne pouvez gérer les relations entre votre guilde et votre guilde !");
+				}else rp.sendMessage("§cVous ne pouvez gérer les relations entre votre guilde et votre guilde !");
 			}
 		}
 	}
@@ -100,7 +100,7 @@ public class GuildsUI extends ListMenuUIHandler<Guild> {
 	@Override
 	protected void onInfosClick(InventoryClickEvent e) {
 		this.close(true, this.LIST_ID_SEARCH);
-		rp.sendMessage("§aEnter the name of the guild you are looking for.", "Entrez le nom de la guilde que vous recherchez.");
+		rp.sendMessage("Entrez le nom de la guilde que vous recherchez.");
 	}
 
 	@Override

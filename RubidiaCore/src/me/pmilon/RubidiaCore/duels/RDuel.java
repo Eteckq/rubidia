@@ -80,8 +80,8 @@ public class RDuel {
 			@Override
 			public void run() {
 				getChallenger().getDuels().remove(instance);
-				getChallenger().sendMessage("§4" + getChallenged().getName() + "§c has not answered your duel request in time...", "§4" + getChallenged().getName() + "§c n'a pas répondu à votre invitation en duel à temps...");
-				getChallenged().sendMessage("§cYou have not answered §4" + getChallenger().getName() + "§c's duel request in time...", "§cVous n'avez pas répondu à l'invitation en duel de §4" + getChallenger().getName() + "§c à temps...");
+				getChallenger().sendMessage("§4" + getChallenged().getName() + "§c n'a pas répondu à votre invitation en duel à temps...");
+				getChallenged().sendMessage("§cVous n'avez pas répondu à l'invitation en duel de §4" + getChallenger().getName() + "§c à temps...");
 			}
 
 			@Override
@@ -90,7 +90,7 @@ public class RDuel {
 			
 		}.runTaskLater(Settings.DUEL_REQUEST_TIME*20));
 		this.getChallenged().sendTitle("§6§lNouveau duel" + (this.isCompetitive() ? " compétitif" : ""), ("§eVous avez été défié par ") + this.getChallenger().getName(), 10, 160, 10);
-		this.getChallenger().sendMessage("§eYou just challenged §6" + this.getChallenged().getName() + "§e in a " + (this.isCompetitive() ? "competitive " : "") + "duel.", "§eVous venez de défier §6" + this.getChallenged().getName() + "§e en duel" + (this.isCompetitive() ? " compétitif" : "") + ".");
+		this.getChallenger().sendMessage("§eVous venez de défier §6" + this.getChallenged().getName() + "§e en duel" + (this.isCompetitive() ? " compétitif" : "") + ".");
 	}
 	
 	public void cancelRequest(){
@@ -99,8 +99,8 @@ public class RDuel {
 			this.setRequestTimeout(null);
 		}
 		this.getChallenger().getDuels().remove(this);
-		this.getChallenger().sendMessage("§cYour duel request to §4" + getChallenged().getName() + " §chas been cancelled.", "§cVotre invitation en duel contre §4" + getChallenged().getName() + "§c a été annulée.");
-		this.getChallenged().sendMessage("§4" + getChallenger().getName() + "§c cancelled his duel request.", "§4" + getChallenger().getName() + "§c a annulé sont invitation en duel.");
+		this.getChallenger().sendMessage("§cVotre invitation en duel contre §4" + getChallenged().getName() + "§c a été annulée.");
+		this.getChallenged().sendMessage("§4" + getChallenger().getName() + "§c a annulé sont invitation en duel.");
 	}
 	
 	public void start(){
@@ -132,7 +132,7 @@ public class RDuel {
 		}
 	}
 	
-	public void count(){
+	private void count(){
 		final Player p1 = this.getChallenger().getPlayer();
 		final Player p2 = this.getChallenged().getPlayer();
 		this.getChallenger().sendTitle(("§eLe duel va débuter..."), "§6" + this.getChallenger().getName() + " §eVS §6" + this.getChallenged().getName(), 0, 30, 5);
@@ -282,8 +282,8 @@ public class RDuel {
 				int winpool = (int) Math.round((1-Math.pow(((double)Math.abs(this.getChallenger().getRLevel()-this.getChallenged().getRLevel()))/Settings.COMPETITIVE_DUEL_LEVEL_SHIFT_MAX,Settings.COMPETITIVE_DUEL_FACTOR_POWER))*Settings.COMPETITIVE_DUEL_WIN_RENOM_MAX);
 				this.getChallenger().setRenom(this.getChallenger().getRenom()+winpool+bonus+Settings.COMPETITIVE_DUEL_WIN_RENOM_MIN);
 				this.getChallenged().setRenom(this.getChallenged().getRenom()-winpool);
-				this.getChallenger().sendMessage("§eYour victory made you win §6" + (this.getChallenger().getRenom()-old_renom1) + " §epoints of renown.", "§eVotre victoire vous a fait gagner §6" + (this.getChallenger().getRenom()-old_renom1) + " §epoints de renom.");
-				this.getChallenged().sendMessage("§eYour defeat made you lose §6" + (old_renom2-this.getChallenged().getRenom()) + " §epoints of renown.", "§eVotre défaite vous a fait perdre §6" + (old_renom2-this.getChallenged().getRenom()) + " §epoints de renom.");
+				this.getChallenger().sendMessage("§eVotre victoire vous a fait gagner §6" + (this.getChallenger().getRenom()-old_renom1) + " §epoints de renom.");
+				this.getChallenged().sendMessage("§eVotre défaite vous a fait perdre §6" + (old_renom2-this.getChallenged().getRenom()) + " §epoints de renom.");
 				RChatUtils.broadcastInfo("§6§l" + this.getChallenger().getName() + " §e⚔§6§l " + this.getChallenged().getName() + "  §8Victoire de " + this.getChallenger().getName() + "  §e§o(+" + (this.getChallenger().getRenom()-old_renom1) + ") (" + (this.getChallenged().getRenom()-old_renom2) + ")");
 			}else{
 				RChatUtils.broadcastInfo("§6§l" + this.getChallenger().getName() + " §e⚔§6§l " + this.getChallenged().getName() + "  §8Victoire de " + this.getChallenger().getName());
@@ -296,8 +296,8 @@ public class RDuel {
 			if(this.isCompetitive()){
 				this.getChallenger().setRenom(this.getChallenger().getRenom()+Settings.COMPETITIVE_DUEL_TIE_RENOM);
 				this.getChallenged().setRenom(this.getChallenged().getRenom()+Settings.COMPETITIVE_DUEL_TIE_RENOM);
-				this.getChallenger().sendMessage("§eAs you loyally fought for " + Settings.DUEL_TIMEOUT + " minutes, you both won §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints of renown.", "§eEn tant que loyaux guerriers, vous gagnez tous deux §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints de renom.");
-				this.getChallenged().sendMessage("§eAs you loyally fought for " + Settings.DUEL_TIMEOUT + " minutes, you both won §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints of renown.", "§eEn tant que loyaux guerriers, vous gagnez tous deux §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints de renom.");
+				this.getChallenger().sendMessage("§eEn tant que loyaux guerriers, vous gagnez tous deux §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints de renom.");
+				this.getChallenged().sendMessage("§eEn tant que loyaux guerriers, vous gagnez tous deux §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints de renom.");
 			}
 			return;
 		case CHALLENGER_LOSER:
@@ -311,8 +311,8 @@ public class RDuel {
 				int winpool = (int) Math.round((1-Math.pow(((double)Math.abs(this.getChallenger().getRLevel()-this.getChallenged().getRLevel()))/Settings.COMPETITIVE_DUEL_LEVEL_SHIFT_MAX,Settings.COMPETITIVE_DUEL_FACTOR_POWER))*Settings.COMPETITIVE_DUEL_WIN_RENOM_MAX);
 				this.getChallenged().setRenom(this.getChallenged().getRenom()+winpool+bonus+Settings.COMPETITIVE_DUEL_WIN_RENOM_MIN);
 				this.getChallenger().setRenom(this.getChallenger().getRenom()-winpool);
-				this.getChallenged().sendMessage("§eYour victory made you win §6" + (this.getChallenged().getRenom()-old_renom2) + " §epoints of renown.", "§eVotre victoire vous a fait gagner §6" + (this.getChallenged().getRenom()-old_renom2) + " §epoints de renom.");
-				this.getChallenger().sendMessage("§eYour defeat made you lose §6" + (old_renom1-this.getChallenger().getRenom()) + " §epoints of renown.", "§eVotre défaite vous a fait perdre §6" + (old_renom1-this.getChallenger().getRenom()) + " §epoints de renom.");
+				this.getChallenged().sendMessage("§eVotre victoire vous a fait gagner §6" + (this.getChallenged().getRenom()-old_renom2) + " §epoints de renom.");
+				this.getChallenger().sendMessage("§eVotre défaite vous a fait perdre §6" + (old_renom1-this.getChallenger().getRenom()) + " §epoints de renom.");
 				RChatUtils.broadcastInfo("§6§l" + this.getChallenger().getName() + " §e⚔§6§l " + this.getChallenged().getName() + "  §8Victoire de " + this.getChallenged().getName() + "  §e§o(" + (this.getChallenger().getRenom()-old_renom1) + ") (+" + (this.getChallenged().getRenom()-old_renom2) + ")");
 			}else{
 				RChatUtils.broadcastInfo("§6§l" + this.getChallenger().getName() + " §e⚔§6§l " + this.getChallenged().getName() + "  §8Victoire de " + this.getChallenged().getName());
@@ -323,7 +323,7 @@ public class RDuel {
 			if(this.isCompetitive()){
 				this.getChallenger().setRenom(this.getChallenger().getRenom()+Settings.COMPETITIVE_DUEL_FORFAIT_RENOM);
 				this.getChallenged().setRenom(this.getChallenged().getRenom()-2*Settings.COMPETITIVE_DUEL_FORFAIT_RENOM);
-				this.getChallenger().sendMessage("§e" + this.getChallenged().getName() + "'s forfait made you win §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints of renown.", "§eLe forfait de " + this.getChallenged().getName() + " vous a fait gagner §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints de renom.");
+				this.getChallenger().sendMessage("§eLe forfait de " + this.getChallenged().getName() + " vous a fait gagner §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints de renom.");
 				RChatUtils.broadcastInfo("§6§l" + this.getChallenger().getName() + " §e⚔§6§l " + this.getChallenged().getName() + "  §8Forfait de " + this.getChallenged().getName() + "  §e§o(+" + (this.getChallenger().getRenom()-old_renom1) + ") (" + (this.getChallenged().getRenom()-old_renom2) + ")");
 			}else{
 				RChatUtils.broadcastInfo("§6§l" + this.getChallenger().getName() + " §e⚔§6§l " + this.getChallenged().getName() + "  §8Forfait de " + this.getChallenged().getName());
@@ -334,7 +334,7 @@ public class RDuel {
 			if(this.isCompetitive()){
 				this.getChallenged().setRenom(this.getChallenged().getRenom()+Settings.COMPETITIVE_DUEL_FORFAIT_RENOM);
 				this.getChallenger().setRenom(this.getChallenger().getRenom()-2*Settings.COMPETITIVE_DUEL_FORFAIT_RENOM);
-				this.getChallenged().sendMessage("§e" + this.getChallenger().getName() + "'s forfait made you win §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints of renown.", "§eLe forfait de " + this.getChallenger().getName() + " vous a fait gagner §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints de renom.");
+				this.getChallenged().sendMessage("§eLe forfait de " + this.getChallenger().getName() + " vous a fait gagner §6" + Settings.COMPETITIVE_DUEL_FORFAIT_RENOM + " §epoints de renom.");
 				RChatUtils.broadcastInfo("§6§l" + this.getChallenger().getName() + " §e⚔§6§l " + this.getChallenged().getName() + "  §8Forfait de " + this.getChallenger().getName() + "  §e§o(" + (this.getChallenger().getRenom()-old_renom1) + ") (+" + (this.getChallenged().getRenom()-old_renom2) + ")");
 			}else{
 				RChatUtils.broadcastInfo("§6§l" + this.getChallenger().getName() + " §e⚔§6§l " + this.getChallenged().getName() + "  §8Forfait de " + this.getChallenger().getName());

@@ -65,11 +65,11 @@ public class EnchantmentUI extends UIHandler {
 			}
 		}
 		if(!canEnchant || me.pmilon.RubidiaQuests.utils.Utils.isQuestItem(this.item)){
-			rp.sendMessage("§cYou cannot enchant this item!", "§cVous ne pouvez pas enchanter cet item !");
+			rp.sendMessage("§cVous ne pouvez pas enchanter cet item !");
 			this.getUIManager().playerSessions.remove(this.getUIManager().getSession(this.getHolder()).getIdentifier());
 			return false;
 		}else if(available.isEmpty()){
-			rp.sendMessage("§cThis item is already fully enchanted!", "§cCet item est déjà complètement enchanté !");
+			rp.sendMessage("§cCet item est déjà complètement enchanté !");
 			return false;
 		}
 		ItemStack itemb = this.item.clone();
@@ -95,7 +95,7 @@ public class EnchantmentUI extends UIHandler {
 			    int elvl = this.getEnchantmentIntervalLevel(level);
 				int bLevel = this.getMaxBookshelfLevel();
 				if(level > bLevel){
-					rp.sendMessage("§cYou need " + level*9 + " bookshelfs around this table to unlock this palliate", "§cVous devez positionner " + level*9 + " bibliothèques autour de la table d'enchantement pour débloquer ce pallier !");
+					rp.sendMessage("§cVous devez positionner " + level*9 + " bibliothèques autour de la table d'enchantement pour débloquer ce pallier !");
 					e.setCancelled(true);
 					return;
 				}
@@ -137,8 +137,8 @@ public class EnchantmentUI extends UIHandler {
 					}
 					this.item.setItemMeta(meta);
 					this.close(false);
-					rp.sendMessage("§aStrange powers have taken power over your item!", "§aD'étranges puissances ont pris le contrôle de votre item !");
-				}else rp.sendMessage("§cYou don't have enough emeralds in your bank!", "§cVous n'avez pas assez d'émeraudes dans votre banque !");
+					rp.sendMessage("§aD'étranges puissances ont pris le contrôle de votre item !");
+				}else rp.sendMessage("§cVous n'avez pas assez d'émeraudes dans votre banque !");
 				this.close(false);
 			}
 		}

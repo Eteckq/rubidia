@@ -14,26 +14,26 @@ public class ClassCommandExecutor extends PlayerAdminCommandExecutor {
 			switch (args[0].toLowerCase()) {
 			case "v":
 				rp.setRClass(RClass.VAGRANT);
-				rp.sendMessage("You are now a §7Vagrant§f!", "Vous êtes désormais un §7Vagabond §f!");
+				rp.sendMessage("Vous êtes désormais un §7Vagabond §f!");
 				break;
 			case "p":
 				rp.setRClass(RClass.PALADIN);
-				rp.sendMessage("You are now a §aPaladin§f!", "Vous êtes désormais un §aPaladin§f !");
+				rp.sendMessage("Vous êtes désormais un §aPaladin§f !");
 				break;
 			case "r":
 				rp.setRClass(RClass.RANGER);
-				rp.sendMessage("You are now a §bRanger§f!", "Vous êtes désormais un §bRanger§f !");
+				rp.sendMessage("Vous êtes désormais un §bRanger§f !");
 				break;
 			case "m":
 				rp.setRClass(RClass.MAGE);
-				rp.sendMessage("You are now a §eMage§f!", "Vous êtes désormais un §eMage§f !");
+				rp.sendMessage("Vous êtes désormais un §eMage§f !");
 				break;
 			case "a":
 				rp.setRClass(RClass.ASSASSIN);
-				rp.sendMessage("You are now a §cAssassin§f!", "Vous êtes désormais un §cAssassin§f !");
+				rp.sendMessage("Vous êtes désormais un §cAssassin§f !");
 				break;
 			}
-		}else rp.sendMessage("§cPlease use /class [V/P/R/M/A]", "§cUtilisez /class [V/P/R/M/A]");
+		}else rp.sendMessage("§cUtilisez /class [V/P/R/M/A]");
 	}
 
 }

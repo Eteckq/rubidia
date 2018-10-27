@@ -24,7 +24,7 @@ public class SPlayerDeletionConfirmationUI extends ConfirmationUI {
 	protected void yes() {
 		rp.getSaves()[id] = null;
 		Configs.getPlayerConfig().set("players." + rp.getUniqueId() + ".saves." + id, null);
-		rp.sendMessage("§eYour character has been deleted.", "§eVotre personnage a bien été supprimé.");
+		rp.sendMessage("§eVotre personnage a bien été supprimé.");
 		this.close(false);
 	}
 	

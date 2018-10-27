@@ -322,9 +322,9 @@ public class Guild {
 				this.getCurrentRaid().getOffensive().getClaims().add(this.getCurrentRaid().getClaim());
 				for(GMember member : this.getCurrentRaid().getOffensive().getMembers()){
 					RPlayer rp = RPlayer.get(member);
-					rp.sendMessage("                  §b§m-----§8§m[  §r    §7RAID FINISHED    §8§m  ]§b§m-----", "                  §b§m-----§8§m[  §r    §7RAID TERMINE    §8§m  ]§b§m-----");
+					rp.sendMessage("                  §b§m-----§8§m[  §r    §7RAID TERMINE    §8§m  ]§b§m-----");
 					if(rp.isOnline())rp.getPlayer().sendMessage("");
-					rp.sendMessage("                        §eEnemies have surrend.", "                §eLes ennemis ont abandonné leur guilde.");
+					rp.sendMessage("                §eLes ennemis ont abandonné leur guilde.");
 					if(rp.isOnline()){
 						rp.getPlayer().sendMessage("");
 						rp.getPlayer().sendMessage("                  §b§m-----§8§m[                            ]§b§m-----");
@@ -333,9 +333,9 @@ public class Guild {
 			}else{
 				for(GMember member : this.getCurrentRaid().getDefensive().getMembers()){
 					RPlayer rp = RPlayer.get(member);
-					rp.sendMessage("                  §b§m-----§8§m[  §r    §7RAID FINISHED    §8§m  ]§b§m-----", "                  §b§m-----§8§m[  §r    §7RAID TERMINE    §8§m  ]§b§m-----");
+					rp.sendMessage("                  §b§m-----§8§m[  §r    §7RAID TERMINE    §8§m  ]§b§m-----");
 					if(rp.isOnline())rp.getPlayer().sendMessage("");
-					rp.sendMessage("                        §eEnemies have surrend.", "                §eLes ennemis ont abandonné leur guilde.");
+					rp.sendMessage("                §eLes ennemis ont abandonné leur guilde.");
 					if(rp.isOnline()){
 						rp.getPlayer().sendMessage("");
 						rp.getPlayer().sendMessage("                  §b§m-----§8§m[                            ]§b§m-----");

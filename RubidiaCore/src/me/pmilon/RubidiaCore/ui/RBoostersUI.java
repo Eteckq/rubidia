@@ -51,7 +51,7 @@ public class RBoostersUI extends UIHandler {
 				}else{
 					if(rp.getRenom() >= booster.getBoosterType().getCost() || rp.isOp()){
 						booster.start();
-					}else rp.sendMessage("§cYou don't have enough renown to start this booster.","§cVous n'avez pas assez de renom pour activer ce booster.");
+					}else rp.sendMessage("§cVous n'avez pas assez de renom pour activer ce booster.");
 				}
 				this.getMenu().setItem(slot, this.getBooster(slot));
 			}

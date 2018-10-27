@@ -47,7 +47,7 @@ public class ProfileUI extends UIHandler {
 					    Date date = formatter.parse(this.getMessage());
 					    rp.setBirthDate(date.getTime());
 					} catch (ParseException e) {
-						rp.sendMessage("§cInvalid date format.", "§cFormat de date invalide.");
+						rp.sendMessage("§cFormat de date invalide.");
 					}
 				}
 			}
@@ -73,7 +73,7 @@ public class ProfileUI extends UIHandler {
 				this.getMenu().setItem(this.SLOT_GENDER, this.getGender());
 			}else if(slot == this.SLOT_BIRTH){
 				this.close(true, this.LIST_ID_BIRTH);
-				rp.sendMessage("§aEnter your birth date in the following format : §ldd/mm/yyyy§a.", "§aEntrez votre date de naissance dans le format suivant : §ljj/mm/aaaa§a.");
+				rp.sendMessage("§aEntrez votre date de naissance dans le format suivant : §ljj/mm/aaaa§a.");
 			}else if(slot == this.SLOT_DATA){
 				rp.setPublicData(!rp.isPublicData());
 				this.getMenu().setItem(this.SLOT_DATA, this.getData());

@@ -63,15 +63,15 @@ public class MonsterEditionMenu extends UIHandler {
 			else if(slot == this.SLOT_XPF){
 				if(!this.getMonster().isAverage()){
 					this.close(true, this.LIST_ID_XPF);
-				}else rp.sendMessage("§cMonster is average! Disable this option to modify its stats.", "§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
+				}else rp.sendMessage("§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
 			}else if(slot == this.SLOT_HPF){
 				if(!this.getMonster().isAverage()){
 					this.close(true, this.LIST_ID_HPF);
-				}else rp.sendMessage("§cMonster is average! Disable this option to modify its stats.", "§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
+				}else rp.sendMessage("§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
 			}else if(slot == this.SLOT_DF){
 				if(!this.getMonster().isAverage()){
 					this.close(true, this.LIST_ID_DF);
-				}else rp.sendMessage("§cMonster is average! Disable this option to modify its stats.", "§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
+				}else rp.sendMessage("§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
 			}else if(slot == this.SLOT_AVR){
 				this.getMonster().setAverage(!this.getMonster().isAverage());
 				this.getMenu().setItem(this.SLOT_AVR, this.getAverage());
@@ -119,7 +119,7 @@ public class MonsterEditionMenu extends UIHandler {
 					for(Monster monster : Monsters.monsters){
 						if(monster.getName().toLowerCase().equals(this.getMessage().toLowerCase())){
 							ok = false;
-							rp.sendMessage("§cMonster with name §4" + this.getMessage().toLowerCase() + " §calready exists!", "§cUn monstre avec le nom §4" + this.getMessage().toLowerCase() + " §cexiste déjà !");
+							rp.sendMessage("§cUn monstre avec le nom §4" + this.getMessage().toLowerCase() + " §cexiste déjà !");
 							break;
 						}
 					}

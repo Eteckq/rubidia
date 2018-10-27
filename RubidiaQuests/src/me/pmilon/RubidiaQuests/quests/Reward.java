@@ -148,10 +148,10 @@ public class Reward {
 	public void make(final RPlayer rp){
 		if(this.getType().equals(RewardType.CLASS)){
 			rp.setRClass(this.getRClass());
-			rp.sendMessage("§2[+] §aYou are now " + rp.getClassName(), "§2[+] §aVous êtes désormais " + rp.getClassName());
+			rp.sendMessage("§2[+] §aVous êtes désormais " + rp.getClassName());
 		}else if(this.getType().equals(RewardType.JOB)){
 			rp.setRJob(this.getRJob());
-			rp.sendMessage("§2[+] §aYou are now " + rp.getJobName(), "§2[+] §aVous êtes désormais " + rp.getJobName());
+			rp.sendMessage("§2[+] §aVous êtes désormais " + rp.getJobName());
 		}else if(this.getType().equals(RewardType.ITEM)){
 			if(rp.isOnline()){
 				rp.getPlayer().getInventory().addItem(this.getItemStack());
@@ -161,17 +161,17 @@ public class Reward {
 			rp.addRExp(this.getRExp(), new RXPSource(RXPSourceType.QUEST, null, null));
 			if(rp.isOnline())rp.getPlayer().sendMessage("§2[+] §a" + this.getRExp() + " XP");
 		}else if(this.getType().equals(RewardType.MONEY)){
-			rp.sendMessage("§2[+] §a" + this.getAmount() + " emeralds", "§2[+] §a" + this.getAmount() + " émeraudes");
+			rp.sendMessage("§2[+] §a" + this.getAmount() + " émeraudes");
 			if(rp.isOnline())EconomyHandler.deposit(rp.getPlayer(), this.getAmount());
 		}else if(this.getType().equals(RewardType.SKP)){
 			rp.setSkillPoints(rp.getSkillPoints()+this.getAmount());
-			rp.sendMessage("§2[+] §a" + this.getAmount() + " skillpoint" + (this.getAmount() > 1 ? "s" : ""), "§2[+] §a" + this.getAmount() + " point" + (this.getAmount() > 1 ? "s" : "") + " de compétence");
+			rp.sendMessage("§2[+] §a" + this.getAmount() + " point" + (this.getAmount() > 1 ? "s" : "") + " de compétence");
 		}else if(this.getType().equals(RewardType.SKD)){
 			rp.setSkillDistinctionPoints(rp.getSkillDistinctionPoints()+this.getAmount());
-			rp.sendMessage("§2[+] §a" + this.getAmount() + " distinction point" + (this.getAmount() > 1 ? "s" : ""), "§2[+] §a" + this.getAmount() + " point" + (this.getAmount() > 1 ? "s" : "") + " de distinction");
+			rp.sendMessage("§2[+] §a" + this.getAmount() + " point" + (this.getAmount() > 1 ? "s" : "") + " de distinction");
 		}else if(this.getType().equals(RewardType.MASTERY)){
 			rp.setMastery(this.getMastery());
-			rp.sendMessage("§2[+] §aYou are now " + rp.getClassName(), "§2[+] §aVous êtes désormais " + rp.getClassName());
+			rp.sendMessage("§2[+] §aVous êtes désormais " + rp.getClassName());
 		}else if(this.getType().equals(RewardType.QUEST)){
 			if(rp.getFollowedQuest() != null){
 				if(rp.getFollowedQuest().equals(this.getQuest())){

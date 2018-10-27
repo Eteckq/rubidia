@@ -64,14 +64,14 @@ public class RChatListener implements Listener {
 		final RPlayer rp = event.getRPlayer();
 		if(rp.isOnline()){
 			if(rp.isMuted()){
-				rp.sendMessage("§cYou have been muted!", "§cVotre langue a été coupée !");
+				rp.sendMessage("§cVotre langue a été coupée !");
 				event.setCancelled(true);
 			}
 			
 			if(event.getMessageType().equals(ChatType.SHOUT)){
 				if(rp.shoutIndex >= Settings.SHOUT_LIMIT){
 					event.setCancelled(true);
-					rp.sendMessage("§cYou can only shout 5 times a minute.","§cVous ne pouvez crier que 5 fois par minute.");
+					rp.sendMessage("§cVous ne pouvez crier que 5 fois par minute.");
 				}else{
 					rp.shoutIndex++;
 					new BukkitTask(Core.instance){
@@ -102,7 +102,7 @@ public class RChatListener implements Listener {
 					rp.badword++;
 					if(rp.badword > 3){
 						rp.getPlayer().playSound(rp.getPlayer().getLocation(), Sound.BLOCK_ANVIL_USE, 1, .1F);
-						rp.sendMessage("§6§lSTOP! §eThis time was the last one. Please calm down and respect other players.", "§6§lSTOP ! §eCette fois, c'est terminé. Calmez-vous et respectez les autres joueurs.");
+						rp.sendMessage("§6§lSTOP ! §eCette fois, c'est terminé. Calmez-vous et respectez les autres joueurs.");
 						rp.mute(240);
 						rp.badword = 0;
 						event.setCancelled(true);
@@ -119,7 +119,7 @@ public class RChatListener implements Listener {
 				}
 				if(help){
 					rp.getPlayer().playSound(rp.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, .5F);
-					rp.sendMessage("§6§lStuck? §eType /glitch to get out of here!", "§6§lCoincé ? §eTapez /glitch pour vous sortir de là !");
+					rp.sendMessage("§6§lCoincé ? §eTapez /glitch pour vous sortir de là !");
 				}
 			}
 		}

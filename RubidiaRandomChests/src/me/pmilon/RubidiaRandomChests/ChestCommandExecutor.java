@@ -30,7 +30,7 @@ public class ChestCommandExecutor implements CommandExecutor {
 						player.getInventory().addItem(chest);
 						RPlayer rp = RPlayer.get(player);
 						sender.sendMessage("§2" + args[0] + " §areceived §2" + amount + " §alucky chest" + (amount > 1 ? "s" : "") + "!");
-						rp.sendMessage("§aYou received §2" + amount + " §alucky chest" + (amount > 1 ? "s" : "") + "!", "§aVous avez reçu §2" + amount + " §acoffre" + (amount > 1 ? "s" : "") + " chance !");
+						rp.sendMessage("§aVous avez reçu §2" + amount + " §acoffre" + (amount > 1 ? "s" : "") + " chance !");
 					}
 				}else sender.sendMessage("§cCan't find player with name §4" + args[0]);
 			}else sender.sendMessage("§cPlease use /chest [name] [amount]");

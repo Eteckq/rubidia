@@ -108,7 +108,7 @@ public class Couple {
 			}
 			rp.getPlayer().playSound(rp.getPlayer().getLocation(), Sound.BLOCK_ANVIL_BREAK, 1, .5F);
 			rp.getPlayer().sendMessage(" ");
-			rp.sendMessage("§4" + divorcer.getName() + " §chas divorced...", "§4" + divorcer.getName() + " §ca divorcé...");
+			rp.sendMessage("§4" + divorcer.getName() + " §ca divorcé...");
 			rp.getPlayer().sendMessage(" ");
 		}
 		if(divorcer.isOnline()){

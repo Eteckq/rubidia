@@ -85,7 +85,7 @@ public class PetDistinctionsMenu extends UIHandler {
 							this.menu.setItem(this.SLOT_SKD, this.getDistinctionPoints());
 						}else{
 							this.getHolder().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-							rp.sendMessage("§cYour pet does not have enough distinction points!", "§cVotre compagnon n'a pas assez de points de distinction !");
+							rp.sendMessage("§cVotre compagnon n'a pas assez de points de distinction !");
 						}
 					}
 				}else if(slot == this.SLOT_BACK){

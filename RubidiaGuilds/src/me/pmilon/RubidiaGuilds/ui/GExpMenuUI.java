@@ -51,7 +51,7 @@ public class GExpMenuUI extends UIHandler {
 			if(e.isShiftClick()){
 				if(!LevelUtils.loots.contains(e.getCurrentItem().getType()) && !e.getCurrentItem().getType().equals(Material.AIR)){
 					e.setCancelled(true);
-					rp.sendMessage("§cThis is not a valid offering.", "§cCe n'est pas une bonne offrande.");
+					rp.sendMessage("§cCe n'est pas une bonne offrande.");
 				}else{
 					Bukkit.getScheduler().runTaskLater(GuildsPlugin.instance, new Runnable(){
 						public void run(){
@@ -71,7 +71,7 @@ public class GExpMenuUI extends UIHandler {
 			if(slot < this.SLOT_INFOS){
 				if(!LevelUtils.loots.contains(e.getCursor().getType()) && !e.getCursor().getType().equals(Material.AIR)){
 					e.setCancelled(true);
-					rp.sendMessage("§cThis is not a valid offering.", "§cCe n'est pas une bonne offrande.");
+					rp.sendMessage("§cCe n'est pas une bonne offrande.");
 				}else{
 					Bukkit.getScheduler().runTaskLater(GuildsPlugin.instance, new Runnable(){
 						public void run(){
@@ -110,7 +110,7 @@ public class GExpMenuUI extends UIHandler {
 							this.menu.setItem(invSlot, new ItemStack(Material.AIR));
 						}
 						this.menu.setItem(this.SLOT_INFOS, this.getInfos(this.getValue()));
-					}else rp.sendMessage("§cYou don't have permission to offer for your guild!", "§cVous n'avez pas la permission de faire des offrandes pour votre guilde !");
+					}else rp.sendMessage("§cVous n'avez pas la permission de faire des offrandes pour votre guilde !");
 				}else if(slot == this.SLOT_BACK){
 					this.empty();
 					Core.uiManager.requestUI(new GInfosMenuUI(this.getHolder(), this.getGuild()));

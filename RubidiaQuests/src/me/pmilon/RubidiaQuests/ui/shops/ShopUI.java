@@ -84,7 +84,7 @@ public class ShopUI extends ListMenuUIHandler<ItemStack>{
 					ItemMeta meta = is.getItemMeta();
 					if(meta.hasDisplayName())id = meta.getDisplayName();
 					else id = is.getType().toString();
-					rp.sendMessage("§aYou successfully bought §e" + amount*stack.getAmount() + " §6" + id + " §afor §2" + cost + " §aemeralds!","§aVous avez acheté §e" + amount*stack.getAmount() + " §6" + id + " §apour §2" + cost + " §aémeraudes !");
+					rp.sendMessage("§aVous avez acheté §e" + amount*stack.getAmount() + " §6" + id + " §apour §2" + cost + " §aémeraudes !");
 					EconomyHandler.withdraw(p, cost);
 					for(int i = 0;i < amount;i++){
 						p.getInventory().addItem(is);
@@ -100,9 +100,9 @@ public class ShopUI extends ListMenuUIHandler<ItemStack>{
 						this.closeUI();
 						this.getShop().open(this.getHolder());
 					}
-				}else rp.sendMessage("§cYou don't have enough space to keep items in your inventory!", "§cVous n'avez pas assez de place pour garder vos items dans votre inventaire !");
-			}else rp.sendMessage("§cNot enough items are available...", "§cIl n'y a plus assez d'items disponibles...");
-		}else rp.sendMessage("§cYou don't have enough emeralds in your bank!", "§cVous n'avez pas assez d'émeraudes dans votre banque !");
+				}else rp.sendMessage("§cVous n'avez pas assez de place pour garder vos items dans votre inventaire !");
+			}else rp.sendMessage("§cIl n'y a plus assez d'items disponibles...");
+		}else rp.sendMessage("§cVous n'avez pas assez d'émeraudes dans votre banque !");
 	}
 	
 	@Override

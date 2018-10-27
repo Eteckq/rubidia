@@ -78,7 +78,7 @@ public class RLevelHandler implements Listener{
 		RPlayer rp = e.getRPlayer();
 		if(e.getNewRLevel() > Settings.LEVEL_MAX){
 			e.setNewRLevel(Settings.LEVEL_MAX);
-			rp.sendMessage("§cYou reached our level limit. We admire your motivation and you activity on our server. Thank you for playing!", "§cVous avez atteint notre limite de niveau. Nous admirons votre détermination et votre activité sur notre serveur. Merci de nous soutenir !");
+			rp.sendMessage("§cVous avez atteint notre limite de niveau. Nous admirons votre détermination et votre activité sur notre serveur. Merci de nous soutenir !");
 			return;
 		}
 		int newLevel = e.getNewRLevel();
@@ -109,26 +109,26 @@ public class RLevelHandler implements Listener{
 				LevelUtils.firework(p.getLocation());
 				
 				if(newLevel >= Mastery.ADVENTURER.getLevel() && rp.getMastery().equals(Mastery.VAGRANT)){
-					rp.sendMessage("§aIt is now time for you to become an adventurer!", "§aIl est temps pour vous de devenir un aventurier !");
-					rp.sendMessage("§aGo ask a §lMENTOR§a to choose a class!", "§aDemandez à un §lMENTOR§a de choisir une classe !");
+					rp.sendMessage("§aIl est temps pour vous de devenir un aventurier !");
+					rp.sendMessage("§aDemandez à un §lMENTOR§a de choisir une classe !");
 				}
 				if(newLevel >= Mastery.MASTER.getLevel() && rp.getMastery().equals(Mastery.ASPIRANT)){
-					rp.sendMessage("§aIt is now time for you to become a " + rp.getEvolutionClassName() + "§a!", "§aIl est temps pour vous de devenir un " + rp.getEvolutionClassName() + " §a!");
-					rp.sendMessage("§aGo ask a §lPRECEPTEUR§a to learn 2 more skills!", "§aDemandez à un §lPRECEPTEUR§a d'évoluer, et ainsi apprendre 2 nouvelles compétences !");
+					rp.sendMessage("§aIl est temps pour vous de devenir un " + rp.getEvolutionClassName() + " §a!");
+					rp.sendMessage("§aDemandez à un §lPRECEPTEUR§a d'évoluer, et ainsi apprendre 2 nouvelles compétences !");
 				}
 				if(newLevel >= Mastery.HERO.getLevel() && rp.getMastery().equals(Mastery.MASTER)){
-					rp.sendMessage("§aIt is now time for you to become a " + rp.getEvolutionClassName() + "§a!", "§aIl est temps pour vous de devenir un " + rp.getEvolutionClassName() + " §a!");
-					rp.sendMessage("§aGo ask a §lPREFET§a to learn 2 more skills and gain one §oScroll of redistribution§a!", "§aDemandez à un §lPREFET§a d'évoluer, et ainsi apprendre 2 nouvelles compétences et obtenir un §oParchemin de redistribution §a!");
+					rp.sendMessage("§aIl est temps pour vous de devenir un " + rp.getEvolutionClassName() + " §a!");
+					rp.sendMessage("§aDemandez à un §lPREFET§a d'évoluer, et ainsi apprendre 2 nouvelles compétences et obtenir un §oParchemin de redistribution §a!");
 				}
 				if(newLevel >= Settings.LEVEL_JOB && rp.getRJob().equals(RJob.JOBLESS)){
-					rp.sendMessage("§aYou can now choose a job!", "§aVous pouvez d'ores et déjà obtenir un job §a!");
-					rp.sendMessage("§aGo ask a §lDOYEN§a to earn money easily §a!", "§aDemandez-en un §lDOYEN§a pour gagner de l'argent facilement §a!");
+					rp.sendMessage("§aVous pouvez d'ores et déjà obtenir un job §a!");
+					rp.sendMessage("§aDemandez-en un §lDOYEN§a pour gagner de l'argent facilement §a!");
 				}
 				
 				p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
 				
 				if(e.getOldRLevel() <= 5 && e.getNewRLevel() > 5){
-					rp.sendMessage("§6You will now lose 33% of your inventory if you die!", "§6Désormais, vous perdrez 33% de votre inventaire à votre mort !");
+					rp.sendMessage("§6Désormais, vous perdrez 33% de votre inventaire à votre mort !");
 				}
 			}
 		}else if(e.getSource().getType().equals(RXPSourceType.COMMAND) && diff < 0)rp.setRExp(0, new RXPSource(RXPSourceType.ADJUST, null, null));

@@ -147,11 +147,11 @@ public class ChestListener implements Listener {
 								Bukkit.getScheduler().runTaskLater(RandomChestsPlugin.getInstance(), new Runnable(){
 									public void run(){
 										RandomChestsPlugin.getInstance().toLuckyChest((Chest) block.getState());
-										rp.sendMessage("§aYou put a lucky chest, open it!", "§aVous avez posé un coffre chance, ouvrez-le !");
+										rp.sendMessage("§aVous avez posé un coffre chance, ouvrez-le !");
 									}
 								}, 0);
 							}else{
-								rp.sendMessage("§cYou cannot put a lucky chest here!", "§cVous ne pouvez poser un coffre chance ici !");
+								rp.sendMessage("§cVous ne pouvez poser un coffre chance ici !");
 								event.setCancelled(true);
 							}
 						}

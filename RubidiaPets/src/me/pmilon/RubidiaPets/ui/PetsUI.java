@@ -72,11 +72,11 @@ public class PetsUI extends ListMenuUIHandler<Pet> {
 				if(pet.isActive()){
 					pet.despawn();
 					pet.setActive(false);
-					rp.sendMessage("§cYou caught back §4" + pet.getName() + "§c.", "§cVous avez rangé §4" + pet.getName() + "§c.");
+					rp.sendMessage("§cVous avez rangé §4" + pet.getName() + "§c.");
 				}else{
 					pet.spawn(this.getHolder());
 					pet.setActive(true);
-					rp.sendMessage("§aYou released §2" + pet.getName() + "§a.", "§aVous avez fait sortir §2" + pet.getName() + "§a.");
+					rp.sendMessage("§aVous avez fait sortir §2" + pet.getName() + "§a.");
 				}
 				this.menu.setItem(slot, this.getItem(pet));
 			}

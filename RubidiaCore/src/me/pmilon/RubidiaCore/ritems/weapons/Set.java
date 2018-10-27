@@ -185,7 +185,6 @@ public class Set {
 	}
 	
 	public List<String> getBuffState(Player player){
-		RPlayer rp = player != null ? RPlayer.get(player) : null;
 		List<String> states = new ArrayList<String>();
 		List<Buff> available = player != null ? this.getActiveBuffs(player) : new ArrayList<Buff>();
 		for(Buff buff : this.getBuffs()){

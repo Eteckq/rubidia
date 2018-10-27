@@ -96,14 +96,14 @@ public class GRanksUI extends UIHandler {
 					if(slot > 8){
 						Rank rank = this.getGuild().getRanks()[slot-9-this.SLOT_RANK];
 						if(rank == null){
-							rp.sendMessage("§cPlease set a name and a display item for this rank first.", "§cDéfinissez d'abord un nom et un item pour ce rang.");
+							rp.sendMessage("§cDéfinissez d'abord un nom et un item pour ce rang.");
 							return;
 						}
 						Core.uiManager.requestUI(new GRankPrefsUI(this.getHolder(), this.getGuild(), rank, 1));
 					}else{
 						if(e.isLeftClick()){
 							this.close(true, slot-this.SLOT_RANK);
-							rp.sendMessage("§aTake an item in your hands and type in the name of this rank. These will then be linked.", "§aPrenez un item entre vos mains et entrez dans le chat le nom de ce rang.");
+							rp.sendMessage("§aPrenez un item entre vos mains et entrez dans le chat le nom de ce rang.");
 						}else{
 							if(slot > this.SLOT_RANK && slot < this.SLOT_RANK+6){
 								Rank rank = null;
@@ -121,8 +121,8 @@ public class GRanksUI extends UIHandler {
 								}
 								this.getGuild().getRanks()[slot-this.SLOT_RANK] = null;
 								this.getMenu().setItem(slot, this.getDefault());
-								rp.sendMessage("§cRank successfully deleted. All members of this rank are now " + rank.getName().toLowerCase() + "s.", "§cLe rang a été supprimé. Tous les membres sont désormais des " + rank.getName().toLowerCase() + "s.");
-							}else rp.sendMessage("§cYou cannot modify this rank!", "§cVous ne pouvez modifier ce rang !");
+								rp.sendMessage("§cLe rang a été supprimé. Tous les membres sont désormais des " + rank.getName().toLowerCase() + "s.");
+							}else rp.sendMessage("§cVous ne pouvez modifier ce rang !");
 						}
 					}
 				}
@@ -167,7 +167,7 @@ public class GRanksUI extends UIHandler {
 						rank.setName(name);
 					}
 				}else{
-					rp.sendMessage("§cAnother rank already holds this name!","§cUn autre rang porte déjà ce nom !");
+					rp.sendMessage("§cUn autre rang porte déjà ce nom !");
 				}
 			}
 		}

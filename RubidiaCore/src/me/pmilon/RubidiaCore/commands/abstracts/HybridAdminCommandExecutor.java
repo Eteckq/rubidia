@@ -11,7 +11,7 @@ public abstract class HybridAdminCommandExecutor extends HybridCommandExecutor {
 	public void onPlayerCommand(Player player, RPlayer rp, String[] args) {
 		if(rp.isOp()){
 			this.onAdminCommand(player, args);
-		}else rp.sendMessage("§cYou really thought you could do this without being operator?", "§cVous croyiez vraiment pouvoir faire ça sans être opérateur ?");
+		}else rp.sendMessage("§cVous croyiez vraiment pouvoir faire ça sans être opérateur ?");
 	}
 
 	@Override

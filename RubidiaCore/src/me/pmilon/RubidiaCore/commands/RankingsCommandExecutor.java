@@ -23,7 +23,7 @@ public class RankingsCommandExecutor extends HybridAdminCommandExecutor {
 		if(args.length > 0){
 			if(args[0].equalsIgnoreCase("update")){
 				Ranks.update();
-				rp.sendMessage("§aRankings have been updated!", "§aLes classements ont été mis à jour !");
+				rp.sendMessage("§aLes classements ont été mis à jour !");
 			}else if(args.length > 2){
 				if(args[0].equalsIgnoreCase("set")){
 					if(Utils.isInteger(args[2])){
@@ -40,20 +40,20 @@ public class RankingsCommandExecutor extends HybridAdminCommandExecutor {
 												if(region.getArea() == 1){
 													Configs.getDatabase().set("rankings." + args[1] + "." + i + ".location", new Location(player.getWorld(), v.getBlockX(), v.getBlockY(), v.getBlockZ()));
 													Configs.saveDatabase();
-													rp.sendMessage("§aLocation for rank §2" + args[1] + " §a#§2" + i + " §ahas been set!", "§aLocation for rank §2" + args[1] + " §a#§2" + i + " §ahas been set!");
-												}else rp.sendMessage("§cYour selection contains more than one block", "§cVotre sélection contient plus d'un bloc");
+													rp.sendMessage("§aLocation for rank §2" + args[1] + " §a#§2" + i + " §ahas been set!");
+												}else rp.sendMessage("§cVotre sélection contient plus d'un bloc");
 											} catch (IncompleteRegionException e) {
-												rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
+												rp.sendMessage("§cSélectionnez une région complète");
 											}
-										}else rp.sendMessage("§cYou haven't selected any block yet", "§cVous n'avez pas encore sélectionné de bloc");
-									}else rp.sendMessage("§cYou haven't selected any block yet", "§cVous n'avez pas encore sélectionné de bloc");
-								}else rp.sendMessage("§cYou haven't selected any block yet", "§cVous n'avez pas encore sélectionné de bloc");
-							}else rp.sendMessage("§cPlease use /rankings set [level|money|renom|kills|claims|gamingtime] " + args[2], "§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] " + args[2]);
-						}else rp.sendMessage("§cid must be between 1 & 3!", "§cLa place doit être entre 1 & 3 !");
-					}else rp.sendMessage("§cPlease use /rankings set [level|money|renom|kills|claims|gamingtime] [#]", "§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] [#]");
-				}else rp.sendMessage("§cPlease use /rankings set [level|money|renom|kills|claims|gamingtime] [#]/update", "§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] [#]/update");
-			}else rp.sendMessage("§cPlease use /rankings set [level|money|renom|kills|claims|gamingtime] [#]/update", "§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] [#]/update");
-		}else rp.sendMessage("§cPlease use /rankings set [level|money|renom|kills|claims|gamingtime] [#]/update", "§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] [#]/update");
+										}else rp.sendMessage("§cVous n'avez pas encore sélectionné de bloc");
+									}else rp.sendMessage("§cVous n'avez pas encore sélectionné de bloc");
+								}else rp.sendMessage("§cVous n'avez pas encore sélectionné de bloc");
+							}else rp.sendMessage("§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] " + args[2]);
+						}else rp.sendMessage("§cLa place doit être entre 1 & 3 !");
+					}else rp.sendMessage("§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] [#]");
+				}else rp.sendMessage("§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] [#]/update");
+			}else rp.sendMessage("§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] [#]/update");
+		}else rp.sendMessage("§cUtilisez /rankings set [level|money|renom|kills|claims|gamingtime] [#]/update");
 	}
 
 	@Override

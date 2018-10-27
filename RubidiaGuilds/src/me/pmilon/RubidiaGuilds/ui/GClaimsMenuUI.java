@@ -120,9 +120,9 @@ public class GClaimsMenuUI extends UIHandler {
 						if(this.getClaim().getGuild().equals(this.getGuild())){
 							if(gm.getPermission(Permission.CLAIM)){
 								this.close(true, this.LIST_ID_CLAIM);
-							}else rp.sendMessage("§cYou don't have permission to manage your guild's territory.", "§cVous n'avez pas la permission de gérer les territoires de votre guilde !");
-						}else rp.sendMessage("§cThis territory does not belong to your guild!", "§cCe territoire n'appartient pas à votre guilde !");
-					}else rp.sendMessage("§cThis territory isn't claimed!", "§cCe territoire n'est pas conquis !");
+							}else rp.sendMessage("§cVous n'avez pas la permission de gérer les territoires de votre guilde !");
+						}else rp.sendMessage("§cCe territoire n'appartient pas à votre guilde !");
+					}else rp.sendMessage("§cCe territoire n'est pas conquis !");
 				}else if(slot == this.SLOT_HOMES || slot == this.SLOT_HOMES+9){
 					Core.uiManager.requestUI(new GHomeListUI(this.getHolder(), this.getGuild()));
 				}else if(gm.getPermission(Permission.CLAIM_PREFS)){
@@ -143,7 +143,7 @@ public class GClaimsMenuUI extends UIHandler {
 						this.getMenu().setItem(this.SLOT_MOBSDAMAGE, this.getMobsDamageable());
 						this.getMenu().setItem(this.SLOT_MOBSDAMAGE+9, !this.getGuild().isClaimMobsDamageable() ? this.ITEM_ENABLED : this.ITEM_DISABLED);
 					}
-				}else rp.sendMessage("§cYou don't have permission to change your guild's territory preferences!", "§cVous n'avez pas la permission de modifier les préférences de territoire de votre guilde !");
+				}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences de territoire de votre guilde !");
 			}
 		}
 	}

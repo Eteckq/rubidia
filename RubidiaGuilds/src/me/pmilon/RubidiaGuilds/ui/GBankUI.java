@@ -55,7 +55,7 @@ public class GBankUI extends UIHandler {
 					e.setCancelled(true);
 					int count = this.count();
 					if(this.getGuild().getBank() + count > this.getGuild().getMaxBankAmount()) {
-						rp.sendMessage("§cThere is not enough room for all these emeralds in your guild bank!", "§cIl n'y a pas assez de place pour toutes ces émeraudes dans votre banque de guilde!");
+						rp.sendMessage("§cIl n'y a pas assez de place pour toutes ces émeraudes dans votre banque de guilde!");
 					}else {
 						for(int i = 0;i < 8;i++) {
 							if(!this.getMenu().getItem(i).getType().equals(Material.EMERALD) && !this.getMenu().getItem(i).equals(Material.EMERALD_BLOCK)){

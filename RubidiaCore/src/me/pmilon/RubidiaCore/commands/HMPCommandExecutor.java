@@ -11,7 +11,7 @@ public class HMPCommandExecutor extends HybridCommandExecutor {
 
 	@Override
 	public void onPlayerCommand(Player player, RPlayer rp, String[] args) {
-		rp.sendMessage("§6§l" + Core.rcoll.size() + " §eplayers joined the server since its launch (9th February, 2015)", "§6§l" + Core.rcoll.size() + " §ejoueurs ont rejoint Rubidia depuis son début (9 février 2015)");
+		rp.sendMessage("§6§l" + Core.rcoll.size() + " §ejoueurs ont rejoint Rubidia depuis son début (9 février 2015)");
 	}
 
 	@Override

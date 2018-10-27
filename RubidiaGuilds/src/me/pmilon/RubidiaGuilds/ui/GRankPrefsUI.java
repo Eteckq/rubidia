@@ -138,7 +138,7 @@ public class GRankPrefsUI extends UIHandler {
 							Core.uiManager.requestUI(new HomePermissionsUI(this.getHolder(),this.getGuild(), this.rank, this.page_id));
 						}
 						this.rank.resetPermissions(this.getGuild());
-					}else rp.sendMessage("§cYou cannot modify permissions for this rank!", "§cVous ne pouvez modifier les permissions de ce rang !");
+					}else rp.sendMessage("§cVous ne pouvez modifier les permissions de ce rang !");
 				}else if(this.page_id == 2){
 					if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
 						this.setPage(1);
@@ -175,7 +175,7 @@ public class GRankPrefsUI extends UIHandler {
 							this.getMenu().setItem(this.SLOT_DEFAULTRANK+9, this.rank.getPermission(Permission.DEFAULT_RANK) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
 						}
 						this.rank.resetPermissions(this.getGuild());
-					}else rp.sendMessage("§cYou cannot modify permissions for this rank!", "§cVous ne pouvez modifier les permissions de ce rang !");
+					}else rp.sendMessage("§cVous ne pouvez modifier les permissions de ce rang !");
 				}else if(this.page_id == 3){
 					if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
 						this.setPage(2);
@@ -198,7 +198,7 @@ public class GRankPrefsUI extends UIHandler {
 							this.getMenu().setItem(this.SLOT_MOBSDAMAGE+9, this.rank.getPermission(Permission.DAMAGE_MOBS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
 						}
 						this.rank.resetPermissions(this.getGuild());
-					}else rp.sendMessage("§cYou cannot modify permissions for this rank!", "§cVous ne pouvez modifier les permissions de ce rang !");
+					}else rp.sendMessage("§cVous ne pouvez modifier les permissions de ce rang !");
 				}
 			}
 		}

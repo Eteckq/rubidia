@@ -62,21 +62,21 @@ public class GCreateMenuUI extends UIHandler {
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
 				if(slot == this.SLOT_NAME){
-					rp.sendMessage("§aType the desired name in the chat! (MAX: " + Guild.NAME_LENGTH + " characters)", "§aEntrez le nom désiré dans le chat ! (MAX: " + Guild.NAME_LENGTH + " caractères)");
+					rp.sendMessage("§aEntrez le nom désiré dans le chat ! (MAX: " + Guild.NAME_LENGTH + " caractères)");
 					this.close(true, this.LISTENINGID_NAME);
 				}else if(slot == this.SLOT_DESC){
-					rp.sendMessage("§aType the desired description in the chat!", "§aEntrez la description désirée dans le chat !");
+					rp.sendMessage("§aEntrez la description désirée dans le chat !");
 					this.close(true, this.LISTENINGID_DESC);
 				}else if(slot == this.SLOT_PEACE){
 					//this.setPeaceful(!this.isPeaceful());
 					//this.menu.setItem(this.SLOT_PEACE, this.getPeace());
-					rp.sendMessage("§cThis option is disabled.", "§cCette option est désativée.");
+					rp.sendMessage("§cCette option est désativée.");
 				}else if(slot == this.SLOT_CREATE){
 					Guild guild = GuildsPlugin.gcoll.addDefault(GuildsPlugin.guildCreationName.get(gm), GuildsPlugin.guildCreationDescription.get(gm), gm, this.isPeaceful());
 					ASyncGMemberCreateGuildEvent event = new ASyncGMemberCreateGuildEvent(guild, gm);
 					Bukkit.getPluginManager().callEvent(event);
 					if(event.isCancelled())event.getGuild().disband();
-					rp.sendMessage("§aYou've successfully founded §2§l" + gm.getGuild().getName() + "§a!", "§aVous venez de fonder la guilde §2§l" + gm.getGuild().getName() + " §a!");
+					rp.sendMessage("§aVous venez de fonder la guilde §2§l" + gm.getGuild().getName() + " §a!");
 					Core.broadcast("§2" + this.getHolder().getName() + " §ahas just founded §2§l" + gm.getGuild().getName() + "§a!", "§2" + this.getHolder().getName() + " §avient de fonder la guilde §2§l" + gm.getGuild().getName() + "§a !", this.getHolder());
 					this.close(false);
 				}
@@ -102,7 +102,7 @@ public class GCreateMenuUI extends UIHandler {
 					}
 					if(Guild.getByName(name) == null){
 						GuildsPlugin.guildCreationName.put(gm, name);
-					}else rp.sendMessage("§cA guild with this name already exists!", "§cUne guilde avec le même nom existe déjà !");
+					}else rp.sendMessage("§cUne guilde avec le même nom existe déjà !");
 				}else if(this.getListeningId() == this.LISTENINGID_DESC)GuildsPlugin.guildCreationDescription.put(gm, this.getMessage().replace('§', '?'));
 			}
 		}

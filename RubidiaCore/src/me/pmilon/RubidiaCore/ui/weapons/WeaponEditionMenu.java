@@ -55,14 +55,14 @@ public class WeaponEditionMenu extends UIHandler{
 						int min = Integer.valueOf(this.getMessage());
 						if(this.getWeapon().getMaxDamages()-min > 0){
 							this.getWeapon().setMinDamages(min);
-						}else rp.sendMessage("§cMin damages must be at least 1 less than max!", "§cLes dégâts minimum doivent être au moins de 1 de moins que les maximums !");
+						}else rp.sendMessage("§cLes dégâts minimum doivent être au moins de 1 de moins que les maximums !");
 					}
 				}else if(this.getListeningId() == this.LIST_ID_MAXDMG){
 					if(Utils.isInteger(this.getMessage())){
 						int max = Integer.valueOf(this.getMessage());
 						if(max-this.getWeapon().getMinDamages() > 0){
 							this.getWeapon().setMaxDamages(max);
-						}else rp.sendMessage("§cMax damages must be at least 1 more than min!", "§cLes dégâts maximum doivent être au moins de 1 de plus que les minimums !");
+						}else rp.sendMessage("§cLes dégâts maximum doivent être au moins de 1 de plus que les minimums !");
 					}
 				}else if(this.getListeningId() == this.LIST_ID_LVL){
 					if(Utils.isInteger(this.getMessage())){
@@ -167,7 +167,7 @@ public class WeaponEditionMenu extends UIHandler{
 				Configs.getWeaponsConfig().set("weapons." + this.getWeapon().getUUID(), null);
 				Configs.saveWeaponsConfig();
 				Core.uiManager.requestUI(new WeaponsUI(this.getHolder()));
-				rp.sendMessage("§cWeapon deleted!", "§cArme supprimée !");
+				rp.sendMessage("§cArme supprimée !");
 			}
 			this.menu.setItem(this.SLOT_TAKE, this.getTake());
 		}

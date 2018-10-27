@@ -159,11 +159,11 @@ public class QEventEditionMenu extends UIHandler {
 								try {
 									this.getQEvent().setBlocks(WE.getBlocks(this.getHolder().getWorld(), session.getSelection(session.getSelectionWorld())));
 								} catch (IncompleteRegionException e) {
-									rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
+									rp.sendMessage("§cSélectionnez une région complète");
 								}
-							}else rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
-						}else rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
-					}else rp.sendMessage("§cPlease select a complete region", "§cSélectionnez une région complète");
+							}else rp.sendMessage("§cSélectionnez une région complète");
+						}else rp.sendMessage("§cSélectionnez une région complète");
+					}else rp.sendMessage("§cSélectionnez une région complète");
 				}else if(this.getListeningId() == this.LIST_ID_RNG){
 					this.getQEvent().setRange(Double.valueOf(this.getMessage()));
 				}else if(this.getListeningId() == this.LIST_ID_EFF){

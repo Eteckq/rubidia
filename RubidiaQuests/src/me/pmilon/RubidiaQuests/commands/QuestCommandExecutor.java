@@ -21,10 +21,10 @@ public class QuestCommandExecutor extends PlayerCommandExecutor {
 						DialogManager.setNoDialog(player);
 						if(args[0].equals("yes")){
 							if(quest.accept(rp, args[2])){
-								rp.sendMessage("§aYou accepted the quest!", "§aVous avez accepté la quête !");
+								rp.sendMessage("§aVous avez accepté la quête !");
 							}else return;
 						}else if(args[0].equals("no")){
-							rp.sendMessage("§cYou didn't accept the quest.", "§cVous avez refusé la quête.");
+							rp.sendMessage("§cVous avez refusé la quête.");
 						}
 					}
 				}

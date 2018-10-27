@@ -33,7 +33,7 @@ public class GiveUpConfirmationUI extends ConfirmationUI {
 		if(!event.isCancelled()){
 			RPlayer rp = event.getRPlayer();
 			for(Quest quest : event.getQuest().giveUp(rp)){
-				rp.sendMessage("§cYou gave up §4" + quest.getColoredTitle(), "§cVous avez abandonné la quête §4" + quest.getColoredTitle());
+				rp.sendMessage("§cVous avez abandonné la quête §4" + quest.getColoredTitle());
 			}
 			if(rp.isOnline())Core.uiManager.requestUI(new PlayerQuestList(rp.getPlayer()));
 		}

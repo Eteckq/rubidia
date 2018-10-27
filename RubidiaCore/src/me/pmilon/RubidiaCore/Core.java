@@ -333,9 +333,9 @@ public class Core extends JavaPlugin implements Listener {
 						if(rp.connectionLocation == null)rp.connectionLocation = p.getLocation();
 						p.teleport(p.getWorld().getSpawnLocation());
 						p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 999999, 1, true, false), true);
-						//rp.sendMessage("§eYou need to accept our resource pack in order to play.", "§eJouer nécessite l'installation de notre resource pack.");
+						//rp.sendMessage("§eJouer nécessite l'installation de notre resource pack.");
 						rp.updateResourcePack();
-						if(!rp.isProfileUpdated())rp.sendMessage("§dPlease update your player profile: §l/profile", "§dMettez à jour votre profil de joueur : §l/profile");
+						if(!rp.isProfileUpdated())rp.sendMessage("§dMettez à jour votre profil de joueur : §l/profile");
 						
 						if(!rp.isVip() && rp.getLastLoadedSPlayerId() == 3){
 							Core.uiManager.requestUI(new SPlayerSelectionMenu(p));
@@ -354,7 +354,7 @@ public class Core extends JavaPlugin implements Listener {
 		}.runTaskLater(4);
 
 		if(rp.isVanished()){
-			rp.sendMessage("§7§oYou are vanished!","§7§oVous êtes invisible !");
+			rp.sendMessage("§7§oVous êtes invisible !");
 			for(RPlayer rpp : RPlayer.getOnlines()){
 				if(!rpp.isOp() && !rpp.equals(rp))rpp.getPlayer().hidePlayer(this, p);
 			}
@@ -550,7 +550,7 @@ public class Core extends JavaPlugin implements Listener {
 							if(amount > 1){
 								p.getWorld().dropItem(p.getLocation(), p.getInventory().getItem(slot));
 								p.getInventory().remove(p.getInventory().getItem(slot));
-								rp.sendMessage("§cYou cannot carry out more than one Backpack!", "§cVous ne pouvez transporter plus d'un Sac à dos !");
+								rp.sendMessage("§cVous ne pouvez transporter plus d'un Sac à dos !");
 							}
 						}
 					}
@@ -664,7 +664,7 @@ public class Core extends JavaPlugin implements Listener {
 			}else if(p.getOpenInventory().getTopInventory().getType().equals(InventoryType.ANVIL)){
 				if(rItem.isScroll() || rItem.isCustom() || rItem.isWeapon() || rItem.isBackPack()){
 					ie.setCancelled(true);
-					rp.sendMessage("§cYou cannot work this item!", "§cVous ne pouvez travailler cet item !");
+					rp.sendMessage("§cVous ne pouvez travailler cet item !");
 				}
 				
 				if(ie.getClickedInventory().getType().equals(InventoryType.ANVIL)){
@@ -772,9 +772,9 @@ public class Core extends JavaPlugin implements Listener {
 							int amount = Integer.valueOf(args[1]);
 							rp.setPendingRubis(rp.getPendingRubis()+amount);
 							if(rp.isOnline()){
-								rp.sendMessage("§aYou received §e" + amount + " §arubis spendable in the website's shop!", "§aVous avez reçu §e" + amount + " §arubis utilisables dans la boutique du site !");
+								rp.sendMessage("§aVous avez reçu §e" + amount + " §arubis utilisables dans la boutique du site !");
 								rp.getPlayer().sendMessage("§2§l>>>    §7http://www.rubidia.xyz/shop/");
-								rp.sendMessage("§e§o(Please log in again to update your account)", "§e§o(Reconnectez-vous sur le site pour mettre à jour votre compte)");
+								rp.sendMessage("§e§o(Reconnectez-vous sur le site pour mettre à jour votre compte)");
 							}
 							sender.sendMessage("§2" + rp.getName() + " §areceived §e" + amount + " §arubis.");
 						}else sender.sendMessage("§cPlease use /rubis " + args[0] + " [amount]");
@@ -840,36 +840,36 @@ public class Core extends JavaPlugin implements Listener {
 						if(Bukkit.getPlayer(args[0]) != null){
 							TeleportHandler.teleport(p, Bukkit.getPlayer(args[0]).getLocation());
 						}else{
-							rp.sendMessage("§4" + args[0] + " §cmust be online!", "§4" + args[0] + " §cdoit être en ligne !");
+							rp.sendMessage("§4" + args[0] + " §cdoit être en ligne !");
 						}
 					}else if(args.length == 2){
 						if(Bukkit.getPlayer(args[0]) != null){
 							if(Bukkit.getPlayer(args[1]) != null){
 								TeleportHandler.teleport(Bukkit.getPlayer(args[0]), Bukkit.getPlayer(args[1]).getLocation());
 							}else{
-								rp.sendMessage("§4" + args[1] + " §cmust be online!", "§4" + args[1] + " §cdoit être en ligne !");
+								rp.sendMessage("§4" + args[1] + " §cdoit être en ligne !");
 							}
 						}else{
-							rp.sendMessage("§4" + args[0] + " §cmust be online!", "§4" + args[0] + " §cdoit être en ligne !");
+							rp.sendMessage("§4" + args[0] + " §cdoit être en ligne !");
 						}
 					}else if(args.length == 3){
 						try{
 							TeleportHandler.teleport(p, new Location(p.getWorld(), Integer.valueOf(args[0]), Integer.valueOf(args[1]), Integer.valueOf(args[2]), p.getEyeLocation().getYaw(), p.getEyeLocation().getPitch()));
 						}catch (Exception e){
-							rp.sendMessage("§cYou did not give a valid location!", "§cVous n'avez pas donné une location exacte !");
+							rp.sendMessage("§cVous n'avez pas donné une location exacte !");
 						}
 					}else if(args.length == 4){
 						try{
 							if(Bukkit.getPlayer(args[0]) != null){
 								TeleportHandler.teleport(Bukkit.getPlayer(args[0]), new Location(p.getWorld(), Integer.valueOf(args[1]), Integer.valueOf(args[2]), Integer.valueOf(args[3]), Bukkit.getPlayer(args[0]).getEyeLocation().getYaw(), Bukkit.getPlayer(args[0]).getEyeLocation().getPitch()));
 							}else{
-								rp.sendMessage("§4" + args[0] + " §cmust be online!", "§4" + args[0] + " §cdoit être en ligne !");
+								rp.sendMessage("§4" + args[0] + " §cdoit être en ligne !");
 							}
 						}catch (Exception e){
-							rp.sendMessage("§cYou did not give a valid location!", "§cVous n'avez pas donné une location exacte !");
+							rp.sendMessage("§cVous n'avez pas donné une location exacte !");
 						}
 					}else{
-						rp.sendMessage("§cPlease use /tp <Target> | <Player> <Target> | <x y z> | <Player> <x y z (Target)>", "§cUtilisez /tp <Cible> | <Joueur> <Cible> | <x y z> | <x y z (Cible)>");
+						rp.sendMessage("§cUtilisez /tp <Cible> | <Joueur> <Cible> | <x y z> | <x y z (Cible)>");
 					}
 				}else{
 					if(args.length == 2){
@@ -908,11 +908,11 @@ public class Core extends JavaPlugin implements Listener {
 			final Player p = (Player)sender;
 			final RPlayer rp = RPlayer.get(p);
 			if(Core.uiManager.isInTempSession(p) && !rp.isOp()){
-				rp.sendMessage("§cYou cannot do this while you are in edition mode!", "§cVous ne pouvez faire ça tant que vous êtes en mode d'édition !");
+				rp.sendMessage("§cVous ne pouvez faire ça tant que vous êtes en mode d'édition !");
 				return true;
 			}
 			if(rp.getResurrectionTask() != null && !rp.isOp()){
-				rp.sendMessage("§cYou cannot do this while you are resurrecting!", "§cVous ne pouvez faire ça tant que vous vous ressuscitez !");
+				rp.sendMessage("§cVous ne pouvez faire ça tant que vous vous ressuscitez !");
 				return true;
 			}
 			if(cmd.getName().equalsIgnoreCase("skilltree")){
@@ -921,24 +921,24 @@ public class Core extends JavaPlugin implements Listener {
 				TeleportHandler.startTeleportation(p, Bukkit.getWorlds().get(0).getSpawnLocation(), new RTeleportCause(RTeleportType.DELAYED_TELEPORTATION, null, null,null));
 			}else if(cmd.getName().equalsIgnoreCase("nremove")){
 				p.setMetadata("removingEntity", new FixedMetadataValue(this, true));
-				rp.sendMessage("§cYou will remove next hit entity.", "§cVous supprimerez la prochaine entité touchée.");
+				rp.sendMessage("§cVous supprimerez la prochaine entité touchée.");
 			}else if(cmd.getName().equalsIgnoreCase("playmode")){
 				if(p.isOp()){
 					if(p.getGameMode().equals(GameMode.SURVIVAL)){
 						PlaymodeHandler.savePlaymodeSurvivalInventory(p);
 						p.setGameMode(GameMode.CREATIVE);
-						rp.sendMessage("§eYou are now in Admin mode!", "§eVous êtes désormais en mode Admin !");
+						rp.sendMessage("§eVous êtes désormais en mode Admin !");
 						p.getInventory().clear();
 						PlaymodeHandler.setPlaymodeCreativeInventory(p);
 					}else if(p.getGameMode().equals(GameMode.CREATIVE)){
 						PlaymodeHandler.savePlaymodeCreativeInventory(p);
 						p.setGameMode(GameMode.SURVIVAL);
-						rp.sendMessage("§eYou are now in Player mode!", "§eVous êtes désormais en mode Joueur !");
+						rp.sendMessage("§eVous êtes désormais en mode Joueur !");
 						p.getInventory().clear();
 						PlaymodeHandler.setPlaymodeSurvivalInventory(p);
 					}
 				}else{
-					rp.sendMessage("§cOnly OPs can do this command!", "§cCette commande est réservée aux admins !");
+					rp.sendMessage("§cCette commande est réservée aux admins !");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("suggest")){
 				if(args.length > 0){
@@ -954,24 +954,24 @@ public class Core extends JavaPlugin implements Listener {
 						List<String> suggests = Configs.getDatabase().getStringList("suggests");
 						suggests.add(p.getName() + ": " + suggest);
 						Configs.getDatabase().set("suggests", suggests);
-						rp.sendMessage("§aYour suggest : \"§e" + suggest + "§a\" has been save successfully!", "§aVotre suggestion : \"§e" + suggest + "§a\" a bien été sauvegardée !");
+						rp.sendMessage("§aVotre suggestion : \"§e" + suggest + "§a\" a bien été sauvegardée !");
 					}else{
 						Configs.getDatabase().set("suggests", new ArrayList<String>());
 						List<String> suggests = Configs.getDatabase().getStringList("suggests");
 						suggests.add(p.getName() + ": " + suggest);
 						Configs.getDatabase().set("suggests", suggests);
-						rp.sendMessage("§aYour suggest : \"§e" + suggest + "§a\" has been save successfully!", "§aVotre suggestion : \"§e" + suggest + "§a\" a bien été sauvegardée !");
+						rp.sendMessage("§aVotre suggestion : \"§e" + suggest + "§a\" a bien été sauvegardée !");
 					}
-				}else rp.sendMessage("§cPlease use /suggest <Your Suggest>", "§cUtilisez /suggest <Votre Suggestion>");
+				}else rp.sendMessage("§cUtilisez /suggest <Votre Suggestion>");
 			}else if(cmd.getName().equalsIgnoreCase("setcity")){
 				if(p.isOp()){
 					if(args.length == 1){
 						Configs.getCitiesConfig().set("cities." + args[0] + ".location", p.getLocation());
 					}else{
-						rp.sendMessage("§cUse /setcity [name]", "§cUtilisez /setcity [nom]");
+						rp.sendMessage("§cUtilisez /setcity [nom]");
 					}
 				}else{
-					rp.sendMessage("§cYou really thought you could do that without being Operator!", "§cVous croyiez vraiment pouvoir faire ça sans être Opérateur !");
+					rp.sendMessage("§cVous croyiez vraiment pouvoir faire ça sans être Opérateur !");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("city")){
 				if(p.isOp()){
@@ -979,13 +979,13 @@ public class Core extends JavaPlugin implements Listener {
 						if(Configs.getCitiesConfig().contains("cities." + args[0])){
 							TeleportHandler.teleport(p, (Location) Configs.getCitiesConfig().get("cities." + args[0] + ".location", p.getLocation()));
 						}else{
-							rp.sendMessage("§cThere is no such city called §4" + args[0] + "§c!", "§cAucune cité ne se nomme §4" + args[0] + " §c!");
+							rp.sendMessage("§cAucune cité ne se nomme §4" + args[0] + " §c!");
 						}
 					}else{
-						rp.sendMessage("§cUse /city [name]", "§cUtilisez /city [nom]");
+						rp.sendMessage("§cUtilisez /city [nom]");
 					}
 				}else{
-					rp.sendMessage("§cYou really thought you could do that without being Operator!", "§cVous croyiez vraiment pouvoir faire ça sans être Opérateur !");
+					rp.sendMessage("§cVous croyiez vraiment pouvoir faire ça sans être Opérateur !");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("beer")){
 				if(p.isOp()){
@@ -995,7 +995,7 @@ public class Core extends JavaPlugin implements Listener {
 					beerm.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 					beer.setItemMeta(beerm);
 					p.getInventory().addItem(beer);
-				}else rp.sendMessage("§cYou really thought you could do that without being Operator!", "§cVous croyiez vraiment pouvoir faire ça sans être Opérateur !");
+				}else rp.sendMessage("§cVous croyiez vraiment pouvoir faire ça sans être Opérateur !");
 			}else if(cmd.getName().equalsIgnoreCase("prefs")){
 				Core.uiManager.requestUI(new PrefsUI(p));
 			}else if(cmd.getName().equalsIgnoreCase("tutorial")){
@@ -1003,7 +1003,7 @@ public class Core extends JavaPlugin implements Listener {
 			}else if(cmd.getName().equalsIgnoreCase("weapons")){
 				//if(p.isOp()){
 					Core.uiManager.requestUI(new WeaponsUI(p));
-				//}else rp.sendMessage("§cYou really thought you could do that without being Operator!", "§cVous croyiez vraiment pouvoir faire ça sans être Opérateur !");
+				//}else rp.sendMessage("§cVous croyiez vraiment pouvoir faire ça sans être Opérateur !");
 			}else if(cmd.getName().equalsIgnoreCase("character")){
 				Core.uiManager.requestUI(new DistinctionsMenu(p));
 			}else if(cmd.getName().equalsIgnoreCase("invsee")){
@@ -1012,9 +1012,9 @@ public class Core extends JavaPlugin implements Listener {
 						Player player = Bukkit.getPlayer(args[0]);
 						if(player != null){
 							p.openInventory(player.getInventory());
-						}else rp.sendMessage("§cCouldn't find a player with name §4" + args[0], "§cImpossible de trouver un joueur avec le nom §4" + args[0]);
-					}else rp.sendMessage("§cPlease use /invsee [player]", "§cUtilisez /invsee [joueur]");
-				}else rp.sendMessage("§cYou really thought you could do that without being Operator?", "§cVous croyiez vraiment pouvoir faire ça sans être opérateur ?");
+						}else rp.sendMessage("§cImpossible de trouver un joueur avec le nom §4" + args[0]);
+					}else rp.sendMessage("§cUtilisez /invsee [joueur]");
+				}else rp.sendMessage("§cVous croyiez vraiment pouvoir faire ça sans être opérateur ?");
 			}else if(cmd.getName().equalsIgnoreCase("play")){
 				Core.uiManager.requestUI(new SPlayerSelectionMenu(p));
 			}else if(cmd.getName().equalsIgnoreCase("glitch")){
@@ -1094,7 +1094,7 @@ public class Core extends JavaPlugin implements Listener {
 						Utils.updateInventory(p);
 					}else if(item.getType().equals(Material.ENCHANTED_GOLDEN_APPLE)){
 						e.setCancelled(true);
-						rp.sendMessage("§cCheating golden apple are not permitted on Rubidia.", "§cLes pommes d'or aux pouvoirs surpuissants sont interdites.");
+						rp.sendMessage("§cLes pommes d'or aux pouvoirs surpuissants sont interdites.");
 					}else{
 						for(RItemStack stack : RItemStacks.ITEMS){
 							if(stack.getItemStack().isSimilar(item)){
@@ -1114,7 +1114,7 @@ public class Core extends JavaPlugin implements Listener {
 								}
 								
 								if(!p.getEquipment().getItemInMainHand().getType().equals(Material.AIR))uiManager.requestUI(new EnchantmentUI(clicked.getLocation().add(.5,0,.5), p));
-								else rp.sendMessage("§cPlease take an item in your hand to use the enchantment table.", "§cPrenez un item dans vos main pour utiliser la table d'enchantement.");
+								else rp.sendMessage("§cPrenez un item dans vos main pour utiliser la table d'enchantement.");
 							}
 						}else if(clicked.getType().equals(Material.BOOKSHELF) && !(p.isSneaking())){
 							e.setCancelled(true);
@@ -1206,7 +1206,7 @@ public class Core extends JavaPlugin implements Listener {
 						if(amount > 1){
 							p.getWorld().dropItem(p.getLocation(), p.getInventory().getItem(slot));
 							p.getInventory().remove(item);
-							rp.sendMessage("§cYou cannot carry more than one backpack!", "§cVous ne pouvez transporter plus d'un sac à dos !");
+							rp.sendMessage("§cVous ne pouvez transporter plus d'un sac à dos !");
 						}
 					}
 				}
@@ -1240,7 +1240,7 @@ public class Core extends JavaPlugin implements Listener {
 					}
 				}else if(is.getType().equals(Material.SHIELD) && is.hasItemMeta()){
 					e.setCancelled(true);
-					rp.sendMessage("§cYou cannot customize your shield at the moment.", "§cVous ne pouvez pour le moment pas personnaliser votre bouclier.");
+					rp.sendMessage("§cVous ne pouvez pour le moment pas personnaliser votre bouclier.");
 				}
 			}
 		}
@@ -1426,7 +1426,7 @@ public class Core extends JavaPlugin implements Listener {
 		for(Player player : Bukkit.getOnlinePlayers()){
 			if(!players.contains(player)){
 				RPlayer rp = RPlayer.get(player);
-				rp.sendMessage(en, fr);
+				rp.sendMessage(fr);
 			}
 		}
 	}
@@ -1595,7 +1595,7 @@ public class Core extends JavaPlugin implements Listener {
 	public static void restart(){
 		for(Player player : Bukkit.getOnlinePlayers()){
 			RPlayer rp = RPlayer.get(player);
-			rp.sendMessage("§e§l   RUBIDIA IS RESTARTING IN 20 SECONDS...", "§e§l   RUBIDIA REDEMARRE DANS 20 SECONDES...");
+			rp.sendMessage("§e§l   RUBIDIA REDEMARRE DANS 20 SECONDES...");
 			rp.sendTitle("§aRubidia " + ("redémarre") + "...", "§6>  §e20 second" + ("e") + "s  §6<", 0, 140, 40);
 		}
 		new BukkitTask(Core.instance){
@@ -1604,7 +1604,7 @@ public class Core extends JavaPlugin implements Listener {
 			public void run() {
 				for(Player player : Bukkit.getOnlinePlayers()){
 					RPlayer rp = RPlayer.get(player);
-					rp.sendMessage("§e§l   RUBIDIA IS RESTARTING IN 5 SECONDS...", "§e§l   RUBIDIA REDEMARRE DANS 5 SECONDES...");
+					rp.sendMessage("§e§l   RUBIDIA REDEMARRE DANS 5 SECONDES...");
 					rp.sendTitle("§aRubidia " + ("redémarre") + "...", "§6>  §e5 second" + ("e") + "s  §6<", 0, 200, 0);
 				}
 				new BukkitTask(Core.instance){
@@ -1875,7 +1875,7 @@ public class Core extends JavaPlugin implements Listener {
 											else if(name.contains("_LEGGINGS"))player.getInventory().setLeggings(null);
 											else if(name.contains("_BOOTS"))player.getInventory().setBoots(null);
 											player.getInventory().addItem(item);
-											rp.sendMessage("§cYou cannot wear this piece of armor!", "§cVous ne pouvez porter cette pièce d'armure !");
+											rp.sendMessage("§cVous ne pouvez porter cette pièce d'armure !");
 											player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 											Utils.updateInventory(player);
 										}else{
@@ -1909,7 +1909,7 @@ public class Core extends JavaPlugin implements Listener {
 									if(!weapon.canUse(rp)){
 										player.getEquipment().setItemInOffHand(null);
 										player.getInventory().addItem(item);
-										rp.sendMessage("§cYou cannot hold this shield!", "§cVous ne pouvez porter ce bouclier !");
+										rp.sendMessage("§cVous ne pouvez porter ce bouclier !");
 										player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 										Utils.updateInventory(player);
 									}else{

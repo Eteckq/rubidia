@@ -13,7 +13,7 @@ public class CoupleCommandExecutor extends PlayerCommandExecutor {
 	public void onCommand(Player player, RPlayer rp, String[] args) {
 		if(rp.getCouple() != null){
 			Core.uiManager.requestUI(new CoupleMenu(player, rp.getCouple()));
-		}else rp.sendMessage("§cYou are not married!", "§cVous n'êtes pas marié !");
+		}else rp.sendMessage("§cVous n'êtes pas marié !");
 	}
 
 }

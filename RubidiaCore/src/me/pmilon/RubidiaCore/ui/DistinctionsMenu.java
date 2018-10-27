@@ -89,7 +89,7 @@ public class DistinctionsMenu extends UIHandler {
 							this.menu.setItem(this.SLOT_SKD, this.getDistinctionPoints());
 						}else{
 							this.getHolder().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-							rp.sendMessage("§cYou don't have enough distinction points!", "§cVous n'avez pas assez de points de distinction !");
+							rp.sendMessage("§cVous n'avez pas assez de points de distinction !");
 						}
 					}
 				}else if(slot == this.SLOT_CRC){

@@ -26,7 +26,7 @@ public class GuildDisbandConfirmationUI extends ConfirmationUI {
 		if(!event.isCancelled()){
 			event.getGuild().disband();
 			this.close(false);
-			rp.sendMessage("§cYou disbanded §a§l" + event.getGuild().getName() + "§c.", "§cVous avez dissout §4§l" + event.getGuild().getName() + "§c.");
+			rp.sendMessage("§cVous avez dissout §4§l" + event.getGuild().getName() + "§c.");
 		}
 		this.close(false);
 	}

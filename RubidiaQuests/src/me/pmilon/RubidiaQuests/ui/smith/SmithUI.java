@@ -98,14 +98,14 @@ public class SmithUI extends UIHandler {
 						}
 						this.weapon = weapon;
 						this.update();
-					}else rp.sendMessage("§cYour " + (this.weapon.isAttack() ? "weapon" : "armor") + " is already too powerful for a classic enhancement!", "§cVotre " + (this.weapon.isAttack() ? "arme" : "armure") + " est déjà trop puissante pour un renforcement classique !");
+					}else rp.sendMessage("§cVotre " + (this.weapon.isAttack() ? "arme" : "armure") + " est déjà trop puissante pour un renforcement classique !");
 				}else if(rItem.isScroll()){
 					Scroll scroll = rItem.getScroll();
 					if(scroll.getType().getUsage().equals(ScrollUsage.ENHANCEMENT)){
 						if(this.weapon != null){
 							if(!this.isScrollActive(scroll.getType())){
 								if(scroll.getType().equals(ScrollType.ENHANCEMENT_AMPLIFICATION) && weapon.getSuppLevel() >= 6){
-									rp.sendMessage("§cYou cannot use this scroll on such a powerful " + (this.weapon.isAttack() ? "weapon" : "armor") + "!", "§cVous ne pouvez utiliser ce parchemin sur une " + (this.weapon.isAttack() ? "arme" : "armure") + " si puissante !");
+									rp.sendMessage("§cVous ne pouvez utiliser ce parchemin sur une " + (this.weapon.isAttack() ? "arme" : "armure") + " si puissante !");
 									return;
 								}
 								this.scroll.add(scroll);
@@ -114,8 +114,8 @@ public class SmithUI extends UIHandler {
 								e.setCurrentItem(item);
 								this.update();
 							}
-						}else rp.sendMessage("§cChoose a weapon/armor to enhance first.", "§cChoisissez d'abord une arme/armure à renforcer.");
-					}else rp.sendMessage("§cThis scroll cannot be used during an enhancement.", "§cCe parchemin ne peut être utilisé durant un renforcement.");
+						}else rp.sendMessage("§cChoisissez d'abord une arme/armure à renforcer.");
+					}else rp.sendMessage("§cCe parchemin ne peut être utilisé durant un renforcement.");
 				}else if(item.isSimilar(RItemStacks.STAR_STONE.getItemStack())){
 					if(this.weapon != null){
 						if(!this.startStone){
@@ -125,7 +125,7 @@ public class SmithUI extends UIHandler {
 							this.startStone = true;
 							this.update();
 						}
-					}else rp.sendMessage("§cChoose a weapon/armor to enhance first.", "§cChoisissez d'abord une arme/armure à renforcer.");
+					}else rp.sendMessage("§cChoisissez d'abord une arme/armure à renforcer.");
 				}
 			}
 		}
@@ -229,19 +229,19 @@ public class SmithUI extends UIHandler {
 						.build());
 				fm.setPower(1);
 				f.setFireworkMeta(fm);
-				rp.sendMessage("§aYour " + (this.weapon.isAttack() ? "weapon" : "armor") + " has successfully been enhanced!", "§aVotre " + (this.weapon.isAttack() ? "arme" : "armure") + " a été renforcée !");
+				rp.sendMessage("§aVotre " + (this.weapon.isAttack() ? "arme" : "armure") + " a été renforcée !");
 			}else{
 				this.getHolder().getWorld().playSound(this.getHolder().getLocation(), Sound.ITEM_SHIELD_BREAK, 1, 1);
 				if(this.scroll == null){
-					rp.sendMessage("§cEnhancement failed! Your " + (this.weapon.isAttack() ? "weapon" : "armor") + " has been broken...", "§cEchec du renforcement ! Votre " + (this.weapon.isAttack() ? "arme" : "armure") + " a été cassée...");
-					rp.sendMessage("§cNext time, use a scroll to protect your item!", "§cLa prochaine fois, utilisez un parchemin afin de protéger votre item !");
+					rp.sendMessage("§cEchec du renforcement ! Votre " + (this.weapon.isAttack() ? "arme" : "armure") + " a été cassée...");
+					rp.sendMessage("§cLa prochaine fois, utilisez un parchemin afin de protéger votre item !");
 				}else{
 					if(this.isScrollActive(ScrollType.ENHANCEMENT_PROTECTION)){
 						this.getHolder().getInventory().addItem(this.weapon.getNewItemStack(rp));
-						rp.sendMessage("§eEnhancement failed! But you kept your " + (this.weapon.isAttack() ? "weapon" : "armor") + " thanks to your protection scroll.", "§eLe renforcement a échoué ! Mais votre " + (this.weapon.isAttack() ? "arme" : "armure") + " a été conservée grâce à votre parchemin de protection.");
+						rp.sendMessage("§eLe renforcement a échoué ! Mais votre " + (this.weapon.isAttack() ? "arme" : "armure") + " a été conservée grâce à votre parchemin de protection.");
 					}else{
-						rp.sendMessage("§cEnhancement failed! Your " + (this.weapon.isAttack() ? "weapon" : "armor") + " has been broken...", "§cEchec du renforcement ! Votre " + (this.weapon.isAttack() ? "arme" : "armure") + " a été cassée...");
-						rp.sendMessage("§cNext time, use a scroll to protect your item!", "§cLa prochaine fois, utilisez un parchemin afin de protéger votre item !");
+						rp.sendMessage("§cEchec du renforcement ! Votre " + (this.weapon.isAttack() ? "arme" : "armure") + " a été cassée...");
+						rp.sendMessage("§cLa prochaine fois, utilisez un parchemin afin de protéger votre item !");
 					}
 				}
 			}

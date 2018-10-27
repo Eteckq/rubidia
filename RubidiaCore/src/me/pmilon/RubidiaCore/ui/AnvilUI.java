@@ -119,8 +119,8 @@ public class AnvilUI extends UIHandler {
 							}
 						}
 						DONE = true;
-					}else rp.sendMessage("§cYou don't have enough emeralds in your bank!", "§cVous n'avez pas assez d'émeraudes dans votre banque !");
-				}else rp.sendMessage("§cThe anvil disappeared!","§cLa forge a disparue !");
+					}else rp.sendMessage("§cVous n'avez pas assez d'émeraudes dans votre banque !");
+				}else rp.sendMessage("§cLa forge a disparue !");
 				this.close(false);
 			}else if(slot != 0 && slot != 8)this.closeUI();
 		}

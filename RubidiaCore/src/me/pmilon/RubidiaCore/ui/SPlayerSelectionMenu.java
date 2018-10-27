@@ -83,7 +83,7 @@ public class SPlayerSelectionMenu extends UIHandler{
 						if(id <= 2 || rp.isVip()){
 							SPlayer sp = Core.rcoll.newDefaultSPlayer(id);
 							rp.getSaves()[id] = sp;
-						}else rp.sendMessage("§cYou must be VIP to use this character!", "§cVous devez être VIP pour utiliser ce personnage !");
+						}else rp.sendMessage("§cVous devez être VIP pour utiliser ce personnage !");
 					}
 					if(rp.getSaves()[id] != null){
 						if(id != rp.getLastLoadedSPlayerId()){
@@ -91,8 +91,8 @@ public class SPlayerSelectionMenu extends UIHandler{
 								force = false;
 								this.closeUI();
 								rp.load(id);
-							}else rp.sendMessage("§cYou must be VIP to use this character!", "§cVous devez être VIP pour utiliser ce personnage !");
-						}else rp.sendMessage("§eYou are already using this character!", "§eVous utilisez déjà ce personnage !");
+							}else rp.sendMessage("§cVous devez être VIP pour utiliser ce personnage !");
+						}else rp.sendMessage("§eVous utilisez déjà ce personnage !");
 					}
 				}else if(slot < 27 && slot > 17){
 					int id = (int) Math.abs((slot-19)*.5);
@@ -100,7 +100,7 @@ public class SPlayerSelectionMenu extends UIHandler{
 					if(sp != null){
 						if(rp.getLastLoadedSPlayerId() != id){
 							Core.uiManager.requestUI(new SPlayerDeletionConfirmationUI(rp, sp, id));
-						}else rp.sendMessage("§cYou must first select another character!", "§cVous devez d'abord sélectionner un autre personnage !");
+						}else rp.sendMessage("§cVous devez d'abord sélectionner un autre personnage !");
 					}
 				}
 			}

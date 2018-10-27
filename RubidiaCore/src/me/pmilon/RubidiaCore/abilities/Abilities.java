@@ -110,10 +110,10 @@ public class Abilities {
 					DamageManager.damage(enear, player, damages, RDamageCause.ABILITY);
 				}
 			}else{
-				rp.sendMessage("§cTarget is too far!","§cLa cible est trop loin !");
+				rp.sendMessage("§cLa cible est trop loin !");
 			}
 		}else{
-			rp.sendMessage("§cThere is nobody in front of you!","§cIl n'y a personne en face de vous !");
+			rp.sendMessage("§cIl n'y a personne en face de vous !");
 		}
 		rp.setActiveAbility(1, false);
 	}
@@ -132,10 +132,10 @@ public class Abilities {
 			pumpkin.setType(Material.PUMPKIN);
 			player.getEquipment().setHelmet(pumpkin);
 		}else player.getEquipment().setHelmet(new ItemStack(Material.PUMPKIN, 1));
-		rp.sendMessage("§7Viouf! Nobody's seeing you!", "§7Viouf! Plus personne ne vous voit !");
+		rp.sendMessage("§7Viouf! Plus personne ne vous voit !");
 		new BukkitTask(Core.instance){
 			public void run(){
-				rp.sendMessage("§cYour cloak begin to disappear!", "§cVotre camouflage commence à disparaître !");
+				rp.sendMessage("§cVotre camouflage commence à disparaître !");
 				new BukkitTask(Core.instance){
 					public void run(){
 						Core.playAnimEffect(Particle.FLAME, player.getLocation(), .5F, .5F, .5F, .1F, 100);
@@ -145,7 +145,7 @@ public class Abilities {
 						}
 						if(helmet != null)player.getEquipment().setHelmet(helmet);
 						else player.getEquipment().setHelmet(new ItemStack(Material.AIR, 1));
-						rp.sendMessage("§4Your cloak has disappeared!", "§4Votre camouflage a disparu !");
+						rp.sendMessage("§4Votre camouflage a disparu !");
 						rp.setActiveAbility(2, false);
 					}
 
@@ -241,12 +241,12 @@ public class Abilities {
 				}.runTaskTimerCancelling(0, 1, (long) damages*20);
 			}else{
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-				rp.sendMessage("§cThis enemy is too far!", "§cCet ennemi est trop loin !");
+				rp.sendMessage("§cCet ennemi est trop loin !");
 				rp.setActiveAbility(5, false);
 			}
 		}else{
 			player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-			rp.sendMessage("§cThere is nobody in front of you!", "§cIl n'y a personne en face de vous !");
+			rp.sendMessage("§cIl n'y a personne en face de vous !");
 			rp.setActiveAbility(5, false);
 		}
 	}
@@ -332,12 +332,12 @@ public class Abilities {
 				}.runTaskTimer(0, 0);
 			}else{
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-				rp.sendMessage("§cThis enemy is too far!", "§cCet ennemi est trop loin !");
+				rp.sendMessage("§cCet ennemi est trop loin !");
 				rp.setActiveAbility(7, true);
 			}
 		}else{
 			player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-			rp.sendMessage("§cThere is nobody in front of you!", "§cIl n'y a personne en face de vous !");
+			rp.sendMessage("§cIl n'y a personne en face de vous !");
 			rp.setActiveAbility(7, true);
 		}
 	}
@@ -441,12 +441,12 @@ public class Abilities {
 				}.runTaskLater(10);
 			}else{
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-				rp.sendMessage("§cThis enemy is too far!", "§cCet ennemi est trop loin !");
+				rp.sendMessage("§cCet ennemi est trop loin !");
 				rp.setActiveAbility(8, false);
 			}
 		}else{
 			player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-			rp.sendMessage("§cThere is nobody in front of you!", "§cIl n'y a personne en face de vous !");
+			rp.sendMessage("§cIl n'y a personne en face de vous !");
 			rp.setActiveAbility(8, false);
 		}
 	}

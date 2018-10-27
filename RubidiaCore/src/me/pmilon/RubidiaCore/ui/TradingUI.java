@@ -152,12 +152,12 @@ public class TradingUI extends UIHandler {
 		this.triggerCloseEvent = false;
 		this.close(false);
 		if(tradeOk){
-			rp.sendMessage("§aTrade successfully confirmed!", "§aL'échange s'est bien déroulé !");
+			rp.sendMessage("§aL'échange s'est bien déroulé !");
 			for(int slot : slots2)if(this.getItem(slot) != null)this.getHolder().getInventory().addItem(this.getItem(slot));
 			Utils.updateInventory(this.getHolder());
 		}else{
-			if(selfClose)rp.sendMessage("§cYou cancelled the trade!", "§cVous avez annulé l'échange !");
-			else rp.sendMessage("§4" + this.getTrader().getName() + " §ccancelled the trade!", "§4" + this.getTrader().getName() + " §ca annulé l'échange !");
+			if(selfClose)rp.sendMessage("§cVous avez annulé l'échange !");
+			else rp.sendMessage("§4" + this.getTrader().getName() + " §ca annulé l'échange !");
 			
 			for(int slot : slots1)if(this.getItem(slot) != null)this.getHolder().getInventory().addItem(this.getItem(slot));
 		}

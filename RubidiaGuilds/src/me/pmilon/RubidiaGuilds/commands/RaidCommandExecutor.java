@@ -37,10 +37,10 @@ public class RaidCommandExecutor extends PlayerCommandExecutor {
 						String name = null;
 						if(args.length > 0)name = ChatColor.translateAlternateColorCodes('&', args[0]);
 						Claims.manageClaim(name, guild, player.getLocation(), member);
-					}else rp.sendMessage("§cPlease use /raid [ClaimName]", "§cUtilisez /raid [NomDuTerritoire]");
-				}else rp.sendMessage("§cYou don't have permission to manage claims for your guild!", "§cVous n'avez pas la permission de gérer le territoire de votre guilde !");
+					}else rp.sendMessage("§cUtilisez /raid [NomDuTerritoire]");
+				}else rp.sendMessage("§cVous n'avez pas la permission de gérer le territoire de votre guilde !");
 			}
-		}else rp.sendMessage("§cYou don't belong to any guild!", "§cVous n'appartenez à aucune guilde !");
+		}else rp.sendMessage("§cVous n'appartenez à aucune guilde !");
 	}
 
 }

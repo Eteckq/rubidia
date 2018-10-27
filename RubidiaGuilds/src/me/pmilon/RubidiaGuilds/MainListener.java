@@ -54,7 +54,7 @@ public class MainListener implements Listener {
 		gm.setPlayer(player);
 		GMember.getOnlines().add(gm);
 		if(gm.hasGuild()){
-			if(!gm.getGuild().isActive())rp.sendMessage("§cYour guild was inactive! All of your territories were free to be claimed and might have been destroyed. For now on, your territories left intact are safe and back into the hands of yours.", "§cVotre guilde était inactive ! Tous vos territoires étaient marqués comme libre d'être conquis et peuvent avoir été détruit. Désormais, tous les territoires laissés intacts sont de nouveau vôtre.");
+			if(!gm.getGuild().isActive())rp.sendMessage("§cVotre guilde était inactive ! Tous vos territoires étaient marqués comme libre d'être conquis et peuvent avoir été détruit. Désormais, tous les territoires laissés intacts sont de nouveau vôtre.");
 			gm.getGuild().setLastConnection(System.currentTimeMillis());
 		}
 	}
@@ -179,7 +179,7 @@ public class MainListener implements Listener {
 							raid.setPoints(raid.getPoints()+5);
 						}
 					}
-					rp.sendMessage("§eType §6/raid §e to be teleported back to the battlefield!","§eTapez §6/raid§e pour être téléporté au champ de bataille !");
+					rp.sendMessage("§eTapez §6/raid§e pour être téléporté au champ de bataille !");
 				}
 			}
 		}
@@ -215,9 +215,9 @@ public class MainListener implements Listener {
 												if(item.getAmount() < 1)p.getEquipment().setItemInMainHand(new ItemStack(Material.AIR));
 												if(helmet != null)p.getInventory().addItem(helmet);
 												Utils.updateInventory(p);
-											}else rp.sendMessage("§cYou don't belong to the §4§l" + name[2] + "§c guild!", "§cVous n'appartenez pas à la guilde §4§l" + name[2] + "§c !");
-										}else rp.sendMessage("§cYou don't belong to the §4§l" + name[2] + "§c guild!", "§cVous n'appartenez pas à la guilde §4§l" + name[2] + "§c !");
-									}else rp.sendMessage("§cYou don't belong to the §4§l" + name[2] + "§c guild!", "§cVous n'appartenez pas à la guilde §4§l" + name[2] + "§c !");
+											}else rp.sendMessage("§cVous n'appartenez pas à la guilde §4§l" + name[2] + "§c !");
+										}else rp.sendMessage("§cVous n'appartenez pas à la guilde §4§l" + name[2] + "§c !");
+									}else rp.sendMessage("§cVous n'appartenez pas à la guilde §4§l" + name[2] + "§c !");
 								}
 							}
 						}

@@ -72,7 +72,7 @@ public class PetUI extends UIHandler{
 	    		int slot = e.getRawSlot();
 	    		e.setCancelled(true);
 	    		if(slot == SLOT_NAME){
-	    			rp.sendMessage("§aType in your desired pet name (color codes prefix: §l&§a)!", "§aEntrez le nom que vous souhaitez attribuer à votre compagnon (prefix codes couleurs : §l&§a) !");
+	    			rp.sendMessage("§aEntrez le nom que vous souhaitez attribuer à votre compagnon (prefix codes couleurs : §l&§a) !");
 	    			this.close(true, this.LIST_ID_NAME);
 	    		}else if(slot == SLOT_TOGGLE_STAY){
 	            	if(this.getPet().canMove()){
@@ -148,13 +148,13 @@ public class PetUI extends UIHandler{
 	        			  ((Snowman)this.getEntity()).setDerp(!((Snowman)this.getEntity()).isDerp());
 	        		  }else if(this.getEntity() instanceof Pig){
 	        			  ((Pig)this.getEntity()).setSaddle(!((Pig)this.getEntity()).hasSaddle());
-	        		  }else rp.sendMessage("§cThat option has no effect for this type of pet!", "§cCette option n'est pas disponible pour ce type de compagnon !");
+	        		  }else rp.sendMessage("§cCette option n'est pas disponible pour ce type de compagnon !");
 	              }else if(slot == SLOT_TOGGLE_AGE){
 	            	  if(this.getEntity() instanceof Ageable){
 	            		  if(((Ageable) this.getEntity()).isAdult())((Ageable) this.getEntity()).setBaby();
 	            		  else ((Ageable) this.getEntity()).setAdult();
 	                	  e.setCurrentItem(this.getToggleAge());
-	            	  }else rp.sendMessage("§cThat option has no effect for this type of pet!", "§cCette option n'est pas disponible pour ce type de compagnon !");
+	            	  }else rp.sendMessage("§cCette option n'est pas disponible pour ce type de compagnon !");
 	              }else if(slot == SLOT_PEARLS){
 	            	  Core.uiManager.requestUI(new PearlsUI(this.getHolder(), this.getPet()));
 	              }else if(slot == SLOT_DISTINCTIONS){
@@ -175,7 +175,7 @@ public class PetUI extends UIHandler{
 		if(this.getMessage() != null){
 			if(!this.getMessage().isEmpty()){
 				if(this.getListeningId() == this.LIST_ID_NAME){
-					if(ChatColor.stripColor(this.getMessage()).length() > 16)rp.sendMessage("§cYour pet's name is too long! It can only contains 16 characters.", "§cLe nom de votre compagnon est trop long ! Il ne doit contenir que 16 caractères.");
+					if(ChatColor.stripColor(this.getMessage()).length() > 16)rp.sendMessage("§cLe nom de votre compagnon est trop long ! Il ne doit contenir que 16 caractères.");
 					else this.getPet().setName(this.getMessage());
 				}
 			}

@@ -78,7 +78,7 @@ public class ChunksUI extends UIHandler {
 								ChunkManager manager = ChunkManager.getManager(nchunk);
 								manager.save();
 								
-								rp.sendMessage("§2Chunk §6" + chunk.getX() + "§e,§6" + chunk.getZ() + "§e,§6" + chunk.getWorld().getName() + " §e-> §4NoChunk §e| §2Saved §e| §4No regeneration","§2Chunk §6" + chunk.getX() + "§e,§6" + chunk.getZ() + "§e,§6" + chunk.getWorld().getName() + " §e-> §4NoChunk §e| §2Sauvegardé §e| §4Pas de régénération");
+								rp.sendMessage("§2Chunk §6" + chunk.getX() + "§e,§6" + chunk.getZ() + "§e,§6" + chunk.getWorld().getName() + " §e-> §4NoChunk §e| §2Sauvegardé §e| §4Pas de régénération");
 							}else if(chunk instanceof NChunk){
 								RubidiaManagerPlugin.getChunkColl().delete(chunk);
 								RChunk rchunk = new RChunk(chunk.getWorld(), chunk.getX(), chunk.getZ(), true);
@@ -87,20 +87,20 @@ public class ChunksUI extends UIHandler {
 								ChunkManager manager = ChunkManager.getManager(rchunk);
 								manager.save();
 								
-								rp.sendMessage("§4NoChunk §6" + chunk.getX() + "§e,§6" + chunk.getZ() + "§e,§6" + chunk.getWorld().getName() + " §e-> §2Chunk §e| §2Saved §e| §2Regeneration","§4NoChunk §6" + chunk.getX() + "§e,§6" + chunk.getZ() + "§e,§6" + chunk.getWorld().getName() + " §e-> §2Chunk §e| §2Sauvegardé §e| §2Régénération");
+								rp.sendMessage("§4NoChunk §6" + chunk.getX() + "§e,§6" + chunk.getZ() + "§e,§6" + chunk.getWorld().getName() + " §e-> §2Chunk §e| §2Sauvegardé §e| §2Régénération");
 							}
 						}else{
 							String regen = chunk.isRegenable();
 							if(regen.equals("true")){
-								rp.sendMessage("§eRegenerating chunk...","§eRégénération du chunk...");
+								rp.sendMessage("§eRégénération du chunk...");
 								ChunkManager.getManager(chunk).load();
 								if(chunk instanceof RChunk){
 									((RChunk)chunk).setRegenerated(true);
 								}
-								rp.sendMessage("§eChunk regenerated!","§eChunk régénéré");
-							}else rp.sendMessage("§cCannot regenerate this chunk: " + regen,"§cRégénération impossible : " + regen);
+								rp.sendMessage("§eChunk régénéré");
+							}else rp.sendMessage("§cRégénération impossible : " + regen);
 						}
-					}else rp.sendMessage("§cThis chunk is protected by a region!","§cCe chunk est protégé par une région !");
+					}else rp.sendMessage("§cCe chunk est protégé par une région !");
 				}else{
 					if(!e.isShiftClick()){
 						if(chunk instanceof RChunk){
@@ -108,16 +108,16 @@ public class ChunksUI extends UIHandler {
 							if(rch.isRegenerated()){
 								ChunkManager.getManager(rch).paste();
 								rch.setRegenerated(false);
-								rp.sendMessage("§eLoaded last saved chunk state", "§eDernier état du chunk enregistré chargé");
+								rp.sendMessage("§eDernier état du chunk enregistré chargé");
 							}
 						}
 					}else{
-						rp.sendMessage("§eForce regenerating chunk...","§eRégénération forcée du chunk...");
+						rp.sendMessage("§eRégénération forcée du chunk...");
 						ChunkManager.getManager(chunk).load();
 						if(chunk instanceof RChunk){
 							((RChunk)chunk).setRegenerated(true);
 						}
-						rp.sendMessage("§eChunk regenerated!","§eChunk régénéré de force");
+						rp.sendMessage("§eChunk régénéré de force");
 					}
 				}
 				this.getMenu().setItem(slot, this.get(i, j));

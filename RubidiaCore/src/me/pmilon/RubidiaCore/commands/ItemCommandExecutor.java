@@ -31,7 +31,7 @@ public class ItemCommandExecutor extends PlayerAdminCommandExecutor {
 							if(i != args.length-1)message += " ";
 						}
 						meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', message));
-					}else rp.sendMessage("§cPlease use /item name [message]", "§cUtilisez /item name [message]");
+					}else rp.sendMessage("§cUtilisez /item name [message]");
 				}else if(args[0].equalsIgnoreCase("lore")){
 					if(args.length > 2){
 						for(int i = 2;i < args.length;i++){
@@ -50,8 +50,8 @@ public class ItemCommandExecutor extends PlayerAdminCommandExecutor {
 								lore.add(message);
 							}
 							meta.setLore(lore);
-						}else rp.sendMessage("§cPlease use /item lore (id) " + message, "§cUtilisez /item lore (id) " + message);
-					}else rp.sendMessage("§cPlease use /item lore (id) [message]", "§cUtilisez /item lore (id) [message]");
+						}else rp.sendMessage("§cUtilisez /item lore (id) " + message);
+					}else rp.sendMessage("§cUtilisez /item lore (id) [message]");
 				}else if(args[0].equalsIgnoreCase("flag")){
 					if(args.length > 1){
 						ItemFlag flag = null;
@@ -70,18 +70,18 @@ public class ItemCommandExecutor extends PlayerAdminCommandExecutor {
 								flags += flg.toString();
 								flags += ",";
 							}
-							rp.sendMessage("§cPlease use /item flag " + flags, "§cUtilisez /item flag " + flags);
+							rp.sendMessage("§cUtilisez /item flag " + flags);
 						}
-					}else rp.sendMessage("§cPlease use /item flag (flag)", "§cUtilisez /item flag (flag)");
+					}else rp.sendMessage("§cUtilisez /item flag (flag)");
 				}else if(args[0].equalsIgnoreCase("list")){
 					Core.uiManager.requestUI(new ItemListUI(player));
-				}else rp.sendMessage("§cPlease use /item [name (message)/lore (id) (message)/flag (flag)/list]", "§cUtilisez /item [name (message)/lore (id) (message)/flag (flag)/list]");
+				}else rp.sendMessage("§cUtilisez /item [name (message)/lore (id) (message)/flag (flag)/list]");
 				item.setItemMeta(meta);
 				player.getEquipment().setItemInMainHand(item);
 			}else if(args[0].equalsIgnoreCase("list")){
 				Core.uiManager.requestUI(new ItemListUI(player));
-			}else rp.sendMessage("§cYou don't have any item in hand!","§cVous n'avez pas d'item en main !");
-		}else rp.sendMessage("§cPlease use /item [name (message)/lore (id) (message)/flag (flag)]", "§cUtilisez /item [name (message)/lore (id) (message)/flag (flag)]");
+			}else rp.sendMessage("§cVous n'avez pas d'item en main !");
+		}else rp.sendMessage("§cUtilisez /item [name (message)/lore (id) (message)/flag (flag)]");
 	}
 
 }

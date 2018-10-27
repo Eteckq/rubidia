@@ -145,7 +145,7 @@ public class GMemberPrefsUI extends UIHandler {
 										}
 										if(rank != null)subject.setRank(rank);
 										this.setPage(1);
-									}else rp.sendMessage("§cYou cannot change the leader's rank this way!", "§cVous ne pouvez modifier le rang du chef de cette façon !");
+									}else rp.sendMessage("§cVous ne pouvez modifier le rang du chef de cette façon !");
 								}else if(slot == this.SLOT_NAME || slot == this.SLOT_NAME+9){
 									subject.setPermission(Permission.RENAME, !subject.getPermission(Permission.RENAME));
 									getMenu().setItem(SLOT_NAME, this.getCanRename());
@@ -167,8 +167,8 @@ public class GMemberPrefsUI extends UIHandler {
 									getMenu().setItem(SLOT_OFFER, this.getCanOffer());
 									getMenu().setItem(SLOT_OFFER+9, subject.getPermission(Permission.OFFER) ? ITEM_ENABLED : ITEM_DISABLED);
 								}
-							}else rp.sendMessage("§cYou cannot change leader's permissions!", "§cVous ne pouvez modifier les permissions du chef !");
-						}else rp.sendMessage("§cYou don't have permission to modify you guild's per members preferences!", "§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
+							}else rp.sendMessage("§cVous ne pouvez modifier les permissions du chef !");
+						}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
 					}else if(this.page_id == 2){
 						if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
 							this.setPage(1);
@@ -199,8 +199,8 @@ public class GMemberPrefsUI extends UIHandler {
 									getMenu().setItem(SLOT_CLAIMSPREFS, this.getCanModifyClaimsPrefs());
 									getMenu().setItem(SLOT_CLAIMSPREFS+9, subject.getPermission(Permission.CLAIM_PREFS) ? ITEM_ENABLED : ITEM_DISABLED);
 								}
-							}else rp.sendMessage("§cYou cannot change leader's permissions!", "§cVous ne pouvez modifier les permissions du chef !");
-						}else rp.sendMessage("§cYou don't have permission to modify you guild's per members preferences!", "§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
+							}else rp.sendMessage("§cVous ne pouvez modifier les permissions du chef !");
+						}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
 					}else if(this.page_id == 3){
 						if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
 							this.setPage(2);
@@ -233,20 +233,20 @@ public class GMemberPrefsUI extends UIHandler {
 								}else if(slot == this.SLOT_KICK || slot == this.SLOT_KICK+9){
 									if(!subject.isLeader()){
 										Core.uiManager.requestUI(new KickConfirmationUI(rp, this.getGuild(), subject));
-									}else rp.sendMessage("§cYou cannot kick the leader!", "§cVous ne pouvez éjecter le chef de guilde !");
+									}else rp.sendMessage("§cVous ne pouvez éjecter le chef de guilde !");
 								}else if(slot == this.SLOT_LEADERSHIP || slot == this.SLOT_LEADERSHIP+9){
 									if(gm.isLeader() || rp.isOp()){
 										if(!this.getGuild().getLeader().equals(subject)){
 											Core.uiManager.requestUI(new LeadLegacyConfirmationUI(rp, this.getGuild(), subject));
-										}else rp.sendMessage("§4" + subject.getName() + " §cis already leader!", "§4" + subject.getName() + " §cest déjà chef de la guilde !");
-									}else rp.sendMessage("§cOnly the leader can do this!", "§cSeul le leader peut faire ça !");
+										}else rp.sendMessage("§4" + subject.getName() + " §cest déjà chef de la guilde !");
+									}else rp.sendMessage("§cSeul le leader peut faire ça !");
 								}
-							}else rp.sendMessage("§cYou cannot modify leader's permissions!", "§cVous ne pouvez modifier les permissions du leader !");
-						}else rp.sendMessage("§cYou don't have permission to modify you guild's per members preferences!", "§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
+							}else rp.sendMessage("§cVous ne pouvez modifier les permissions du leader !");
+						}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
 					}
 				}else{
 					this.close(false);
-					rp.sendMessage("§4" + subject.getName() + " §cdoes no longer belong to your guild!", "§4" + subject.getName() + " §cn'appartient plus à votre guilde !");
+					rp.sendMessage("§4" + subject.getName() + " §cn'appartient plus à votre guilde !");
 				}
 			}
 		}

@@ -36,7 +36,7 @@ public class WGFlagsListener implements Listener {
 		RPlayer requested = e.getOpponent();
 		if(!WGUtils.testState(rp.getPlayer(), rp.getPlayer().getLocation(), Flags.DUELS) || !WGUtils.testState(requested.getPlayer(), requested.getPlayer().getLocation(), Flags.DUELS)){
 			e.setCancelled(true);
-			rp.sendMessage("§cYou cannot request a duel here.", "§cVous ne pouvez demander un duel ici.");
+			rp.sendMessage("§cVous ne pouvez demander un duel ici.");
 		}
 	}
 
@@ -51,7 +51,7 @@ public class WGFlagsListener implements Listener {
 			if(blocks.contains(block.getType()) && !rp.isOp()){
 				if(!WGUtils.testState(p, block.getLocation(), Flags.BLOCKS)){
 					e.setCancelled(true);
-					rp.sendMessage("§cYou can't interact with blocks here.", "§cVous ne pouvez intéragir avec les blocs ici.");
+					rp.sendMessage("§cVous ne pouvez intéragir avec les blocs ici.");
 				}
 			}
 		}
@@ -70,11 +70,11 @@ public class WGFlagsListener implements Listener {
 					if(pet != null){
 						if(!pet.getOwner().equals(player)){
 							e.setCancelled(true);
-							rp.sendMessage("§cYou can only mount your pets here.", "§cVous ne pouvez monter que vos compagnons ici.");
+							rp.sendMessage("§cVous ne pouvez monter que vos compagnons ici.");
 						}
 					}else{
 						e.setCancelled(true);
-						rp.sendMessage("§cYou can only mount your pets here.", "§cVous ne pouvez monter que vos compagnons ici.");
+						rp.sendMessage("§cVous ne pouvez monter que vos compagnons ici.");
 					}
 				}
 			}

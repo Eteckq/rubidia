@@ -64,7 +64,7 @@ public class ShopEditionUI extends UIHandler{
 						e.setCancelled(true);
 						if(this.getShop() instanceof PlayerShop){
 							if(((PlayerShop)this.getShop()).isStart()){
-								rp.sendMessage("§cYou can't add items to sell while your shop is open!", "§cVous ne pouvez ajouter d'items à la vente tant que votre boutique est ouverte !");
+								rp.sendMessage("§cVous ne pouvez ajouter d'items à la vente tant que votre boutique est ouverte !");
 								return;
 							}
 						}
@@ -81,8 +81,8 @@ public class ShopEditionUI extends UIHandler{
 										if(size > this.page_index){
 											this.setPage(size);
 										}
-									}else rp.sendMessage("§cBecome VIP to gain access to an unlimited number of sales!", "§cDevenez VIP pour obtenir un nombre illimité de ventes !");
-								}else rp.sendMessage("§cThese items are already in sale!", "§cCes items sont déjà en vente !");
+									}else rp.sendMessage("§cDevenez VIP pour obtenir un nombre illimité de ventes !");
+								}else rp.sendMessage("§cCes items sont déjà en vente !");
 							}
 						}
 					}
@@ -117,10 +117,10 @@ public class ShopEditionUI extends UIHandler{
 				}
 				
 				if(slot == SLOT_INVTITLE){
-					rp.sendMessage("§aRename your shop menu by typing its title in the chat!", "§aRenommez votre menu en tapant son titre dans le chat !");
+					rp.sendMessage("§aRenommez votre menu en tapant son titre dans le chat !");
 					this.close(true, this.LIST_ID_INVTITLE);
 				}else if(slot == SLOT_TITLE){
-					rp.sendMessage("§aRename your shop by typing its name in the chat!", "§aRenommez votre boutique en tapant son nom dans le chat !");
+					rp.sendMessage("§aRenommez votre boutique en tapant son nom dans le chat !");
 					this.close(true, this.LIST_ID_TITLE);
 				}else if(slot == SLOT_SHOP){
 					PlayerShop shop = (PlayerShop)this.getShop();

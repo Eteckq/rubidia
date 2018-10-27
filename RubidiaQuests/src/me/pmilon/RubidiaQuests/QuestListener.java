@@ -252,7 +252,7 @@ public class QuestListener implements Listener {
 		if((Utils.isQuestItem(event.getCurrentItem()) || Utils.isQuestItem(event.getCursor())) && !RPlayer.get((Player)event.getWhoClicked()).isOp()){
 			event.setCancelled(true);
 			RPlayer rp = RPlayer.get((Player) event.getWhoClicked());
-			rp.sendMessage("§cYou cannot touch a quest item!", "§cVous ne pouvez toucher un objet de quête !");
+			rp.sendMessage("§cVous ne pouvez toucher un objet de quête !");
 		}
 	}
 
@@ -262,7 +262,7 @@ public class QuestListener implements Listener {
 			if(Utils.isQuestItem(event.getItemDrop().getItemStack())){
 				event.setCancelled(true);
 				RPlayer rp = RPlayer.get(event.getPlayer());
-				rp.sendMessage("§cYou cannot drop a quest item!", "§cVous ne pouvez jeter un objet de quête !");
+				rp.sendMessage("§cVous ne pouvez jeter un objet de quête !");
 			}
 		}
 	}
@@ -275,7 +275,7 @@ public class QuestListener implements Listener {
 			if(Utils.isQuestItem(item)){
 				event.setCancelled(true);
 				RPlayer rp = RPlayer.get(player);
-				rp.sendMessage("§cYou cannot interact with a quest item!", "§cVous ne pouvez intéragir avec un objet de quête !");
+				rp.sendMessage("§cVous ne pouvez intéragir avec un objet de quête !");
 			}
 		}
 	}
@@ -332,8 +332,8 @@ public class QuestListener implements Listener {
 			if(!ok){
 				event.setCancelled(true);
 				PNJHandler pnj = PNJManager.getPNJByUniqueId(event.getHandlerUUID());
-				if(pnj != null)rp.sendMessage("§cIt seems that you can't carry what §4" + pnj.getName() + " §cwants to give you. Makes space in your inventory!", "§cIl semble que vous ne pouvez porter ce que §4" + pnj.getName() + " §cveut vous donner. Faîtes de la place dans votre inventaire !");
-				else rp.sendMessage("§cIt seems that you can't carry what you will be given. Makes space in your inventory!", "§cIl semble que vous ne pouvez porter ce que l'on veut vous donner. Faîtes de la place dans votre inventaire !");
+				if(pnj != null)rp.sendMessage("§cIl semble que vous ne pouvez porter ce que §4" + pnj.getName() + " §cveut vous donner. Faîtes de la place dans votre inventaire !");
+				else rp.sendMessage("§cIl semble que vous ne pouvez porter ce que l'on veut vous donner. Faîtes de la place dans votre inventaire !");
 			}
 		}
 	}
@@ -389,8 +389,8 @@ public class QuestListener implements Listener {
 			if(!ok){
 				event.setCancelled(true);
 				PNJHandler pnj = quest.getHolder(rp);
-				if(pnj != null)rp.sendMessage("§cIt seems that you can't carry what §4" + pnj.getName() + " §cwants to give you. Makes space in your inventory!", "§cIl semble que vous ne pouvez porter ce que §4" + pnj.getName() + " §cveut vous donner. Faîtes de la place dans votre inventaire !");
-				else rp.sendMessage("§cIt seems that you can't carry what you will be given. Makes space in your inventory!", "§cIl semble que vous ne pouvez porter ce que l'on veut vous donner. Faîtes de la place dans votre inventaire !");
+				if(pnj != null)rp.sendMessage("§cIl semble que vous ne pouvez porter ce que §4" + pnj.getName() + " §cveut vous donner. Faîtes de la place dans votre inventaire !");
+				else rp.sendMessage("§cIl semble que vous ne pouvez porter ce que l'on veut vous donner. Faîtes de la place dans votre inventaire !");
 			}
 		}
 	}

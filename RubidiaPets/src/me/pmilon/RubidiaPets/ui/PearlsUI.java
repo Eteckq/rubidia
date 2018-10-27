@@ -102,12 +102,12 @@ public class PearlsUI extends UIHandler {
 											}
 										}else{
 											this.getHolder().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-											rp.sendMessage("§cThere is no more empty pearl slot.", "§cIl n'y a plus de slot disponible.");
+											rp.sendMessage("§cIl n'y a plus de slot disponible.");
 											e.setCancelled(true);
 										}
 									}else{
 										this.getHolder().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-										rp.sendMessage("§cYour pet already has an active pearl of this type!", "§cVotre compagnon porte déjà une perle active de ce type !");
+										rp.sendMessage("§cVotre compagnon porte déjà une perle active de ce type !");
 										e.setCancelled(true);
 									}
 								}
@@ -126,7 +126,7 @@ public class PearlsUI extends UIHandler {
 				int slot = e.getRawSlot();
 				e.setCancelled(true);
 				if(this.getPet().getActivePearls().size() > slot){
-					rp.sendMessage("§cYou cannot remove an active pearl!", "§cVous ne pouvez enlever une perle active !");
+					rp.sendMessage("§cVous ne pouvez enlever une perle active !");
 				}else if(slot == SLOT_BACK){
 					this.getUIManager().requestUI(new PetUI(this.getHolder(), this.pet));
 				}

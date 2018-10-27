@@ -122,7 +122,7 @@ public class GMember extends PermissionsHolder {
 		this.setRankId(rank.getId());
 		rank.resetPermissions(this);
 		RPlayer rp = RPlayer.get(this);
-		rp.sendMessage("§eYou have been promoted §6" + rank.getName() + "§e!", "§eVous avez été promu §6" + rank.getName() + " §e!");
+		rp.sendMessage("§eVous avez été promu §6" + rank.getName() + " §e!");
 	}
 	
 	public Rank getRank(){

@@ -23,7 +23,7 @@ public class ScrollCommandExecutor extends HybridAdminCommandExecutor {
 				try{
 					Player target = rp.getPlayer();
 					Scrolls.newScroll(target, ScrollType.valueOf(args[1]), args[2]);
-					rp.sendMessage("§eYou received a scroll!", "§eVous avez reçu un parchemin !");
+					rp.sendMessage("§eVous avez reçu un parchemin !");
 				}catch(IllegalArgumentException ex){
 					sender.sendMessage("§4ERROR: §cPossible scrolltypes are " + Utils.valuesOf(ScrollType.class));
 				}

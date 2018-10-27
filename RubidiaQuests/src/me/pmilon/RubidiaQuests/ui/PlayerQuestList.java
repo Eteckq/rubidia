@@ -89,19 +89,19 @@ public class PlayerQuestList extends ListMenuUIHandler<Quest> {
 		Quest quest = this.get(e.getRawSlot());
 		if(e.isRightClick()){
 			if(quest.isGiveupable() || rp.isOp()){
-				if(rp.isOp() && !quest.isGiveupable())rp.sendMessage("§eYou could give up this quest because you were Operator.", "§eVous avez pu abandonner cette quête car vous êtes Opérateur.");
+				if(rp.isOp() && !quest.isGiveupable())rp.sendMessage("§eVous avez pu abandonner cette quête car vous êtes Opérateur.");
 				Core.uiManager.requestUI(new GiveUpConfirmationUI(rp, quest));
-			}else rp.sendMessage("§cYou cannot give up this quest!", "§cVous ne pouvez abandonner cette quête !");
+			}else rp.sendMessage("§cVous ne pouvez abandonner cette quête !");
 		}else{
 			Quest followed = rp.getFollowedQuest();
 			if(followed != null){
-				rp.sendMessage("§cYou stopped following quest §4" + followed.getColoredTitle() + "§c.", "§cVous avez arrêté le suivi de la quête §4" + followed.getColoredTitle() + "§c.");
+				rp.sendMessage("§cVous avez arrêté le suivi de la quête §4" + followed.getColoredTitle() + "§c.");
 				rp.setFollowedQuest(null);
 			}
 			if(quest != null){
 				if(!quest.equals(followed)){
 					rp.setFollowedQuest(quest);
-					rp.sendMessage("§aYou started following quest §2" + quest.getColoredTitle() + "§a.", "§aVous avez lancé le suivi de la quête §2" + quest.getColoredTitle() + "§a.");
+					rp.sendMessage("§aVous avez lancé le suivi de la quête §2" + quest.getColoredTitle() + "§a.");
 				}
 			}
 			Utils.updateFollowedQuest(this.getHolder(), true);

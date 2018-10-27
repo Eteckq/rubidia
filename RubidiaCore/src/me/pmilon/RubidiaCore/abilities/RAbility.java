@@ -3,7 +3,6 @@ package me.pmilon.RubidiaCore.abilities;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -565,7 +564,7 @@ public enum RAbility {
 					for(Entity e : wanear){
 						if(e instanceof Player){
 							if(!e.equals(player))
-								RPlayer.get(((Player)e)).sendMessage("§cI've got bad news for ya...", "§cJ'ai des mauvaises nouvelles...");
+								RPlayer.get(((Player)e)).sendMessage("§cJ'ai des mauvaises nouvelles...");
 						}
 					}
 					new BukkitTask(Core.instance){
@@ -833,7 +832,7 @@ public enum RAbility {
 				}.runTaskTimer(15, 0).getTaskId()));
 			}else{
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-				rp.sendMessage("§cNo enemy in sight!", "§cPas d'ennemi en vue !");
+				rp.sendMessage("§cPas d'ennemi en vue !");
 				rp.setActiveAbility(7, false);
 			}
 		}
@@ -861,7 +860,7 @@ public enum RAbility {
 			rp.setActiveAbility(8, true);
 			this.takeVigor(rp);
 			final Player player = rp.getPlayer();
-			rp.sendMessage("§dYou are now legendary charged!", "§dVous êtes désormais chargé légendaire !");
+			rp.sendMessage("§dVous êtes désormais chargé légendaire !");
 			player.setMetadata("legendaryCharged", new FixedMetadataValue(Core.instance, new BukkitTask(Core.instance){
 
 				@Override
@@ -871,7 +870,7 @@ public enum RAbility {
 
 				@Override
 				public void onCancel() {
-					rp.sendMessage("§5You are no longer legendary charged.", "§5Vous n'êtes plus chargé légendaire.");
+					rp.sendMessage("§5Vous n'êtes plus chargé légendaire.");
 				}
 				
 			}.runTaskTimer(0, 0).getTaskId()));
@@ -1091,7 +1090,7 @@ public enum RAbility {
 					}.runTaskTimerCancelling(0,4,16);
 				}
 			}else{
-				rp.sendMessage("§cThere is nobody to strike on around here!", "§cIl n'y a personne à foudroyer ici !");
+				rp.sendMessage("§cIl n'y a personne à foudroyer ici !");
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 				rp.setActiveAbility(2, false);
 			}
@@ -1369,7 +1368,7 @@ public enum RAbility {
 					
 				}.runTaskTimerCancelling(0,0,70);
 			}else{
-				rp.sendMessage("§cYou aren't targetting any reachable enemy!", "§cVous ne visez aucun ennemi atteignable !");
+				rp.sendMessage("§cVous ne visez aucun ennemi atteignable !");
 				rp.setActiveAbility(6, false);
 			}
 		}

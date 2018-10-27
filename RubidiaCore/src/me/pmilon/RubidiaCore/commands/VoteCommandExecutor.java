@@ -19,20 +19,20 @@ public class VoteCommandExecutor extends PlayerCommandExecutor {
 		if(args.length > 0){
 			if(args.length > 5){
 				if(Votes.hasVoted(rp)){
-					rp.sendMessage("§cYou already voted!", "§cVous avez déjà voté !");
+					rp.sendMessage("§cVous avez déjà voté !");
 				}else{
 					if(args[5].equalsIgnoreCase("true")){
 						Votes.vote(rp, true);
-						rp.sendMessage("§aYou successfully voted §2FOR§a!", "§aVous avez voté §2POUR§a !");
+						rp.sendMessage("§aVous avez voté §2POUR§a !");
 						rp.getChat().forceCloseFixDisplay();
 					}else if(args[5].equalsIgnoreCase("false")){
 						Votes.vote(rp, false);
-						rp.sendMessage("§aYou successfully voted §2AGAINST§a!", "§aVous avez voté §2CONTRE§a !");
+						rp.sendMessage("§aVous avez voté §2CONTRE§a !");
 						rp.getChat().forceCloseFixDisplay();
 					}
 				}
 			}else{
-				if(Votes.currentVote != null)rp.sendMessage("§cA vote is already submitted!", "§cUn vote est déjà soumis !");
+				if(Votes.currentVote != null)rp.sendMessage("§cUn vote est déjà soumis !");
 				else{
 					Vote vote = null;
 					if(args[0].equalsIgnoreCase("restart")){
@@ -96,9 +96,9 @@ public class VoteCommandExecutor extends PlayerCommandExecutor {
 									}
 									
 								};
-							}else rp.sendMessage("§4" + args[0] + " §cis not online!", "§4" + args[0] + "§ n'est pas en ligne !");
-						}else rp.sendMessage("§cUse /vote slam [player]", "§cUtilisez /vote slam [joueur]");
-					}else rp.sendMessage("§cUse /vote [restart/weather/time/slam (player)]", "§cUtilisez /vote [restart/weather/time/slam (joueur)]");
+							}else rp.sendMessage("§4" + args[0] + "§ n'est pas en ligne !");
+						}else rp.sendMessage("§cUtilisez /vote slam [joueur]");
+					}else rp.sendMessage("§cUtilisez /vote [restart/weather/time/slam (joueur)]");
 					if(vote != null){
 						if(Votes.startVote(vote)){
 							RPlayer.broadcastMessage("§2" + rp.getName() + " §asubmitted a new vote!","§2" + rp.getName() + " §aa soumis un nouveau vote !");
@@ -106,12 +106,12 @@ public class VoteCommandExecutor extends PlayerCommandExecutor {
 							rp.getChat().forceCloseFixDisplay();
 						}else{
 							int min = (int) Math.round(((double)(Votes.lastVotes.get(vote.getType())+vote.getTime()-System.currentTimeMillis()))/(60*1000L));
-							rp.sendMessage("§cYou cannot submit this type of vote for §4" + min + " §cminutes.", "§cVous ne pouvez soumettre de vote de ce type pendant §4" + min + " §cminutes.");
+							rp.sendMessage("§cVous ne pouvez soumettre de vote de ce type pendant §4" + min + " §cminutes.");
 						}
 					}
 				}
 			}
-		}else rp.sendMessage("§cUse /vote [restart/weather/time/slam (player)]", "§cUtilisez /vote [restart/weather/time/slam (joueur)]");
+		}else rp.sendMessage("§cUtilisez /vote [restart/weather/time/slam (joueur)]");
 	}
 
 }
