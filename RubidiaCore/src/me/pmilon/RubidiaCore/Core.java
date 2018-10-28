@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
@@ -48,6 +47,7 @@ import me.pmilon.RubidiaCore.commands.VanishCommandExecutor;
 import me.pmilon.RubidiaCore.commands.VoteCommandExecutor;
 import me.pmilon.RubidiaCore.couples.Couple;
 import me.pmilon.RubidiaCore.couples.Couples;
+import me.pmilon.RubidiaCore.crafts.Crafts;
 import me.pmilon.RubidiaCore.damages.DamageManager;
 import me.pmilon.RubidiaCore.damages.RDamageCause;
 import me.pmilon.RubidiaCore.duels.RDuelListener;
@@ -116,7 +116,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -172,8 +171,6 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
-import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -1703,47 +1700,7 @@ public class Core extends JavaPlugin implements Listener {
 		REnchantment.registerEnchantments();
 	    Events.onEnable(this);
 	    EntityHandler.onEnable(this);
-		
-	    Iterator<Recipe> iterator = this.getServer().recipeIterator();
-	    while(iterator.hasNext()) {
-	    	Recipe recipe = iterator.next();
-	    	if(recipe != null) {
-	    		if(recipe.getResult().getType().toString().contains("_LEGGINGS")) {
-	    			iterator.remove();
-	    		}
-	    	}
-	    }
-	    
-		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "chainmailHelmet"), new ItemStack(Material.CHAINMAIL_HELMET)).shape(new String[] { "#$#", "$ $", "   " }).setIngredient('#', Material.IRON_INGOT).setIngredient('$', Material.FLINT));
-		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "chainmailChestplate"), new ItemStack(Material.CHAINMAIL_CHESTPLATE)).shape(new String[] { "$ $", "#$#", "$#$" }).setIngredient('#', Material.IRON_INGOT).setIngredient('$', Material.FLINT));
-		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "chainmailBoots"), new ItemStack(Material.CHAINMAIL_BOOTS)).shape(new String[] { "   ", "# #", "$ $" }).setIngredient('#', Material.IRON_INGOT).setIngredient('$', Material.FLINT));
-		
-		ItemStack leatherGauntlet = new ItemStack(Material.LEATHER_LEGGINGS, 1);
-		ItemMeta leatherMeta = leatherGauntlet.getItemMeta();
-		leatherMeta.setDisplayName("§fGants en cuir");
-		leatherGauntlet.setItemMeta(leatherMeta);
-		ItemStack chainmailGauntlet = new ItemStack(Material.CHAINMAIL_LEGGINGS, 1);
-		ItemMeta chainmailMeta = leatherGauntlet.getItemMeta();
-		chainmailMeta.setDisplayName("§fGants de mailles");
-		chainmailGauntlet.setItemMeta(chainmailMeta);
-		ItemStack ironGauntlet = new ItemStack(Material.IRON_LEGGINGS, 1);
-		ItemMeta ironMeta = leatherGauntlet.getItemMeta();
-		ironMeta.setDisplayName("§fGants en fer");
-		ironGauntlet.setItemMeta(ironMeta);
-		ItemStack diamondGauntlet = new ItemStack(Material.DIAMOND_LEGGINGS, 1);
-		ItemMeta diamondMeta = leatherGauntlet.getItemMeta();
-		diamondMeta.setDisplayName("§fGants en diamant");
-		diamondGauntlet.setItemMeta(diamondMeta);
-		ItemStack goldenGauntlet = new ItemStack(Material.GOLDEN_LEGGINGS, 1);
-		ItemMeta goldenMeta = leatherGauntlet.getItemMeta();
-		goldenMeta.setDisplayName("§fGants en or");
-		goldenGauntlet.setItemMeta(goldenMeta);
-		
-		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "leatherGauntlet"), leatherGauntlet).shape(new String[] { " # ", "###", "## " }).setIngredient('#', Material.LEATHER));
-		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "chainmailGauntlet"), chainmailGauntlet).shape(new String[] { " # ", "#$#", "$# " }).setIngredient('#', Material.IRON_INGOT).setIngredient('$', Material.FLINT));
-		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "ironGauntlet"), ironGauntlet).shape(new String[] { " # ", "###", "## " }).setIngredient('#', Material.IRON_INGOT));
-		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "diamondGauntlet"), diamondGauntlet).shape(new String[] { " # ", "###", "## " }).setIngredient('#', Material.DIAMOND));
-		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "goldenGauntlet"), goldenGauntlet).shape(new String[] { " # ", "###", "## " }).setIngredient('#', Material.GOLD_INGOT));
+		Crafts.initialize(this);
 		
 		RItemStacks.enable();
 		console.sendMessage("§a   Rubidia Core Plugin Enabled");
