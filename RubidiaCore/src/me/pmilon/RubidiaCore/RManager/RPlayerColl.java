@@ -134,7 +134,6 @@ public class RPlayerColl extends Database<String,RPlayer>{
 						Configs.getPlayerConfig().getBoolean(path + ".clickSound"),
 						Configs.getPlayerConfig().getBoolean(path + ".effects"),
 						Configs.getPlayerConfig().getBoolean(path + ".music"),
-						Configs.getPlayerConfig().getBoolean(path + ".usingTextures"),
 						Configs.getPlayerConfig().getBoolean(path + ".usingCycle"),
 						Configs.getPlayerConfig().getBoolean(path + ".publicData"),
 						Configs.getPlayerConfig().getLong(path + ".vip"),
@@ -237,7 +236,6 @@ public class RPlayerColl extends Database<String,RPlayer>{
 			Configs.getPlayerConfig().set(path + ".clickSound", rp.getClickSound());
 			Configs.getPlayerConfig().set(path + ".effects", rp.getEffects());
 			Configs.getPlayerConfig().set(path + ".music", rp.getMusic());
-			Configs.getPlayerConfig().set(path + ".usingTextures", rp.isUsingTextures());
 			Configs.getPlayerConfig().set(path + ".usingCycle", rp.isUsingCycle());
 			Configs.getPlayerConfig().set(path + ".publicData", rp.isPublicData());
 			Configs.getPlayerConfig().set(path + ".vip", rp.getVip());
@@ -285,7 +283,7 @@ public class RPlayerColl extends Database<String,RPlayer>{
 	protected RPlayer getDefault(String uuid) {
 		SPlayer[] saves = new SPlayer[4];
 		saves[0] = this.newDefaultSPlayer(0);
-		RPlayer rp = new RPlayer(uuid, Bukkit.getPlayer(UUID.fromString(uuid)).getName(), Gender.UNKNOWN, 0L, false, true, true, true, true, 1, true, true, true, false, true, false, 0L, true, saves,0, System.currentTimeMillis(), 0, 0, null, 0L, 11, RChatUtils.MAX_CHAT_WIDTH, RChatUtils.MAX_CHAT_HEIGHT, true);
+		RPlayer rp = new RPlayer(uuid, Bukkit.getPlayer(UUID.fromString(uuid)).getName(), Gender.UNKNOWN, 0L, false, true, true, true, true, 1, true, true, true, true, false, 0L, true, saves,0, System.currentTimeMillis(), 0, 0, null, 0L, 11, RChatUtils.MAX_CHAT_WIDTH, RChatUtils.MAX_CHAT_HEIGHT, true);
 		rp.setLoadedSPlayer(rp.getSaves()[rp.getLastLoadedSPlayerId()]);
 		return rp;
 	}

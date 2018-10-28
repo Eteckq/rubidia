@@ -63,7 +63,6 @@ import me.pmilon.RubidiaCore.handlers.TeleportHandler;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerPlayerListHeaderFooter;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerWindowItems;
 import me.pmilon.RubidiaCore.ranks.Ranks;
-import me.pmilon.RubidiaCore.ritems.backpacks.BackPacks;
 import me.pmilon.RubidiaCore.ritems.general.ItemListener;
 import me.pmilon.RubidiaCore.ritems.general.RItem;
 import me.pmilon.RubidiaCore.ritems.general.RItemStack;
@@ -71,7 +70,6 @@ import me.pmilon.RubidiaCore.ritems.general.RItemStacks;
 import me.pmilon.RubidiaCore.ritems.weapons.Buff;
 import me.pmilon.RubidiaCore.ritems.weapons.BuffType;
 import me.pmilon.RubidiaCore.ritems.weapons.REnchantment;
-import me.pmilon.RubidiaCore.ritems.weapons.Rarity;
 import me.pmilon.RubidiaCore.ritems.weapons.Set;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
@@ -84,7 +82,6 @@ import me.pmilon.RubidiaCore.tags.TagStandListener;
 import me.pmilon.RubidiaCore.tags.TagStandManager;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.ui.AnvilUI;
-import me.pmilon.RubidiaCore.ui.BackpackUI;
 import me.pmilon.RubidiaCore.ui.DistinctionsMenu;
 import me.pmilon.RubidiaCore.ui.EnchantmentUI;
 import me.pmilon.RubidiaCore.ui.EnderChestUI;
@@ -334,7 +331,8 @@ public class Core extends JavaPlugin implements Listener {
 						p.teleport(p.getWorld().getSpawnLocation());
 						p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 999999, 1, true, false), true);
 						//rp.sendMessage("§eJouer nécessite l'installation de notre resource pack.");
-						rp.updateResourcePack();
+						rp.sendMessage("§eInstallation de §6§lRubidiaPack§e (v" + ResourcePackHandler.RESOURCE_PACK_VERSION + ")...");
+						rp.getPlayer().setResourcePack("http://r.milon.pro/downloads/RubidiaPack" + ResourcePackHandler.RESOURCE_PACK_VERSION + ".zip");
 						if(!rp.isProfileUpdated())rp.sendMessage("§dMettez à jour votre profil de joueur : §l/profile");
 						
 						if(!rp.isVip() && rp.getLastLoadedSPlayerId() == 3){
@@ -662,7 +660,7 @@ public class Core extends JavaPlugin implements Listener {
 					}
 				}
 			}else if(p.getOpenInventory().getTopInventory().getType().equals(InventoryType.ANVIL)){
-				if(rItem.isScroll() || rItem.isCustom() || rItem.isWeapon() || rItem.isBackPack()){
+				if(rItem.isScroll() || rItem.isCustom() || rItem.isWeapon()){
 					ie.setCancelled(true);
 					rp.sendMessage("§cVous ne pouvez travailler cet item !");
 				}
@@ -1073,18 +1071,16 @@ public class Core extends JavaPlugin implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerInteract(PlayerInteractEvent e){
+		System.out.println(e.getClickedBlock().getType());
 		if(e.getHand() != null){
 			if(e.getHand().equals(EquipmentSlot.HAND)){
 				final Player p = e.getPlayer();
 				final RPlayer rp = RPlayer.get(p);
-				
+
 				if(e.getAction().toString().contains("RIGHT_CLICK")){
 					ItemStack item = p.getEquipment().getItemInMainHand();
 					RItem rItem = new RItem(item);
-					if(rItem.isBackPack()){
-						e.setCancelled(true);
-						uiManager.requestUI(new BackpackUI(p, rItem.getBackPack()));
-					}else if(rItem.isScroll()){
+					if(rItem.isScroll()){
 						e.setCancelled(true);
 						Scroll scroll = rItem.getScroll();
 						if(scroll.use(p)){
@@ -1189,33 +1185,31 @@ public class Core extends JavaPlugin implements Listener {
 		}
 	}
 	
-	@EventHandler
+	/*@EventHandler
 	public void onPickUp(EntityPickupItemEvent e){
 		if(e.getEntity() instanceof Player){
-			final Player p = (Player) e.getEntity();
-			RPlayer rp = RPlayer.get(p);
+			final Player player = (Player) e.getEntity();
+			RPlayer rp = RPlayer.get(player);
 			ItemStack pickUp = e.getItem().getItemStack();
-			RItem rItem = new RItem(pickUp);
-			if(p.getInventory().contains(Material.CHEST_MINECART)){
-				int amount = 0;
+			if(pickUp.getType().toString().contains("SHULKER_BOX")){
+				boolean contains = false;
 				for(int slot = 0;slot < 36;slot++){
-					ItemStack item = p.getInventory().getItem(slot);
+					ItemStack item = player.getInventory().getItem(slot);
 					if(item != null){
-						RItem rItem2 = new RItem(item);
-						if(rItem2.isBackPack())amount++;
-						if(amount > 1){
-							p.getWorld().dropItem(p.getLocation(), p.getInventory().getItem(slot));
-							p.getInventory().remove(item);
-							rp.sendMessage("§cVous ne pouvez transporter plus d'un sac à dos !");
+						if(item.getType().toString().contains("SHULKER_BOX")) {
+							player.getWorld().dropItem(player.getLocation(), player.getInventory().getItem(slot));
+							player.getInventory().remove(item);
+							contains = true;
 						}
 					}
 				}
-				if(rItem.isBackPack() && amount > 1){
+				if(contains){
 					e.setCancelled(true);
+					rp.sendMessage("§cVous ne pouvez transporter plus d'une boîte de Shulker !");
 				}
 			}
 		}
-	}
+	}*/
 	
 	@EventHandler
 	public void onCraft(CraftItemEvent e){
@@ -1226,19 +1220,7 @@ public class Core extends JavaPlugin implements Listener {
 			RPlayer rp = RPlayer.get(p);
 			
 			if(is != null){
-				if(is.getType().equals(Material.CHEST_MINECART)){
-					if(is.hasItemMeta()){
-						ItemMeta im = is.getItemMeta();
-						if(im.hasDisplayName()){
-							if(im.getDisplayName().equals("§fSac à dos")){
-								if(e.isShiftClick())e.setCancelled(true);
-								else{
-									e.setCurrentItem(BackPacks.newBackPack());
-								}
-							}
-						}
-					}
-				}else if(is.getType().equals(Material.SHIELD) && is.hasItemMeta()){
+				if(is.getType().equals(Material.SHIELD) && is.hasItemMeta()){
 					e.setCancelled(true);
 					rp.sendMessage("§cVous ne pouvez pour le moment pas personnaliser votre bouclier.");
 				}
@@ -1721,14 +1703,7 @@ public class Core extends JavaPlugin implements Listener {
 		REnchantment.registerEnchantments();
 	    Events.onEnable(this);
 	    EntityHandler.onEnable(this);
-
-		ItemStack backpackis = new ItemStack(Material.CHEST_MINECART, 1);
-		ItemMeta bpmeta = backpackis.getItemMeta();
-		bpmeta.setDisplayName("§fSac à dos");
-		backpackis.setItemMeta(bpmeta);
 		
-		ShapedRecipe backpack = new ShapedRecipe(backpackis).shape(new String[] { "*#*", "§#§", "###" }).setIngredient('*', Material.STRING).setIngredient('#', Material.RABBIT_HIDE).setIngredient('§', Material.LEATHER);
-		this.getServer().addRecipe(backpack);
 		ShapedRecipe chainmailHelmet = new ShapedRecipe(new ItemStack(Material.CHAINMAIL_HELMET)).shape(new String[] { "#§#", "§ §", "   " }).setIngredient('#', Material.IRON_INGOT).setIngredient('§', Material.FLINT);
 		this.getServer().addRecipe(chainmailHelmet);
 		ShapedRecipe chainmailChestplate = new ShapedRecipe(new ItemStack(Material.CHAINMAIL_CHESTPLATE)).shape(new String[] { "§ §", "#§#", "§#§" }).setIngredient('#', Material.IRON_INGOT).setIngredient('§', Material.FLINT);
@@ -1738,7 +1713,6 @@ public class Core extends JavaPlugin implements Listener {
 		ShapedRecipe chainmailBoots = new ShapedRecipe(new ItemStack(Material.CHAINMAIL_BOOTS)).shape(new String[] { "   ", "# #", "§ §" }).setIngredient('#', Material.IRON_INGOT).setIngredient('§', Material.FLINT);
 		this.getServer().addRecipe(chainmailBoots);
 		
-		BackPacks.onEnable();
 		RItemStacks.enable();
 		console.sendMessage("§a   Rubidia Core Plugin Enabled");
 		console.sendMessage("§2------------------------------------------------------");
@@ -1949,12 +1923,12 @@ public class Core extends JavaPlugin implements Listener {
 												sets.add(set);
 											}
 										}
-									}else{
+									}/*else{
 										if(Weapons.types.contains(item.getType())){
 											weapon = Weapons.craft(item.getType(), rp.getRClass(), rp.getRLevel(), Rarity.COMMON);
 											if(weapon != null)player.getInventory().setItem(i, weapon.getNewItemStack(rp));
 										}
-									}
+									}*/
 								}
 							}
 						}
@@ -2008,7 +1982,6 @@ public class Core extends JavaPlugin implements Listener {
 						QuestsPlugin.questColl.saveAll(false);
 						QuestsPlugin.shopColl.saveAll(false);
 						PNJManager.save(false);
-						BackPacks.save(false);
 						Configs.saveCitiesConfig();
 						Configs.saveDatabase();
 						Configs.savePathConfig();
@@ -2136,9 +2109,6 @@ public class Core extends JavaPlugin implements Listener {
 		QuestsPlugin.onEnd();
 		RubidiaMonstersPlugin.onEnd();
 		PetsPlugin.instance.onEnd();
-		console.sendMessage("§a   Saving Backpacks...");
-		console.sendMessage("§2------------------------------------------------------");
-		BackPacks.save(true);
 		console.sendMessage("§a   Saving Cities...");
 		console.sendMessage("§2------------------------------------------------------");
 		Configs.saveCitiesConfig();

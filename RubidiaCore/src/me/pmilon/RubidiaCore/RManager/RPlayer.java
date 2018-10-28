@@ -35,7 +35,6 @@ import me.pmilon.RubidiaCore.events.RPlayerRequestDuelEvent;
 import me.pmilon.RubidiaCore.events.RPlayerXPEvent;
 import me.pmilon.RubidiaCore.events.RXPSource;
 import me.pmilon.RubidiaCore.jobs.RJob;
-import me.pmilon.RubidiaCore.handlers.ResourcePackHandler;
 import me.pmilon.RubidiaCore.handlers.TradingHandler;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerChat;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSetSlot;
@@ -118,7 +117,6 @@ public class RPlayer {
 	private boolean clickSound;
 	private boolean effects;
 	private boolean music;
-	private boolean usingTextures;
 	private boolean usingCycle;
 	private Long vip;
 	private SPlayer[] saves = new SPlayer[4];
@@ -171,8 +169,8 @@ public class RPlayer {
 	private final HashMap<String, BukkitTask> reloadingWeapons = new HashMap<String, BukkitTask>();
 
 	public RPlayer(String uuid, String name, Gender sex, long birthDate, boolean profileUpdated, boolean notifonfriendjoin, boolean notifonchatrequest, boolean invocation, boolean teleportation, int combatLevel,
-			boolean clickSound, boolean effects, boolean music, boolean usingTextures, boolean usingCycle, boolean publicData,
-			Long vip, boolean modified, SPlayer[] saves, int lastLoadedSPlayerId, long lastConnectionDate, long gamingTime, int pendingRubis, String coupleUUID, long lastDivorce,
+			boolean clickSound, boolean effects, boolean music, boolean usingCycle, boolean publicData, Long vip, boolean modified, SPlayer[] saves,
+			int lastLoadedSPlayerId, long lastConnectionDate, long gamingTime, int pendingRubis, String coupleUUID, long lastDivorce,
 			int chatHeight, int chatboxWidth, int chatboxHeight, boolean usingChat){
 		this.uuid = uuid;
 		this.name = name;
@@ -186,7 +184,6 @@ public class RPlayer {
 		this.combatLevel = combatLevel;
 		this.effects = effects;
 		this.music = music;
-		this.usingTextures = usingTextures;
 		this.usingCycle = usingCycle;
 		this.publicData = publicData;
 		this.vip = vip;
@@ -1106,29 +1103,7 @@ public class RPlayer {
 		}
 		return bonus;
 	}
-
-	public boolean isUsingTextures() {
-		return usingTextures;
-	}
-
-	public void setUsingTextures(boolean usingTextures) {
-		this.usingTextures = usingTextures;
-		this.setModified(true);
-	}
 	
-	public void updateResourcePack(){
-		if(this.isOnline()){
-			if(this.isUsingTextures()){
-				this.sendMessage("§eInstallation de §6§lRubidiaPack§e (v" + ResourcePackHandler.RESOURCE_PACK_VERSION + ")...");
-				this.getPlayer().setResourcePack("http://r.milon.pro/downloads/RubidiaPack" + ResourcePackHandler.RESOURCE_PACK_VERSION + ".zip");
-			}else{
-				this.sendMessage("§eInstallation de §6§lRubidiaPackLight§e (v" + ResourcePackHandler.RESOURCE_PACK_LITE_VERSION + ")...");
-				this.getPlayer().setResourcePack("http://r.milon.pro/downloads/RubidiaPackLight" + ResourcePackHandler.RESOURCE_PACK_LITE_VERSION + ".zip");
-			}
-		}
-		return;
-	}
-
 	public long getLastConnectionDate() {
 		return lastConnectionDate;
 	}
@@ -1792,23 +1767,22 @@ public class RPlayer {
 	}
 
 	public String registerAbilityClick(PlayerInteractEvent e){
-		RClass rClass = this.getRClass();
 		RItem rItem = new RItem(e.getItem());
 		if(rItem.isWeapon()){
 			Weapon weapon = rItem.getWeapon();
 			if(weapon.isAttack() && weapon.canUse(this)){
-				if((rClass.equals(RClass.ASSASSIN) || rClass.equals(RClass.PALADIN)) && !weapon.getWeaponUse().equals(WeaponUse.MELEE))return this.getKeystroke();
-				if(rClass.equals(RClass.MAGE) && !weapon.getWeaponUse().equals(WeaponUse.MAGIC))return this.getKeystroke();
-				if(rClass.equals(RClass.RANGER) && !weapon.getWeaponUse().toString().contains("RANGE"))return this.getKeystroke();
+				if((this.getRClass().equals(RClass.ASSASSIN) || this.getRClass().equals(RClass.PALADIN)) && !weapon.getWeaponUse().equals(WeaponUse.MELEE))return this.getKeystroke();
+				if(this.getRClass().equals(RClass.MAGE) && !weapon.getWeaponUse().equals(WeaponUse.MAGIC))return this.getKeystroke();
+				if(this.getRClass().equals(RClass.RANGER) && !weapon.getWeaponUse().toString().contains("RANGE"))return this.getKeystroke();
 				if(e.getAction().equals(Action.LEFT_CLICK_BLOCK) && !this.isInCombat()){
 					List<Material> paladin = Arrays.asList(Material.CHEST, Material.JUKEBOX, Material.BOOKSHELF, Material.JACK_O_LANTERN, Material.PUMPKIN, Material.SIGN, Material.SIGN, Material.WALL_SIGN, Material.WALL_SIGN, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.COCOA);
-					if(rClass.equals(RClass.PALADIN)){
+					if(this.getRClass().equals(RClass.PALADIN)){
 						if(paladin.contains(e.getClickedBlock().getType()) || e.getClickedBlock().getType().toString().contains("_LOG") || e.getClickedBlock().getType().toString().contains("WOOD") || e.getClickedBlock().getType().toString().contains("FENCE") || e.getClickedBlock().getType().toString().contains("GATE"))return this.getKeystroke();
-					}else if(rClass.equals(RClass.ASSASSIN)){
+					}else if(this.getRClass().equals(RClass.ASSASSIN)){
 						if(e.getClickedBlock().getType().equals(Material.COBWEB))return this.getKeystroke();
 					}
 				}else if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
-					if(rClass.equals(RClass.MAGE) && weapon.getType().toString().contains("_HOE") && !this.isInCombat()){
+					if(this.getRClass().equals(RClass.MAGE) && weapon.getType().toString().contains("_HOE") && !this.isInCombat()){
 						if(e.getClickedBlock().getType().equals(Material.GRASS) || e.getClickedBlock().getType().equals(Material.DIRT))return this.getKeystroke();
 					}
 				}

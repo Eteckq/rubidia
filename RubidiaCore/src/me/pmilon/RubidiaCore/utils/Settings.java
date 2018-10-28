@@ -3,6 +3,7 @@ package me.pmilon.RubidiaCore.utils;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.Particle;
 
 public class Settings {
@@ -82,13 +83,13 @@ public class Settings {
 	public static final int COMPETITIVE_DUEL_WIN_RENOM_MAX = 50;
 	public static final double COMPETITIVE_DUEL_FACTOR_POWER = .8;
 	public static final double COMPETITIVE_DUEL_FACTOR_BONUS = .01;
-	public static Particle DUEL_WALL_PARTICLE = Particle.DRAGON_BREATH;
+	public static final Particle DUEL_WALL_PARTICLE = Particle.DRAGON_BREATH;
 	
 	public static final int SHOUT_LIMIT = 5;
 	
-	public static long TIME_BEFORE_WEDDING_PROPOSAL = 24*60*60*1000L;
+	public static final long TIME_BEFORE_WEDDING_PROPOSAL = 24*60*60*1000L;
 	
-	public final static List<String> HELP_FR = Arrays.asList(
+	public static final List<String> HELP_FR = Arrays.asList(
 			"         §8§lCOMMANDES PRINCIPALES",
 			"§4§l /tutorial §c(§l/tuto§c)§l §6- §eSe téléporter au tutoriel",
 			"§4§l /skilltree §c(§l/skt§c)§l §6- §eOuvrir l'arbre des compétences",
@@ -116,33 +117,5 @@ public class Settings {
 			"§4§l SNEAK §c§lClic droit §7sur §c§lJOUEUR §6- §eOuvrir le menu du joueur",
 			"§4§l SNEAK §c§lClic droit §7sur §c§lCOMPAGNON §6- §eOuvrir le menu du compagnon",
 			"§4§l SNEAK §c§lClic droit §7sur §c§lBIBLIOTHEQUE §6- §eOuvrir le menu du personnage");
-	public final static List<String> HELP_EN = Arrays.asList(
-			"         §8§lMAIN COMMANDS",
-			"§4§l /tutorial §c(§l/tuto§c)§l §6- §eTeleport to tutorial",
-			"§4§l /skilltree §c(§l/skt§c)§l §6- §eOpen skilltree",
-			"§4§l /characteristics §c(§l/crc§c)§l §6- §eOpen distinctions menu",
-			"§4§l /guild §c(§l/g§c)§l §6- §eOpen guild management menu",
-			"§4§l /guilds §c(§l/gs§c)§l §6- §eOpen guild list menu",
-			"§4§l /quests §c(§l/q§c)§l §6- §eOpen active quests list",
-			"§4§l /friend §c(§l/frd§c)§l §6- §eManage friends",
-			"§4§l /friends §c(§l/frds§c)§l §6- §eGet friendlist",
-			"§4§l /spawn §6- §eTeleport to Mearwood",
-			"§4§l /suggest §c(§l/sgt§c)§l §6- §eSuggest an idea",
-			"§4§l /suggests §c(§l/sgts§c)§l §6- §eGet suggests list",
-			"§4§l /money §c(§l/m§c)§l §6- §eManage money (bank and inventory)",
-			"§4§l /howmanyplayers §c(§l/hmp§c)§l §6- §eGet registered players amount",
-			"§4§l /prefs §6- §eModify game preferences",
-			"§4§l /shop §6- §eOpen a shop",
-			"§4§l /shout §c(§l/s§c)§l §6- §eShout a message",
-			"§4§l /whisper §c(§l/w§c)§l §6- §eWhisper a message to a player",
-			"§4§l /answer §c(§l/r§c)§l §6- §eAnswer to the last whispered message",
-			"§4§l /guild §c(§l/g§c)§l §6- §eSend a message to the guild",
-			"§4§l /play §6- §eOpen character selection menu",
-			"§4§l /bienvenue §c(§l/b§c)§l §6- §eWelcome the last new player",
-			"§4§l /profile §c(§l/prof§c)§l §6- §eOpen player's profile menu",
-			"         §8§lRACCOURCIS",
-			"§4§l SNEAK §c§lRight click §7on §c§lPLAYER §6- §eOpen player menu",
-			"§4§l SNEAK §c§lRight click §7on §c§lPET §6- §eOpen pet management menu",
-			"§4§l SNEAK §c§lRight click §7on §c§lBOOKSHELF §6- §eOpen character menu");
 	
 }

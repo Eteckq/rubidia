@@ -28,7 +28,6 @@ public class PrefsUI extends UIHandler {
 	static ItemStack ITEM_INVOCATION = new ItemStack(Material.BLAZE_POWDER, 1);
 	static ItemStack ITEM_TELEPORTATION = new ItemStack(Material.ENDER_PEARL, 1);
 	static ItemStack ITEM_MUSIC = new ItemStack(Material.NOTE_BLOCK, 1);
-	static ItemStack ITEM_TEXTURES = new ItemStack(Material.TNT, 1);
 	static ItemStack ITEM_CYCLE = new ItemStack(Material.MAGMA_CREAM, 1);
 	
 	static ItemStack ITEM_DISABLED = new ItemStack(Material.GRAY_DYE, 1);
@@ -47,7 +46,6 @@ public class PrefsUI extends UIHandler {
 	static int SLOT_EFFECTS = 3;
 	static int SLOT_INVOCATION = 4;
 	static int SLOT_TELEPORTATION = 5;
-	static int SLOT_TEXTURES = 6;
 	static int SLOT_MUSIC = 7;
 	
 	//PAGE 2
@@ -122,11 +120,6 @@ public class PrefsUI extends UIHandler {
 						//TODO remove music with AudioMc
 						this.getMenu().setItem(SLOT_MUSIC, this.getMusic());
 						this.getMenu().setItem(SLOT_MUSIC+9, rp.getMusic() ? ITEM_ENABLED : ITEM_DISABLED);
-					}else if(slot == SLOT_TEXTURES || slot == SLOT_TEXTURES+9){
-						rp.setUsingTextures(!rp.isUsingTextures());
-						rp.updateResourcePack();
-						this.getMenu().setItem(SLOT_TEXTURES, this.getTextures());
-						this.getMenu().setItem(SLOT_TEXTURES+9, rp.isUsingTextures() ? ITEM_ENABLED : ITEM_DISABLED);
 					}
 				}else if(this.page_id == 2){
 					if(slot == SLOT_BACK || slot == SLOT_BACK+9){
@@ -191,9 +184,6 @@ public class PrefsUI extends UIHandler {
 			
 			getMenu().setItem(SLOT_COMBAT, this.getCombatLevel());
 			getMenu().setItem(SLOT_COMBAT+9, rp.getCombatLevel() > 0 ? ITEM_RANKINFO : ITEM_DISABLED);
-			
-			getMenu().setItem(SLOT_TEXTURES, this.getTextures());
-			getMenu().setItem(SLOT_TEXTURES+9, rp.isUsingTextures() ? ITEM_ENABLED : ITEM_DISABLED);
 			
 			getMenu().setItem(SLOT_MUSIC, this.getMusic());
 			getMenu().setItem(SLOT_MUSIC+9, rp.getMusic() ? ITEM_ENABLED : ITEM_DISABLED);
@@ -278,13 +268,6 @@ public class PrefsUI extends UIHandler {
 		META_BACK.setLore(Arrays.asList(("§7Retourner au menu des préférences."), "", ("§e§lCliquez pour ouvrir")));
 		ITEM_BACK.setItemMeta(META_BACK);
 		return ITEM_BACK;
-	}
-	private ItemStack getTextures(){
-		ItemMeta META_CHAT = ITEM_TEXTURES.getItemMeta();
-		META_CHAT.setDisplayName((rp.isUsingTextures() ? "§a" : "§c") + "§l" + ("Textures approfondies"));
-		META_CHAT.setLore(Arrays.asList(("§7Si activé, vous utilisez nos textures personnalisées."), ("§7(Taille additionnelle du resource pack : 3.08 Mo)"), ("§7Désactivez cette option si vous ne souhaitez pas les utiliser."), "", ("§e§lCliquez pour basculer")));
-		ITEM_TEXTURES.setItemMeta(META_CHAT);
-		return ITEM_TEXTURES;
 	}
 	private ItemStack getChatSize(){
 		ItemMeta META_CHAT = ITEM_CHATSETTINGS.getItemMeta();

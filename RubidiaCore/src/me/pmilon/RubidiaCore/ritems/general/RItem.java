@@ -1,13 +1,8 @@
 package me.pmilon.RubidiaCore.ritems.general;
 
-import java.util.Arrays;
-
-import me.pmilon.RubidiaCore.ritems.backpacks.BackPack;
-import me.pmilon.RubidiaCore.ritems.backpacks.BackPacks;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.scrolls.Scroll;
 import me.pmilon.RubidiaCore.scrolls.Scrolls;
-import net.md_5.bungee.api.ChatColor;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +12,6 @@ public class RItem {
 	
 	private ItemStack item;
 	private Weapon weaponReference;
-	private BackPack backpackReference;
 	private Scroll scrollReference;
 	public RItem(ItemStack item){
 		this.item = item;
@@ -43,33 +37,6 @@ public class RItem {
 			if(meta.getDisplayName() != null && meta.getLore() != null){
 				this.weaponReference = new Weapon(this);
 				return this.weaponReference.getRarity() != null;
-			}
-		}
-		return false;
-	}
-
-	public boolean isBackPack(){
-		if(this.backpackReference != null){
-			return true;
-		}
-		
-		if(this.getItem().getType().equals(Material.CHEST_MINECART)){
-			if(this.getItem().hasItemMeta()){
-				ItemMeta meta = this.getItem().getItemMeta();
-				if(meta.hasDisplayName()){
-					if(meta.getDisplayName().contains("Sac à dos")){
-						if(meta.getLore() != null){
-							String bid = ChatColor.stripColor(meta.getLore().get(0));
-							this.backpackReference = BackPacks.get(bid);
-						}else{
-							String bid = BackPacks.randomBID();
-							meta.setLore(Arrays.asList("§7" + bid));
-							this.getItem().setItemMeta(meta);
-							this.backpackReference = BackPacks.newBackPack(bid);
-						}
-						return this.backpackReference != null;
-					}
-				}
 			}
 		}
 		return false;
@@ -101,10 +68,6 @@ public class RItem {
 			}
 		}
 		return false;
-	}
-	
-	public BackPack getBackPack(){
-		return this.backpackReference;
 	}
 	
 	public Weapon getWeapon(){

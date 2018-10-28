@@ -2182,10 +2182,12 @@ public enum RAbility {
 
 	public static List<RAbility> getAvailable(RPlayer rp) {
 		List<RAbility> abilities = new ArrayList<RAbility>();
-		for(int i = 1;i < 9;i++){
-			RAbility ability = RAbility.valueOf(rp.getRClass().toString() + "_" + i);
-			if(rp.getAbilityLevel(i) > 0 && (!rp.isActiveAbility(i) || ability.isToggleable())){
-				abilities.add(ability);
+		if(!rp.getRClass().equals(RClass.VAGRANT)) {
+			for(int i = 1;i < 9;i++){
+				RAbility ability = RAbility.valueOf(rp.getRClass().toString() + "_" + i);
+				if(rp.getAbilityLevel(i) > 0 && (!rp.isActiveAbility(i) || ability.isToggleable())){
+					abilities.add(ability);
+				}
 			}
 		}
 		return abilities;
@@ -2194,8 +2196,10 @@ public enum RAbility {
 	
 	public static List<RAbility> getAvailable(RClass rClass){
 		List<RAbility> abilities = new ArrayList<RAbility>();
-		for(int i = 1;i < 9;i++){
-			abilities.add(RAbility.valueOf(rClass.toString() + "_" + i));
+		if(!rClass.equals(RClass.VAGRANT)) {
+			for(int i = 1;i < 9;i++){
+				abilities.add(RAbility.valueOf(rClass.toString() + "_" + i));
+			}
 		}
 		return abilities;
 	}

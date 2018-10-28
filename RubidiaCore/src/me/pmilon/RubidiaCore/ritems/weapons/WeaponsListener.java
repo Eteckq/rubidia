@@ -295,7 +295,7 @@ public class WeaponsListener implements Listener {
 		Weapon weapon = event.getWeapon();
 		if(weapon != null && rp.isOnline()){
 			double attackSpeedFactor = rp.getAttackSpeedFactor();
-			double ratio = Math.min((System.currentTimeMillis()-rp.getLastAttack())*weapon.getAttackSpeed()*attackSpeedFactor/1000.0D,1.0);
+			double ratio = Math.min((System.currentTimeMillis()-rp.getLastAttack())*weapon.getAttackSpeed()*attackSpeedFactor/1000.,1.);
 			rp.setNextAttackFactor(Math.pow(ratio,2));
 			rp.setLastAttack(System.currentTimeMillis());
 			rp.getPlayer().setCooldown(weapon.getType(), (int)Math.round((1-ratio)*20/(weapon.getAttackSpeed()*attackSpeedFactor)));

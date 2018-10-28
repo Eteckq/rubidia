@@ -13,8 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class ResourcePackHandler implements Listener {
 	
-	public static final String RESOURCE_PACK_VERSION = "2.0.5";
-	public static final String RESOURCE_PACK_LITE_VERSION = "2.0.3";
+	public static final String RESOURCE_PACK_VERSION = "2.0.6";
 	
 	@EventHandler
 	public void onResourcePackStatus(PlayerResourcePackStatusEvent event){

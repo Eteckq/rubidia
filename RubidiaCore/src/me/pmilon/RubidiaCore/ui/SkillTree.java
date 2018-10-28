@@ -48,7 +48,8 @@ public class SkillTree extends UIHandler {
 	@Override
 	protected boolean openWindow() {
 		getMenu().setItem(0, this.getSkp());
-		if(rp.getRClass().equals(RClass.VAGRANT))abilities = RAbility.getAvailable(rClass);
+		abilities = RAbility.getAvailable(rClass);
+		leveledUp = RAbility.getAvailable(rp);
 		for(RAbility ability : abilities){
 			getMenu().setItem(ability.getIndex(), this.getAbility(ability));
 		}
@@ -72,8 +73,6 @@ public class SkillTree extends UIHandler {
 
 								@Override
 								public void onCancel() {
-									// TODO Auto-generated method stub
-									
 								}
 							}.runTaskLater(6);
 							int amount = 1;
