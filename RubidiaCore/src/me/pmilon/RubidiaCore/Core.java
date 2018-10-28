@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
@@ -115,6 +116,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -145,7 +147,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
+//import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryAction;
@@ -170,6 +172,7 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -1071,7 +1074,6 @@ public class Core extends JavaPlugin implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerInteract(PlayerInteractEvent e){
-		System.out.println(e.getClickedBlock().getType());
 		if(e.getHand() != null){
 			if(e.getHand().equals(EquipmentSlot.HAND)){
 				final Player p = e.getPlayer();
@@ -1627,7 +1629,6 @@ public class Core extends JavaPlugin implements Listener {
     	barHandler = new HealthBarHandler(this);
 		this.getConfig().options().copyDefaults(true);
 		Configs.getPlayerConfig().options().copyDefaults(true);
-		Configs.getBackpackConfig().options().copyDefaults(true);
 		Configs.getCitiesConfig().options().copyDefaults(true);
 		Configs.getDatabase().options().copyDefaults(true);
 		Configs.getPathConfig().options().copyDefaults(true);
@@ -1635,7 +1636,6 @@ public class Core extends JavaPlugin implements Listener {
 		Configs.getCouplesConfig().options().copyDefaults(true);
 		this.saveDefaultConfig();
 		Configs.saveDefaultPlayerConfig();
-		Configs.saveDefaultBackpackConfig();
 		Configs.saveDefaultCitiesConfig();
 		Configs.saveDefaultDatabase();
 		Configs.saveDefaultPathConfig();
@@ -1704,14 +1704,24 @@ public class Core extends JavaPlugin implements Listener {
 	    Events.onEnable(this);
 	    EntityHandler.onEnable(this);
 		
-		ShapedRecipe chainmailHelmet = new ShapedRecipe(new ItemStack(Material.CHAINMAIL_HELMET)).shape(new String[] { "#§#", "§ §", "   " }).setIngredient('#', Material.IRON_INGOT).setIngredient('§', Material.FLINT);
-		this.getServer().addRecipe(chainmailHelmet);
-		ShapedRecipe chainmailChestplate = new ShapedRecipe(new ItemStack(Material.CHAINMAIL_CHESTPLATE)).shape(new String[] { "§ §", "#§#", "§#§" }).setIngredient('#', Material.IRON_INGOT).setIngredient('§', Material.FLINT);
-		this.getServer().addRecipe(chainmailChestplate);
-		ShapedRecipe chainmailLeggings = new ShapedRecipe(new ItemStack(Material.CHAINMAIL_LEGGINGS)).shape(new String[] { "§#§", "# #", "§ §" }).setIngredient('#', Material.IRON_INGOT).setIngredient('§', Material.FLINT);
-		this.getServer().addRecipe(chainmailLeggings);
-		ShapedRecipe chainmailBoots = new ShapedRecipe(new ItemStack(Material.CHAINMAIL_BOOTS)).shape(new String[] { "   ", "# #", "§ §" }).setIngredient('#', Material.IRON_INGOT).setIngredient('§', Material.FLINT);
-		this.getServer().addRecipe(chainmailBoots);
+	    Iterator<Recipe> iterator = this.getServer().recipeIterator();
+	    while(iterator.hasNext()) {
+	    	Recipe recipe = iterator.next();
+	    	if(recipe != null) {
+	    		if(recipe.getResult().getType().toString().contains("_LEGGINGS")) {
+	    			iterator.remove();
+	    		}
+	    	}
+	    }
+	    
+		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "chainmailHelmet"), new ItemStack(Material.CHAINMAIL_HELMET)).shape(new String[] { "#$#", "$ $", "   " }).setIngredient('#', Material.IRON_INGOT).setIngredient('$', Material.FLINT));
+		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "chainmailChestplate"), new ItemStack(Material.CHAINMAIL_CHESTPLATE)).shape(new String[] { "$ $", "#$#", "$#$" }).setIngredient('#', Material.IRON_INGOT).setIngredient('$', Material.FLINT));
+		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "chainmailBoots"), new ItemStack(Material.CHAINMAIL_BOOTS)).shape(new String[] { "   ", "# #", "$ $" }).setIngredient('#', Material.IRON_INGOT).setIngredient('$', Material.FLINT));
+		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "leatherGauntlet"), new ItemStack(Material.LEATHER_LEGGINGS)).shape(new String[] { " # ", "###", "## " }).setIngredient('#', Material.LEATHER));
+		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "chainmailGauntlet"), new ItemStack(Material.CHAINMAIL_LEGGINGS)).shape(new String[] { " # ", "#$#", "$# " }).setIngredient('#', Material.IRON_INGOT).setIngredient('$', Material.FLINT));
+		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "ironGauntlet"), new ItemStack(Material.IRON_LEGGINGS)).shape(new String[] { " # ", "###", "## " }).setIngredient('#', Material.IRON_INGOT));
+		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "diamondGauntlet"), new ItemStack(Material.DIAMOND_LEGGINGS)).shape(new String[] { " # ", "###", "## " }).setIngredient('#', Material.DIAMOND));
+		this.getServer().addRecipe(new ShapedRecipe(new NamespacedKey(this, "goldenGauntlet"), new ItemStack(Material.GOLDEN_LEGGINGS)).shape(new String[] { " # ", "###", "## " }).setIngredient('#', Material.GOLD_INGOT));
 		
 		RItemStacks.enable();
 		console.sendMessage("§a   Rubidia Core Plugin Enabled");
@@ -1923,12 +1933,14 @@ public class Core extends JavaPlugin implements Listener {
 												sets.add(set);
 											}
 										}
-									}/*else{
-										if(Weapons.types.contains(item.getType())){
-											weapon = Weapons.craft(item.getType(), rp.getRClass(), rp.getRLevel(), Rarity.COMMON);
-											if(weapon != null)player.getInventory().setItem(i, weapon.getNewItemStack(rp));
-										}
-									}*/
+									}else if(Weapons.types.contains(item.getType())){
+										/*weapon = Weapons.craft(item.getType(), rp.getRClass(), rp.getRLevel(), Rarity.COMMON);
+										if(weapon != null)player.getInventory().setItem(i, weapon.getNewItemStack(rp));*/
+										ItemMeta meta = item.getItemMeta();
+										meta.setUnbreakable(true);
+										meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
+										item.setItemMeta(meta);
+									}
 								}
 							}
 						}

@@ -55,48 +55,6 @@ public class Configs {
 	}
 
 	
-	public static void reloadBackpackConfig() {
-	    if (Core.backpackConfigFile == null) {
-	    	Core.backpackConfigFile = new File(Core.instance.getDataFolder(), "backpacks.yml");
-	    }
-	    Core.backpackConfig = YamlConfiguration.loadConfiguration(Core.backpackConfigFile);
-	 
-	    // Look for defaults in the jar
-	    Reader defConfigStream = new InputStreamReader(Core.instance.getResource("backpacks.yml"));
-	    if (defConfigStream != null) {
-	        YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
-	        Core.backpackConfig.setDefaults(defConfig);
-	    }
-	}
-	
-	public static FileConfiguration getBackpackConfig(){
-	    if (Core.backpackConfig == null) {
-	        reloadBackpackConfig();
-	    }
-	    return Core.backpackConfig;
-	}
-	
-	public static void saveBackpackConfig() {
-	    if (Core.backpackConfig == null || Core.backpackConfigFile == null) {
-	        return;
-	    }
-	    try {
-	        getBackpackConfig().save(Core.backpackConfigFile);
-	    } catch (IOException ex) {
-	    	Core.instance.getLogger().log(Level.SEVERE, "Could not save config to " + Core.backpackConfigFile, ex);
-	    }
-	}
-	
-	public static void saveDefaultBackpackConfig() {
-	    if (Core.backpackConfigFile == null) {
-	    	Core.backpackConfigFile = new File(Core.instance.getDataFolder(), "backpacks.yml");
-	    }
-	    if (!Core.backpackConfigFile.exists()) {            
-	    	Core.instance.saveResource("backpacks.yml", false);
-	    }
-	}
-	
-	
 	public static void reloadCitiesConfig() {
 	    if (Core.cityConfigFile == null) {
 	    	Core.cityConfigFile = new File(Core.instance.getDataFolder(), "cities.yml");
@@ -312,7 +270,6 @@ public class Configs {
             if(Core.instance.getConfig().getBoolean("saveconfigs")){
             	Core.instance.getConfig().save(new File(Core.getSavesFolder(), "config.yml"));
 	        	getPlayerConfig().save(new File(Core.getSavesFolder(), "players.yml"));
-	        	getBackpackConfig().save(new File(Core.getSavesFolder(), "backpacks.yml"));
     			getCitiesConfig().save(new File(Core.getSavesFolder(), "cities.yml"));
     			getDatabase().save(new File(Core.getSavesFolder(), "database.yml"));
     			getPathConfig().save(new File(Core.getSavesFolder(), "paths.yml"));
