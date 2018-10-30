@@ -4,23 +4,19 @@ import org.bukkit.Material;
 
 public enum RClass {
 	
-	VAGRANT(Material.WOODEN_SHOVEL, Material.WOODEN_SHOVEL, "Vagabond", "Vagrant", "", "§7"),
-	PALADIN(Material.DIAMOND_CHESTPLATE, Material.WOODEN_AXE, "Paladin", "Paladin", "§2", "§a"),
-	RANGER(Material.ARROW, Material.BOW, "Ranger", "Ranger", "§9", "§b"),
-	MAGE(Material.STICK, Material.WOODEN_HOE, "Mage", "Mage", "§6", "§e"),
-	ASSASSIN(Material.FEATHER, Material.WOODEN_SWORD, "Assassin", "Assassin", "§4", "§c");
+	VAGRANT(Material.WOODEN_SHOVEL, "Vagabond", "", "§7"),
+	PALADIN(Material.DIAMOND_CHESTPLATE, "Paladin", "§2", "§a"),
+	RANGER(Material.ARROW, "Ranger", "§9", "§b"),
+	MAGE(Material.STICK, "Mage", "§6", "§e"),
+	ASSASSIN(Material.FEATHER, "Assassin", "§4", "§c");
 	
 	private final Material display;
-	private final Material baseWeapon;
-	private final String displayFr;
-	private final String displayEn;
+	private final String name;
 	private final String darkColor;
 	private final String color;
-	private RClass(Material display, Material baseWeapon, String displayFr, String displayEn, String darkColor, String color){
+	private RClass(Material display, String name, String darkColor, String color){
 		this.display = display;
-		this.baseWeapon = baseWeapon;
-		this.displayFr = displayFr;
-		this.displayEn = displayEn;
+		this.name = name;
 		this.darkColor = darkColor;
 		this.color = color;
 	}
@@ -29,16 +25,8 @@ public enum RClass {
 		return this.display;
 	}
 	
-	public Material getBaseWeapon(){
-		return this.baseWeapon;
-	}
-
-	public String getDisplayFr() {
-		return displayFr;
-	}
-
-	public String getDisplayEn() {
-		return displayEn;
+	public String getName(){
+		return this.name;
 	}
 
 	public String getDarkColor() {
