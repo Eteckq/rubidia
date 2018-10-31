@@ -3,6 +3,7 @@ package me.pmilon.RubidiaCore.ritems.weapons;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -23,10 +24,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerShearEntityEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.projectiles.ProjectileSource;
 
@@ -38,7 +43,8 @@ import me.pmilon.RubidiaCore.events.RPlayerUseWeaponEvent;
 import me.pmilon.RubidiaCore.mage.MageAttack;
 import me.pmilon.RubidiaCore.ritems.general.RItem;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaGuilds.utils.Settings;
+import me.pmilon.RubidiaCore.utils.RandomUtils;
+import me.pmilon.RubidiaCore.utils.Settings;
 
 public class WeaponsListener implements Listener {
 	
@@ -137,7 +143,8 @@ public class WeaponsListener implements Listener {
 										}
 									}else event.setCancelled(true);
 								}else if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
-									if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && !Settings.INTERACT_BLOCKS.contains(event.getClickedBlock().getType()))){
+									if(event.getAction().equals(Action.RIGHT_CLICK_AIR)
+											|| (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && !me.pmilon.RubidiaGuilds.utils.Settings.INTERACT_BLOCKS.contains(event.getClickedBlock().getType()))){
 										event.setCancelled(true);
 										
 										if(!rp.getReloadingWeapons().containsKey(weapon.getUUID())){
@@ -188,6 +195,35 @@ public class WeaponsListener implements Listener {
 								event.setCancelled(true);
 							}
 						}
+					} else if(is.getType().toString().contains("_LEGGINGS")
+							|| is.getType().toString().contains("_HELMET")
+							|| is.getType().toString().contains("_BOOTS")
+							|| is.getType().toString().contains("_CHESTPLATE")) {
+						rp.sendMessage("§cCet item doit être éveillé avant d'être porté.");
+						event.setCancelled(true);
+					}
+				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerShear(PlayerShearEntityEvent event) {
+		ItemStack mainHand = event.getPlayer().getEquipment().getItemInMainHand();
+		if(mainHand != null) {
+			if(mainHand.getType().equals(Material.SHEARS)) {
+				RItem rItem = new RItem(mainHand);
+				if(rItem.isWeapon()) {
+					event.setCancelled(true);
+				}
+			}
+		} else {
+			ItemStack offHand = event.getPlayer().getEquipment().getItemInOffHand();
+			if(offHand != null) {
+				if(offHand.getType().equals(Material.SHEARS)) {
+					RItem rItem = new RItem(offHand);
+					if(rItem.isWeapon()) {
+						event.setCancelled(true);
 					}
 				}
 			}
@@ -255,6 +291,32 @@ public class WeaponsListener implements Listener {
 		}
 	}
 	
+	@EventHandler
+	public void onItemDamage(PlayerItemDamageEvent event) {
+		ItemStack item = event.getItem();
+		if(Weapons.TOOLS.contains(item.getType())) {
+			int realDamage = ((Damageable) item.getItemMeta()).getDamage();
+			double damageStep = Weapons.getSkinFactor(item.getType());
+			double damageShift = damageStep/2.;
+			if(realDamage > 0) {//probability = 1/N where N is the parameter of the uniform distribution (mean at N/2 so...)
+				if(RandomUtils.random.nextDouble() < 1./(Settings.TOOLS_DAMAGE_CORRECTOR*item.getType().getMaxDurability()*damageStep)) {
+					double damageFactor = realDamage/((double) item.getType().getMaxDurability());
+					int currentStep = (int) ((damageFactor - damageShift)/damageStep + 1);
+					int nextNearestDamage = (int) Math.ceil(item.getType().getMaxDurability()*(damageStep*currentStep + damageShift));
+					int damage = nextNearestDamage - realDamage;
+					event.setDamage(damage);
+					return;
+				} else {
+					event.setCancelled(true);
+					return;
+				}
+			} else {
+				event.setDamage((int) Math.ceil(item.getType().getMaxDurability()*damageShift));
+				return;
+			}
+		}
+	}
+	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onItemChange(PlayerItemHeldEvent event){
 		if(!event.isCancelled()){
@@ -277,12 +339,60 @@ public class WeaponsListener implements Listener {
 			if(newStack != null){
 				RItem newItem = new RItem(newStack);
 				if(newItem.isWeapon()){
+					if(player.getGameMode().equals(GameMode.SURVIVAL)) {
+						player.setGameMode(GameMode.ADVENTURE);
+					}
+					
+					Weapon weapon = newItem.getWeapon();
+					if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
+						RPlayer rp = RPlayer.get(player);
+						rp.reloadWeapon(weapon);
+					}
+				} else {
+					if(player.getGameMode().equals(GameMode.ADVENTURE)) {
+						player.setGameMode(GameMode.SURVIVAL);
+					}
+				}
+			}
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onItemChange(PlayerSwapHandItemsEvent event) {
+		if(!event.isCancelled()){
+			Player player = event.getPlayer();
+			ItemStack oldStack = event.getOffHandItem();
+			if(oldStack != null){
+				RItem oldItem = new RItem(oldStack);
+				if(oldItem.isWeapon()){
+					Weapon weapon = oldItem.getWeapon();
+					if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
+						RPlayer rp = RPlayer.get(player);
+						if(rp.getReloadingWeapons().containsKey(weapon.getUUID())){
+							rp.getReloadingWeapons().get(weapon.getUUID()).cancel();
+						}
+					}
+				}
+			}
+
+			ItemStack newStack = event.getMainHandItem();
+			if(newStack != null){
+				RItem newItem = new RItem(newStack);
+				if(newItem.isWeapon()){
+					if(player.getGameMode().equals(GameMode.SURVIVAL)) {
+						player.setGameMode(GameMode.ADVENTURE);
+					}
+					
 					Weapon weapon = newItem.getWeapon();
 					if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
 						RPlayer rp = RPlayer.get(player);
 						if(rp.getReloadingWeapons().containsKey(weapon.getUUID())){
 							rp.getReloadingWeapons().get(weapon.getUUID()).run();
 						}
+					}
+				} else {
+					if(player.getGameMode().equals(GameMode.ADVENTURE)) {
+						player.setGameMode(GameMode.SURVIVAL);
 					}
 				}
 			}
@@ -314,4 +424,5 @@ public class WeaponsListener implements Listener {
 		}
 		
 	}
+
 }

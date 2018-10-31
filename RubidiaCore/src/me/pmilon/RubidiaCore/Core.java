@@ -703,7 +703,7 @@ public class Core extends JavaPlugin implements Listener {
 					if(item.getType().equals(Material.BLACK_STAINED_GLASS_PANE) && item.hasItemMeta()){
 						ItemMeta meta = item.getItemMeta();
 						if(meta.hasDisplayName()){
-							if(meta.getDisplayName().equals("nrj")){
+							if(meta.getDisplayName().equals("vigor")){
 								ie.setCancelled(true);
 							}
 						}
@@ -922,7 +922,7 @@ public class Core extends JavaPlugin implements Listener {
 				rp.sendMessage("§cVous supprimerez la prochaine entité touchée.");
 			}else if(cmd.getName().equalsIgnoreCase("playmode")){
 				if(p.isOp()){
-					if(p.getGameMode().equals(GameMode.SURVIVAL)){
+					if(!p.getGameMode().equals(GameMode.CREATIVE)){
 						PlaymodeHandler.savePlaymodeSurvivalInventory(p);
 						p.setGameMode(GameMode.CREATIVE);
 						rp.sendMessage("§eVous êtes désormais en mode Admin !");
@@ -1232,7 +1232,7 @@ public class Core extends JavaPlugin implements Listener {
 		Player p = e.getPlayer();
 		Block b = e.getBlock();
 		if(!e.isCancelled()){
-			if(p.getGameMode().equals(GameMode.SURVIVAL)){
+			if(!p.getGameMode().equals(GameMode.CREATIVE)){
 				ItemStack inHand = p.getEquipment().getItemInMainHand();
 				if(inHand.getType().equals(Material.GOLDEN_PICKAXE) || inHand.getType().equals(Material.IRON_PICKAXE) || inHand.getType().equals(Material.DIAMOND_PICKAXE)){
 					if(!inHand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)){
@@ -1529,7 +1529,7 @@ public class Core extends JavaPlugin implements Listener {
 			json += JSONUtils.toJSON("attackSpeed") + ":" + JSONUtils.toJSON(String.valueOf(Utils.round(weapon.getAttackSpeed(),3))) + ",";
 			json += JSONUtils.toJSON("skinId") + ":" + JSONUtils.toJSON(String.valueOf(weapon.getSkinId())) + ",";
 			json += JSONUtils.toJSON("type") + ":" + JSONUtils.toJSON(weapon.getType().toString()) + ",";
-			json += JSONUtils.toJSON("rclass") + ":" + JSONUtils.toJSON(weapon.getRClass().getDisplayFr()) + ",";
+			json += JSONUtils.toJSON("rclass") + ":" + JSONUtils.toJSON(weapon.getRClass().getName()) + ",";
 			String setName = "null";
 			String setBuffs = "null";
 			String setWeapons = "null";
@@ -1700,7 +1700,7 @@ public class Core extends JavaPlugin implements Listener {
 		REnchantment.registerEnchantments();
 	    Events.onEnable(this);
 	    EntityHandler.onEnable(this);
-		Crafts.initialize(this);
+		Crafts.initialize(this);//must be initialized after weapons initialization
 		
 		RItemStacks.enable();
 		console.sendMessage("§a   Rubidia Core Plugin Enabled");
@@ -1751,6 +1751,21 @@ public class Core extends JavaPlugin implements Listener {
 								Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "vip " + rp.getName() + " 0");
 							}
 						}
+
+						Player player = rp.getPlayer();
+						ItemStack item = player.getEquipment().getItemInMainHand();
+						if(item != null){
+							RItem rItem = new RItem(item);
+							if(rItem.isWeapon()){
+								if(player.getGameMode().equals(GameMode.SURVIVAL)) {
+									player.setGameMode(GameMode.ADVENTURE);
+								}
+							} else {
+								if(player.getGameMode().equals(GameMode.ADVENTURE)) {
+									player.setGameMode(GameMode.SURVIVAL);
+								}
+							}
+						}
 					}
 					
 					Couple couple = rp.getCouple();
@@ -1783,19 +1798,6 @@ public class Core extends JavaPlugin implements Listener {
 					RPlayer rp = RPlayer.get(player);
 					
 					if(rp.getLoadedSPlayer() != null){
-						float speedFactor = 0;
-						if(rp.getRClass().equals(RClass.RANGER)){
-							if(player.getInventory().getItem(17) != null){
-								if(!(player.getInventory().getItem(17).getType().toString().contains("ARROW")) || player.getInventory().getItem(17).getAmount() < 3){
-									player.getInventory().setItem(17, new ItemStack(Material.ARROW, 3));
-								}
-							}else{
-								player.getInventory().setItem(17, new ItemStack(Material.ARROW, 3));
-							}
-						}else if(rp.getRClass().equals(RClass.ASSASSIN)){
-							speedFactor += RAbility.ASSASSIN_3.getDamages(rp)*.01 - 1;
-						}
-						
 						if(player.getOpenInventory() != null){
 							if(player.getOpenInventory().getTopInventory() != null){
 								if(player.getOpenInventory().getTopInventory().getType().equals(InventoryType.CRAFTING)){
@@ -1819,6 +1821,20 @@ public class Core extends JavaPlugin implements Listener {
 									}
 								}
 							}
+						}
+						
+						float speedFactor = 0;
+						if(rp.getRClass().equals(RClass.RANGER)){
+							if(player.getInventory().getItem(17) != null){
+								if(!(player.getInventory().getItem(17).getType().toString().contains("ARROW"))
+										|| player.getInventory().getItem(17).getAmount() < 3){
+									player.getInventory().setItem(17, new ItemStack(Material.ARROW, 3));
+								}
+							}else{
+								player.getInventory().setItem(17, new ItemStack(Material.ARROW, 3));
+							}
+						}else if(rp.getRClass().equals(RClass.ASSASSIN)){
+							speedFactor += RAbility.ASSASSIN_3.getDamages(rp)*.01 - 1;
 						}
 
 						boolean elytra = false;
@@ -1859,8 +1875,13 @@ public class Core extends JavaPlugin implements Listener {
 							}
 						}
 						
-						if(elytra)player.setAllowFlight(!player.isGliding());
-						else if((player.getGameMode().equals(GameMode.SURVIVAL) || player.getGameMode().equals(GameMode.ADVENTURE)) && !DialogManager.isInDialog(player))player.setAllowFlight(false);
+						if(elytra) {
+							player.setAllowFlight(!player.isGliding());
+						} else if((player.getGameMode().equals(GameMode.SURVIVAL)
+								|| player.getGameMode().equals(GameMode.ADVENTURE))
+								&& !DialogManager.isInDialog(player)) {
+							player.setAllowFlight(false);
+						}
 						
 						if(player.getEquipment().getItemInOffHand() != null){
 							ItemStack item = player.getEquipment().getItemInOffHand();
@@ -1912,14 +1933,10 @@ public class Core extends JavaPlugin implements Listener {
 												sets.add(set);
 											}
 										}
-									}else if(Weapons.types.contains(item.getType())){
+									} /*else if(Weapons.COMMON_WEAPON_TYPES.contains(item.getType())) {
 										/*weapon = Weapons.craft(item.getType(), rp.getRClass(), rp.getRLevel(), Rarity.COMMON);
-										if(weapon != null)player.getInventory().setItem(i, weapon.getNewItemStack(rp));*/
-										ItemMeta meta = item.getItemMeta();
-										meta.setUnbreakable(true);
-										meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
-										item.setItemMeta(meta);
-									}
+										if(weapon != null)player.getInventory().setItem(i, weapon.getNewItemStack(rp));
+									}*/
 								}
 							}
 						}

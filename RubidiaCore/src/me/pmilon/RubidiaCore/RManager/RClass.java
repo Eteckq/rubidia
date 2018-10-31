@@ -36,4 +36,13 @@ public enum RClass {
 	public String getColor() {
 		return color;
 	}
+	
+	public static int indexOf(RClass rClass) {
+		for(int i = 0;i < RClass.values().length;i++) {
+			if(rClass.equals(RClass.values()[i])) {
+				return i;
+			}
+		}
+		return -1;
+	}
 }

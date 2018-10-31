@@ -7,15 +7,16 @@ import java.util.Map;
 
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.ritems.general.ItemStacks;
 import me.pmilon.RubidiaCore.ritems.general.RItem;
 import me.pmilon.RubidiaCore.ritems.weapons.Piercing.PiercingType;
 import me.pmilon.RubidiaCore.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import net.minecraft.server.v1_13_R2.NBTTagList;
+import net.minecraft.server.v1_13_R2.NBTTagString;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -206,12 +207,12 @@ public class Weapon {
 	public ItemStack getNewItemStack(RPlayer rp){
 		ItemStack stack = new ItemStack(this.getType(), 1);
 		ItemMeta meta = stack.getItemMeta();
-		((Damageable) meta).setDamage((int) (this.getType().getMaxDurability()*this.getSkinId()*Weapons.getSkinFactor(this.getType())+(this.getSkinId() > 0 ? 1 : 0)));
+		((Damageable) meta).setDamage((int) Math.ceil(this.getType().getMaxDurability()*this.getSkinId()*Weapons.getSkinFactor(this.getType())));
 		meta.setDisplayName(this.getRarity().getPrefix() + "§l" + this.getName() + (this.getSuppLevel() > 0 ? " §7(+" + this.getSuppLevel() + ")" : "") + (this.getHoles() > 0 ? (" §5(" + this.getPiercings().size() + "/" + this.getHoles() + ")") : ""));
 		List<String> lore = new ArrayList<String>();
 		lore.addAll(Arrays.asList("§8" + (this.isAttack() ? "Arme " + this.getWeaponUse().getDisplayFr() : "Pièce d'armure"), "§7Rareté : " + this.getRarity().getPrefix() + this.getRarity().getDisplayFr(), "", (this.isAttack() ? "§7Dégâts : §4" : "§7Défense : §4") + this.getMinDamages() + " §8- §4" + this.getMaxDamages()));
 		if(this.isAttack())lore.add("§7Vitesse d'attaque : §8" + (this.getAttackSpeed() >= 1.75 ? "Très rapide" : this.getAttackSpeed() >= 1.25 ? "Rapide" : this.getAttackSpeed() >= .9 ? "Moyenne" : this.getAttackSpeed() >= .5 ? "Lente" : "Très lente"));
-		lore.addAll(Arrays.asList("", "§7Classe : §8" + this.getRClass().getDisplayFr(), "§7Niveau : §8" + this.getLevel()));
+		lore.addAll(Arrays.asList("", "§7Classe : §8" + this.getRClass().getName(), "§7Niveau : §8" + this.getLevel()));
 		meta.setLore(lore);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		stack.setItemMeta(meta);
@@ -252,13 +253,13 @@ public class Weapon {
 	}
 
 	public ItemStack updateState(RPlayer rp, ItemStack item){
-		int itDamage = (int) (this.getType().getMaxDurability()*this.getSkinId()*Weapons.getSkinFactor(this.getType())+(this.getSkinId() > 0 ? 1 : 0));
+		int itDamage = (int) Math.ceil(this.getType().getMaxDurability()*this.getSkinId()*Weapons.getSkinFactor(this.getType()));
 		ItemMeta meta = item.getItemMeta();
 		if(((Damageable) meta).getDamage() != itDamage) {
 			((Damageable) meta).setDamage(itDamage);
 		}
 		meta.setUnbreakable(true);
-		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE);
+		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_DESTROYS);
 		List<String> lore = meta.hasLore() ? Utils.getModifiableCopy(meta.getLore()) : new ArrayList<String>();
 		for(int i = lore.size()-1;i >= 0;i--){
 			lore.remove(i);
@@ -266,7 +267,7 @@ public class Weapon {
 		if(rp != null){
 			lore.addAll(Arrays.asList("§8" + (this.isAttack() ? ("Arme " + this.getWeaponUse().getDisplayFr()) : ("Pièce d'armure")), ("§7Rareté : ") + this.getRarity().getPrefix() + (this.getRarity().getDisplayFr()), "", (this.isAttack() ? ("§7Dégâts : §4") : ("§7Défense : §4")) + this.getMinDamages() + " §8- §4" + this.getMaxDamages()));
 			if(this.isAttack())lore.add("§7" + ("Vitesse d'attaque :") + " §8" + (this.getAttackSpeed() >= 1.75 ? ("Très rapide") : this.getAttackSpeed() >= 1.25 ? ("Rapide") : this.getAttackSpeed() >= .9 ? ("Moyenne") : this.getAttackSpeed() >= .5 ? ("Lente") : ("Très lente")));
-			lore.addAll(Arrays.asList("", ("§7Classe : ") + (this.getRClass().equals(rp.getRClass()) || this.getRClass().equals(RClass.VAGRANT) ? "§e" : "§8") + (this.getRClass().getDisplayFr()), ("§7Niveau : ") + (rp.getRLevel() >= this.getLevel() ? "§e" : "§8") + this.getLevel()));
+			lore.addAll(Arrays.asList("", ("§7Classe : ") + (this.getRClass().equals(rp.getRClass()) || this.getRClass().equals(RClass.VAGRANT) ? "§e" : "§8") + (this.getRClass().getName()), ("§7Niveau : ") + (rp.getRLevel() >= this.getLevel() ? "§e" : "§8") + this.getLevel()));
 			if(this.isSetItem()){
 				lore.addAll(Arrays.asList("", "  §2§oSet " + this.getSet().getName()));
 				lore.addAll(this.getSet().getWeaponState(rp.getPlayer()));
@@ -327,8 +328,7 @@ public class Weapon {
 			meta.setLore(lore);
 			item.setItemMeta(meta);
 			if(this.isAttack()){
-				net.minecraft.server.v1_13_R2.ItemStack it = CraftItemStack.asNMSCopy(item);
-		        NBTTagCompound compound = (it.hasTag() ? it.getTag() : new NBTTagCompound());
+		        //we change attack speed
 		        NBTTagList modifiers = new NBTTagList();
 		        NBTTagCompound damage = new NBTTagCompound();
 		        damage.setString("AttributeName", "generic.attackSpeed");
@@ -338,9 +338,12 @@ public class Weapon {
 		        damage.setInt("UUIDLeast", 894654);
 		        damage.setInt("UUIDMost", 2872);
 		        modifiers.add(damage);
-		        compound.set("AttributeModifiers", modifiers);
-		        it.setTag(compound);
-		        item = CraftItemStack.asBukkitCopy(it);
+				item = ItemStacks.setMetadata(item, "AttributeModifiers", modifiers);
+		        
+		        //we restrict usage of weapons
+		        NBTTagList canDestroy = new NBTTagList();
+		        canDestroy.add(new NBTTagString("minecraft:air"));
+				item = ItemStacks.setMetadata(item, "CanDestroy", modifiers);
 			}
 		}
 		return item;

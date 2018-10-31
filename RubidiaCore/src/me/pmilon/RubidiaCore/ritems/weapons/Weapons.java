@@ -1,7 +1,9 @@
 package me.pmilon.RubidiaCore.ritems.weapons;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import org.bukkit.Material;
 
@@ -15,37 +17,53 @@ import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 public class Weapons {
 	
+	public static final List<Material> TOOLS = Arrays.asList(Material.WOODEN_SWORD, Material.WOODEN_AXE, Material.WOODEN_HOE,
+			Material.STONE_SWORD, Material.STONE_AXE, Material.STONE_HOE,
+			Material.IRON_SWORD, Material.IRON_AXE, Material.IRON_HOE,
+			Material.DIAMOND_SWORD, Material.DIAMOND_AXE, Material.DIAMOND_HOE,
+			Material.GOLDEN_SWORD, Material.GOLDEN_AXE, Material.GOLDEN_HOE,
+			Material.BOW, Material.ELYTRA, Material.SHEARS);
+	
 	public static final String[] SKIN_WEAPONS = new String[]{"BOW","_HOE","_SWORD","_AXE","_BOOTS","_LEGGINGS","_CHESTPLATE","_HELMET"};
 	public static final String[] NAME_WEAPONS = new String[]{"Arc","","","","Bottes","Gants","Plastron","Casque"};
 	
 	public static double getSkinFactor(Material type){
-		return type.equals(Material.BOW) ? .024 : (type.toString().contains("_HOE") ? .035 : .05);
+		return type.equals(Material.ELYTRA) ? .008 :
+			(type.equals(Material.SHEARS) ? .01 :
+				(type.equals(Material.BOW) ? .024 :
+					(type.toString().contains("DIAMOND_") ? .005 : 
+						(type.toString().contains("GOLDEN_") ? .1 : .05))));
 	}
 	public static int getSkinAmount(Material type){
 		if(type.equals(Material.WOODEN_AXE))return 10;
-		else if(type.toString().contains("_HOE"))return 18;
+		else if(type.equals(Material.WOODEN_HOE))return 18;
 		else if(type.equals(Material.WOODEN_SWORD))return 10;
 		else if(type.equals(Material.BOW))return 39;
 		else if(type.equals(Material.STONE_AXE))return 17;
+		else if(type.equals(Material.STONE_HOE))return 18;
 		else if(type.equals(Material.STONE_SWORD))return 18;
 		else if(type.equals(Material.IRON_AXE))return 17;
+		else if(type.equals(Material.IRON_HOE))return 18;
 		else if(type.equals(Material.IRON_SWORD))return 18;
-		else if(type.equals(Material.DIAMOND_AXE))return 17;
-		else if(type.equals(Material.DIAMOND_SWORD))return 18;
-		else if(type.equals(Material.GOLDEN_AXE))return 15;
-		else if(type.equals(Material.GOLDEN_SWORD))return 14;
+		else if(type.equals(Material.DIAMOND_AXE))return 24;
+		else if(type.equals(Material.DIAMOND_HOE))return 28;
+		else if(type.equals(Material.DIAMOND_SWORD))return 24;
+		else if(type.equals(Material.GOLDEN_AXE))return 8;
+		else if(type.equals(Material.GOLDEN_HOE))return 8;
+		else if(type.equals(Material.GOLDEN_SWORD))return 8;
 		else if(type.toString().contains("LEATHER_")){
 			if(type.equals(Material.LEATHER_HELMET))return 18;
 			else return 19;
 		}else if(type.toString().contains("CHAINMAIL_"))return 18;
 		else if(type.toString().contains("IRON_"))return 19;
 		else if(type.toString().contains("DIAMOND_"))return 19;
-		else if(type.toString().contains("GOLD_"))return 19;
+		else if(type.toString().contains("GOLDEN_"))return 19;
 		return 0;
 	}
 	
 	public static List<Weapon> weapons = new ArrayList<Weapon>();
-	public static List<Material> types = new ArrayList<Material>();
+	public static final HashSet<Material> WEAPON_TYPES = new HashSet<Material>();
+	public static final HashSet<Material> COMMON_WEAPON_TYPES = new HashSet<Material>();
 	
 	public static void onEnable(boolean debug){
 		weapons.clear();
@@ -111,10 +129,12 @@ public class Weapons {
 	}
 	
 	public static void updateTypes(){
-		types.clear();
+		Weapons.WEAPON_TYPES.clear();
+		Weapons.COMMON_WEAPON_TYPES.clear();
 		for(Weapon weapon : weapons){
-			if(!types.contains(weapon.getType())){
-				types.add(weapon.getType());
+			Weapons.WEAPON_TYPES.add(weapon.getType());
+			if(weapon.getRarity().equals(Rarity.COMMON)) {
+				Weapons.COMMON_WEAPON_TYPES.add(weapon.getType());
 			}
 		}
 	}

@@ -127,7 +127,7 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 		}
 		double ratio = e.getRExp()/LevelUtils.getRLevelTotalExp(e);
 		long time = System.currentTimeMillis()-e.getLastDivorce();
-		lore.addAll(Arrays.asList("§8" + ("Niveau ") + "§7" + e.getRLevel(), "§8" + ("Expérience ") + "§7" + String.valueOf(Utils.round(ratio,2)) + "%", "§8" + ("Classe ") + "§7" + (e.getRClass().getDisplayFr()), "§8" + ("Meurtres ") + "§7" + e.getKills(), "§8" + ("Temps de jeu ") + "§7" + TimeUnit.MILLISECONDS.toHours(e.getGamingTime()) + "h", "§8" + (e.getCouple() == null ? (time >= Settings.TIME_BEFORE_WEDDING_PROPOSAL ? ("Célibataire") : ("Divorcé depuis ") + "§7" + TimeUnit.MILLISECONDS.toHours(time) + "h") : ("Marié à ") + "§7" + e.getCouple().getCompanion(e).getName())));
+		lore.addAll(Arrays.asList("§8" + ("Niveau ") + "§7" + e.getRLevel(), "§8" + ("Expérience ") + "§7" + String.valueOf(Utils.round(ratio,2)) + "%", "§8" + ("Classe ") + "§7" + (e.getRClass().getName()), "§8" + ("Meurtres ") + "§7" + e.getKills(), "§8" + ("Temps de jeu ") + "§7" + TimeUnit.MILLISECONDS.toHours(e.getGamingTime()) + "h", "§8" + (e.getCouple() == null ? (time >= Settings.TIME_BEFORE_WEDDING_PROPOSAL ? ("Célibataire") : ("Divorcé depuis ") + "§7" + TimeUnit.MILLISECONDS.toHours(time) + "h") : ("Marié à ") + "§7" + e.getCouple().getCompanion(e).getName())));
 		GMember member = GMember.get(e);
 		if(member.hasGuild()){
 			Guild guild = member.getGuild();

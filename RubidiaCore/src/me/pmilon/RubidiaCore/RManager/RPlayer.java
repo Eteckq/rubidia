@@ -46,6 +46,7 @@ import me.pmilon.RubidiaCore.ritems.weapons.Piercing.PiercingType;
 import me.pmilon.RubidiaCore.ritems.weapons.Set;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.ritems.weapons.WeaponUse;
+import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
 import me.pmilon.RubidiaCore.tags.NameTags;
 import me.pmilon.RubidiaCore.tasks.BossBarTimer;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
@@ -78,6 +79,7 @@ import org.bukkit.Sound;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Firework;
@@ -457,10 +459,10 @@ public class RPlayer {
 		this.setVigor(this.getVigor()+amount);
 	}
 	public String getClassName(){
-		return (this.getMastery().equals(Mastery.ADVENTURER) ? "" : this.getRClass().getDarkColor() + "§l[" + this.getMastery().getNameFR() + "] ") + this.getRClass().getColor() + this.getRClass().getDisplayFr();
+		return (this.getMastery().equals(Mastery.ADVENTURER) ? "" : this.getRClass().getDarkColor() + "§l[" + this.getMastery().getNameFR() + "] ") + this.getRClass().getColor() + this.getRClass().getName();
 	}
 	public String getEvolutionClassName(){
-		return this.getRClass().getDarkColor() + "§l[" + (this.getMastery().equals(Mastery.ADVENTURER) ? Mastery.MASTER.getNameFR() : Mastery.HERO.getNameFR()) + "] " + this.getRClass().getColor() + this.getRClass().getDisplayFr();
+		return this.getRClass().getDarkColor() + "§l[" + (this.getMastery().equals(Mastery.ADVENTURER) ? Mastery.MASTER.getNameFR() : Mastery.HERO.getNameFR()) + "] " + this.getRClass().getColor() + this.getRClass().getName();
 	}
 	public double getMaxHealth(){
 		return (20+this.getEndurance()*.75)*(1+this.getAdditionalFactor(BuffType.MAX_HEALTH));
@@ -538,7 +540,7 @@ public class RPlayer {
 						else this.getPlayer().getInventory().setItem(slot, stack);
 						ItemStack item = new ItemStack(Material.BLACK_STAINED_GLASS_PANE,1);
 						ItemMeta meta = item.getItemMeta();
-						meta.setDisplayName("nrj");
+						meta.setDisplayName("vigor");
 						item.setItemMeta(meta);
 						this.getPlayer().getInventory().setItem(8, item);
 					}
@@ -552,9 +554,9 @@ public class RPlayer {
 		}
 	}
 	public ItemStack getVigorItem(){
-		ItemStack item = new ItemStack(Material.DIAMOND_HOE,this.getVigor() > 126 ? 1 : (int)this.getVigor());
+		ItemStack item = new ItemStack(Material.ELYTRA,this.getVigor() > 126 ? 1 : (int)this.getVigor());
 		ItemMeta meta = item.getItemMeta();
-		((Damageable) meta).setDamage((int) (Material.DIAMOND_HOE.getMaxDurability()*(.9353+.06406150*(this.getVigor()/this.getMaxVigor()))));
+		((Damageable) meta).setDamage((int) Math.ceil(Material.ELYTRA.getMaxDurability()*(Weapons.getSkinFactor(Material.ELYTRA)*(Math.round(this.getVigor()*100/this.getMaxVigor()) + 1))));
 		meta.setUnbreakable(true);
 		meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
 		meta.setDisplayName("§6☇  §e" + ((int) this.getVigor()) + "§6/" + ((int) this.getMaxVigor()) + " EP");
@@ -934,7 +936,7 @@ public class RPlayer {
 
 			@Override
 			public void run() {
-				sendTitle("§fChargement du personnage...", "§7" + sp.getRClass().getDisplayFr().toUpperCase() + "  |  NIVEAU " + sp.getRLevel(), 20, 0, 20);
+				sendTitle("§fChargement du personnage...", "§7" + sp.getRClass().getName().toUpperCase() + "  |  NIVEAU " + sp.getRLevel(), 20, 0, 20);
 			}
 
 			@Override
@@ -1659,83 +1661,28 @@ public class RPlayer {
 	
 	public void reloadWeapon(final Weapon weapon){
 		if(this.getReloadingWeapons().containsKey(weapon.getUUID())){
-			this.getReloadingWeapons().get(weapon.getUUID()).run();
-		}else{
-			final long stepDelay = (long) Math.round(20.0/(3*weapon.getAttackSpeed()));
-			this.getReloadingWeapons().put(weapon.getUUID(), new BukkitTask(Core.instance){
-				boolean slowActive = false;
+			if(this.isOnline()) {
+				long delay = (long) Math.round(20.0/weapon.getAttackSpeed());
+				this.addModifier(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier("weaponReload", -.8, Operation.ADD_SCALAR));
+				this.getPlayer().playSound(this.getPlayer().getLocation(), Sound.BLOCK_ANVIL_LAND, .25F, .4F);
+				this.getReloadingWeapons().put(weapon.getUUID(), new BukkitTask(Core.instance){
 
-				@Override
-				public void run() {
-					if(isOnline()){
-						this.slowActive = Utils.addSafeBuff(getPlayer(), new PotionEffect(PotionEffectType.SLOW, (int) stepDelay, 5, true, false));
-						getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_ANVIL_LAND, .25F, .4F);
-						getReloadingWeapons().put(weapon.getUUID(), new BukkitTask(Core.instance){
-							boolean slowActive = false;
-
-							@Override
-							public void run() {
-								if(isOnline()){
-									this.slowActive = Utils.addSafeBuff(getPlayer(), new PotionEffect(PotionEffectType.SLOW, (int) stepDelay, 4, true, false));
-									getReloadingWeapons().put(weapon.getUUID(), new BukkitTask(Core.instance){
-										boolean slowActive = false;
-
-										@Override
-										public void run() {
-											if(isOnline()){
-												this.slowActive = Utils.addSafeBuff(getPlayer(), new PotionEffect(PotionEffectType.SLOW, (int) stepDelay, 2, true, false));
-												getReloadingWeapons().put(weapon.getUUID(), new BukkitTask(Core.instance){
-													boolean slowActive = false;
-
-													@Override
-													public void run() {
-														if(isOnline()){
-															getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_ANVIL_LAND, .25F, .6F);
-															getReloadingWeapons().remove(weapon.getUUID());
-														}
-													}
-
-													@Override
-													public void onCancel() {
-														if(this.slowActive){
-															getPlayer().removePotionEffect(PotionEffectType.SLOW);
-														}
-													}
-													
-												}.runTaskLater(stepDelay));
-											}
-										}
-
-										@Override
-										public void onCancel() {
-											if(this.slowActive){
-												getPlayer().removePotionEffect(PotionEffectType.SLOW);
-											}
-										}
-										
-									}.runTaskLater(stepDelay));
-								}
-							}
-
-							@Override
-							public void onCancel() {
-								if(this.slowActive){
-									getPlayer().removePotionEffect(PotionEffectType.SLOW);
-								}
-							}
-							
-						}.runTaskLater(stepDelay));
+					@Override
+					public void run() {
+						if(isOnline()){
+							getInstance().removeModifier(Attribute.GENERIC_MOVEMENT_SPEED, "weaponReload");
+							getInstance().getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_ANVIL_LAND, .25F, .6F);
+							getInstance().getReloadingWeapons().remove(weapon.getUUID());
+						}
 					}
-				}
 
-				@Override
-				public void onCancel() {
-					if(this.slowActive){
-						getPlayer().removePotionEffect(PotionEffectType.SLOW);
+					@Override
+					public void onCancel() {
+						getInstance().removeModifier(Attribute.GENERIC_MOVEMENT_SPEED, "weaponReload");
 					}
-				}
-				
-			}.runTaskLater(0));
+					
+				}.runTaskLater(delay));
+			}
 		}
 	}
 	
@@ -1775,11 +1722,22 @@ public class RPlayer {
 				if(this.getRClass().equals(RClass.MAGE) && !weapon.getWeaponUse().equals(WeaponUse.MAGIC))return this.getKeystroke();
 				if(this.getRClass().equals(RClass.RANGER) && !weapon.getWeaponUse().toString().contains("RANGE"))return this.getKeystroke();
 				if(e.getAction().equals(Action.LEFT_CLICK_BLOCK) && !this.isInCombat()){
-					List<Material> paladin = Arrays.asList(Material.CHEST, Material.JUKEBOX, Material.BOOKSHELF, Material.JACK_O_LANTERN, Material.PUMPKIN, Material.SIGN, Material.SIGN, Material.WALL_SIGN, Material.WALL_SIGN, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.COCOA);
+					List<Material> paladin = Arrays.asList(Material.CHEST, Material.TRAPPED_CHEST, Material.JUKEBOX, Material.BOOKSHELF, Material.CRAFTING_TABLE, Material.JACK_O_LANTERN, Material.PUMPKIN, Material.SIGN, Material.WALL_SIGN, Material.COCOA);
 					if(this.getRClass().equals(RClass.PALADIN)){
-						if(paladin.contains(e.getClickedBlock().getType()) || e.getClickedBlock().getType().toString().contains("_LOG") || e.getClickedBlock().getType().toString().contains("WOOD") || e.getClickedBlock().getType().toString().contains("FENCE") || e.getClickedBlock().getType().toString().contains("GATE"))return this.getKeystroke();
+						
+						if(paladin.contains(e.getClickedBlock().getType())
+								|| e.getClickedBlock().getType().toString().contains("ACACIA_")
+								|| e.getClickedBlock().getType().toString().contains("SPRUCE_")
+								|| e.getClickedBlock().getType().toString().contains("OAK_")
+								|| e.getClickedBlock().getType().toString().contains("JUNGLE_")
+								|| e.getClickedBlock().getType().toString().contains("BIRCH_")
+								|| e.getClickedBlock().getType().toString().contains("DARK_OAK_")) {
+							return this.getKeystroke();
+						}
 					}else if(this.getRClass().equals(RClass.ASSASSIN)){
-						if(e.getClickedBlock().getType().equals(Material.COBWEB))return this.getKeystroke();
+						if(e.getClickedBlock().getType().equals(Material.COBWEB)) {
+							return this.getKeystroke();
+						}
 					}
 				}else if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 					if(this.getRClass().equals(RClass.MAGE) && weapon.getType().toString().contains("_HOE") && !this.isInCombat()){
@@ -1856,6 +1814,10 @@ public class RPlayer {
 		}
 		
 		return this.getKeystroke();
+	}
+	
+	public RPlayer getInstance() {
+		return this;
 	}
 	
 }

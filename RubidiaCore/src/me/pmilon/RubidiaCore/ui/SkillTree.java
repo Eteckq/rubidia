@@ -9,6 +9,7 @@ import me.pmilon.RubidiaCore.RManager.Mastery;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.abilities.RAbility;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSetSlot;
+import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
@@ -153,10 +154,9 @@ public class SkillTree extends UIHandler {
 	
 	private ItemStack getAbility(RAbility ability){
 		boolean has = leveledUp.contains(ability);
-		double max = ability.getRClass().equals(RClass.RANGER) ? 385.0 : 60.0;
-		ItemStack item = new ItemStack(rp.isAtLeast(ability.getMastery()) ? ability.getRClass().getBaseWeapon() : Material.BARRIER, rp.getAbLevel(ability.getIndex()) < 1 ? 1 : rp.getAbLevel(ability.getIndex()));
+		ItemStack item = new ItemStack(Material.SHEARS, rp.getAbLevel(ability.getIndex()) < 1 ? 1 : rp.getAbLevel(ability.getIndex()));
 		ItemMeta meta = item.getItemMeta();
-		((Damageable) meta).setDamage((int) (has ? ability.getRClass().getBaseWeapon().getMaxDurability()*(1.0004-(8-ability.getIndex())/max) : ability.getRClass().getBaseWeapon().getMaxDurability()*(1.0004-(16-ability.getIndex())/max)));
+		((Damageable) meta).setDamage((int) Math.ceil(Material.SHEARS.getMaxDurability()*(has ? (Weapons.getSkinFactor(Material.SHEARS)*ability.getIndex() + .25*(RClass.indexOf(ability.getRClass()) - 1) + .09) : (Weapons.getSkinFactor(Material.SHEARS)*ability.getIndex() + .25*(RClass.indexOf(ability.getRClass()) - 1) + .01))));
 		meta.setUnbreakable(true);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
 		String color = has ? "§2" : "§4";

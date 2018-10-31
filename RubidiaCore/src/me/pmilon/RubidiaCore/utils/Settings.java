@@ -3,7 +3,6 @@ package me.pmilon.RubidiaCore.utils;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bukkit.Material;
 import org.bukkit.Particle;
 
 public class Settings {
@@ -72,6 +71,8 @@ public class Settings {
 	public static final double GLOBAL_WEAPON_DROP_REDUCTION = 1.15;
 	public static final double WEAPON_RARITY_MIN = .001;
 	public static final double WEAPON_RARITY_MAX = .02;
+	
+	public static final double TOOLS_DAMAGE_CORRECTOR = 1.5;
 
 	public static final int DUEL_REQUEST_TIME = 30;
 	public static final int DUEL_TIMEOUT = 3;

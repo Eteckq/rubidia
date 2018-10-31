@@ -16,18 +16,17 @@ import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
+import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
+
 public class Crafts {
 
-	public static final List<Material> CRAFTS_TO_REPLACE = Arrays.asList(Material.LEATHER_BOOTS, Material.LEATHER_CHESTPLATE, Material.LEATHER_HELMET,
-			Material.IRON_BOOTS, Material.IRON_CHESTPLATE, Material.IRON_HELMET,
-			Material.DIAMOND_BOOTS, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_HELMET,
-			Material.GOLDEN_BOOTS, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_HELMET,
-			Material.WOODEN_SWORD, Material.WOODEN_AXE, Material.WOODEN_HOE, Material.WOODEN_PICKAXE, Material.WOODEN_SHOVEL,
-			Material.STONE_SWORD, Material.STONE_AXE, Material.STONE_HOE, Material.STONE_PICKAXE, Material.STONE_SHOVEL,
-			Material.IRON_SWORD, Material.IRON_AXE, Material.IRON_HOE, Material.IRON_PICKAXE, Material.IRON_SHOVEL,
-			Material.DIAMOND_SWORD, Material.DIAMOND_AXE, Material.DIAMOND_HOE, Material.DIAMOND_PICKAXE, Material.DIAMOND_SHOVEL,
-			Material.GOLDEN_SWORD, Material.GOLDEN_AXE, Material.GOLDEN_HOE, Material.GOLDEN_PICKAXE, Material.GOLDEN_SHOVEL);//does not contain leggings, which we modify entirely
-	public static final List<String> LORE = Arrays.asList("§8Cet item peut être éveillé auprès d'un forgeron");
+	public static final List<Material> HIDED_ATTRIBUTES_CRAFTS = Arrays.asList(Material.TURTLE_HELMET,
+			Material.WOODEN_PICKAXE, Material.WOODEN_SHOVEL,
+			Material.STONE_PICKAXE, Material.STONE_SHOVEL,
+			Material.IRON_PICKAXE, Material.IRON_SHOVEL,
+			Material.DIAMOND_PICKAXE, Material.DIAMOND_SHOVEL,
+			Material.GOLDEN_PICKAXE, Material.GOLDEN_SHOVEL);
+	public static final List<String> ROUSABLE_LORE = Arrays.asList("§8Item éveillable");
 	
 	public static void initialize(Plugin plugin) {
 		List<Recipe> recipes = new ArrayList<Recipe>();
@@ -38,11 +37,10 @@ public class Crafts {
 	    	Recipe recipe = iterator.next();
 	    	if(recipe != null) {
 	    		Material type = recipe.getResult().getType();
-	    		if(type.toString().contains("_LEGGINGS") || Crafts.CRAFTS_TO_REPLACE.contains(type)) {
-	    			if(Crafts.CRAFTS_TO_REPLACE.contains(type)) {
-		    	    	recipes.add(recipe);
-		    	    	System.out.println(recipe.getResult().getType().toString() + " :: " + (recipe instanceof ShapedRecipe) + " " + (recipe instanceof ShapelessRecipe));
-		    		}
+	    		if(type.toString().contains("_LEGGINGS") || Weapons.COMMON_WEAPON_TYPES.contains(type) || Crafts.HIDED_ATTRIBUTES_CRAFTS.contains(type)) {
+	    			if(!type.toString().contains("_LEGGINGS")) {
+	    				recipes.add(recipe);
+	    			}
 	    			iterator.remove();
 	    		}
 	    	}
@@ -53,7 +51,9 @@ public class Crafts {
 	    	ItemStack item = new ItemStack(recipe.getResult().getType(), 1);
 	    	ItemMeta meta = item.getItemMeta();
 	    	meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-	    	meta.setLore(Crafts.LORE);
+	    	if(Weapons.COMMON_WEAPON_TYPES.contains(recipe.getResult().getType())) {
+		    	meta.setLore(Crafts.ROUSABLE_LORE);
+	    	}
 	    	item.setItemMeta(meta);
 	    	if(recipe instanceof ShapedRecipe) {
 	    		ShapedRecipe recipe2 = (ShapedRecipe)recipe;
@@ -92,31 +92,31 @@ public class Crafts {
 		ItemStack leatherGauntlet = new ItemStack(Material.LEATHER_LEGGINGS, 1);
 		ItemMeta leatherMeta = leatherGauntlet.getItemMeta();
 		leatherMeta.setDisplayName("§fGants en cuir");
-		leatherMeta.setLore(Crafts.LORE);
+		leatherMeta.setLore(Crafts.ROUSABLE_LORE);
 		leatherMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		leatherGauntlet.setItemMeta(leatherMeta);
 		ItemStack chainmailGauntlet = new ItemStack(Material.CHAINMAIL_LEGGINGS, 1);
 		ItemMeta chainmailMeta = chainmailGauntlet.getItemMeta();
 		chainmailMeta.setDisplayName("§fGants de mailles");
-		chainmailMeta.setLore(Crafts.LORE);
+		chainmailMeta.setLore(Crafts.ROUSABLE_LORE);
 		chainmailMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		chainmailGauntlet.setItemMeta(chainmailMeta);
 		ItemStack ironGauntlet = new ItemStack(Material.IRON_LEGGINGS, 1);
 		ItemMeta ironMeta = ironGauntlet.getItemMeta();
 		ironMeta.setDisplayName("§fGants en fer");
-		ironMeta.setLore(Crafts.LORE);
+		ironMeta.setLore(Crafts.ROUSABLE_LORE);
 		ironMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		ironGauntlet.setItemMeta(ironMeta);
 		ItemStack diamondGauntlet = new ItemStack(Material.DIAMOND_LEGGINGS, 1);
 		ItemMeta diamondMeta = diamondGauntlet.getItemMeta();
 		diamondMeta.setDisplayName("§fGants en diamant");
-		diamondMeta.setLore(Crafts.LORE);
+		diamondMeta.setLore(Crafts.ROUSABLE_LORE);
 		diamondMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		diamondGauntlet.setItemMeta(diamondMeta);
 		ItemStack goldenGauntlet = new ItemStack(Material.GOLDEN_LEGGINGS, 1);
 		ItemMeta goldenMeta = goldenGauntlet.getItemMeta();
 		goldenMeta.setDisplayName("§fGants en or");
-		goldenMeta.setLore(Crafts.LORE);
+		goldenMeta.setLore(Crafts.ROUSABLE_LORE);
 		goldenMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		goldenGauntlet.setItemMeta(goldenMeta);
 		
