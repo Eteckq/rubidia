@@ -5,7 +5,7 @@ import me.pmilon.RubidiaCore.commands.abstracts.PlayerCommandExecutor;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause.RTeleportType;
 import me.pmilon.RubidiaCore.handlers.TeleportHandler;
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaGuilds.claims.Claims;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
@@ -29,7 +29,7 @@ public class RaidCommandExecutor extends PlayerCommandExecutor {
 			if(guild.isRaiding()){
 				Raid raid = guild.getCurrentRaid();
 				Vector vector = new Vector(RandomUtils.random.nextDouble(), 0, RandomUtils.random.nextDouble()).normalize().multiply(RandomUtils.random.nextDouble()*5);
-				Location center = Locations.getSafeLocation(raid.getCenter().toVector().add(vector).toLocation(raid.getCenter().getWorld()));
+				Location center = LocationUtils.getSafeLocation(raid.getCenter().toVector().add(vector).toLocation(raid.getCenter().getWorld()));
 				TeleportHandler.startTeleportation(player, center, new RTeleportCause(RTeleportType.RAID_CENTER,null,null,null));
 			}else{
 				if(member.getPermission(Permission.CLAIM)){

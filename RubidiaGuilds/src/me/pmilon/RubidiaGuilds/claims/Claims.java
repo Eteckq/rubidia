@@ -12,7 +12,7 @@ import org.bukkit.block.Block;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
 import me.pmilon.RubidiaGuilds.events.GMemberClaimEvent;
 import me.pmilon.RubidiaGuilds.events.GMemberUnclaimEvent;
@@ -141,10 +141,10 @@ public class Claims{
 
 					@Override
 					public void run() {
-						List<Block> blocks = Locations.getRoundBlocks(location, r, false);
+						List<Block> blocks = LocationUtils.getRoundBlocks(location, r, false);
 						for(Block block : blocks){
 							if(block.getChunk().equals(newClaim.getChunk())){
-								Location location = Locations.getSafeLocation(block.getLocation());
+								Location location = LocationUtils.getSafeLocation(block.getLocation());
 								Core.playAnimEffect(Particle.SPELL_WITCH, location, .25F, .5F, .25F, .5F, 21);
 							}
 						}
@@ -188,10 +188,10 @@ public class Claims{
 
 					@Override
 					public void run() {
-						List<Block> blocks = Locations.getRoundBlocks(location, r, false);
+						List<Block> blocks = LocationUtils.getRoundBlocks(location, r, false);
 						for(Block block : blocks){
 							if(block.getChunk().equals(unclaim.getChunk())){
-								Location location = Locations.getSafeLocation(block.getLocation());
+								Location location = LocationUtils.getSafeLocation(block.getLocation());
 								Core.playAnimEffect(Particle.SPELL_INSTANT, location, .25F, .5F, .25F, .5F, 21);
 							}
 						}
