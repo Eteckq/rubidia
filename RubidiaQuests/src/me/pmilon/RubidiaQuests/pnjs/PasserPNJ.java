@@ -2,7 +2,7 @@ package me.pmilon.RubidiaQuests.pnjs;
 
 import java.util.List;
 
-import me.pmilon.RubidiaCore.RChat.RChatFixDisplay;
+import me.pmilon.RubidiaCore.chat.RChatFixDisplay;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaQuests.dialogs.PNJDialog;
 import me.pmilon.RubidiaQuests.utils.Configs;
