@@ -35,7 +35,7 @@ import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 
-public class SmithUI extends UIHandler {
+public class EnhancementUI extends UIHandler {
 
 	private ItemStack FAILURE = new ItemStack(Material.BARRIER, 1);
 	private ItemStack HELP = new ItemStack(Material.HOPPER, 1);
@@ -48,7 +48,7 @@ public class SmithUI extends UIHandler {
 	private BukkitTask endTask = null;
 	private boolean startStone = false;
 	
-	public SmithUI(Player p) {
+	public EnhancementUI(Player p) {
 		super(p);
 		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.DISPENSER, ("Renforcement"));
 		

@@ -1,6 +1,8 @@
 package me.pmilon.RubidiaCore.ritems.general;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
@@ -8,7 +10,6 @@ import me.pmilon.RubidiaCore.ritems.weapons.Rarity;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
 import me.pmilon.RubidiaCore.utils.Settings;
-import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaMonsters.events.MonsterKillEvent;
 import me.pmilon.RubidiaMonsters.regions.Monster;
@@ -66,9 +67,9 @@ public class ItemListener implements Listener {
 		}
 		
 		int probability = RandomUtils.random.nextInt(1000000);
-		List<Weapon> weaponsLevel = Weapons.getByLevel(monster.getLevel(), (int) (6+(monster.getLevel()/30.0)));
-		List<Weapon> weaponsRarity = Weapons.getByRarity(rarity);
-		List<Weapon> available = Utils.mergeLists(weaponsLevel, weaponsRarity);
+		HashSet<Weapon> weapons = Weapons.getByLevel(monster.getLevel(), (int) (6+(monster.getLevel()/30.0)));
+		weapons.addAll(Weapons.getByRarity(rarity));
+		List<Weapon> available = Arrays.asList(weapons.toArray(new Weapon[weapons.size()]));
 		Collections.shuffle(available);
 		for(Weapon weapon : available){
 			if(weapon.getDropChance()*1000000/Settings.GLOBAL_WEAPON_DROP_REDUCTION > probability){

@@ -127,24 +127,6 @@ public class Utils {
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <T> List<T> mergeLists(List<T>... lists){
-		List<T> finalList = new ArrayList<T>();
-		if(lists.length > 0){
-			List<T> first = lists[0];
-			for(T object : first){
-				boolean ok = true;
-				for(int i = 1;i < lists.length;i++){
-					if(!lists[i].contains(object))ok = false;
-					
-					if(!ok)break;
-				}
-				if(ok)finalList.add(object);
-			}
-		}
-		return finalList;
-	}
-
 	public static double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 
@@ -157,12 +139,6 @@ public class Utils {
 		List<E> newList = new ArrayList<E>();
 		newList.addAll(list);
 		return newList;
-	}
-
-	public static <E> List<E> toList(E[] es){
-		List<E> newEs = new ArrayList<E>();
-		newEs.addAll(Arrays.asList(es));
-		return newEs;
 	}
 	
 	public static int getAmountCanHold(Player player, ItemStack itemStack){

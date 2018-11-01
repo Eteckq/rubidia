@@ -208,11 +208,15 @@ public class Weapon {
 				&& !this.getType().equals(Material.SHIELD);
 	}
 	
+	public String getDisplayName() {
+		return this.getRarity().getPrefix() + "§l" + this.getName() + (this.getSuppLevel() > 0 ? " §7(+" + this.getSuppLevel() + ")" : "") + (this.getHoles() > 0 ? (" §5(" + this.getPiercings().size() + "/" + this.getHoles() + ")") : "");
+	}
+	
 	public ItemStack getNewItemStack(RPlayer rp){
 		ItemStack stack = new ItemStack(this.getType(), 1);
 		ItemMeta meta = stack.getItemMeta();
 		((Damageable) meta).setDamage((int) Math.ceil(this.getType().getMaxDurability()*this.getSkinId()*Weapons.getSkinFactor(this.getType())));
-		meta.setDisplayName(this.getRarity().getPrefix() + "§l" + this.getName() + (this.getSuppLevel() > 0 ? " §7(+" + this.getSuppLevel() + ")" : "") + (this.getHoles() > 0 ? (" §5(" + this.getPiercings().size() + "/" + this.getHoles() + ")") : ""));
+		meta.setDisplayName(this.getDisplayName());
 		List<String> lore = new ArrayList<String>();
 		lore.addAll(Arrays.asList("§8" + (this.isAttack() ? "Arme " + this.getWeaponUse().getDisplayFr() : "Pièce d'armure"), "§7Rareté : " + this.getRarity().getPrefix() + this.getRarity().getDisplayFr(), "", (this.isAttack() ? "§7Dégâts : §4" : "§7Défense : §4") + this.getMinDamages() + " §8- §4" + this.getMaxDamages()));
 		if(this.isAttack())lore.add("§7Vitesse d'attaque : §8" + (this.getAttackSpeed() >= 1.75 ? "Très rapide" : this.getAttackSpeed() >= 1.25 ? "Rapide" : this.getAttackSpeed() >= .9 ? "Moyenne" : this.getAttackSpeed() >= .5 ? "Lente" : "Très lente"));

@@ -26,7 +26,7 @@ public class Crafts {
 			Material.IRON_PICKAXE, Material.IRON_SHOVEL,
 			Material.DIAMOND_PICKAXE, Material.DIAMOND_SHOVEL,
 			Material.GOLDEN_PICKAXE, Material.GOLDEN_SHOVEL);
-	public static final List<String> ROUSABLE_LORE = Arrays.asList("§8Item éveillable");
+	public static final String ROUSABLE_LORE = "§8Item éveillable";
 	
 	public static void initialize(Plugin plugin) {
 		List<Recipe> recipes = new ArrayList<Recipe>();
@@ -52,7 +52,7 @@ public class Crafts {
 	    	ItemMeta meta = item.getItemMeta();
 	    	meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 	    	if(Weapons.COMMON_WEAPON_TYPES.contains(recipe.getResult().getType())) {
-		    	meta.setLore(Crafts.ROUSABLE_LORE);
+		    	meta.setLore(Arrays.asList(Crafts.ROUSABLE_LORE));
 	    	}
 	    	item.setItemMeta(meta);
 	    	if(recipe instanceof ShapedRecipe) {
@@ -92,31 +92,31 @@ public class Crafts {
 		ItemStack leatherGauntlet = new ItemStack(Material.LEATHER_LEGGINGS, 1);
 		ItemMeta leatherMeta = leatherGauntlet.getItemMeta();
 		leatherMeta.setDisplayName("§fGants en cuir");
-		leatherMeta.setLore(Crafts.ROUSABLE_LORE);
+		leatherMeta.setLore(Arrays.asList(Crafts.ROUSABLE_LORE));
 		leatherMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		leatherGauntlet.setItemMeta(leatherMeta);
 		ItemStack chainmailGauntlet = new ItemStack(Material.CHAINMAIL_LEGGINGS, 1);
 		ItemMeta chainmailMeta = chainmailGauntlet.getItemMeta();
 		chainmailMeta.setDisplayName("§fGants de mailles");
-		chainmailMeta.setLore(Crafts.ROUSABLE_LORE);
+		chainmailMeta.setLore(Arrays.asList(Crafts.ROUSABLE_LORE));
 		chainmailMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		chainmailGauntlet.setItemMeta(chainmailMeta);
 		ItemStack ironGauntlet = new ItemStack(Material.IRON_LEGGINGS, 1);
 		ItemMeta ironMeta = ironGauntlet.getItemMeta();
 		ironMeta.setDisplayName("§fGants en fer");
-		ironMeta.setLore(Crafts.ROUSABLE_LORE);
+		ironMeta.setLore(Arrays.asList(Crafts.ROUSABLE_LORE));
 		ironMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		ironGauntlet.setItemMeta(ironMeta);
 		ItemStack diamondGauntlet = new ItemStack(Material.DIAMOND_LEGGINGS, 1);
 		ItemMeta diamondMeta = diamondGauntlet.getItemMeta();
 		diamondMeta.setDisplayName("§fGants en diamant");
-		diamondMeta.setLore(Crafts.ROUSABLE_LORE);
+		diamondMeta.setLore(Arrays.asList(Crafts.ROUSABLE_LORE));
 		diamondMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		diamondGauntlet.setItemMeta(diamondMeta);
 		ItemStack goldenGauntlet = new ItemStack(Material.GOLDEN_LEGGINGS, 1);
 		ItemMeta goldenMeta = goldenGauntlet.getItemMeta();
 		goldenMeta.setDisplayName("§fGants en or");
-		goldenMeta.setLore(Crafts.ROUSABLE_LORE);
+		goldenMeta.setLore(Arrays.asList(Crafts.ROUSABLE_LORE));
 		goldenMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		goldenGauntlet.setItemMeta(goldenMeta);
 		

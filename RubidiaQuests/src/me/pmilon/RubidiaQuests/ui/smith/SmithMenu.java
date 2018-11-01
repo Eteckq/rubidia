@@ -16,11 +16,11 @@ import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 
 public class SmithMenu extends UIHandler {
 
-	private int SLOT_ENHANCEMENT = 1, SLOT_PIERCING = 3;
+	private int SLOT_AROUSAL = 0, SLOT_ENHANCEMENT = 2, SLOT_PIERCING = 4;
 	
 	public SmithMenu(Player p) {
 		super(p);
-		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.HOPPER, ("FORGE"));
+		this.menu = Bukkit.createInventory(this.getHolder(), InventoryType.HOPPER, ("Forgeron"));
 	}
 
 	@Override
@@ -42,7 +42,8 @@ public class SmithMenu extends UIHandler {
 		int slot = e.getRawSlot();
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				if(slot == this.SLOT_ENHANCEMENT)Core.uiManager.requestUI(new SmithUI(this.getHolder()));
+				if(slot == this.SLOT_AROUSAL)Core.uiManager.requestUI(new ArousalUI(this.getHolder()));
+				else if(slot == this.SLOT_ENHANCEMENT)Core.uiManager.requestUI(new EnhancementUI(this.getHolder()));
 				else if(slot == this.SLOT_PIERCING)Core.uiManager.requestUI(new PiercingUI(this.getHolder()));
 			}
 		}
@@ -54,25 +55,35 @@ public class SmithMenu extends UIHandler {
 
 	@Override
 	protected boolean openWindow() {
+		this.getMenu().setItem(this.SLOT_AROUSAL, this.getArousal());
 		this.getMenu().setItem(this.SLOT_ENHANCEMENT, this.getEnhancement());
 		this.getMenu().setItem(this.SLOT_PIERCING, this.getPiercing());
 		return this.getHolder().openInventory(this.menu) != null;
+	}
+	
+	private ItemStack getArousal(){
+		ItemStack item = new ItemStack(Material.HEART_OF_THE_SEA,1);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName("§6Eveil");
+		meta.setLore(Arrays.asList("§7Eveillez votre arme/armure pour", "§7révéler les secrets qu'ell renferme", "§eItem éveillable requis"));
+		item.setItemMeta(meta);
+		return item;
 	}
 	
 	private ItemStack getEnhancement(){
 		ItemStack item = new ItemStack(Material.ANVIL,1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6" + ("Renforcement"));
-		meta.setLore(Arrays.asList("§7" + ("Améliorez la puissance de votre arme/armure"), "§7" + ("en y appliquant un renforcement !"), "§7" + ("Pierre étoile requise")));
+		meta.setLore(Arrays.asList("§7Améliorez la puissance de votre arme/armure", "§7en y appliquant un renforcement", "§ePierre étoile requise"));
 		item.setItemMeta(meta);
 		return item;
 	}
 	
 	private ItemStack getPiercing(){
-		ItemStack item = new ItemStack(Material.BOOK,1);
+		ItemStack item = new ItemStack(Material.SUNFLOWER,1);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName("§6Piercing");
-		meta.setLore(Arrays.asList("§7" + ("Percez votre arme/armure afin d'y placer des"), "§7" + ("joyaux et augmenter vos caractéristiques !"), "§7" + ("Orichalque requis")));
+		meta.setLore(Arrays.asList("§7Percez votre arme/armure afin d'y placer", "§7de joyaux pour augmenter vos caractéristiques", "§eOrichalque requis"));
 		item.setItemMeta(meta);
 		return item;
 	}

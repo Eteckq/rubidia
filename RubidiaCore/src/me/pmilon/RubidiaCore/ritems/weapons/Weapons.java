@@ -2,7 +2,6 @@ package me.pmilon.RubidiaCore.ritems.weapons;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import org.bukkit.Material;
@@ -144,8 +143,8 @@ public class Weapons {
 		}
 	}
 	
-	public static List<Weapon> getByType(Material type){
-		List<Weapon> weapons = new ArrayList<Weapon>();
+	public static HashSet<Weapon> getByType(Material type){
+		HashSet<Weapon> weapons = new HashSet<Weapon>();
 		for(Weapon weapon : Weapons.weapons){
 			if(weapon.getType().equals(type)){
 				weapons.add(weapon);
@@ -154,9 +153,9 @@ public class Weapons {
 		return weapons;
 	}
 	
-	public static List<Weapon> getByRarity(Rarity... rarities){
-		List<Rarity> rarities2 = Utils.toList(rarities);
-		List<Weapon> weapons = new ArrayList<Weapon>();
+	public static HashSet<Weapon> getByRarity(Rarity... rarities){
+		HashSet<Rarity> rarities2 = new HashSet<Rarity>(Arrays.asList(rarities));
+		HashSet<Weapon> weapons = new HashSet<Weapon>();
 		for(Weapon weapon : Weapons.weapons){
 			if(rarities2.contains(weapon.getRarity())){
 				weapons.add(weapon);
@@ -165,8 +164,8 @@ public class Weapons {
 		return weapons;
 	}
 	
-	public static List<Weapon> getByRClass(RClass rClass){
-		List<Weapon> weapons = new ArrayList<Weapon>();
+	public static HashSet<Weapon> getByRClass(RClass rClass){
+		HashSet<Weapon> weapons = new HashSet<Weapon>();
 		for(Weapon weapon : Weapons.weapons){
 			if(weapon.getRClass().equals(rClass)){
 				weapons.add(weapon);
@@ -175,8 +174,8 @@ public class Weapons {
 		return weapons;
 	}
 	
-	public static List<Weapon> getByLevel(int level, int tolerance){
-		List<Weapon> weapons = new ArrayList<Weapon>();
+	public static HashSet<Weapon> getByLevel(int level, int tolerance){
+		HashSet<Weapon> weapons = new HashSet<Weapon>();
 		for(Weapon weapon : Weapons.weapons){
 			if(weapon.getLevel() >= level-tolerance && weapon.getLevel() <= level+tolerance){
 				weapons.add(weapon);
@@ -202,55 +201,11 @@ public class Weapons {
 		}
 		return null;
 	}
-
-	@SuppressWarnings("unchecked")
-	public static Weapon craft(Material type, RClass rClass, int levelMax, Rarity... rarities){
-		List<Weapon> availableType = new ArrayList<Weapon>();
-		List<Weapon> availableRarity = new ArrayList<Weapon>();
-		if(type != null)availableType = Weapons.getByType(type);
-		if(rarities != null)availableRarity = Weapons.getByRarity(rarities);
-		List<Weapon> available = Utils.mergeLists(availableType, availableRarity);
-		if(available.size() > 0){
-			Collections.shuffle(available);
-			for(Weapon weapon : available){
-				if(weapon.getLevel() <= levelMax && weapon.getRClass().equals(rClass)){
-					return weapon;
-				}
-			}
-			
-			for(Weapon weapon : available){
-				if(weapon.getLevel() <= levelMax){
-					return weapon;
-				}
-			}
-			
-			return available.get(0);
-		}/*else if(availableType.size() > 0){
-			Collections.shuffle(availableType);
-			for(Weapon weapon : availableType){
-				if(weapon.getLevel() <= levelMax){
-					return weapon;
-				}
-			}
-			
-			return availableType.get(0);
-		}else if(availableRClass.size() > 0){
-			Collections.shuffle(availableRClass);
-			for(Weapon weapon : availableRClass){
-				if(weapon.getLevel() <= levelMax){
-					return weapon;
-				}
-			}
-			
-			return availableRClass.get(0);
-		}*/
-		return null;
-	}
 	
 	public static Weapon nearest(int level, boolean attack, RClass rClass, String type, Rarity... rarities){
 		List<Weapon> available = new ArrayList<Weapon>(weapons);
 		List<Rarity> rarities2 = new ArrayList<Rarity>();
-		if(rarities != null)rarities2 = Utils.toList(rarities);
+		if(rarities != null)rarities2 = Arrays.asList(rarities);
 		for(Weapon weapon : weapons){
 			if(!rarities2.contains(weapon.getRarity())){
 				available.remove(weapon);
@@ -281,11 +236,11 @@ public class Weapons {
 		List<Weapon> available = new ArrayList<Weapon>(weapons);
 		List<Material> materials = new ArrayList<Material>();
 		if(types != null){
-			materials = Utils.toList(types);
+			materials = Arrays.asList(types);
 			for(Weapon weapon : weapons){
-				if(!materials.contains(weapon.getType())){
-					available.remove(weapon);
-				}else if(weapon.getLevel() < levelMin && weapon.getLevel() > levelMax && available.contains(weapon)){
+				if(!materials.contains(weapon.getType())
+						|| (weapon.getLevel() < levelMin
+								&& weapon.getLevel() > levelMax)){
 					available.remove(weapon);
 				}
 			}
@@ -296,16 +251,34 @@ public class Weapons {
 		}
 		return null;
 	}
+	
+	public static Weapon random(RPlayer rp, int levelMin, int levelMax, Material type){
+		List<Weapon> available = new ArrayList<Weapon>(weapons);
+		for(Weapon weapon : weapons){
+			if(!weapon.getType().equals(type)
+					|| (weapon.getLevel() < levelMin
+							&& weapon.getLevel() > levelMax)
+					|| !weapon.canUse(rp).isEmpty()){
+				available.remove(weapon);
+			}
+		}
+		
+		if(available.size() > 0){
+			return available.get(RandomUtils.random.nextInt(available.size()));
+		}
+		return null;
+	}
 
 	public static Weapon random(Material type, Rarity... rarities){
-		List<Weapon> available = Weapons.getByType(type);
+		HashSet<Weapon> available = Weapons.getByType(type);
 		if(available.size() > 0){
 			rarities = Weapons.filterAvailableRarities(available, rarities);
 			if(rarities.length > 0){
 				Rarity rarity = Rarity.random(rarities);
-				Weapon weapon = available.get(RandomUtils.random.nextInt(available.size()));
+				List<Weapon> weapons = Arrays.asList(available.toArray(new Weapon[available.size()]));
+				Weapon weapon = weapons.get(RandomUtils.random.nextInt(available.size()));
 				while(!weapon.getRarity().equals(rarity)){
-					weapon = available.get(RandomUtils.random.nextInt(available.size()));
+					weapon = weapons.get(RandomUtils.random.nextInt(available.size()));
 				}
 				return weapon;
 			}
@@ -313,18 +286,17 @@ public class Weapons {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	public static Weapon random(Material type, int level, Rarity... rarities){
-		List<Weapon> availableType = Weapons.getByType(type);
-		List<Weapon> availableLevel = Weapons.getByLevel(level, 9);
-		List<Weapon> available = Utils.mergeLists(availableType, availableLevel);
+		HashSet<Weapon> available = Weapons.getByType(type);
+		available.addAll(Weapons.getByLevel(level, 9));
 		if(available.size() > 0){
 			rarities = Weapons.filterAvailableRarities(available, rarities);
 			if(rarities.length > 0){
 				Rarity rarity = Rarity.random(rarities);
-				Weapon weapon = available.get(RandomUtils.random.nextInt(available.size()));
+				List<Weapon> weapons = Arrays.asList(available.toArray(new Weapon[available.size()]));
+				Weapon weapon = weapons.get(RandomUtils.random.nextInt(available.size()));
 				while(!weapon.getRarity().equals(rarity)){
-					weapon = available.get(RandomUtils.random.nextInt(available.size()));
+					weapon = weapons.get(RandomUtils.random.nextInt(available.size()));
 				}
 				return weapon;
 			}
@@ -332,7 +304,7 @@ public class Weapons {
 		return null;
 	}
 	
-	public static Rarity[] filterAvailableRarities(List<Weapon> weapons, Rarity... rarities){
+	public static Rarity[] filterAvailableRarities(HashSet<Weapon> weapons, Rarity... rarities){
 		List<Rarity> newRarities = new ArrayList<Rarity>();
 		for(int i = 0;i < rarities.length;i++){
 			Rarity rarity = rarities[i];
