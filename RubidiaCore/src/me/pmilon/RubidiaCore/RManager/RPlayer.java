@@ -1656,31 +1656,34 @@ public class RPlayer {
 		return reloadingWeapons;
 	}
 	
-	public void reloadWeapon(final Weapon weapon){
-		if(this.getReloadingWeapons().containsKey(weapon.getUUID())){
-			if(this.isOnline()) {
-				long delay = (long) Math.round(20.0/weapon.getAttackSpeed());
-				this.addModifier(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier("weaponReload", -.8, Operation.ADD_SCALAR));
-				this.getPlayer().playSound(this.getPlayer().getLocation(), Sound.BLOCK_ANVIL_LAND, .25F, .4F);
-				this.getReloadingWeapons().put(weapon.getUUID(), new BukkitTask(Core.instance){
+	public void reloadWeapon(Weapon weapon){
+		if(this.isOnline()) {
+			long delay = (long) Math.round(20.0/weapon.getAttackSpeed());
+			this.addModifier(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier("weaponReload", -.8, Operation.ADD_SCALAR));
+			this.getPlayer().playSound(this.getPlayer().getLocation(), Sound.BLOCK_ANVIL_LAND, .25F, .4F);
+			final String uuid = weapon.getUUID();
+			this.getReloadingWeapons().put(uuid, new BukkitTask(Core.instance){
 
-					@Override
-					public void run() {
-						if(isOnline()){
-							getInstance().removeModifier(Attribute.GENERIC_MOVEMENT_SPEED, "weaponReload");
-							getInstance().getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_ANVIL_LAND, .25F, .6F);
-							getInstance().getReloadingWeapons().remove(weapon.getUUID());
-						}
-					}
-
-					@Override
-					public void onCancel() {
+				@Override
+				public void run() {
+					if(isOnline()){
 						getInstance().removeModifier(Attribute.GENERIC_MOVEMENT_SPEED, "weaponReload");
+						getInstance().getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_ANVIL_LAND, .25F, .6F);
+						getInstance().getReloadingWeapons().remove(uuid);
 					}
-					
-				}.runTaskLater(delay));
-			}
+				}
+
+				@Override
+				public void onCancel() {
+					getInstance().removeModifier(Attribute.GENERIC_MOVEMENT_SPEED, "weaponReload");
+				}
+				
+			}.runTaskLater(delay));
 		}
+	}
+	
+	public boolean isReloading(Weapon weapon) {
+		return this.getReloadingWeapons().containsKey(weapon.getUUID());
 	}
 	
 	public boolean isActiveAbility(int index){

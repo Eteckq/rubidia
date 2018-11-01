@@ -81,8 +81,6 @@ public class WeaponsListener implements Listener {
 												rp.sendMessage("§cVous ne pouvez porter cette paire de gants car " + usage);
 											} else if(name.contains("_BOOTS")) {
 												rp.sendMessage("§cVous ne pouvez porter cette paire de bottes car " + usage);
-											} else if(is.getType().equals(Material.SHIELD)) {
-												rp.sendMessage("§cVous ne pouvez utiliser ce bouclier car " + usage);
 											}
 											player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 										}
@@ -159,7 +157,7 @@ public class WeaponsListener implements Listener {
 									}else event.setCancelled(true);
 								}else if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
 									if(event.getAction().equals(Action.RIGHT_CLICK_AIR)
-											|| (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && !me.pmilon.RubidiaGuilds.utils.Settings.INTERACT_BLOCKS.contains(event.getClickedBlock().getType()))){
+											|| (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && !event.getClickedBlock().getType().isInteractable())){
 										event.setCancelled(true);
 										
 										if(!rp.getReloadingWeapons().containsKey(weapon.getUUID())){
@@ -230,7 +228,7 @@ public class WeaponsListener implements Listener {
 									event.setCancelled(true);
 									ItemStack offHand = player.getEquipment().getItemInOffHand();
 									player.getEquipment().setItemInOffHand(player.getEquipment().getItemInMainHand());
-									player.getEquipment().setItemInOffHand(offHand);
+									player.getEquipment().setItemInMainHand(offHand);
 									player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_CHAIN, 1, 1);
 									Utils.updateInventory(player);
 								}
@@ -376,15 +374,17 @@ public class WeaponsListener implements Listener {
 	public void onItemChange(PlayerItemHeldEvent event){
 		if(!event.isCancelled()){
 			Player player = event.getPlayer();
+			RPlayer rp = RPlayer.get(player);
 			ItemStack oldStack = player.getInventory().getItem(event.getPreviousSlot());
 			if(oldStack != null){
 				RItem oldItem = new RItem(oldStack);
 				if(oldItem.isWeapon()){
 					Weapon weapon = oldItem.getWeapon();
-					if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
-						RPlayer rp = RPlayer.get(player);
-						if(rp.getReloadingWeapons().containsKey(weapon.getUUID())){
-							rp.getReloadingWeapons().get(weapon.getUUID()).cancel();
+					if(weapon.isAttack()) {
+						if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
+							if(rp.isReloading(weapon)){
+								rp.getReloadingWeapons().get(weapon.getUUID()).cancel();
+							}
 						}
 					}
 				}
@@ -397,11 +397,21 @@ public class WeaponsListener implements Listener {
 					if(player.getGameMode().equals(GameMode.SURVIVAL)) {
 						player.setGameMode(GameMode.ADVENTURE);
 					}
-					
+
 					Weapon weapon = newItem.getWeapon();
-					if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
-						RPlayer rp = RPlayer.get(player);
-						rp.reloadWeapon(weapon);
+					if(weapon.isAttack()) {
+						String usage = weapon.canUse(rp);
+						if(usage.isEmpty()) {
+							if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
+								if(rp.isReloading(weapon)){
+									rp.reloadWeapon(weapon);
+								}
+							}
+						} else {
+							event.setCancelled(true);
+							rp.sendMessage("§cVous ne pouvez utiliser cette arme car " + usage);
+							player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+						}
 					}
 				} else {
 					if(player.getGameMode().equals(GameMode.ADVENTURE)) {
@@ -416,33 +426,56 @@ public class WeaponsListener implements Listener {
 	public void onItemChange(PlayerSwapHandItemsEvent event) {
 		if(!event.isCancelled()){
 			Player player = event.getPlayer();
-			ItemStack oldStack = event.getOffHandItem();
-			if(oldStack != null){
-				RItem oldItem = new RItem(oldStack);
-				if(oldItem.isWeapon()){
-					Weapon weapon = oldItem.getWeapon();
-					if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
-						RPlayer rp = RPlayer.get(player);
-						if(rp.getReloadingWeapons().containsKey(weapon.getUUID())){
-							rp.getReloadingWeapons().get(weapon.getUUID()).cancel();
+			RPlayer rp = RPlayer.get(player);
+			ItemStack offHand = event.getOffHandItem();
+			if(offHand != null){
+				RItem offItem = new RItem(offHand);
+				if(offItem.isWeapon()){
+					Weapon weapon = offItem.getWeapon();
+					if(weapon.isAttack()) {
+						if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
+							if(rp.isReloading(weapon)){
+								rp.getReloadingWeapons().get(weapon.getUUID()).cancel();
+							}
+						}
+					} else {
+						if(offHand.getType().equals(Material.SHIELD)) {
+							String usage = weapon.canUse(rp);
+							if(!usage.isEmpty()) {
+								event.setCancelled(true);
+								rp.sendMessage("§cVous ne pouvez utiliser ce bouclier car " + usage);
+								player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+							}
 						}
 					}
+				} else if(offHand.getType().equals(Material.SHIELD)) {
+					event.setCancelled(true);
+					rp.sendMessage("§cCe bouclier doit être éveillé avant d'être porté");
+					player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 				}
 			}
 
-			ItemStack newStack = event.getMainHandItem();
-			if(newStack != null){
-				RItem newItem = new RItem(newStack);
-				if(newItem.isWeapon()){
+			ItemStack mainHand = event.getMainHandItem();
+			if(mainHand != null){
+				RItem mainItem = new RItem(mainHand);
+				if(mainItem.isWeapon()){
 					if(player.getGameMode().equals(GameMode.SURVIVAL)) {
 						player.setGameMode(GameMode.ADVENTURE);
 					}
 					
-					Weapon weapon = newItem.getWeapon();
-					if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
-						RPlayer rp = RPlayer.get(player);
-						if(rp.getReloadingWeapons().containsKey(weapon.getUUID())){
-							rp.getReloadingWeapons().get(weapon.getUUID()).run();
+					Weapon weapon = mainItem.getWeapon();
+					if(weapon.isAttack()) {
+						String usage = weapon.canUse(rp);
+						if(usage.isEmpty()) {
+							if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
+								if(rp.isReloading(weapon)){
+									rp.reloadWeapon(weapon);
+								}
+							}
+						} else {
+							event.setCancelled(true);
+							rp.sendMessage("§cVous ne pouvez utiliser cette arme car " + usage);
+							player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 						}
 					}
 				} else {
