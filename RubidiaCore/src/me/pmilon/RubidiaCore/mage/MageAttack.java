@@ -4,11 +4,10 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.damages.DamageManager;
 import me.pmilon.RubidiaCore.damages.RDamageCause;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -23,7 +22,6 @@ public class MageAttack extends BukkitTask {
 
     protected boolean critical;
     
-    private final World world;
     private final Location origin;
     private final Location target;
     
@@ -33,10 +31,8 @@ public class MageAttack extends BukkitTask {
         this.item = item;
         this.critical = critical;
 
-		Location location = player.getEyeLocation().clone().add(player.getEyeLocation().getDirection().normalize());
-		this.origin = location;
-		this.target = location.add(player.getEyeLocation().getDirection().normalize().multiply(9));
-		this.world = location.getWorld();
+		this.origin = player.getEyeLocation().clone().add(player.getEyeLocation().getDirection().normalize());
+		this.target = this.origin.clone().add(player.getEyeLocation().getDirection().normalize().multiply(9));
 		this.setDamager(player);
     }
     
@@ -46,15 +42,16 @@ public class MageAttack extends BukkitTask {
     
 	@Override
 	public void run() {
-        Vector link = target.toVector().subtract(this.origin.toVector());
-        Vector step = link.normalize().multiply(link.length() / particles);
+        Vector link = this.target.toVector().subtract(this.origin.toVector());
+        double length = link.length();
+        Vector step = link.normalize().multiply(length / particles);
         Location location = this.origin.clone();
         for (int i = 0; i < particles; i++) {
             location.add(step);
-            this.getWorld().spawnParticle(Particle.END_ROD, location, 1);
-            this.getWorld().spawnParticle(Particle.SNOWBALL, location, 1);
+            location.getWorld().spawnParticle(Particle.END_ROD, location, 1, 0, 0, 0, 0);
+            location.getWorld().spawnParticle(Particle.SNOWBALL, location, 1, 0, 0, 0, 0);
             if(critical) {
-            	this.getWorld().spawnParticle(Particle.CRIT_MAGIC, location, 1);
+            	location.getWorld().spawnParticle(Particle.CRIT_MAGIC, location, 1, 0, 0, 0, 0);
             }
             
             if(location.getBlock().getType().isSolid()) {
@@ -62,7 +59,7 @@ public class MageAttack extends BukkitTask {
             }
 
             boolean damaged = false;
-            for(LivingEntity en : Core.toDamageableLivingEntityList(player, Locations.getNearbyEntities(location, 1), RDamageCause.MAGIC)) {
+            for(LivingEntity en : Core.toDamageableLivingEntityList(player, LocationUtils.getNearbyEntities(location, 1.5), RDamageCause.MAGIC)) {
             	if(en.getLocation().distanceSquared(location) <= 1
             			|| en.getLocation().add(0,1,0).distanceSquared(location) <= 1) {
                 	double damages = DamageManager.getDamages(player, en, item, RDamageCause.MAGIC, critical, false);
@@ -87,10 +84,6 @@ public class MageAttack extends BukkitTask {
 
 	@Override
 	public void onCancel() {
-	}
-
-	public World getWorld() {
-		return world;
 	}
 }
 

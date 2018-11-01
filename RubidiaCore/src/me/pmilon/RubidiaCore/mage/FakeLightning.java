@@ -4,7 +4,7 @@ import java.util.List;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSpawnEntityWeather;
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 import org.bukkit.Location;
@@ -49,6 +49,6 @@ public class FakeLightning {
 	}
 	
 	public void display(Location location){
-		display(location, Locations.getNearbyEntities(location, 16));
+		display(location, LocationUtils.getNearbyEntities(location, 16));
 	}
 }

@@ -47,7 +47,7 @@ import me.pmilon.RubidiaCore.packets.WrapperPlayServerWorldBorder;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaCore.utils.VectorUtils;
@@ -433,7 +433,7 @@ public enum RAbility {
 					if(player.isDead()){
 						this.cancel();
 					}else if(player.isOnGround()){
-						final Location center = Locations.getCenter(player.getLocation().subtract(0,1,0));
+						final Location center = LocationUtils.getCenter(player.getLocation().subtract(0,1,0));
 						center.getWorld().playSound(center, Sound.ENTITY_GENERIC_EXPLODE, 1, .1F);
 						Core.playAnimEffect(Particle.FLAME, player.getLocation(), .1F, .1F, .1F, .1F, 12);
 						final List<LivingEntity> hurt = new ArrayList<LivingEntity>();
@@ -448,7 +448,7 @@ public enum RAbility {
 									
 									for(int i = 0;i < 360;i++){
 										VectorUtils.rotateAroundAxisY(vector, 1);
-										Location location = Locations.getSafeLocation(center.toVector().add(vector).toLocation(center.getWorld())).subtract(0,1,0);
+										Location location = LocationUtils.getSafeLocation(center.toVector().add(vector).toLocation(center.getWorld())).subtract(0,1,0);
 										Core.playAnimEffect(Particle.BLOCK_CRACK, location.clone().add(0,.5,0), .5F, .5F, .5F, 1, 3, location.getBlock().getBlockData());
 										List<LivingEntity> near = Core.toDamageableLivingEntityList(player, player.getNearbyEntities(length, length, length), RDamageCause.ABILITY);
 										near.removeAll(hurt);
@@ -1407,7 +1407,7 @@ public enum RAbility {
 					public void run(){
 						Vector direction = new Vector(RandomUtils.random.nextDouble(), 0, RandomUtils.random.nextDouble()).multiply(RandomUtils.random.nextInt(4)*(RandomUtils.random.nextDouble()+1));
 						Location destination = player.getLocation().toVector().add(direction).toLocation(player.getWorld());
-						Location finalDestination = Locations.getSafeLocation(destination);
+						Location finalDestination = LocationUtils.getSafeLocation(destination);
 						
 						final PigZombie zombie = finalDestination.getWorld().spawn(finalDestination, PigZombie.class);
 						
@@ -1519,7 +1519,7 @@ public enum RAbility {
 			final List<Material> types = new ArrayList<Material>();
 			for(int i = 0;i < 60;i++){
 				VectorUtils.rotateAroundAxisY(vector, 6);
-				Block block = Locations.getSafeLocation(center.toVector().add(vector).toLocation(center.getWorld())).getBlock();
+				Block block = LocationUtils.getSafeLocation(center.toVector().add(vector).toLocation(center.getWorld())).getBlock();
 				if(!blocks.contains(block)){
 					blocks.add(block);
 					types.add(block.getType());
@@ -1656,7 +1656,7 @@ public enum RAbility {
 					}
 					player.getWorld().playEffect(player.getLocation().add(0, -1, 0), Effect.MOBSPAWNER_FLAMES, 1);
 					player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, .25F);
-					Location finalloc = Locations.getSafeLocation(new Location(player.getWorld(), xv, yv, zv, yaw, 0.0f));
+					Location finalloc = LocationUtils.getSafeLocation(new Location(player.getWorld(), xv, yv, zv, yaw, 0.0f));
 					TeleportHandler.teleport(player, finalloc);
 					player.getWorld().playEffect(player.getLocation().add(0, -1, 0), Effect.MOBSPAWNER_FLAMES, 1);
 

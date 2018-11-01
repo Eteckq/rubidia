@@ -1279,15 +1279,13 @@ public class Core extends JavaPlugin implements Listener {
 		if(player.isSneaking()){
 			RPlayer rp = RPlayer.get(player);
 			Item item = event.getItemDrop();
-			String material = item.getItemStack().getType().toString();
-			if((rp.getRClass().equals(RClass.PALADIN) && material.contains("_AXE"))
-				|| (rp.getRClass().equals(RClass.RANGER) && material.contains("BOW"))
-				|| (rp.getRClass().equals(RClass.MAGE) && material.contains("_HOE"))
-				|| (rp.getRClass().equals(RClass.ASSASSIN) && material.contains("_SWORD"))
-				|| (rp.getRClass().equals(RClass.VAGRANT)
-						&& (material.contains("_SWORD") || material.contains("_AXE") || material.contains("BOW")))){
-				event.setCancelled(true);
-				Core.uiManager.requestUI(new DistinctionsMenu(player));
+			RItem rItem = new RItem(item.getItemStack());
+			if(rItem.isWeapon()) {
+				Weapon weapon = rItem.getWeapon();
+				if(weapon.canUse(rp).isEmpty()) {
+					event.setCancelled(true);
+					Core.uiManager.requestUI(new DistinctionsMenu(player));
+				}
 			}
 		}
 	}

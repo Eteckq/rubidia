@@ -11,7 +11,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 
-public class Locations {
+public class LocationUtils {
 
 	@SuppressWarnings("deprecation")
 	public static Location getSafeLocation(Location location){
@@ -54,14 +54,16 @@ public class Locations {
 		return closestEntity;
 	}
     
-    public static List<Entity> getNearbyEntities(Location l, int radius){
-        int chunkRadius = radius < 16 ? 1 : (radius - (radius % 16))/16;
+    public static List<Entity> getNearbyEntities(Location l, double radius){
+        int chunkRadius = (int) Math.ceil(radius < 16 ? 1 : (radius + 1)/16);
         List<Entity> radiusEntities = new ArrayList<Entity>();
             for (int chX = 0 -chunkRadius; chX <= chunkRadius; chX ++){
                 for (int chZ = 0 -chunkRadius; chZ <= chunkRadius; chZ++){
                     int x=(int) l.getX(),y=(int) l.getY(),z=(int) l.getZ();
-                    for (Entity e : new Location(l.getWorld(),x+(chX*16),y,z+(chZ*16)).getChunk().getEntities()){
-                        if(e.getWorld().equals(l.getWorld()))if (e.getLocation().distanceSquared(l) <= (radius*radius)) radiusEntities.add(e);
+                    for (Entity entity : new Location(l.getWorld(), x+(chX*16), y, z+(chZ*16)).getChunk().getEntities()){
+                    	if (entity.getLocation().distanceSquared(l) <= Math.pow(radius, 2)) {
+                    		radiusEntities.add(entity);
+                    	}
                     }
                 }
             }
