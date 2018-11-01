@@ -501,15 +501,15 @@ public class Weapons {
 				Weapon weapon = rItem.getWeapon();
 				String usage = weapon.canUse(rp);
 				if(!usage.isEmpty()){
-					player.getInventory().setHelmet(null);
 					player.getInventory().addItem(helmet);
+					player.getInventory().setHelmet(null);
 					rp.sendMessage("§cVous ne pouvez porter ce casque car " + usage);
 					player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 					update = true;
 				}
 			} else if(helmet.getType().toString().contains("_HELMET")) {
-				player.getInventory().setHelmet(null);
 				player.getInventory().addItem(helmet);
+				player.getInventory().setHelmet(null);
 				rp.sendMessage("§cCe casque doit être éveillé avant d'être porté");
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 				update = true;
@@ -521,15 +521,15 @@ public class Weapons {
 				Weapon weapon = rItem.getWeapon();
 				String usage = weapon.canUse(rp);
 				if(!usage.isEmpty()){
-					player.getInventory().setChestplate(null);
 					player.getInventory().addItem(chestplate);
+					player.getInventory().setChestplate(null);
 					rp.sendMessage("§cVous ne pouvez porter ce plastron car " + usage);
 					player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 					update = true;
 				}
 			} else if(chestplate.getType().toString().contains("_CHESTPLATE")) {
-				player.getInventory().setChestplate(null);
 				player.getInventory().addItem(chestplate);
+				player.getInventory().setChestplate(null);
 				rp.sendMessage("§cCe plastron doit être éveillé avant d'être porté");
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 				update = true;
@@ -543,15 +543,15 @@ public class Weapons {
 				Weapon weapon = rItem.getWeapon();
 				String usage = weapon.canUse(rp);
 				if(!usage.isEmpty()){
-					player.getInventory().setLeggings(null);
 					player.getInventory().addItem(gauntlets);
+					player.getInventory().setLeggings(null);
 					rp.sendMessage("§cVous ne pouvez porter cette paire de gants car " + usage);
 					player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 					update = true;
 				}
 			} else if(gauntlets.getType().toString().contains("_LEGGINGS")) {
-				player.getInventory().setLeggings(null);
 				player.getInventory().addItem(gauntlets);
+				player.getInventory().setLeggings(null);
 				rp.sendMessage("§cCette paire de gants doit être éveillée avant d'être portée");
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 				update = true;
@@ -563,15 +563,15 @@ public class Weapons {
 				Weapon weapon = rItem.getWeapon();
 				String usage = weapon.canUse(rp);
 				if(!usage.isEmpty()){
-					player.getInventory().setBoots(null);
 					player.getInventory().addItem(boots);
+					player.getInventory().setBoots(null);
 					rp.sendMessage("§cVous ne pouvez porter cette paire de bottes car " + usage);
 					player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 					update = true;
 				}
 			} else if(boots.getType().toString().contains("_BOOTS")) {
-				player.getInventory().setBoots(null);
 				player.getInventory().addItem(boots);
+				player.getInventory().setBoots(null);
 				rp.sendMessage("§cCette paire de bottes doit être éveillée avant d'être portée");
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 				update = true;
@@ -584,8 +584,8 @@ public class Weapons {
 				if(weapon.isAttack()) {
 					String usage = weapon.canUse(rp);
 					if(!usage.isEmpty()){
-						player.getInventory().setItemInMainHand(null);
 						player.getInventory().addItem(mainHand);
+						player.getInventory().setItemInMainHand(null);
 						rp.sendMessage("§cVous ne pouvez utiliser cette arme car " + usage);
 						player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 						update = true;
@@ -599,8 +599,8 @@ public class Weapons {
 				Weapon weapon = rItem.getWeapon();
 				String usage = weapon.canUse(rp);
 				if(!usage.isEmpty()){
-					player.getInventory().setItemInOffHand(null);
 					player.getInventory().addItem(offHand);
+					player.getInventory().setItemInOffHand(null);
 					if(weapon.isAttack()) {
 						rp.sendMessage("§cVous ne pouvez utiliser cette arme car " + usage);
 					} else if(offHand.getType().equals(Material.SHIELD)) {
@@ -610,8 +610,8 @@ public class Weapons {
 					update = true;
 				}
 			} else if(offHand.getType().equals(Material.SHIELD)) {
-				player.getInventory().setItemInOffHand(null);
 				player.getInventory().addItem(offHand);
+				player.getInventory().setItemInOffHand(null);
 				rp.sendMessage("§cCe bouclier doit être éveillé avant d'être porté");
 				player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 				update = true;
