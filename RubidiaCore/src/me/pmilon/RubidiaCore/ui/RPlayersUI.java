@@ -117,7 +117,7 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 		lore.add("§f§m-------------------");
 		if(e.isPublicData() && e.isProfileUpdated()){
 			if(!e.getSex().equals(Gender.UNKNOWN)){
-				lore.add("§8" + ("Sexe ") + "§7" + (e.getSex().getFr().toLowerCase()));
+				lore.add("§8" + ("Sexe ") + "§7" + (e.getSex().getName().toLowerCase()));
 			}
 			if(e.getBirthDate() > 10*Utils.MILLIS_IN_YEAR && e.getBirthDate() < System.currentTimeMillis()-6*Utils.MILLIS_IN_YEAR){
 				double age = (double) ((long)(System.currentTimeMillis()-e.getBirthDate()))/Utils.MILLIS_IN_YEAR;

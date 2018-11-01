@@ -108,7 +108,7 @@ public class ProfileUI extends UIHandler {
 	public ItemStack getGender(){
 		ItemStack item = new ItemStack(rp.getSex().equals(Gender.UNKNOWN) ? Material.BUCKET : (rp.getSex().equals(Gender.MALE) ? Material.LAVA_BUCKET : Material.WATER_BUCKET), 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("§6§l" + (rp.getSex().getFr().toUpperCase()));
+		meta.setDisplayName("§6§l" + (rp.getSex().getName().toUpperCase()));
 		meta.setLore(Arrays.asList("§7" + ("Cliquez pour cycler à travers les 3 genres disponibles.")));
 		item.setItemMeta(meta);
 		return item;

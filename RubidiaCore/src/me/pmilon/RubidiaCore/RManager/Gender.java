@@ -2,23 +2,17 @@ package me.pmilon.RubidiaCore.RManager;
 
 public enum Gender {
 	
-	MALE("Man","Homme"),
-	FEMALE("Woman","Femme"),
-	UNKNOWN("Unknown","Inconnu");
+	MALE("Homme"),
+	FEMALE("Femme"),
+	UNKNOWN("Inconnu");
 	
-	private final String en;
-	private final String fr;
-	private Gender(String en, String fr){
-		this.en = en;
-		this.fr = fr;
-	}
-	
-	public String getEn() {
-		return en;
+	private final String name;
+	private Gender(String name){
+		this.name = name;
 	}
 
-	public String getFr() {
-		return fr;
+	public String getName() {
+		return name;
 	}
 	
 }

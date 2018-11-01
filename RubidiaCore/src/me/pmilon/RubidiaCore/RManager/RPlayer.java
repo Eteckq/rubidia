@@ -315,9 +315,6 @@ public class RPlayer {
 	public boolean getWouldLikeTeleportation(){
 		return this.teleportation;
 	}
-	public String getJobName(){
-		return this.getRJob().getNameFR();
-	}
 	
 	////////////////////
 	//     SETTER     //
@@ -456,10 +453,10 @@ public class RPlayer {
 		this.setVigor(this.getVigor()+amount);
 	}
 	public String getClassName(){
-		return (this.getMastery().equals(Mastery.ADVENTURER) ? "" : this.getRClass().getDarkColor() + "§l[" + this.getMastery().getNameFR() + "] ") + this.getRClass().getColor() + this.getRClass().getName();
+		return (this.getMastery().equals(Mastery.ADVENTURER) ? "" : this.getRClass().getDarkColor() + "§l[" + this.getMastery().getName() + "] ") + this.getRClass().getColor() + this.getRClass().getName();
 	}
 	public String getEvolutionClassName(){
-		return this.getRClass().getDarkColor() + "§l[" + (this.getMastery().equals(Mastery.ADVENTURER) ? Mastery.MASTER.getNameFR() : Mastery.HERO.getNameFR()) + "] " + this.getRClass().getColor() + this.getRClass().getName();
+		return this.getRClass().getDarkColor() + "§l[" + (this.getMastery().equals(Mastery.ADVENTURER) ? Mastery.MASTER.getName() : Mastery.HERO.getName()) + "] " + this.getRClass().getColor() + this.getRClass().getName();
 	}
 	public double getMaxHealth(){
 		return (20+this.getEndurance()*.75)*(1+this.getAdditionalFactor(BuffType.MAX_HEALTH));

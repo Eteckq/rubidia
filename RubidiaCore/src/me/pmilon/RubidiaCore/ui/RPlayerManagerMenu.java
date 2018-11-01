@@ -75,7 +75,7 @@ public class RPlayerManagerMenu extends UIHandler {
 			lore.add("§8" + ("Profil non à jour"));
 		}
 		double age = (double) ((long)(System.currentTimeMillis()-rpp.getBirthDate()))/Utils.MILLIS_IN_YEAR;
-		lore.add("§8" + ("Sexe ") + "§7" + (rpp.getSex().getFr().toLowerCase()));
+		lore.add("§8" + ("Sexe ") + "§7" + (rpp.getSex().getName().toLowerCase()));
 		lore.add("§8" + ("Âge ") + "§7" + String.valueOf(Utils.round(age, 2)) +  (" ans"));
 		lore.add("§8" + ("Date de naissance ") + "§7" + new SimpleDateFormat("dd/MM/yyyy").format(rpp.getBirthDate()));
 		lore.add("");
@@ -106,7 +106,7 @@ public class RPlayerManagerMenu extends UIHandler {
 		SPlayer sp = rpp.getSaves()[rpp.getLastLoadedSPlayerId()];
 		double ratio = sp.getRExp()/LevelUtils.getRLevelTotalExp(sp.getRLevel());
 		meta.setDisplayName("§6" + ("Personnages") + "§8(" + n + ")");
-		meta.setLore(Arrays.asList("§8" + ("Niveau ") + "§7" + sp.getRLevel(), "§8" + ("XP ") + "§7" + sp.getRExp() + " (" + Utils.round(ratio, 2) + "%)", "§8" + ("Maîtrise ") + "§7" + (sp.getMastery().getNameFR()), "§8" + ("Métier ") + "§7" + ChatColor.stripColor((sp.getRJob().getNameFR())), "§8" + ("Points de compétence ") + "§7" + sp.getSkp(), "§8" + ("Points de distinction ") + "§7" + sp.getSkd(), "§8" + ("Force ") + "§7" + sp.getStrength(), "§8" + ("Endurance ") + "§7" + sp.getEndurance(), "§8" + ("Agilité ") + "§7" + sp.getAgility(), "§8" + ("Intelligence ") + "§7" + sp.getIntelligence(), "§8" + ("Perception ") + "§7" + sp.getPerception(), "§8" + ("Meurtres ") + "§7" + sp.getKills(), "§8" + ("Renom ") + "§7" + sp.getRenom()));
+		meta.setLore(Arrays.asList("§8" + ("Niveau ") + "§7" + sp.getRLevel(), "§8" + ("XP ") + "§7" + sp.getRExp() + " (" + Utils.round(ratio, 2) + "%)", "§8" + ("Maîtrise ") + "§7" + (sp.getMastery().getName()), "§8" + ("Métier ") + "§7" + ChatColor.stripColor((sp.getRJob().getName())), "§8" + ("Points de compétence ") + "§7" + sp.getSkp(), "§8" + ("Points de distinction ") + "§7" + sp.getSkd(), "§8" + ("Force ") + "§7" + sp.getStrength(), "§8" + ("Endurance ") + "§7" + sp.getEndurance(), "§8" + ("Agilité ") + "§7" + sp.getAgility(), "§8" + ("Intelligence ") + "§7" + sp.getIntelligence(), "§8" + ("Perception ") + "§7" + sp.getPerception(), "§8" + ("Meurtres ") + "§7" + sp.getKills(), "§8" + ("Renom ") + "§7" + sp.getRenom()));
 		item.setItemMeta(meta);
 		return item;
 	}
