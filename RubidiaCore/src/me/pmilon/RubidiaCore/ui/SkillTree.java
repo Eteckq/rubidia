@@ -80,8 +80,8 @@ public class SkillTree extends UIHandler {
 							if(e.isShiftClick())amount = 5;
 							if(rp.getSkillPoints() >= amount){
 								RAbility ability = RAbility.valueOf(rClass.toString() + "_" + slot);
-								if(ability.getSettings().getLevelMax() < rp.getAbLevel(slot)+amount){
-									amount = ability.getSettings().getLevelMax()-rp.getAbLevel(slot);
+								if(ability.getSettings().getLevelMax() < rp.getAbilityLevel(slot)+amount){
+									amount = ability.getSettings().getLevelMax()-rp.getAbilityLevel(slot);
 								}
 								if(amount == 0){
 									rp.sendMessage("§cVous avez déjà atteint le niveau maximal pour cette capacité.");
@@ -93,7 +93,7 @@ public class SkillTree extends UIHandler {
 										}else{
 											this.doUpSound();
 										}
-										rp.setAbLevel(slot, rp.getAbLevel(slot)+amount);
+										rp.setAbLevel(slot, rp.getAbilityLevel(slot)+amount);
 										rp.setSkillPoints(rp.getSkillPoints()-amount);
 										leveledUp = RAbility.getAvailable(rp);
 										getMenu().setItem(slot, this.getAbility(ability));
@@ -103,7 +103,7 @@ public class SkillTree extends UIHandler {
 												if(slot != ability1.getIndex())getMenu().setItem(ability1.getIndex(), this.getAbility(ability1));
 											}
 										}
-										if(ability.getSettings().getLevelMax() == rp.getAbLevel(slot))rp.sendMessage("§aVous avez atteint le niveau maximal pour cette capacité.");
+										if(ability.getSettings().getLevelMax() == rp.getAbilityLevel(slot))rp.sendMessage("§aVous avez atteint le niveau maximal pour cette capacité.");
 									}else{
 										if(ability.getMastery().equals(Mastery.MASTER))rp.sendMessage("§cCette compétence est bloquée ! Utilisez-la au niveau " + Mastery.MASTER.getLevel() + " en devenant maître !");
 										else if(ability.getMastery().equals(Mastery.HERO))rp.sendMessage("§cCette compétence est bloquée ! Utilisez-la au niveau " + Mastery.HERO.getLevel() + " en devenant héros !");
@@ -154,7 +154,7 @@ public class SkillTree extends UIHandler {
 	
 	private ItemStack getAbility(RAbility ability){
 		boolean has = leveledUp.contains(ability);
-		ItemStack item = new ItemStack(Material.SHEARS, rp.getAbLevel(ability.getIndex()) < 1 ? 1 : rp.getAbLevel(ability.getIndex()));
+		ItemStack item = new ItemStack(Material.SHEARS, rp.getAbilityLevel(ability.getIndex()) < 1 ? 1 : rp.getAbilityLevel(ability.getIndex()));
 		ItemMeta meta = item.getItemMeta();
 		((Damageable) meta).setDamage((int) Math.ceil(Material.SHEARS.getMaxDurability()*(has ? (Weapons.getSkinFactor(Material.SHEARS)*ability.getIndex() + .25*(RClass.indexOf(ability.getRClass()) - 1) + .09) : (Weapons.getSkinFactor(Material.SHEARS)*ability.getIndex() + .25*(RClass.indexOf(ability.getRClass()) - 1) + .01))));
 		meta.setUnbreakable(true);
@@ -189,15 +189,15 @@ public class SkillTree extends UIHandler {
 		double damages = Utils.round(ability.getDamages(rp)*(ability.isPassive() ? 1 : rp.getAbilityDamagesFactor()), 2);
 		double upDamages = Utils.round(((rp.getAbilityLevel(ability.getIndex())+1)*ability.getSettings().getDamagesPerLevel()+ability.getSettings().getDamagesMin())*(ability.isPassive() ? 1 : rp.getAbilityDamagesFactor()), 2);
 		double cost = Utils.round(ability.getVigorCost(rp), 2);
-		double upCost = Utils.round(((rp.getAbLevel(ability.getIndex())+1)*ability.getSettings().getVigorPerLevel()+ability.getSettings().getVigorMin()), 2);
+		double upCost = Utils.round(((rp.getAbilityLevel(ability.getIndex())+1)*ability.getSettings().getVigorPerLevel()+ability.getSettings().getVigorMin()), 2);
 		String cdamColor = damages-upDamages > 0 ? "§c" : "§a";
 		String ddamColor = damages-upDamages > 0 ? "§4" : "§2";
 		String ccostColor = cost-upCost < 0 ? "§c" : "§a";
 		String dcostColor = cost-upCost < 0 ? "§4" : "§2";
 		lore.addAll(Arrays.asList("", "§6§lUtilisation : §7" + keystroke,
-				"§6§lCoût : §7" + cost + " EP" + (rp.getSkillPoints() > 0 && ability.getSettings().getLevelMax() > rp.getAbLevel(ability.getIndex()) ? " §e§l>>§a " + ccostColor + upCost + " " + dcostColor + "EP" : ""),
-				"§6§l" + (ability.getSuppInfo().isEmpty() ? "Dégâts" : ability.getSuppInfo()) + " : §7" + damages + ability.getUnit() + (rp.getSkillPoints() > 0 && ability.getSettings().getLevelMax() > rp.getAbLevel(ability.getIndex()) ? " §e§l>>§a " + cdamColor + upDamages + " " + ddamColor + ability.getUnit() : ""),
-				"", "§e§lNiveau " + rp.getAbLevel(ability.getIndex()) + "/" + ability.getSettings().getLevelMax()));
+				"§6§lCoût : §7" + cost + " EP" + (rp.getSkillPoints() > 0 && ability.getSettings().getLevelMax() > rp.getAbilityLevel(ability.getIndex()) ? " §e§l>>§a " + ccostColor + upCost + " " + dcostColor + "EP" : ""),
+				"§6§l" + (ability.getSuppInfo().isEmpty() ? "Dégâts" : ability.getSuppInfo()) + " : §7" + damages + ability.getUnit() + (rp.getSkillPoints() > 0 && ability.getSettings().getLevelMax() > rp.getAbilityLevel(ability.getIndex()) ? " §e§l>>§a " + cdamColor + upDamages + " " + ddamColor + ability.getUnit() : ""),
+				"", "§e§lNiveau " + rp.getAbilityLevel(ability.getIndex()) + "/" + ability.getSettings().getLevelMax()));
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;

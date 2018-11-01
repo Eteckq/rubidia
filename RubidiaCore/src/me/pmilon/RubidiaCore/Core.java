@@ -286,7 +286,7 @@ public class Core extends JavaPlugin implements Listener {
 
     	WrapperPlayServerPlayerListHeaderFooter packet = new WrapperPlayServerPlayerListHeaderFooter();
     	packet.setHeader(WrappedChatComponent.fromText("§a§l§m-------------------------------§r\n§oBienvenue sur Rubidia !§r\n§a§l§m-------------------------------§r"));
-    	packet.setFooter(WrappedChatComponent.fromText("§c§l§m-------------------------------§r\n§lhttp://www.rubidia.xyz§r\n§c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r"));
+    	packet.setFooter(WrappedChatComponent.fromText("§c§l§m-------------------------------§r\n§lhttp://www.rubidia.pw§r\n§c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r"));
         packet.sendPacket(p);
 		
 		new BukkitTask(this){
@@ -770,7 +770,7 @@ public class Core extends JavaPlugin implements Listener {
 							rp.setPendingRubis(rp.getPendingRubis()+amount);
 							if(rp.isOnline()){
 								rp.sendMessage("§aVous avez reçu §e" + amount + " §arubis utilisables dans la boutique du site !");
-								rp.getPlayer().sendMessage("§2§l>>>    §7http://www.rubidia.xyz/shop/");
+								rp.getPlayer().sendMessage("§2§l>>>    §7http://www.rubidia.pw/shop/");
 								rp.sendMessage("§e§o(Reconnectez-vous sur le site pour mettre à jour votre compte)");
 							}
 							sender.sendMessage("§2" + rp.getName() + " §areceived §e" + amount + " §arubis.");
@@ -1309,7 +1309,7 @@ public class Core extends JavaPlugin implements Listener {
 				}
 			}
 		}
-		event.setMotd("§r                       §8mc.§9§lRubidia§8.xyz\n        §e§m  §e§l  §6§lO§e§lpen-§6§lW§e§lorld §6§lA§e§ldventure §6§lRPG  §e§m  ");
+		event.setMotd("§r                       §8mc.§9§lRubidia§8.pw\n        §e<§e§l  §6§lO§e§lpen-§6§lW§e§lorld §6§lA§e§ldventure §6§lRPG  §e>");
 	}
 	
 	@EventHandler
@@ -1454,7 +1454,9 @@ public class Core extends JavaPlugin implements Listener {
 	public static void playAnimEffect(Particle particle, Player player, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount, BlockData data){
 		if(player.getWorld().equals(location.getWorld()) && player.getLocation().distanceSquared(location) <= 2304/*range 48*/){
 			if(RPlayer.get(player).getEffects()){
-				if(particle == Particle.BLOCK_CRACK || particle == Particle.BLOCK_DUST || particle == Particle.FALLING_DUST){
+				if(particle == Particle.BLOCK_CRACK
+						|| particle == Particle.BLOCK_DUST
+						|| particle == Particle.FALLING_DUST){
 					player.spawnParticle(particle, location, amount, offSetX, offSetY, offSetZ, speed, data);
 				}else player.spawnParticle(particle, location, amount, offSetX, offSetY, offSetZ, speed);
 			}
@@ -1470,7 +1472,9 @@ public class Core extends JavaPlugin implements Listener {
 	public static void playAnimEffect(Particle particle, Player player, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount){
 		if(player.getWorld().equals(location.getWorld()) && player.getLocation().distanceSquared(location) <= 2304/*range 48*/){
 			if(RPlayer.get(player).getEffects()){
-				if(!(particle == Particle.BLOCK_CRACK || particle == Particle.BLOCK_DUST || particle == Particle.FALLING_DUST)){
+				if(!(particle == Particle.BLOCK_CRACK
+						|| particle == Particle.BLOCK_DUST
+						|| particle == Particle.FALLING_DUST)){
 					player.spawnParticle(particle, location, amount, offSetX, offSetY, offSetZ, speed);
 				}
 			}

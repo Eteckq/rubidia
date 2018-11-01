@@ -40,6 +40,7 @@ public class RBoostersUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
+		System.out.println("lol");
 		if(e.getCurrentItem() != null){
 			if(!e.getCurrentItem().getType().equals(Material.AIR)){
 				e.setCancelled(true);

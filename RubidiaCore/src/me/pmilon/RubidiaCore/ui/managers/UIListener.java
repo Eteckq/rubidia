@@ -54,10 +54,12 @@ public class UIListener implements Listener {
 				Player p = (Player) e.getWhoClicked();
 				UISession uiSession = uiManager.getSession(p);
 				if(uiSession != null){
-					if(uiSession.getUIHandler().isWindow(e.getClickedInventory()) && e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())){
-						uiSession.getUIHandler().onInventoryClick(e, p);
-					}else if(uiSession.getUIHandler().isWindow(p.getOpenInventory().getTopInventory())){
-						uiSession.getUIHandler().onGeneralClick(e, p);
+					if(uiSession.getUIHandler().isWindow(p.getOpenInventory().getTopInventory())) {
+						if(e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())){
+							uiSession.getUIHandler().onInventoryClick(e, p);
+						} else {
+							uiSession.getUIHandler().onGeneralClick(e, p);
+						}
 					}
 				}
 			}

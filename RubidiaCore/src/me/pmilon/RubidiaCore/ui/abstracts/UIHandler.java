@@ -69,7 +69,7 @@ public abstract class UIHandler {
 	protected abstract boolean openWindow();
 	
 	public boolean isWindow(Inventory inv){
-		return this.getHolder().equals(inv.getHolder()) && inv.getName().equals(this.menu.getName()) && inv.getSize() == this.menu.getSize() && inv.getType().equals(this.menu.getType());
+		return inv.equals(this.menu);
 	}
 	
 	public abstract void onInventoryClick(InventoryClickEvent e, Player p);
