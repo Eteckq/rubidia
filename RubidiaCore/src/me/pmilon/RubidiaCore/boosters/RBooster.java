@@ -59,14 +59,14 @@ public class RBooster extends Buff {
 	}
 	
 	public void play(){
-		for(double i = 0;i <= 4*Math.PI;i += Math.PI/9){
+		for(double i = 0;i <= 4*Math.PI;i += Math.PI/8){
 			final double j = i;
 			new BukkitTask(Core.instance){
 
 				@Override
 				public void run() {
 					Location location = getRP().getPlayer().getLocation().add(.6*Math.cos(j),.15*j,.6*Math.sin(j));
-					location.getWorld().spawnParticle(getBoosterType().getParticle(), location, 1, 0, 1, 0, .05);
+					location.getWorld().spawnParticle(getBoosterType().getParticle(), location, 1, 0, 0, 0, .05);
 				}
 
 				@Override
@@ -79,25 +79,30 @@ public class RBooster extends Buff {
 	
 	public void start(){
 		getRP().getActiveRBoosters().add(this);
-		if(this.getBoosterType().equals(RBoosterType.HP))getRP().getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getRP().getMaxHealth());
+		if(this.getBoosterType().equals(RBoosterType.HP)) {
+			getRP().getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getRP().getMaxHealth());
+		}
 		this.setTask(new BukkitTask(Core.instance){
 			int step = 0;
+			int timer = (int) (60*20/2.);
 			double angle = 0.0;
 
 			@Override
 			public void run() {
 				if(getRP().isOnline()){
 					Location location = getRP().getPlayer().getLocation().add(.6*Math.cos(angle),.1,.6*Math.sin(angle));
-					location.getWorld().spawnParticle(getBoosterType().getParticle(), location, 1, 0, 1, 0, .05);
-					angle += Math.PI/9;
-					if(step % 1800 == 0){
+					location.getWorld().spawnParticle(getBoosterType().getParticle(), location, 1, 0, 0, 0, .05);
+					angle += Math.PI/8;
+					if(step % timer == 0){
 						if(getRP().getRenom() >= getBoosterType().getCost() || getRP().isOp()){
 							play();
-							if(!getRP().isOp())getRP().setRenom(getRP().getRenom()-getBoosterType().getCost());
+							if(!getRP().isOp()) {
+								getRP().setRenom(getRP().getRenom()-getBoosterType().getCost());
+							}
 						}else stop();
 					}
 					step++;
-				}else stop();
+				} else stop();
 			}
 
 			@Override
