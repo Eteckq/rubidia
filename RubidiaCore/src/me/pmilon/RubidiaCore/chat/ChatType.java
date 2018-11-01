@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.RChat;
+package me.pmilon.RubidiaCore.chat;
 
 public enum ChatType {
 

@@ -7,9 +7,9 @@ import java.util.UUID;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.Smiley;
+import me.pmilon.RubidiaCore.chat.RChatUtils;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.Database;
-import me.pmilon.RubidiaCore.RChat.RChatUtils;
 import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaPets.pets.Pet;

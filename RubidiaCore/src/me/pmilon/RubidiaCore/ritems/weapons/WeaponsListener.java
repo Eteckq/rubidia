@@ -155,7 +155,7 @@ public class WeaponsListener implements Listener {
 											}
 										}
 									}else event.setCancelled(true);
-								}else if(weapon.getWeaponUse().equals(WeaponUse.RANGE)){
+								} else if(weapon.getWeaponUse().equals(WeaponUse.RANGE)) {
 									if(event.getAction().equals(Action.RIGHT_CLICK_AIR)
 											|| (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && !event.getClickedBlock().getType().isInteractable())){
 										event.setCancelled(true);

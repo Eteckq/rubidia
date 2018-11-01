@@ -201,7 +201,11 @@ public class Weapon {
 	}
 	
 	public boolean isAttack() {
-		return !this.getType().toString().contains("CHESTPLATE") && !this.getType().toString().contains("HELMET") && !this.getType().toString().contains("LEGGINGS") && !this.getType().toString().contains("BOOTS") && !this.getType().toString().contains("SHIELD");
+		return !this.getType().toString().contains("_CHESTPLATE")
+				&& !this.getType().toString().contains("_HELMET")
+				&& !this.getType().toString().contains("_LEGGINGS")
+				&& !this.getType().toString().contains("_BOOTS")
+				&& !this.getType().equals(Material.SHIELD);
 	}
 	
 	public ItemStack getNewItemStack(RPlayer rp){

@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.RChat;
+package me.pmilon.RubidiaCore.chat;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.RChat.RChatFixDisplay;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.chat.RChatFixDisplay;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;

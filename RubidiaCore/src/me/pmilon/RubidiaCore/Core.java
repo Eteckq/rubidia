@@ -10,8 +10,6 @@ import java.util.Random;
 import java.util.TimeZone;
 import java.util.UUID;
 
-import me.pmilon.RubidiaCore.RChat.RChatFixDisplay;
-import me.pmilon.RubidiaCore.RChat.RChatListener;
 import me.pmilon.RubidiaCore.REvents.Event;
 import me.pmilon.RubidiaCore.REvents.Events;
 import me.pmilon.RubidiaCore.RManager.RClass;
@@ -21,6 +19,8 @@ import me.pmilon.RubidiaCore.abilities.AbilitiesListener;
 import me.pmilon.RubidiaCore.abilities.RAbility;
 import me.pmilon.RubidiaCore.aeroplane.AeroplaneListener;
 import me.pmilon.RubidiaCore.chairs.ChairListener;
+import me.pmilon.RubidiaCore.chat.RChatFixDisplay;
+import me.pmilon.RubidiaCore.chat.RChatListener;
 import me.pmilon.RubidiaCore.commands.BienvenueCommandExecutor;
 import me.pmilon.RubidiaCore.commands.BoostersCommandExecutor;
 import me.pmilon.RubidiaCore.commands.ChatCommandExecutor;

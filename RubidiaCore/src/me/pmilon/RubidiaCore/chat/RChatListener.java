@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.RChat;
+package me.pmilon.RubidiaCore.chat;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;

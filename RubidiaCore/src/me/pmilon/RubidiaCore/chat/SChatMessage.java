@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.RChat;
+package me.pmilon.RubidiaCore.chat;
 
 import org.bukkit.inventory.ItemStack;
 

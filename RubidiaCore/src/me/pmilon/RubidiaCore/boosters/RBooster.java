@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.duels;
+package me.pmilon.RubidiaCore.boosters;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;

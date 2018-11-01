@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.RChat.RChatUtils;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.chat.RChatUtils;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
