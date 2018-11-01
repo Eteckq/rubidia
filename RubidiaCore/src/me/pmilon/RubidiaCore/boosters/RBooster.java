@@ -95,7 +95,6 @@ public class RBooster extends Buff {
 					angle += Math.PI/8;
 					if(step % timer == 0){
 						if(getRP().getRenom() >= getBoosterType().getCost() || getRP().isOp()){
-							play();
 							if(!getRP().isOp()) {
 								getRP().setRenom(getRP().getRenom()-getBoosterType().getCost());
 							}
@@ -113,8 +112,11 @@ public class RBooster extends Buff {
 	}
 	
 	public void stop(){
+		play();
 		getRP().getActiveRBoosters().remove(this);
-		if(getRP().isOnline() && this.getBoosterType().equals(RBoosterType.HP))getRP().getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getRP().getMaxHealth());
+		if(getRP().isOnline() && this.getBoosterType().equals(RBoosterType.HP)) {
+			getRP().getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getRP().getMaxHealth());
+		}
 		if(this.getTask() != null){
 			this.getTask().cancel();
 			this.setTask(null);
