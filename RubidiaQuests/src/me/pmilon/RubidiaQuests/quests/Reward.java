@@ -151,7 +151,7 @@ public class Reward {
 			rp.sendMessage("§2[+] §aVous êtes désormais " + rp.getClassName());
 		}else if(this.getType().equals(RewardType.JOB)){
 			rp.setRJob(this.getRJob());
-			rp.sendMessage("§2[+] §aVous êtes désormais " + rp.getJobName());
+			rp.sendMessage("§2[+] §aVous êtes désormais " + rp.getRJob().getName());
 		}else if(this.getType().equals(RewardType.ITEM)){
 			if(rp.isOnline()){
 				rp.getPlayer().getInventory().addItem(this.getItemStack());
