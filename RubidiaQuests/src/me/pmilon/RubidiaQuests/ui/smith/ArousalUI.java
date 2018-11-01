@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -67,7 +69,8 @@ public class ArousalUI extends UIHandler {
 												
 												this.getHolder().getInventory().addItem(weapon.getNewItemStack(rp));
 												rp.sendMessage("§aLe forgeron vous a forgé " + weapon.getDisplayName());
-												//TODO add particle animation
+												this.getHolder().getWorld().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
+												this.getHolder().getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, this.getHolder().getLocation().add(0,.8,0), 40, .5, .8, .5, 0);
 												continue;
 											}
 										}
