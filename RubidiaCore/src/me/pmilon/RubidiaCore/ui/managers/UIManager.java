@@ -50,7 +50,9 @@ public class UIManager {
 
 	public UIHandler getUIHandler(Inventory inv){
 		for(UISession uiSession : this.playerSessions.values()){
-			if(uiSession.getUIHandler().isWindow(inv))return uiSession.getUIHandler();
+			if(uiSession.getUIHandler().getMenu().equals(inv)) {
+				return uiSession.getUIHandler();
+			}
 		}
 		return null;
 	}

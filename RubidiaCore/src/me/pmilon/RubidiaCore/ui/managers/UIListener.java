@@ -54,7 +54,7 @@ public class UIListener implements Listener {
 				Player p = (Player) e.getWhoClicked();
 				UISession uiSession = uiManager.getSession(p);
 				if(uiSession != null){
-					if(uiSession.getUIHandler().isWindow(p.getOpenInventory().getTopInventory())) {
+					if(uiSession.getUIHandler().getMenu().equals(p.getOpenInventory().getTopInventory())) {
 						if(e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())){
 							uiSession.getUIHandler().onInventoryClick(e, p);
 						} else {
@@ -73,7 +73,7 @@ public class UIListener implements Listener {
 				Player p = (Player) e.getPlayer();
 				UISession session = uiManager.getSession(p);
 				if(session != null){
-					if(session.getUIHandler().isWindow(e.getInventory())){
+					if(session.getUIHandler().getMenu().equals(e.getInventory())){
 						session.getUIHandler().onInventoryClose(e, p);
 						this.uiManager.playerSessions.remove(session.getIdentifier());
 					}

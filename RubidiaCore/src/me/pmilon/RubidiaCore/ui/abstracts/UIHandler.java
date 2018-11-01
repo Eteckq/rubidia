@@ -68,10 +68,6 @@ public abstract class UIHandler {
 	
 	protected abstract boolean openWindow();
 	
-	public boolean isWindow(Inventory inv){
-		return inv.equals(this.menu);
-	}
-	
 	public abstract void onInventoryClick(InventoryClickEvent e, Player p);
 	
 	public abstract void onGeneralClick(InventoryClickEvent e, Player p);
