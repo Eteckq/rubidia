@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 public class MageAttack extends BukkitTask {
-    public int particles = 50;
+    public int particles = 30;
     
     private Player player;
     private ItemStack item;
@@ -32,7 +32,7 @@ public class MageAttack extends BukkitTask {
         this.critical = critical;
 
 		this.origin = player.getEyeLocation().clone().add(player.getEyeLocation().getDirection().normalize());
-		this.target = this.origin.clone().add(player.getEyeLocation().getDirection().normalize().multiply(9));
+		this.target = this.origin.clone().add(player.getEyeLocation().getDirection().normalize().multiply(9.5));
 		this.setDamager(player);
     }
     
@@ -59,7 +59,7 @@ public class MageAttack extends BukkitTask {
             }
 
             boolean damaged = false;
-            for(LivingEntity en : Core.toDamageableLivingEntityList(player, LocationUtils.getNearbyEntities(location, 1.5), RDamageCause.MAGIC)) {
+            for(LivingEntity en : Core.toDamageableLivingEntityList(player, LocationUtils.getNearbyEntities(location, .8), RDamageCause.MAGIC)) {
             	if(en.getLocation().distanceSquared(location) <= 1
             			|| en.getLocation().add(0,1,0).distanceSquared(location) <= 1) {
                 	double damages = DamageManager.getDamages(player, en, item, RDamageCause.MAGIC, critical, false);
