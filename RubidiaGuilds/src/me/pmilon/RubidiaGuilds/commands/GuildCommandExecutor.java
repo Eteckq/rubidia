@@ -1,8 +1,8 @@
 package me.pmilon.RubidiaGuilds.commands;
 
 import me.pmilon.RubidiaCore.Core;
-import me.pmilon.RubidiaCore.RChat.ChatType;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.chat.ChatType;
 import me.pmilon.RubidiaCore.commands.abstracts.PlayerCommandExecutor;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 import me.pmilon.RubidiaGuilds.ui.GCreateMenuUI;
