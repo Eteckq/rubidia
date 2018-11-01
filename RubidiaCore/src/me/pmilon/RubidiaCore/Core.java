@@ -121,7 +121,6 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.command.Command;
@@ -1823,7 +1822,8 @@ public class Core extends JavaPlugin implements Listener {
 							}
 						}
 						
-						float speedFactor = 0;
+						double speedFactor = Set.getAdditionalFactor(player, BuffType.WALK_SPEED);
+						
 						if(rp.getRClass().equals(RClass.RANGER)){
 							if(player.getInventory().getItem(17) != null){
 								if(!(player.getInventory().getItem(17).getType().toString().contains("ARROW"))
@@ -1837,80 +1837,12 @@ public class Core extends JavaPlugin implements Listener {
 							speedFactor += RAbility.ASSASSIN_3.getDamages(rp)*.01 - 1;
 						}
 
-						boolean elytra = false;
-						List<Set> sets = new ArrayList<Set>();
-						for(ItemStack item : player.getInventory().getArmorContents()){
-							if(item != null){
-								Material type = item.getType();
-								if(type.equals(Material.ELYTRA))elytra = true;
-								RItem rItem = new RItem(item);
-								if(rItem.isWeapon()){
-									Weapon weapon = rItem.getWeapon();
-									if(!weapon.isAttack()){
-										if(!weapon.canUse(rp)){
-											String name = type.toString();
-											if(name.contains("_HELMET"))player.getInventory().setHelmet(null);
-											else if(name.contains("_CHESTPLATE"))player.getInventory().setChestplate(null);
-											else if(name.contains("_LEGGINGS"))player.getInventory().setLeggings(null);
-											else if(name.contains("_BOOTS"))player.getInventory().setBoots(null);
-											player.getInventory().addItem(item);
-											rp.sendMessage("§cVous ne pouvez porter cette pièce d'armure !");
-											player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-											Utils.updateInventory(player);
-										}else{
-											if(weapon.isSetItem()){//for cpu reasons, we do not call Set.getFactor method
-												Set set = weapon.getSet();
-												if(!sets.contains(set)){
-													for(Buff buff : weapon.getSet().getActiveBuffs(player)){
-														if(buff.getType().equals(BuffType.WALK_SPEED)){
-															speedFactor += buff.getFactor();
-														}
-													}
-													sets.add(set);
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-						
-						if(elytra) {
+						if(Weapons.checkEquipment(rp)) {//handle equipment removal and returns whether the player is wearing elytras or not
 							player.setAllowFlight(!player.isGliding());
 						} else if((player.getGameMode().equals(GameMode.SURVIVAL)
 								|| player.getGameMode().equals(GameMode.ADVENTURE))
 								&& !DialogManager.isInDialog(player)) {
 							player.setAllowFlight(false);
-						}
-						
-						if(player.getEquipment().getItemInOffHand() != null){
-							ItemStack item = player.getEquipment().getItemInOffHand();
-							Weapon weapon = null;
-							RItem rItem = new RItem(item);
-							if(rItem.isWeapon()){
-								weapon = rItem.getWeapon();
-								if(weapon.getType().equals(Material.SHIELD)){
-									if(!weapon.canUse(rp)){
-										player.getEquipment().setItemInOffHand(null);
-										player.getInventory().addItem(item);
-										rp.sendMessage("§cVous ne pouvez porter ce bouclier !");
-										player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-										Utils.updateInventory(player);
-									}else{
-										if(weapon.isSetItem()){//for cpu reasons, we do not call Set.getAdditionalFactor method
-											Set set = weapon.getSet();
-											if(!sets.contains(set)){
-												for(Buff buff : weapon.getSet().getActiveBuffs(player)){
-													if(buff.getType().equals(BuffType.WALK_SPEED)){
-														speedFactor += buff.getFactor();
-													}
-												}
-												sets.add(set);
-											}
-										}
-									}
-								}
-							}//updated in next method
 						}
 						
 						for(int i = 0;i < player.getInventory().getSize();i++){//updates every slot but the 8th
@@ -1922,17 +1854,6 @@ public class Core extends JavaPlugin implements Listener {
 									if(rItem.isWeapon()){
 										weapon = rItem.getWeapon();
 										if(!item.equals(player.getEquipment().getItemInMainHand()))weapon.updateState(rp, item);
-										else if(weapon.isAttack() && weapon.canUse(rp) && weapon.isSetItem()){//shields in sets are only worn in left hand
-											Set set = weapon.getSet();
-											if(!sets.contains(set)){
-												for(Buff buff : weapon.getSet().getActiveBuffs(player)){
-													if(buff.getType().equals(BuffType.WALK_SPEED)){
-														speedFactor += buff.getFactor();
-													}
-												}
-												sets.add(set);
-											}
-										}
 									} /*else if(Weapons.COMMON_WEAPON_TYPES.contains(item.getType())) {
 										/*weapon = Weapons.craft(item.getType(), rp.getRClass(), rp.getRLevel(), Rarity.COMMON);
 										if(weapon != null)player.getInventory().setItem(i, weapon.getNewItemStack(rp));
@@ -1951,12 +1872,12 @@ public class Core extends JavaPlugin implements Listener {
 						}
 						
 						if(player.getWalkSpeed() > 0){
-							float speed = .2F*(1+speedFactor);
+							float speed = (float) (.2F*(1+speedFactor));
 							if(Math.abs(player.getWalkSpeed()-speed) >= .001){
 								player.setWalkSpeed(speed);
-								for(AttributeModifier modifier : new ArrayList<AttributeModifier>(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getModifiers())){
+								/*for(AttributeModifier modifier : new ArrayList<AttributeModifier>(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getModifiers())){
 									player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).removeModifier(modifier);
-								}
+								}*/
 							}
 						}
 					}

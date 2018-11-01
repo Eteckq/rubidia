@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,7 +44,6 @@ import me.pmilon.RubidiaCore.ritems.weapons.Piercing;
 import me.pmilon.RubidiaCore.ritems.weapons.Piercing.PiercingType;
 import me.pmilon.RubidiaCore.ritems.weapons.Set;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
-import me.pmilon.RubidiaCore.ritems.weapons.WeaponUse;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
 import me.pmilon.RubidiaCore.tags.NameTags;
 import me.pmilon.RubidiaCore.tasks.BossBarTimer;
@@ -85,7 +83,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -1717,8 +1714,8 @@ public class RPlayer {
 		RItem rItem = new RItem(e.getItem());
 		if(rItem.isWeapon()){
 			Weapon weapon = rItem.getWeapon();
-			if(weapon.isAttack() && weapon.canUse(this)){
-				if((this.getRClass().equals(RClass.ASSASSIN) || this.getRClass().equals(RClass.PALADIN)) && !weapon.getWeaponUse().equals(WeaponUse.MELEE))return this.getKeystroke();
+			if(weapon.isAttack()/* && weapon.canUse(this).isEmpty()*/){//useless to check if he can use the weapon the player's holding because of Weapons.checkEquipment
+				/*if((this.getRClass().equals(RClass.ASSASSIN) || this.getRClass().equals(RClass.PALADIN)) && !weapon.getWeaponUse().equals(WeaponUse.MELEE))return this.getKeystroke();
 				if(this.getRClass().equals(RClass.MAGE) && !weapon.getWeaponUse().equals(WeaponUse.MAGIC))return this.getKeystroke();
 				if(this.getRClass().equals(RClass.RANGER) && !weapon.getWeaponUse().toString().contains("RANGE"))return this.getKeystroke();
 				if(e.getAction().equals(Action.LEFT_CLICK_BLOCK) && !this.isInCombat()){
@@ -1743,7 +1740,7 @@ public class RPlayer {
 					if(this.getRClass().equals(RClass.MAGE) && weapon.getType().toString().contains("_HOE") && !this.isInCombat()){
 						if(e.getClickedBlock().getType().equals(Material.GRASS) || e.getClickedBlock().getType().equals(Material.DIRT))return this.getKeystroke();
 					}
-				}
+				}*///useless now that we switch player's gamemode to ADVENTURE when he holds any weapon
 				
 				List<RAbility> available = RAbility.getAvailable(this);
 				if(available.isEmpty())return this.getKeystroke();

@@ -357,8 +357,16 @@ public class Weapon {
 		this.setUUID = setUUID;
 	}
 
-	public boolean canUse(RPlayer rp){
-		return ((this.getRClass().equals(RClass.VAGRANT) || rp.getRClass().equals(this.getRClass())) && this.getLevel() <= rp.getRLevel()) || rp.isOp();
+	public String canUse(RPlayer rp){
+		if(!rp.isOp()) {
+			if(!this.getRClass().equals(RClass.VAGRANT) && !rp.getRClass().equals(this.getRClass())) {
+				return "vous n'êtes pas " + this.getRClass().getName();
+			} else if(this.getLevel() > rp.getRLevel()) {
+				return "votre niveau est insuffisant";
+			}
+		}
+		
+		return "";
 	}
 
 	public double getAttackSpeed() {

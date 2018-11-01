@@ -252,6 +252,51 @@ public class Set {
 					}
 				}
 			}
+			
+			ItemStack mainHand = entity.getEquipment().getItemInMainHand();
+			if(mainHand != null){
+				RItem rItem = new RItem(mainHand);
+				if(rItem.isWeapon()){
+					Weapon weapon = rItem.getWeapon();
+					if(weapon != null){
+						if(weapon.isSetItem()){
+							Set set = weapon.getSet();
+							if(!sets.contains(set)){
+								for(Buff buff : weapon.getSet().getActiveBuffs(entity)){
+									for(BuffType type : types){
+										if(buff.getType().equals(type)){
+											factor += buff.getFactor();
+										}
+									}
+								}
+								sets.add(set);
+							}
+						}
+					}
+				}
+			}
+			ItemStack offHand = entity.getEquipment().getItemInMainHand();
+			if(offHand != null){
+				RItem rItem = new RItem(offHand);
+				if(rItem.isWeapon()){
+					Weapon weapon = rItem.getWeapon();
+					if(weapon != null){
+						if(weapon.isSetItem()){
+							Set set = weapon.getSet();
+							if(!sets.contains(set)){
+								for(Buff buff : weapon.getSet().getActiveBuffs(entity)){
+									for(BuffType type : types){
+										if(buff.getType().equals(type)){
+											factor += buff.getFactor();
+										}
+									}
+								}
+								sets.add(set);
+							}
+						}
+					}
+				}
+			}
 		}
 		return factor;
 	}
