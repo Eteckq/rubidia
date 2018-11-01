@@ -15,7 +15,7 @@ import org.bukkit.material.Wool;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaMonsters.RubidiaMonstersPlugin;
 import me.pmilon.RubidiaMonsters.regions.Monster;
@@ -97,7 +97,7 @@ public class RegionManager extends UIHandler {
 	protected boolean openWindow() {
 		if(this.getMessage() != null){
 			if(!this.getMessage().isEmpty()){
-				if(this.getListeningId() == this.LIST_ID_CENTER)this.getRegion().setCenter(Locations.getCenter(this.getHolder().getLocation()));
+				if(this.getListeningId() == this.LIST_ID_CENTER)this.getRegion().setCenter(LocationUtils.getCenter(this.getHolder().getLocation()));
 				else if(this.getListeningId() == this.LIST_ID_X){
 					if(Utils.isDouble(this.getMessage())){
 						double x = Double.valueOf(this.getMessage());

@@ -3,7 +3,7 @@ package me.pmilon.RubidiaMonsters.regions;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaGuilds.claims.Claim;
 import me.pmilon.RubidiaMonsters.RubidiaMonstersPlugin;
 import me.pmilon.RubidiaMonsters.dungeons.Dungeon;
@@ -143,7 +143,7 @@ public class Region {
 		double y = RubidiaMonstersPlugin.random.nextDouble()*(this.getYRange()/2);
 		double yMin = this.getCenter().getY()-(this.getYRange()/2);
 		double z = RubidiaMonstersPlugin.random.nextDouble()*(this.getZRange()/2)*(RubidiaMonstersPlugin.random.nextBoolean() ? -1 : 1);
-		Location location = Locations.getCenter(this.getCenter().clone().add(x, y, z));
+		Location location = LocationUtils.getCenter(this.getCenter().clone().add(x, y, z));
 		if(Claim.get(location) != null)return this.getRandomSpawnLocation(monster);
 		location.getChunk().load();
 		if(!this.isSquare()){

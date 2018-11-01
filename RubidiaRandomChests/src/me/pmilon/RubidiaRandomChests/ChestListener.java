@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaCore.utils.Sounds;
 import me.pmilon.RubidiaCore.utils.VectorUtils;
 
@@ -80,7 +80,7 @@ public class ChestListener implements Listener {
 							if(this.getPlugin().getActiveLocations().contains(block.getLocation())){
 								Sounds.playFoundTreasure(player);
 								this.openedChests.put(player, chest);
-								final Location origin = Locations.getCenter(chest.getLocation());
+								final Location origin = LocationUtils.getCenter(chest.getLocation());
 								final Vector v = new Vector(.6,0,0);
 								final Vector v2 = new Vector(-.6,0,0);
 								for(int i = 0;i < 60;i++){

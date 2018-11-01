@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import net.minecraft.server.v1_13_R2.BlockPosition;
 import net.minecraft.server.v1_13_R2.ChatMessage;
 import net.minecraft.server.v1_13_R2.TileEntityChest;
@@ -122,7 +122,7 @@ public class RandomChestsPlugin extends JavaPlugin{
 			@Override
 			public void run(){
 				if(chest.getLocation().getBlock().hasMetadata("luckyChest")){
-					Core.playAnimEffect(Particle.CRIT, Locations.getCenter(chest.getLocation()).add(0,.5,0), .3F, .3F, .3F, .3F, 30);
+					Core.playAnimEffect(Particle.CRIT, LocationUtils.getCenter(chest.getLocation()).add(0,.5,0), .3F, .3F, .3F, .3F, 30);
 				}else this.cancel();
 			}
 

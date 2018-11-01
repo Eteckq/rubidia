@@ -24,7 +24,7 @@ import me.pmilon.RubidiaCore.ritems.weapons.Rarity;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapon;
 import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
 import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaGuilds.utils.LevelUtils;
 import me.pmilon.RubidiaMonsters.regions.Monster;
 import me.pmilon.RubidiaMonsters.regions.Region;
@@ -153,7 +153,7 @@ public class RegionsUI extends ListMenuUIHandler<Region>{
 
 	@Override
 	protected void onInfosClick(InventoryClickEvent e) {
-		Region region = new Region(UUID.randomUUID().toString(), Locations.getCenter(this.getHolder().getLocation()), 5, 514, 5, new ArrayList<Monster>(), true, 1, 10, .2, true, 0, 0, null, RegionType.DEFAULT);
+		Region region = new Region(UUID.randomUUID().toString(), LocationUtils.getCenter(this.getHolder().getLocation()), 5, 514, 5, new ArrayList<Monster>(), true, 1, 10, .2, true, 0, 0, null, RegionType.DEFAULT);
 		region.setMaxMonstersAmount((int) Math.round(region.getSize()/66));
 		Regions.regions.add(region);
 		Core.uiManager.requestUI(new RegionManager(this.getHolder(), region));

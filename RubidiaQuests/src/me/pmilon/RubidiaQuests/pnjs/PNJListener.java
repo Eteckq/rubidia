@@ -8,7 +8,7 @@ import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.handlers.EntityHandler;
 import me.pmilon.RubidiaCore.tags.TagStand;
 import me.pmilon.RubidiaCore.tags.TagStandManager;
-import me.pmilon.RubidiaCore.utils.Locations;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaQuests.QuestsPlugin;
 import me.pmilon.RubidiaQuests.dialogs.DialogManager;
 import me.pmilon.RubidiaQuests.dialogs.DialogType;
@@ -88,7 +88,7 @@ public class PNJListener implements Listener {
 		if(player != null){
 			if(PNJManager.pnjTemps.containsKey(player)){
 				for(Villager villager : PNJManager.pnjTemps.get(player)){
-					Location location = Locations.getSafeLocation(event.getTo().clone().subtract(player.getEyeLocation().getDirection().normalize().multiply(1.35)));
+					Location location = LocationUtils.getSafeLocation(event.getTo().clone().subtract(player.getEyeLocation().getDirection().normalize().multiply(1.35)));
 					double distance = villager.getLocation().distance(location);
 					if(distance > 1.75){
 						if(distance < 36){
@@ -373,7 +373,7 @@ public class PNJListener implements Listener {
 	@EventHandler
 	private void onBlockBreak(BlockBreakEvent event){
 		Block block = event.getBlock();
-		for(LivingEntity entity : Core.toLivingEntityList(Locations.getNearbyEntities(block.getLocation(), 3))){
+		for(LivingEntity entity : Core.toLivingEntityList(LocationUtils.getNearbyEntities(block.getLocation(), 3))){
 			if(entity instanceof Villager){
 				if(PNJManager.isPNJ((Villager) entity)){
 					event.setCancelled(true);
@@ -386,7 +386,7 @@ public class PNJListener implements Listener {
 	@EventHandler
 	private void onBlockPlace(BlockPlaceEvent event){
 		Block block = event.getBlock();
-		for(LivingEntity entity : Core.toLivingEntityList(Locations.getNearbyEntities(block.getLocation(), 3))){
+		for(LivingEntity entity : Core.toLivingEntityList(LocationUtils.getNearbyEntities(block.getLocation(), 3))){
 			if(entity instanceof Villager){
 				if(PNJManager.isPNJ((Villager) entity) || entity.hasMetadata("FakeNPCVillager")){
 					event.setCancelled(true);
