@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.RManager.SPlayer;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.utils.LevelUtils;
+import me.pmilon.RubidiaCore.levels.Levels;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
@@ -104,7 +104,7 @@ public class RPlayerManagerMenu extends UIHandler {
 			}
 		}
 		SPlayer sp = rpp.getSaves()[rpp.getLastLoadedSPlayerId()];
-		double ratio = sp.getRExp()/LevelUtils.getRLevelTotalExp(sp.getRLevel());
+		double ratio = sp.getRExp()/Levels.getRLevelTotalExp(sp.getRLevel());
 		meta.setDisplayName("§6" + ("Personnages") + "§8(" + n + ")");
 		meta.setLore(Arrays.asList("§8" + ("Niveau ") + "§7" + sp.getRLevel(), "§8" + ("XP ") + "§7" + sp.getRExp() + " (" + Utils.round(ratio, 2) + "%)", "§8" + ("Maîtrise ") + "§7" + (sp.getMastery().getName()), "§8" + ("Métier ") + "§7" + ChatColor.stripColor((sp.getRJob().getName())), "§8" + ("Points de compétence ") + "§7" + sp.getSkp(), "§8" + ("Points de distinction ") + "§7" + sp.getSkd(), "§8" + ("Force ") + "§7" + sp.getStrength(), "§8" + ("Endurance ") + "§7" + sp.getEndurance(), "§8" + ("Agilité ") + "§7" + sp.getAgility(), "§8" + ("Intelligence ") + "§7" + sp.getIntelligence(), "§8" + ("Perception ") + "§7" + sp.getPerception(), "§8" + ("Meurtres ") + "§7" + sp.getKills(), "§8" + ("Renom ") + "§7" + sp.getRenom()));
 		item.setItemMeta(meta);

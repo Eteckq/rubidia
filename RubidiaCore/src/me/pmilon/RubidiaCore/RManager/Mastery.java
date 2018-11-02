@@ -2,17 +2,17 @@ package me.pmilon.RubidiaCore.RManager;
 
 public enum Mastery {
 
-	VAGRANT(0,0,"Vagabond"),
-	ADVENTURER(1,15,"Aventurier"),
-	ASPIRANT(2,40,"Aspirant"),
-	MASTER(3,60,"Maître"),
-	HERO(4,120,"Héros");
+	VAGRANT(0,"Vagabond"),
+	ADVENTURER(15,"Aventurier"),
+	ASPIRANT(25,"Aspirant"),
+	SPECIALIST(40,"Spécialiste"),
+	EXPERT(60,"Expert"),
+	MASTER(85,"Maître"),
+	HERO(120,"Héros");
 	
-	private final int id;
 	private final int level;
 	private final String name;
-	private Mastery(int id,int level, String name){
-		this.id = id;
+	private Mastery(int level, String name){
 		this.level = level;
 		this.name = name;
 	}
@@ -26,7 +26,13 @@ public enum Mastery {
 	}
 
 	public int getId() {
-		return id;
+		for(int i = 0;i < Mastery.values().length;i++) {
+			if(this.equals(Mastery.values()[i])) {
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 	
 }

@@ -64,148 +64,9 @@ import net.minecraft.server.v1_13_R2.PathfinderGoalSelector;
 
 public enum RAbility {
 	
-	PALADIN_1(new Ability("Charge", Arrays.asList("Le paladin fonce droit devant lui", "jusqu'à ce qu'il rencontre", "un obstacle, qu'il explosera"),
-			RClass.PALADIN, Mastery.ADVENTURER, 1, false, "DGG,SP", "", "", 0) {
 
-		@Override
-		public void run(final RPlayer rp) {
-			this.takeVigor(rp);
-			final Player player = rp.getPlayer();
-			new BukkitTask(Core.instance){
-				int step = 0;
-				@Override
-				public void run() {
-					if(player.isDead()){
-						this.cancel();
-					}else{
-						if(step < 50){
-							player.setSprinting(false);
-							Vector v = player.getEyeLocation().getDirection();
-							Vector vm = new Vector(0, -0.35, 0);
-							player.setVelocity(v.multiply(0.5).add(vm));
-							player.getWorld().playSound(player.getLocation(), Sound.ENTITY_HORSE_GALLOP, 1, .25F);
-							List<LivingEntity> near = Core.toLivingEntityList(player.getNearbyEntities(1, 1, 1));
-							Core.playAnimEffect(Particle.SMOKE_NORMAL, player.getLocation(), .25F, .25F, .25F, .001F, 25);
-							if(!near.isEmpty()){
-								getInstance().damage(rp, near);
-								this.cancel();
-							}
-						}else{
-							this.cancel();
-						}
-					}
-					step++;
-				}
-				
-				@Override
-				public void onCancel() {
-					rp.setActiveAbility(1, false);
-				}
-				
-			}.runTaskTimer(0, 1);
-		}
-
-		@Override
-		public void onEffect(RPlayer rp) {
-		}
-
-		@Override
-		public void onCancel(RPlayer rp) {
-		}
-
-		@Override
-		public void animate(RPlayer rp, LivingEntity target) {
-			Player player = rp.getPlayer();
-			player.getWorld().createExplosion(player.getLocation(), 0);
-			Vector vdir = new Vector(0.5/(target.getLocation().getX()-player.getLocation().getX()),
-					3,
-					0.5/(target.getLocation().getZ()-player.getLocation().getZ()));
-			target.setVelocity(vdir.multiply(-0.25));
-		}
-		
-	}),
-	PALADIN_2(new Ability("Coup fatal", Arrays.asList("Le paladin saute en hauteur pour", "frapper le sol de toute sa force"),
-			RClass.PALADIN, Mastery.ADVENTURER, 2, false, "DGD,SN", "", "", 0) {
-
-		@Override
-		public void run(final RPlayer rp) {
-			this.takeVigor(rp);
-			final Player player = rp.getPlayer();
-			new BukkitTask(Core.instance){
-				int step = 0;
-				@Override
-				public void run() {
-					if(player.isDead()){
-						this.cancel();
-					}else{
-						if(step < 50){
-							player.setSprinting(false);
-							Vector v = player.getEyeLocation().getDirection();
-							Vector vm = new Vector(0, -0.35, 0);
-							player.setVelocity(v.multiply(0.5).add(vm));
-							player.getWorld().playSound(player.getLocation(), Sound.ENTITY_HORSE_GALLOP, 1, .25F);
-							List<LivingEntity> near = Core.toLivingEntityList(player.getNearbyEntities(1, 1, 1));
-							Core.playAnimEffect(Particle.SMOKE_NORMAL, player.getLocation(), .25F, .25F, .25F, .001F, 25);
-							if(!near.isEmpty()){
-								getInstance().damage(rp, near);
-								this.cancel();
-							}
-						}else{
-							this.cancel();
-						}
-					}
-					step++;
-				}
-				
-				@Override
-				public void onCancel() {
-					rp.setActiveAbility(1, false);
-				}
-				
-			}.runTaskTimer(0, 1);
-		}
-
-		@Override
-		public void onEffect(RPlayer rp) {
-		}
-
-		@Override
-		public void onCancel(RPlayer rp) {
-		}
-
-		@Override
-		public void animate(RPlayer rp, LivingEntity target) {
-			Player player = rp.getPlayer();
-			player.getWorld().createExplosion(player.getLocation(), 0);
-			Vector vdir = new Vector(0.5/(target.getLocation().getX()-player.getLocation().getX()),
-					3,
-					0.5/(target.getLocation().getZ()-player.getLocation().getZ()));
-			target.setVelocity(vdir.multiply(-0.25));
-		}
-		
-	}),
-	PALADIN_3(new Ability("Furie", Arrays.asList("Le paladin possède une force", "naturellement développée"),
-			RClass.PALADIN, Mastery.ADVENTURER, 3, true, "", "", "%", 0) {
-
-		@Override
-		public void run(final RPlayer rp) {
-		}
-
-		@Override
-		public void onEffect(RPlayer rp) {
-		}
-
-		@Override
-		public void onCancel(RPlayer rp) {
-		}
-
-		@Override
-		public void animate(RPlayer rp, LivingEntity target) {
-		}
-				
-	}),
-	PALADIN_4(new Ability("Peau de fer", Arrays.asList("Le paladin possède une défense", "naturellement développée"),
-			RClass.PALADIN, Mastery.ADVENTURER, 4, true, "", "Défense", "%", 0) {
+	PALADIN_1(new Ability("Étourdissement", Arrays.asList("La paladin frappe si fort", "qu'il étourdit souvent sa cible"),
+			RClass.PALADIN, Mastery.ADVENTURER, 1, true, "", "Temps", "sec", 0) {
 
 		@Override
 		public void run(final RPlayer rp) {
@@ -226,42 +87,11 @@ public enum RAbility {
 		}
 				
 	}),
-	PALADIN_5(new Ability("Danse de lames", Arrays.asList("Le paladin entraîne ses haches", "dans une virevolte effrénée,", "causant de lourds dégâts","aux ennemis alentours"),
-			RClass.PALADIN, Mastery.MASTER, 5, false, "DDD,SN", "", "", 0) {
+	PALADIN_2(new Ability("Peau de fer", Arrays.asList("Le paladin possède une défense", "naturellement surdéveloppée"),
+			RClass.PALADIN, Mastery.ADVENTURER, 2, true, "", "Défense", "%", 0) {
 
 		@Override
 		public void run(final RPlayer rp) {
-			this.takeVigor(rp);
-			final Player player = rp.getPlayer();
-			final int yawOffset = 46;
-			final List<LivingEntity> hurt = new ArrayList<LivingEntity>();
-			new BukkitTask(Core.instance){
-				int step = 0;
-				
-				@Override
-				public void run() {
-					Location location = player.getLocation();
-					List<LivingEntity> around = Core.toDamageableLivingEntityList(player, player.getNearbyEntities(2.5, 2.5, 2.5), RDamageCause.ABILITY);
-					around.removeAll(hurt);
-					getInstance().damage(rp, around);
-					hurt.addAll(around);
-					if(step < Math.floor(360/yawOffset)+1){
-						player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, .5F, 1);
-						Location destination = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ(), player.getEyeLocation().getYaw()+yawOffset, player.getEyeLocation().getPitch());
-						player.teleport(destination);
-						Core.playAnimEffect(Particle.LAVA, player.getLocation().subtract(0,.05,0), .25F, .2F, .25F, .1F, 4);
-						Location direction = player.getLocation().toVector().add(player.getEyeLocation().getDirection().normalize().multiply(1.8)).toLocation(player.getWorld());
-						player.teleport(direction);
-					}else this.cancel();
-					step++;
-				}
-
-				@Override
-				public void onCancel() {
-					rp.setActiveAbility(5, false);
-				}
-				
-			}.runTaskTimer(0, 0);
 		}
 
 		@Override
@@ -274,16 +104,57 @@ public enum RAbility {
 
 		@Override
 		public void animate(RPlayer rp, LivingEntity target) {
-			Player player = rp.getPlayer();
-			Vector motion = new Vector(.5/(target.getLocation().getX()-player.getLocation().getX()),
-					.75,
-					.5/(target.getLocation().getZ()-player.getLocation().getZ()));
-			target.setVelocity(motion);
+			
+			
 		}
 				
 	}),
-	PALADIN_6(new Ability("Rage", Arrays.asList("Le paladin entre en frénésie,", "augmentant sa force, se vitesse", "et sa défense"),
-			RClass.PALADIN, Mastery.MASTER, 6, false, "DDD,!SN", "", "", 50) {
+	PALADIN_3(new Ability("Bête de foire", Arrays.asList("Le paladin possède une santé", "naturellement surdéveloppée"),
+			RClass.PALADIN, Mastery.ADVENTURER, 3, true, "", "HP max", "%", 0) {
+
+		@Override
+		public void run(final RPlayer rp) {
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
+			
+			
+		}
+				
+	}),
+	PALADIN_4(new Ability("Poids lourd", Arrays.asList("La corpulence du paladin l'oblige", "à réduire sa vitesse d'attaque"),
+			RClass.PALADIN, Mastery.ADVENTURER, 4, true, "", "Vitesse d'atq", "%", 0) {
+
+		@Override
+		public void run(final RPlayer rp) {
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
+			
+			
+		}
+				
+	}),
+	PALADIN_5(new Ability("Rage", Arrays.asList("Le paladin entre en frénésie,", "augmentant sa force, se vitesse", "et sa défense"),
+			RClass.PALADIN, Mastery.ASPIRANT, 5, false, "DDD,!SN", "", "", 50) {
 		
 		List<PotionEffect> effects = Arrays.asList(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 2, true, false),
 				new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 1, true, false),
@@ -341,8 +212,184 @@ public enum RAbility {
 		}
 				
 	}),
-	PALADIN_7(new Ability("Métafusion", Arrays.asList("Le paladin concentre sa force durant", "2 secondes, après lesquelles", "il déchaîne une one de choc"),
-			RClass.PALADIN, Mastery.HERO, 7, false, "DGG,SN", "", "", 0) {
+	PALADIN_6(new Ability("Charge", Arrays.asList("Le paladin fonce droit devant lui", "jusqu'à ce qu'il rencontre", "un obstacle, qu'il explosera"),
+			RClass.PALADIN, Mastery.ASPIRANT, 6, false, "DGG,SP", "", "", 0) {
+
+		@Override
+		public void run(final RPlayer rp) {
+			this.takeVigor(rp);
+			final Player player = rp.getPlayer();
+			new BukkitTask(Core.instance){
+				int step = 0;
+				@Override
+				public void run() {
+					if(player.isDead()){
+						this.cancel();
+					}else{
+						if(step < 50){
+							player.setSprinting(false);
+							Vector v = player.getEyeLocation().getDirection();
+							Vector vm = new Vector(0, -0.35, 0);
+							player.setVelocity(v.multiply(0.5).add(vm));
+							player.getWorld().playSound(player.getLocation(), Sound.ENTITY_HORSE_GALLOP, 1, .25F);
+							List<LivingEntity> near = Core.toLivingEntityList(player.getNearbyEntities(1, 1, 1));
+							Core.playAnimEffect(Particle.SMOKE_NORMAL, player.getLocation(), .25F, .25F, .25F, .001F, 25);
+							if(!near.isEmpty()){
+								getInstance().damage(rp, near);
+								this.cancel();
+							}
+						}else{
+							this.cancel();
+						}
+					}
+					step++;
+				}
+				
+				@Override
+				public void onCancel() {
+					rp.setActiveAbility(1, false);
+				}
+				
+			}.runTaskTimer(0, 1);
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
+			Player player = rp.getPlayer();
+			player.getWorld().createExplosion(player.getLocation(), 0);
+			Vector vdir = new Vector(0.5/(target.getLocation().getX()-player.getLocation().getX()),
+					3,
+					0.5/(target.getLocation().getZ()-player.getLocation().getZ()));
+			target.setVelocity(vdir.multiply(-0.25));
+		}
+		
+	}),
+	PALADIN_7(new Ability("Coup fatal", Arrays.asList("Le paladin saute en hauteur pour", "frapper le sol de toute sa force"),
+			RClass.PALADIN, Mastery.SPECIALIST, 7, false, "DGD,SN", "", "", 0) {
+
+		@Override
+		public void run(final RPlayer rp) {
+			this.takeVigor(rp);
+			final Player player = rp.getPlayer();
+			new BukkitTask(Core.instance){
+				int step = 0;
+				@Override
+				public void run() {
+					if(player.isDead()){
+						this.cancel();
+					}else{
+						if(step < 50){
+							player.setSprinting(false);
+							Vector v = player.getEyeLocation().getDirection();
+							Vector vm = new Vector(0, -0.35, 0);
+							player.setVelocity(v.multiply(0.5).add(vm));
+							player.getWorld().playSound(player.getLocation(), Sound.ENTITY_HORSE_GALLOP, 1, .25F);
+							List<LivingEntity> near = Core.toLivingEntityList(player.getNearbyEntities(1, 1, 1));
+							Core.playAnimEffect(Particle.SMOKE_NORMAL, player.getLocation(), .25F, .25F, .25F, .001F, 25);
+							if(!near.isEmpty()){
+								getInstance().damage(rp, near);
+								this.cancel();
+							}
+						}else{
+							this.cancel();
+						}
+					}
+					step++;
+				}
+				
+				@Override
+				public void onCancel() {
+					rp.setActiveAbility(1, false);
+				}
+				
+			}.runTaskTimer(0, 1);
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
+			Player player = rp.getPlayer();
+			player.getWorld().createExplosion(player.getLocation(), 0);
+			Vector vdir = new Vector(0.5/(target.getLocation().getX()-player.getLocation().getX()),
+					3,
+					0.5/(target.getLocation().getZ()-player.getLocation().getZ()));
+			target.setVelocity(vdir.multiply(-0.25));
+		}
+		
+	}),
+	PALADIN_10(new Ability("Danse de lames", Arrays.asList("Le paladin entraîne ses haches", "dans une virevolte effrénée,", "causant de lourds dégâts","aux ennemis alentours"),
+			RClass.PALADIN, Mastery.EXPERT, 10, false, "DDD,SN", "", "", 0) {
+
+		@Override
+		public void run(final RPlayer rp) {
+			this.takeVigor(rp);
+			final Player player = rp.getPlayer();
+			final int yawOffset = 46;
+			final List<LivingEntity> hurt = new ArrayList<LivingEntity>();
+			new BukkitTask(Core.instance){
+				int step = 0;
+				
+				@Override
+				public void run() {
+					Location location = player.getLocation();
+					List<LivingEntity> around = Core.toDamageableLivingEntityList(player, player.getNearbyEntities(2.5, 2.5, 2.5), RDamageCause.ABILITY);
+					around.removeAll(hurt);
+					getInstance().damage(rp, around);
+					hurt.addAll(around);
+					if(step < Math.floor(360/yawOffset)+1){
+						player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, .5F, 1);
+						Location destination = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ(), player.getEyeLocation().getYaw()+yawOffset, player.getEyeLocation().getPitch());
+						player.teleport(destination);
+						Core.playAnimEffect(Particle.LAVA, player.getLocation().subtract(0,.05,0), .25F, .2F, .25F, .1F, 4);
+						Location direction = player.getLocation().toVector().add(player.getEyeLocation().getDirection().normalize().multiply(1.8)).toLocation(player.getWorld());
+						player.teleport(direction);
+					}else this.cancel();
+					step++;
+				}
+
+				@Override
+				public void onCancel() {
+					rp.setActiveAbility(5, false);
+				}
+				
+			}.runTaskTimer(0, 0);
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
+			Player player = rp.getPlayer();
+			Vector motion = new Vector(.5/(target.getLocation().getX()-player.getLocation().getX()),
+					.75,
+					.5/(target.getLocation().getZ()-player.getLocation().getZ()));
+			target.setVelocity(motion);
+		}
+				
+	}),
+	PALADIN_11(new Ability("Métafusion", Arrays.asList("Le paladin concentre sa force durant", "2 secondes, après lesquelles", "il déchaîne une one de choc"),
+			RClass.PALADIN, Mastery.MASTER, 11, false, "DGG,SN", "", "", 0) {
 		
 		@Override
 		public void run(final RPlayer rp) {
@@ -405,8 +452,8 @@ public enum RAbility {
 		}
 				
 	}),
-	PALADIN_8(new Ability("Frappe du golem", Arrays.asList("Le paladin frappe le sol", "en libérant une onde de choc"),
-			RClass.PALADIN, Mastery.HERO, 8, false, "GDD,SN", "", "", 0) {
+	PALADIN_12(new Ability("Frappe du golem", Arrays.asList("Le paladin frappe le sol", "en libérant une onde de choc"),
+			RClass.PALADIN, Mastery.HERO, 12, false, "GDD,SN", "", "", 0) {
 		
 		@Override
 		public void run(final RPlayer rp) {

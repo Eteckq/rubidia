@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaCore.handlers;
+package me.pmilon.RubidiaCore.levels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,6 @@ import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaCore.ritems.weapons.REnchantment;
 import me.pmilon.RubidiaCore.tags.NameTags;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
 
@@ -103,10 +102,10 @@ public class RLevelHandler implements Listener{
 		if(rp.isOnline()){
 			if(!e.getSource().getType().equals(RXPSourceType.SPLAYER_UPDATE)){
 				final Player p = rp.getPlayer();
-				if(e.getSource().getType().equals(RXPSourceType.COMMAND))rp.setRExp(LevelUtils.getRLevelTotalExp(newLevel)*(p.getExp()), new RXPSource(RXPSourceType.ADJUST, null, null));
+				if(e.getSource().getType().equals(RXPSourceType.COMMAND))rp.setRExp(Levels.getRLevelTotalExp(newLevel)*(p.getExp()), new RXPSource(RXPSourceType.ADJUST, null, null));
 				
 				rp.sendTitle(("§6§lNIVEAU SUPERIEUR !"), ("§eVous gagnez " + skp + " SKP & " + skd + " DP !"), 0, 100, 20);
-				LevelUtils.firework(p.getLocation());
+				Levels.firework(p.getLocation());
 				
 				if(newLevel >= Mastery.ADVENTURER.getLevel() && rp.getMastery().equals(Mastery.VAGRANT)){
 					rp.sendMessage("§aIl est temps pour vous de devenir un aventurier !");
@@ -228,7 +227,7 @@ public class RLevelHandler implements Listener{
 				if(type.toString().contains("ORE")){
 					if(!player.getEquipment().getItemInMainHand().getEnchantments().containsKey(Enchantment.SILK_TOUCH)){
 						RPlayer rp = RPlayer.get(player);
-						rp.addRExp(LevelUtils.getRExpForBlock(type), new RXPSource(RXPSourceType.BLOCK, block, null));
+						rp.addRExp(Levels.getRExpFactorForBlock(type)*Levels.getRLevelTotalExp(rp), new RXPSource(RXPSourceType.BLOCK, block, null));
 					}
 				}
 			}

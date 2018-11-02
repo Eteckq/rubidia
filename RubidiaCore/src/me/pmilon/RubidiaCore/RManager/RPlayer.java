@@ -34,6 +34,7 @@ import me.pmilon.RubidiaCore.events.RPlayerRequestDuelEvent;
 import me.pmilon.RubidiaCore.events.RPlayerXPEvent;
 import me.pmilon.RubidiaCore.events.RXPSource;
 import me.pmilon.RubidiaCore.jobs.RJob;
+import me.pmilon.RubidiaCore.levels.Levels;
 import me.pmilon.RubidiaCore.handlers.TradingHandler;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerChat;
 import me.pmilon.RubidiaCore.packets.WrapperPlayServerSetSlot;
@@ -48,7 +49,6 @@ import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
 import me.pmilon.RubidiaCore.tags.NameTags;
 import me.pmilon.RubidiaCore.tasks.BossBarTimer;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
@@ -342,7 +342,7 @@ public class RPlayer {
 		if(this.isOnline()){
 			Player p = this.getPlayer();
 			p.setLevel(this.getRLevel());
-			p.setExp((float) (this.getRExp()/LevelUtils.getRLevelTotalExp(this)));
+			p.setExp((float) (this.getRExp()/Levels.getRLevelTotalExp(this)));
 		}
 	}
 	public void setName(String name){

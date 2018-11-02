@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.Gender;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
-import me.pmilon.RubidiaCore.utils.LevelUtils;
+import me.pmilon.RubidiaCore.levels.Levels;
+import me.pmilon.RubidiaCore.ui.abstracts.ListMenuUIHandler;
 import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
@@ -125,7 +125,7 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 			}
 			lore.add("");
 		}
-		double ratio = e.getRExp()/LevelUtils.getRLevelTotalExp(e);
+		double ratio = e.getRExp()/Levels.getRLevelTotalExp(e);
 		long time = System.currentTimeMillis()-e.getLastDivorce();
 		lore.addAll(Arrays.asList("§8" + ("Niveau ") + "§7" + e.getRLevel(), "§8" + ("Expérience ") + "§7" + String.valueOf(Utils.round(ratio,2)) + "%", "§8" + ("Classe ") + "§7" + (e.getRClass().getName()), "§8" + ("Meurtres ") + "§7" + e.getKills(), "§8" + ("Temps de jeu ") + "§7" + TimeUnit.MILLISECONDS.toHours(e.getGamingTime()) + "h", "§8" + (e.getCouple() == null ? (time >= Settings.TIME_BEFORE_WEDDING_PROPOSAL ? ("Célibataire") : ("Divorcé depuis ") + "§7" + TimeUnit.MILLISECONDS.toHours(time) + "h") : ("Marié à ") + "§7" + e.getCouple().getCompanion(e).getName())));
 		GMember member = GMember.get(e);

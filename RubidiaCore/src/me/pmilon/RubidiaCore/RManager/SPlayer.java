@@ -6,8 +6,8 @@ import java.util.List;
 
 import me.pmilon.RubidiaCore.events.RXPSource;
 import me.pmilon.RubidiaCore.jobs.RJob;
+import me.pmilon.RubidiaCore.levels.Levels;
 import me.pmilon.RubidiaCore.utils.Configs;
-import me.pmilon.RubidiaCore.utils.LevelUtils;
 import me.pmilon.RubidiaPets.pets.Pet;
 import me.pmilon.RubidiaQuests.quests.Quest;
 
@@ -98,11 +98,11 @@ public class SPlayer {
 	}
 	public void setRExp(double rexp, RXPSource source, RPlayer rp) {
 		this.rexp = rexp;
-		if(this.rexp >= LevelUtils.getRLevelTotalExp(this.rlevel)){
+		if(this.rexp >= Levels.getRLevelTotalExp(this.rlevel)){
 			int newLevel = this.rlevel;
 			double exp = this.rexp;
-			while(exp >= LevelUtils.getRLevelTotalExp(newLevel)){
-				exp -= LevelUtils.getRLevelTotalExp(newLevel);
+			while(exp >= Levels.getRLevelTotalExp(newLevel)){
+				exp -= Levels.getRLevelTotalExp(newLevel);
 				newLevel += 1;
 			}
 			this.rexp = exp;

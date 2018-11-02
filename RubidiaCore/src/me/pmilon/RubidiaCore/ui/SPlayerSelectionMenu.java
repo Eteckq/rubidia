@@ -7,9 +7,9 @@ import java.util.List;
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.SPlayer;
+import me.pmilon.RubidiaCore.levels.Levels;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
-import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.utils.LevelUtils;
+import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
 import me.pmilon.RubidiaCore.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -53,7 +53,7 @@ public class SPlayerSelectionMenu extends UIHandler{
 				((Damageable) meta1).setDamage((int) Math.ceil(Material.SHEARS.getMaxDurability()*(sp.getRClass().equals(RClass.VAGRANT) ? .99 : (.25*(RClass.indexOf(sp.getRClass()) - 1) + .01))));
 				meta1.setUnbreakable(true);
 				meta1.setDisplayName("§f§l" + (sp.getRClass().getName()));
-				double ratio = sp.getRExp()/LevelUtils.getRLevelTotalExp(sp.getRLevel());
+				double ratio = sp.getRExp()/Levels.getRLevelTotalExp(sp.getRLevel());
 				lore.addAll(Arrays.asList("§8" + ("Niveau ") + "§7" + sp.getRLevel(), "§8" + ("XP ") + "§7" + sp.getRExp() + " (" + Utils.round(ratio, 2) + "%)", "§8" + ("Maîtrise ") + "§7" + (sp.getMastery().getName()), "§8" + ("Métier ") + "§7" + ChatColor.stripColor((sp.getRJob().getName())), "§8" + ("Points de compétence ") + "§7" + sp.getSkp(), "§8" + ("Points de distinction ") + "§7" + sp.getSkd(), "§8" + ("Force ") + "§7" + sp.getStrength(), "§8" + ("Endurance ") + "§7" + sp.getEndurance(), "§8" + ("Agilité ") + "§7" + sp.getAgility(), "§8" + ("Intelligence ") + "§7" + sp.getIntelligence(), "§8" + ("Perception ") + "§7" + sp.getPerception(), "§8" + ("Meurtres ") + "§7" + sp.getKills(), "§8" + ("Renom ") + "§7" + sp.getRenom(), "", rp.isVip() || i != 3 ? ("§e§oCliquez ici pour sélectionner ce personnage") : ("§c§oVous pourrez utiliser ce personnage une fois de nouveau VIP !"), "", "§f§m--------------------------------------"));
 				meta1.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
 			}else{

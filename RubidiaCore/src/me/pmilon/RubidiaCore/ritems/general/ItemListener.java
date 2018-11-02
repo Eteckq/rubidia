@@ -31,7 +31,6 @@ public class ItemListener implements Listener {
 		this.plugin = plugin;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@EventHandler
 	public void onKill(MonsterKillEvent event){
 		Player player = event.getPlayer();
