@@ -342,7 +342,7 @@ public class RPlayer {
 		if(this.isOnline()){
 			Player p = this.getPlayer();
 			p.setLevel(this.getRLevel());
-			p.setExp((float) (this.getRExp()/Levels.getRLevelTotalExp(this)));
+			p.setExp((float) (this.getRExp()/Levels.getRLevelTotalExp(this.getRLevel())));
 		}
 	}
 	public void setName(String name){

@@ -13,7 +13,6 @@ import me.pmilon.RubidiaCore.events.RPlayerLevelChangeEvent;
 import me.pmilon.RubidiaCore.events.RPlayerXPEvent;
 import me.pmilon.RubidiaCore.events.RXPSource;
 import me.pmilon.RubidiaCore.events.RXPSourceType;
-import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaCore.ritems.weapons.REnchantment;
 import me.pmilon.RubidiaCore.tags.NameTags;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
@@ -75,62 +74,43 @@ public class RLevelHandler implements Listener{
 	@EventHandler
 	public void onRLevelChange(RPlayerLevelChangeEvent e){
 		RPlayer rp = e.getRPlayer();
+		
+		int skp = Levels.getSkillpoints(e.getNewRLevel());
+		int skd = Levels.getDistinctionpoints(e.getNewRLevel());
+		rp.setSkillPoints(rp.getSkillPoints()+skp);
+		rp.setSkillDistinctionPoints(rp.getSkillDistinctionPoints()+skd);
+		
 		if(e.getNewRLevel() > Settings.LEVEL_MAX){
 			e.setNewRLevel(Settings.LEVEL_MAX);
 			rp.sendMessage("§cVous avez atteint notre limite de niveau. Nous admirons votre détermination et votre activité sur notre serveur. Merci de nous soutenir !");
 			return;
 		}
-		int newLevel = e.getNewRLevel();
-		int oldLevel = e.getOldRLevel();
-		int diff = newLevel - oldLevel;
-		int skp = 0;
-		int skd = 0;
-		if(diff > 0){
-			for(int i = 1;i <= diff;i++){
-				if(oldLevel+i <= Mastery.ADVENTURER.getLevel()){
-					skp++;
-					skd++;
-				}
-				skp++;
-				skd++;
-			}
-		}
-		rp.setSkillPoints(rp.getSkillPoints()+skp);
-		rp.setSkillDistinctionPoints(rp.getSkillDistinctionPoints()+skd);
-		if(newLevel >= Mastery.ASPIRANT.getLevel() && rp.getMastery().equals(Mastery.ADVENTURER))rp.setMastery(Mastery.ASPIRANT);
 		
 		if(rp.isOnline()){
 			if(!e.getSource().getType().equals(RXPSourceType.SPLAYER_UPDATE)){
 				final Player p = rp.getPlayer();
-				if(e.getSource().getType().equals(RXPSourceType.COMMAND))rp.setRExp(Levels.getRLevelTotalExp(newLevel)*(p.getExp()), new RXPSource(RXPSourceType.ADJUST, null, null));
+				if(e.getSource().getType().equals(RXPSourceType.COMMAND)) {
+					rp.setRExp(Levels.getRLevelTotalExp(e.getNewRLevel())*(p.getExp()), new RXPSource(RXPSourceType.ADJUST, null, null));
+				}
 				
 				rp.sendTitle(("§6§lNIVEAU SUPERIEUR !"), ("§eVous gagnez " + skp + " SKP & " + skd + " DP !"), 0, 100, 20);
 				Levels.firework(p.getLocation());
 				
-				if(newLevel >= Mastery.ADVENTURER.getLevel() && rp.getMastery().equals(Mastery.VAGRANT)){
-					rp.sendMessage("§aIl est temps pour vous de devenir un aventurier !");
-					rp.sendMessage("§aDemandez à un §lMENTOR§a de choisir une classe !");
-				}
-				if(newLevel >= Mastery.MASTER.getLevel() && rp.getMastery().equals(Mastery.ASPIRANT)){
-					rp.sendMessage("§aIl est temps pour vous de devenir un " + rp.getEvolutionClassName() + " §a!");
-					rp.sendMessage("§aDemandez à un §lPRECEPTEUR§a d'évoluer, et ainsi apprendre 2 nouvelles compétences !");
-				}
-				if(newLevel >= Mastery.HERO.getLevel() && rp.getMastery().equals(Mastery.MASTER)){
-					rp.sendMessage("§aIl est temps pour vous de devenir un " + rp.getEvolutionClassName() + " §a!");
-					rp.sendMessage("§aDemandez à un §lPREFET§a d'évoluer, et ainsi apprendre 2 nouvelles compétences et obtenir un §oParchemin de redistribution §a!");
-				}
-				if(newLevel >= Settings.LEVEL_JOB && rp.getRJob().equals(RJob.JOBLESS)){
-					rp.sendMessage("§aVous pouvez d'ores et déjà obtenir un job §a!");
-					rp.sendMessage("§aDemandez-en un §lDOYEN§a pour gagner de l'argent facilement §a!");
+				for(int i = 0;i < Mastery.values().length - 1;i++) {
+					Mastery mastery = Mastery.values()[i+1];
+					if(rp.getMastery().equals(Mastery.values()[i]) && e.getNewRLevel() >= mastery.getLevel()) {
+						rp.sendMessage("§aIl est temps pour vous de devenir §l" + mastery.getName() + "§a !");
+						rp.sendMessage("§aTrouvez un §6§lMENTOR§a pour vous aider.");
+					}
 				}
 				
-				p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
+				p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() - .01);
 				
 				if(e.getOldRLevel() <= 5 && e.getNewRLevel() > 5){
 					rp.sendMessage("§6Désormais, vous perdrez 33% de votre inventaire à votre mort !");
 				}
 			}
-		}else if(e.getSource().getType().equals(RXPSourceType.COMMAND) && diff < 0)rp.setRExp(0, new RXPSource(RXPSourceType.ADJUST, null, null));
+		}else if(e.getSource().getType().equals(RXPSourceType.COMMAND) && e.getNewRLevel() < e.getOldRLevel())rp.setRExp(0, new RXPSource(RXPSourceType.ADJUST, null, null));
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -227,7 +207,7 @@ public class RLevelHandler implements Listener{
 				if(type.toString().contains("ORE")){
 					if(!player.getEquipment().getItemInMainHand().getEnchantments().containsKey(Enchantment.SILK_TOUCH)){
 						RPlayer rp = RPlayer.get(player);
-						rp.addRExp(Levels.getRExpFactorForBlock(type)*Levels.getRLevelTotalExp(rp), new RXPSource(RXPSourceType.BLOCK, block, null));
+						rp.addRExp(Levels.getRExpFactorForBlock(type)*Levels.getRLevelTotalExp(rp.getRLevel()), new RXPSource(RXPSourceType.BLOCK, block, null));
 					}
 				}
 			}

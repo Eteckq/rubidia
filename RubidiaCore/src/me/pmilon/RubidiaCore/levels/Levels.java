@@ -1,7 +1,5 @@
 package me.pmilon.RubidiaCore.levels;
 
-import me.pmilon.RubidiaCore.RManager.RPlayer;
-
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
@@ -10,11 +8,10 @@ import org.bukkit.Material;
 import org.bukkit.entity.Firework;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-public class Levels {
+import me.pmilon.RubidiaCore.RManager.Mastery;
+import me.pmilon.RubidiaCore.utils.Settings;
 
-	public static double getRLevelTotalExp(RPlayer rp){
-		return Levels.getRLevelTotalExp(rp.getRLevel());
-	}
+public class Levels {
 	
 	public static double getRLevelTotalExp(int level){
 		return 100.+9900.*Math.pow(level/150.,2);
@@ -30,6 +27,14 @@ public class Levels {
 		else if(type.equals(Material.EMERALD_ORE))return 1/200.;
 		else if(type.equals(Material.NETHER_QUARTZ_ORE))return 1/750.;
 		else return 0.0;
+	}
+	
+	public static int getSkillpoints(int level) {
+		return (level <= Settings.LEVEL_MAX ? 1 : 0) + (level <= Mastery.ADVENTURER.getLevel() ? 1 : 0) + (level <= Mastery.ASPIRANT.getLevel() ? 1 : 0);
+	}
+	
+	public static int getDistinctionpoints(int level) {
+		return (level <= Settings.LEVEL_MAX ? 1 : 0) + (level <= Mastery.ASPIRANT.getLevel() ? 1 : 0) + (level <= Mastery.EXPERT.getLevel() ? 1 : 0);
 	}
 	
 	public static void firework(Location location) {
