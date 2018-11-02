@@ -5,7 +5,7 @@ import java.util.Random;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.utils.LevelUtils;
+import me.pmilon.RubidiaCore.levels.Levels;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 
 import org.bukkit.Bukkit;
@@ -49,7 +49,7 @@ public class WorldRegenHandler implements Listener {
 							public void run(){
 								if(time < 5){
 									Core.playAnimEffect(Particle.VILLAGER_HAPPY, player.getLocation().add(0,1,0), .3F, .3F, .3F, 1, 50);
-									LevelUtils.firework(player.getLocation());
+									Levels.firework(player.getLocation());
 								}else if(fireworkFinish.containsKey(player)){
 									Bukkit.getScheduler().cancelTask(fireworkFinish.get(player));
 									fireworkFinish.remove(player);

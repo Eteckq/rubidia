@@ -16,7 +16,7 @@ import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.RManager.SPlayer;
 import me.pmilon.RubidiaCore.ritems.general.RItem;
-import me.pmilon.RubidiaCore.utils.LevelUtils;
+import me.pmilon.RubidiaCore.levels.Levels;
 import me.pmilon.RubidiaMonsters.regions.Monster;
 import me.pmilon.RubidiaMonsters.regions.Region;
 import me.pmilon.RubidiaMonsters.regions.Regions;
@@ -580,7 +580,7 @@ public class Quest extends RequiredHolder {
 					if(required.getType().equals(RequiredType.LEVEL)){
 						requiredXP = true;
 						int level = required.getLevel();
-						double exp = LevelUtils.getRLevelTotalExp(level);
+						double exp = Levels.getRLevelTotalExp(level);
 						if(reward.getRExp()/exp < .04){
 							return "Reward: XP too low";
 						}
