@@ -24,7 +24,6 @@ public class PrefsUI extends UIHandler {
 	static ItemStack ITEM_COMBAT = new ItemStack(Material.SKELETON_SKULL, 1);
 	static ItemStack ITEM_NOTIFJOIN = new ItemStack(Material.PLAYER_HEAD, 1);
 	static ItemStack ITEM_CLICKSOUND = new ItemStack(Material.DISPENSER, 1);
-	static ItemStack ITEM_EFFECTS = new ItemStack(Material.FIREWORK_ROCKET, 1);
 	static ItemStack ITEM_INVOCATION = new ItemStack(Material.BLAZE_POWDER, 1);
 	static ItemStack ITEM_TELEPORTATION = new ItemStack(Material.ENDER_PEARL, 1);
 	static ItemStack ITEM_MUSIC = new ItemStack(Material.NOTE_BLOCK, 1);
@@ -43,7 +42,6 @@ public class PrefsUI extends UIHandler {
 	static int SLOT_NOTIFJOIN = 0;
 	static int SLOT_COMBAT = 1;
 	static int SLOT_CLICKSOUND = 2;
-	static int SLOT_EFFECTS = 3;
 	static int SLOT_INVOCATION = 4;
 	static int SLOT_TELEPORTATION = 5;
 	static int SLOT_MUSIC = 7;
@@ -103,10 +101,6 @@ public class PrefsUI extends UIHandler {
 						if(rp.getCombatLevel() > 3)rp.setCombatLevel(0);
 						getMenu().setItem(SLOT_COMBAT, this.getCombatLevel());
 						getMenu().setItem(SLOT_COMBAT+9, rp.getCombatLevel() > 0 ? ITEM_RANKINFO : ITEM_DISABLED);
-					}else if(slot == SLOT_EFFECTS || slot == SLOT_EFFECTS+9){
-						rp.setEffects(!rp.getEffects());
-						this.getMenu().setItem(SLOT_EFFECTS, this.getEffects());
-						this.getMenu().setItem(SLOT_EFFECTS+9, rp.getEffects() ? ITEM_ENABLED : ITEM_DISABLED);
 					}else if(slot == SLOT_INVOCATION || slot == SLOT_INVOCATION+9){
 						rp.setWouldLikeInvocation(!rp.getWouldLikeInvocation());
 						this.getMenu().setItem(SLOT_INVOCATION, this.getInvocation());
@@ -172,9 +166,6 @@ public class PrefsUI extends UIHandler {
 			
 			getMenu().setItem(SLOT_CLICKSOUND, this.getClickSound());
 			getMenu().setItem(SLOT_CLICKSOUND+9, rp.getClickSound() ? ITEM_ENABLED : ITEM_DISABLED);
-			
-			getMenu().setItem(SLOT_EFFECTS, this.getEffects());
-			getMenu().setItem(SLOT_EFFECTS+9, rp.getEffects() ? ITEM_ENABLED : ITEM_DISABLED);
 			
 			getMenu().setItem(SLOT_INVOCATION, this.getInvocation());
 			getMenu().setItem(SLOT_INVOCATION+9, rp.getWouldLikeInvocation() ? ITEM_ENABLED : ITEM_DISABLED);
@@ -254,14 +245,6 @@ public class PrefsUI extends UIHandler {
 		ITEM_COMBAT.setItemMeta(META_BLOOD);
 		return ITEM_COMBAT;
 	}
-	private ItemStack getEffects() {
-		ItemMeta META_EFFECTS = ITEM_EFFECTS.getItemMeta();
-		META_EFFECTS.setDisplayName((rp.getEffects() ? "§a" : "§c") + "§lAnimations");
-		META_EFFECTS.setLore(Arrays.asList(("§7Désactivez cette option si vous êtes victime de lags."), ("§7Elle permet d'ajouter des animations de particules lors du jeu."), "", ("§e§lCliquez pour basculer")));
-		ITEM_EFFECTS.setItemMeta(META_EFFECTS);
-		return ITEM_EFFECTS;
-	}
-
 	private ItemStack getBack(){
 		ItemMeta META_BACK = ITEM_BACK.getItemMeta();
 		META_BACK.setDisplayName(("§6§lPréférences"));

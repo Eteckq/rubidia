@@ -182,17 +182,13 @@ public class RDuel {
 												int baseY1 = p1.getLocation().getBlockY();
 												int baseY2 = p2.getLocation().getBlockY();
 												for(Location location : locations){
-													if(getChallenger().getEffects()){
-														Location location1 = location.clone().add(0,baseY1-location.getY()+3+RandomUtils.random.nextDouble(),0);
-														if(location1.distanceSquared(p1.getLocation()) <= 81){
-															p1.spawnParticle(Settings.DUEL_WALL_PARTICLE, location1, 1, 0, -1, 0, RandomUtils.random.nextDouble()*.2);
-														}
+													Location location1 = location.clone().add(0,baseY1-location.getY()+3+RandomUtils.random.nextDouble(),0);
+													if(location1.distanceSquared(p1.getLocation()) <= 81){
+														p1.spawnParticle(Settings.DUEL_WALL_PARTICLE, location1, 1, 0, -1, 0, RandomUtils.random.nextDouble()*.2);
 													}
-													if(getChallenged().getEffects()){
-														Location location2 = location.clone().add(0,baseY2-location.getY()+3+RandomUtils.random.nextDouble(),0);
-														if(location2.distanceSquared(p2.getLocation()) <= 81){
-															p2.spawnParticle(Settings.DUEL_WALL_PARTICLE, location2, 1, 0, -1, 0, RandomUtils.random.nextDouble()*.2);
-														}
+													Location location2 = location.clone().add(0,baseY2-location.getY()+3+RandomUtils.random.nextDouble(),0);
+													if(location2.distanceSquared(p2.getLocation()) <= 81){
+														p2.spawnParticle(Settings.DUEL_WALL_PARTICLE, location2, 1, 0, -1, 0, RandomUtils.random.nextDouble()*.2);
 													}
 												}
 											}

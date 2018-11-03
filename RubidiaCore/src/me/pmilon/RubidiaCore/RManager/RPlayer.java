@@ -114,7 +114,6 @@ public class RPlayer {
 	private boolean teleportation;
 	private int combatLevel;
 	private boolean clickSound;
-	private boolean effects;
 	private boolean music;
 	private boolean usingCycle;
 	private Long vip;
@@ -167,10 +166,11 @@ public class RPlayer {
 	private final List<RBooster> activeRBoosters = new ArrayList<RBooster>();
 	private final HashMap<String, BukkitTask> reloadingWeapons = new HashMap<String, BukkitTask>();
 
-	public RPlayer(String uuid, String name, Gender sex, long birthDate, boolean profileUpdated, boolean notifonfriendjoin, boolean notifonchatrequest, boolean invocation, boolean teleportation, int combatLevel,
-			boolean clickSound, boolean effects, boolean music, boolean usingCycle, boolean publicData, Long vip, boolean modified, SPlayer[] saves,
-			int lastLoadedSPlayerId, long lastConnectionDate, long gamingTime, int pendingRubis, String coupleUUID, long lastDivorce,
-			int chatHeight, int chatboxWidth, int chatboxHeight, boolean usingChat){
+	public RPlayer(String uuid, String name, Gender sex, long birthDate, boolean profileUpdated, boolean notifonfriendjoin, boolean notifonchatrequest,
+			boolean invocation, boolean teleportation, int combatLevel, boolean clickSound, boolean music, boolean usingCycle,
+			boolean publicData, long vip, boolean modified, SPlayer[] saves, int lastLoadedSPlayerId, long lastConnectionDate,
+			long gamingTime, int pendingRubis, String coupleUUID, long lastDivorce, int chatHeight, int chatboxWidth,
+			int chatboxHeight, boolean usingChat){
 		this.uuid = uuid;
 		this.name = name;
 		this.sex = sex;
@@ -181,7 +181,6 @@ public class RPlayer {
 		this.invocation = invocation;
 		this.teleportation = teleportation;
 		this.combatLevel = combatLevel;
-		this.effects = effects;
 		this.music = music;
 		this.usingCycle = usingCycle;
 		this.publicData = publicData;
@@ -285,9 +284,6 @@ public class RPlayer {
 	public boolean getNotifOnChatRequest(){
 		return this.notifonchatrequest;
 	}
-	public boolean getEffects(){
-		return this.effects;
-	}
 	public boolean getMusic(){
 		return this.music;
 	}
@@ -329,7 +325,7 @@ public class RPlayer {
 		}
 		if(this.isOnline()){
 			this.getPlayer().playSound(this.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-			Core.playAnimEffect(Particle.VILLAGER_HAPPY, this.getPlayer().getLocation().add(0,1,0), .4F, .4F, .4F, 1, 60);
+			this.getPlayer().getWorld().spawnParticle(Particle.VILLAGER_HAPPY, this.getPlayer().getLocation().add(0,1.5,0), 60, .4, .5, .4, 0);
 			NameTags.update();
 		}
 	}
@@ -388,10 +384,6 @@ public class RPlayer {
 	}
 	public void setNotifOnChatRequest(boolean notifonchatrequest){
 		this.notifonchatrequest = notifonchatrequest;
-		this.setModified(true);
-	}
-	public void setEffects(boolean effects){
-		this.effects = effects;
 		this.setModified(true);
 	}
 	public void setMusic(boolean music){
@@ -459,7 +451,7 @@ public class RPlayer {
 		return this.getRClass().getDarkColor() + "§l[" + (this.getMastery().equals(Mastery.ADVENTURER) ? Mastery.MASTER.getName() : Mastery.HERO.getName()) + "] " + this.getRClass().getColor() + this.getRClass().getName();
 	}
 	public double getMaxHealth(){
-		return (20+this.getEndurance()*.75)*(1+this.getAdditionalFactor(BuffType.MAX_HEALTH));
+		return (20+this.getEndurance()*.75)*(1+this.getAdditionalFactor(BuffType.MAX_HEALTH))+(this.getRClass().equals(RClass.PALADIN) ? RAbility.PALADIN_3.getDamages(this) : 0);
 	}
 	public int resetStats(){
 		int skd = this.getLoadedSPlayer().getSkd() + this.getLoadedSPlayer().getStrength() + this.getLoadedSPlayer().getEndurance() + this.getLoadedSPlayer().getAgility() + this.getLoadedSPlayer().getIntelligence() + this.getLoadedSPlayer().getPerception();
@@ -839,7 +831,7 @@ public class RPlayer {
 	}
 	
 	public double getDefenseFactor(){
-		return this.getEndurance()*Settings.ENDURANCE_FACTOR_DEFENSE+this.getAdditionalFactor(BuffType.DEFENSE);
+		return this.getEndurance()*Settings.ENDURANCE_FACTOR_DEFENSE+this.getAdditionalFactor(BuffType.DEFENSE)+(this.getRClass().equals(RClass.PALADIN) ? RAbility.PALADIN_2.getDamages(this)*.01 : 0);
 	}
 	
 	public double getCriticalStrikeDamagesFactor(){
@@ -881,7 +873,7 @@ public class RPlayer {
 	}
 	
 	public double getAttackSpeedFactor(){
-		return 1+this.getAgility()*Settings.AGILITY_FACTOR_ATTACK_SPEED+this.getAdditionalFactor(BuffType.ATTACK_SPEED);
+		return 1+this.getAgility()*Settings.AGILITY_FACTOR_ATTACK_SPEED+this.getAdditionalFactor(BuffType.ATTACK_SPEED)+(this.getRClass().equals(RClass.PALADIN) ? RAbility.PALADIN_4.getDamages(this)*.01 - 1 : 0);
 	}
 	
 	public double getXPFactor(){
@@ -976,7 +968,7 @@ public class RPlayer {
 							pet.despawn();
 						}
 					}
-					getPlayer().setWalkSpeed(.2F);
+					getPlayer().setWalkSpeed(Settings.DEFAULT_WALK_SPEED);
 					setLastLoadedSPlayerId(id);
 					setLoadedSPlayer(sp);
 					getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getMaxHealth());
@@ -1218,7 +1210,7 @@ public class RPlayer {
 				@Override
 				public void run() {
 					if(isOnline()){
-						Core.playAnimEffect(Particle.HEART, getPlayer().getLocation().add(0,.5,0), .2F, .3F, .2F, 0, 4);
+						getPlayer().getWorld().spawnParticle(Particle.HEART, getPlayer().getLocation().add(0,.5,0), 4, .2, .3, .2, 0);
 					}
 				}
 

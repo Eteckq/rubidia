@@ -75,7 +75,7 @@ public class GamePlayEffectsHandler implements Listener {
 					if(rp.getCombatLevel() > 2){
 						new BukkitTask(Core.instance){
 							public void run(){
-								Core.playAnimEffect(Particle.BLOCK_CRACK, damaged.getLocation().add(0,.6,0), .3F, .5F, .3F, 1, 40, Material.REDSTONE_BLOCK.createBlockData());
+								damaged.getWorld().spawnParticle(Particle.BLOCK_CRACK, damaged.getLocation().add(0,.6,0), 40, .3, .5, .3, 0, Material.REDSTONE_BLOCK.createBlockData());
 								Random r = new Random();
 								for(int i = 0;i < r.nextInt(4)+3;i++){
 									ItemStack stack = new ItemStack(Material.REDSTONE);

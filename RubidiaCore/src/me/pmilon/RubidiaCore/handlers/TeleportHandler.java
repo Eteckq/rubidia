@@ -141,10 +141,10 @@ public class TeleportHandler implements Listener{
 	
 	public static void teleport(final Entity e, Location location) {
 		if(e != null){
-	    	Core.playAnimEffect(Particle.PORTAL, e.getLocation(), .5F, .5F, .5F, 1, 100);
+	    	e.getWorld().spawnParticle(Particle.PORTAL, e.getLocation().add(0,e.getHeight()/2.,0), 50, .5, .5, .5);
 			handleVehicleTeleportation(e, location);
 			e.teleport(location);
-	    	Core.playAnimEffect(Particle.PORTAL, location, .5F, .5F, .5F, 1, 100);
+	    	e.getWorld().spawnParticle(Particle.PORTAL, e.getLocation().add(0,e.getHeight()/2.,0), 50, .5, .5, .5);
 		}
 	}
 
@@ -169,15 +169,11 @@ public class TeleportHandler implements Listener{
 
 					@Override
 					public void onCancel() {
-						// TODO Auto-generated method stub
-						
 					}
 				}.runTaskLater(i);
 			}
 		}
 	}
-	
-	
 	
 	public static void requestInvocation(final Player invoked, final Player invocator, final Scroll scroll) {
 		TeleportHandler.invoke_tasks.put(invoked, new BukkitTask(Core.instance){

@@ -13,6 +13,7 @@ import me.pmilon.RubidiaCore.ui.FriendCallUI;
 import me.pmilon.RubidiaCore.ui.FriendTPUI;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
+import me.pmilon.RubidiaCore.utils.Settings;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -158,8 +159,8 @@ public enum ScrollType {
 				rp.setResurrectionTask(null);
 				p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()*.6);
 				p.setFlying(false);
-				p.setFlySpeed(.1F);
-				p.setWalkSpeed(.2F);
+				p.setFlySpeed(Settings.DEFAULT_FLY_SPEED);
+				p.setWalkSpeed(Settings.DEFAULT_WALK_SPEED);
 				for(Player player : Bukkit.getOnlinePlayers()){
 					player.showPlayer(Core.instance, p);
 				}
