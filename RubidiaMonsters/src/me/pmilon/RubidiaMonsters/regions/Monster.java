@@ -159,7 +159,7 @@ public class Monster {
 					@Override
 					public void run() {
 						entity.teleport(entity.getLocation().add(0,step,0), TeleportCause.PLUGIN);
-						Core.playAnimEffect(Particle.BLOCK_CRACK, location, .5F, .5F, .5F, 1, 3, blockLocation.getBlock().getBlockData());
+						location.getWorld().spawnParticle(Particle.BLOCK_CRACK, location, 3, .5, .5, .5, 1, blockLocation.getBlock().getBlockData());
 					}
 
 					@Override

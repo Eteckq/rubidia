@@ -2,6 +2,7 @@ package me.pmilon.RubidiaQuests.shops;
 
 import java.util.List;
 
+import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaQuests.ui.shops.ShopEditionUI;
 
 import org.bukkit.entity.Player;
@@ -47,7 +48,7 @@ public class PlayerShop extends Shop {
 			this.getHolder().setFlySpeed(0);
 		}else{
 			this.getHolder().setFlying(false);
-			this.getHolder().setFlySpeed(.1F);
+			this.getHolder().setFlySpeed(Settings.DEFAULT_FLY_SPEED);
 		}
 	}
 

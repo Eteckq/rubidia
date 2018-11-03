@@ -3,7 +3,6 @@ package me.pmilon.RubidiaGuilds.guilds;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
@@ -176,10 +175,10 @@ public class Guild {
 			
 			RPlayer rp = RPlayer.get(member);
 			if(rp.isOnline()){
-				Core.playAnimEffect(Particle.REDSTONE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 0, 100);
-				Core.playAnimEffect(Particle.SLIME, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
-				Core.playAnimEffect(Particle.ENCHANTMENT_TABLE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
-				Core.playAnimEffect(Particle.TOWN_AURA, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
+				rp.getPlayer().getWorld().spawnParticle(Particle.REDSTONE, rp.getPlayer().getEyeLocation(), 25, .25, .25, .25);
+				rp.getPlayer().getWorld().spawnParticle(Particle.SLIME, rp.getPlayer().getEyeLocation(), 25, .25, .25, .25);
+				rp.getPlayer().getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, rp.getPlayer().getEyeLocation(), 25, .25, .25, .25);
+				rp.getPlayer().getWorld().spawnParticle(Particle.TOWN_AURA, rp.getPlayer().getEyeLocation(), 25, .25, .25, .25);
 			}
 		}
 	}
@@ -348,10 +347,10 @@ public class Guild {
 		for(GMember member : this.getMembers()){
 			RPlayer rp = RPlayer.get(member);
 			if(rp.isOnline()){
-				Core.playAnimEffect(Particle.REDSTONE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 0, 100);
-				Core.playAnimEffect(Particle.SLIME, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
-				Core.playAnimEffect(Particle.ENCHANTMENT_TABLE, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
-				Core.playAnimEffect(Particle.TOWN_AURA, rp.getPlayer().getLocation().add(0,1,0), .5F, .5F, .5F, 1, 100);
+				rp.getPlayer().getWorld().spawnParticle(Particle.REDSTONE, rp.getPlayer().getEyeLocation(), 25, .25, .25, .25);
+				rp.getPlayer().getWorld().spawnParticle(Particle.SLIME, rp.getPlayer().getEyeLocation(), 25, .25, .25, .25);
+				rp.getPlayer().getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, rp.getPlayer().getEyeLocation(), 25, .25, .25, .25);
+				rp.getPlayer().getWorld().spawnParticle(Particle.TOWN_AURA, rp.getPlayer().getEyeLocation(), 25, .25, .25, .25);
 			}
 			member.setGuild(Guild.getNone());
 			member.setRank(Guild.getNone().getDefaultRank());

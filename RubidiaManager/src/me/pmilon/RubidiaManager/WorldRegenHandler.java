@@ -3,7 +3,6 @@ package me.pmilon.RubidiaManager;
 import java.util.HashMap;
 import java.util.Random;
 
-import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.levels.Levels;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
@@ -48,7 +47,7 @@ public class WorldRegenHandler implements Listener {
 							int time = 0;
 							public void run(){
 								if(time < 5){
-									Core.playAnimEffect(Particle.VILLAGER_HAPPY, player.getLocation().add(0,1,0), .3F, .3F, .3F, 1, 50);
+									player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, player.getEyeLocation(), 50, .3, .6, .3);
 									Levels.firework(player.getLocation());
 								}else if(fireworkFinish.containsKey(player)){
 									Bukkit.getScheduler().cancelTask(fireworkFinish.get(player));

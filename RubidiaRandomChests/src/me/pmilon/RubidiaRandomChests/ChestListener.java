@@ -2,7 +2,6 @@ package me.pmilon.RubidiaRandomChests;
 
 import java.util.HashMap;
 
-import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaCore.utils.Sounds;
@@ -90,8 +89,8 @@ public class ChestListener implements Listener {
 											VectorUtils.rotateAroundAxisY(v2, .2);
 											v.add(new Vector(0,.1,0));
 											v2.add(new Vector(0,.1,0));
-											Core.playAnimEffect(Particle.NOTE, origin.clone().add(v), 0, 0, 0, 0, 0);
-											Core.playAnimEffect(Particle.NOTE, origin.clone().add(v2), 0, 0, 0, 0, 0);
+											origin.getWorld().spawnParticle(Particle.NOTE, origin.clone().add(v), 0, 0, 0, 0);
+											origin.getWorld().spawnParticle(Particle.NOTE, origin.clone().add(v2), 0, 0, 0, 0);
 										}
 									}, i/2);
 								}

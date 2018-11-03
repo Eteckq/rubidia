@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.LocationUtils;
 import net.minecraft.server.v1_13_R2.BlockPosition;
@@ -122,7 +121,7 @@ public class RandomChestsPlugin extends JavaPlugin{
 			@Override
 			public void run(){
 				if(chest.getLocation().getBlock().hasMetadata("luckyChest")){
-					Core.playAnimEffect(Particle.CRIT, LocationUtils.getCenter(chest.getLocation()).add(0,.5,0), .3F, .3F, .3F, .3F, 30);
+					chest.getWorld().spawnParticle(Particle.CRIT, LocationUtils.getCenter(chest.getLocation()).add(0,.5,0), 30, .3, .3, .3);
 				}else this.cancel();
 			}
 

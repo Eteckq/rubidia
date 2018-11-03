@@ -9,7 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 
-import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.LocationUtils;
@@ -145,7 +144,7 @@ public class Claims{
 						for(Block block : blocks){
 							if(block.getChunk().equals(newClaim.getChunk())){
 								Location location = LocationUtils.getSafeLocation(block.getLocation());
-								Core.playAnimEffect(Particle.SPELL_WITCH, location, .25F, .5F, .25F, .5F, 21);
+								location.getWorld().spawnParticle(Particle.SPELL_WITCH, location, 15, .25, .5, .25, 0);
 							}
 						}
 					}
@@ -192,7 +191,7 @@ public class Claims{
 						for(Block block : blocks){
 							if(block.getChunk().equals(unclaim.getChunk())){
 								Location location = LocationUtils.getSafeLocation(block.getLocation());
-								Core.playAnimEffect(Particle.SPELL_INSTANT, location, .25F, .5F, .25F, .5F, 21);
+								location.getWorld().spawnParticle(Particle.SPELL_INSTANT, location, 15, .25, .5, .25, 0);
 							}
 						}
 					}
