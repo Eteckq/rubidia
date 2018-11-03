@@ -9,26 +9,29 @@ public class Settings {
 
 	public static final int ABILITY_CLICK_TICKS = 17;
 	
+	public static final float DEFAULT_WALK_SPEED = .2F;
+	public static final float DEFAULT_FLY_SPEED = .1F;
+	
 	public static final int LEVEL_JOB = 10;
 	public static final int LEVEL_MAX = 150;
 
-	public static final double STRENGTH_FACTOR_MELEE_DAMAGES_ON_MELEE = .005;
+	public static final double STRENGTH_FACTOR_MELEE_DAMAGES_ON_MELEE = .004;
 	public static final double STRENGTH_FACTOR_MELEE_RANGE_DAMAGES_ON_MELEE = .0025;
 	public static final double STRENGTH_FACTOR_HAND_DAMAGES_ON_MELEE = .25;
 	public static final double ENDURANCE_FACTOR_MAXHEALTH = .2;
 	public static final double ENDURANCE_FACTOR_NRJREGEN = .01;
 	public static final double ENDURANCE_FACTOR_DEFENSE = .0025;
-	public static final double ENDURANCE_FACTOR_ABILITY_DEF = .005;
-	public static final double AGILITY_FACTOR_RANGE_DAMAGES_ON_RANGE = .005;
-	public static final double AGILITY_FACTOR_ATTACK_SPEED = .005;
-	public static final double AGILITY_FACTOR_CRITICAL_STRIKE_DAMAGES = .0075;
+	public static final double ENDURANCE_FACTOR_ABILITY_DEF = .004;
+	public static final double AGILITY_FACTOR_RANGE_DAMAGES_ON_RANGE = .004;
+	public static final double AGILITY_FACTOR_ATTACK_SPEED = .004;
+	public static final double AGILITY_FACTOR_CRITICAL_STRIKE_DAMAGES = .006;
 	public static final double AGILITY_FACTOR_CRITICAL_STRIKE_CHANCE = .0025;
-	public static final double INTELLIGENCE_FACTOR_MAGIC_DAMAGES_ON_MAGIC = .005;
+	public static final double INTELLIGENCE_FACTOR_MAGIC_DAMAGES_ON_MAGIC = .004;
 	public static final double INTELLIGENCE_FACTOR_ABILITY_DAMAGES = .0025;
 	public static final double INTELLIGENCE_FACTOR_MAXNRJ = 2;
 	public static final double PERCEPTION_FACTOR_BLOCK_CHANCE = .002;
 	public static final double PERCEPTION_FACTOR_LOOT_CHANCE = .002;
-	public static final double PERCEPTION_FACTOR_LIFT_COST = .004;
+	public static final double PERCEPTION_FACTOR_LIFT_COST = .0035;
 
 	public static final int SWORDS_DMG_RANGE_MAX = 29;
 	public static final int AXES_DMG_RANGE_MAX = 61;

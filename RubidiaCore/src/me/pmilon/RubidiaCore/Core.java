@@ -97,6 +97,7 @@ import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.JSONUtils;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
+import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
 import me.pmilon.RubidiaMonsters.RubidiaMonstersPlugin;
 import me.pmilon.RubidiaMonsters.regions.Monsters;
@@ -361,7 +362,7 @@ public class Core extends JavaPlugin implements Listener {
 			playersMax = RPlayer.getOnlines().size();
 		}
 		
-		p.setWalkSpeed(1.0F);//to reset speed
+		p.setWalkSpeed(Settings.DEFAULT_WALK_SPEED);//to reset speed
 		
 		RChatListener.onPlayerJoin(e, rp);
 	}
@@ -505,8 +506,8 @@ public class Core extends JavaPlugin implements Listener {
 						rp.sendTitle("", "", 0, 1, 0);
 						p.setFlying(false);
 						p.setAllowFlight(false);
-						p.setFlySpeed(.1F);
-						p.setWalkSpeed(.2F);
+						p.setFlySpeed(Settings.DEFAULT_FLY_SPEED);
+						p.setWalkSpeed(Settings.DEFAULT_WALK_SPEED);
 						for(Player player : Bukkit.getOnlinePlayers()){
 							player.showPlayer(this, p);
 						}
@@ -1874,7 +1875,7 @@ public class Core extends JavaPlugin implements Listener {
 						}
 						
 						if(player.getWalkSpeed() > 0){
-							float speed = (float) (.2F*(1+speedFactor));
+							float speed = (float) (Settings.DEFAULT_WALK_SPEED*(1+speedFactor));
 							if(Math.abs(player.getWalkSpeed()-speed) >= .001){
 								player.setWalkSpeed(speed);
 								/*for(AttributeModifier modifier : new ArrayList<AttributeModifier>(player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getModifiers())){
