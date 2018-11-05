@@ -40,23 +40,18 @@ public class RBoostersUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		System.out.println("lol");
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				e.setCancelled(true);
-				int slot = e.getRawSlot();
-				RBooster booster = boosters[slot];
-				RBooster active = rp.getActiveBooster(booster.getBoosterType());
-				if(active != null){
-					active.stop();
-				}else{
-					if(rp.getRenom() >= booster.getBoosterType().getCost() || rp.isOp()){
-						booster.start();
-					}else rp.sendMessage("§cVous n'avez pas assez de renom pour activer ce booster.");
-				}
-				this.getMenu().setItem(slot, this.getBooster(slot));
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		RBooster booster = boosters[slot];
+		RBooster active = rp.getActiveBooster(booster.getBoosterType());
+		if(active != null){
+			active.stop();
+		}else{
+			if(rp.getRenom() >= booster.getBoosterType().getCost() || rp.isOp()){
+				booster.start();
+			}else rp.sendMessage("§cVous n'avez pas assez de renom pour activer ce booster.");
 		}
+		this.getMenu().setItem(slot, this.getBooster(slot));
 	}
 
 	@Override

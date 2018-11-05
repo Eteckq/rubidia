@@ -8,7 +8,8 @@ public enum RClass {
 	PALADIN(Material.DIAMOND_CHESTPLATE, "Paladin", "§2", "§a"),
 	RANGER(Material.ARROW, "Ranger", "§9", "§b"),
 	MAGE(Material.STICK, "Mage", "§6", "§e"),
-	ASSASSIN(Material.FEATHER, "Assassin", "§4", "§c");
+	ASSASSIN(Material.FEATHER, "Assassin", "§4", "§c"),
+	VAMPIRE(Material.REDSTONE, "Vampire", "§5", "§d");
 	
 	private final Material display;
 	private final String name;

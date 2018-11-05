@@ -88,60 +88,56 @@ public class EnchantmentUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg0) {
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				Enchantment enchant = available.get(RandomUtils.random.nextInt(available.size()));
-			    int level = this.getLevel(e.getRawSlot());
-			    int elvl = this.getEnchantmentIntervalLevel(level);
-				int bLevel = this.getMaxBookshelfLevel();
-				if(level > bLevel){
-					rp.sendMessage("§cVous devez positionner " + level*9 + " bibliothèques autour de la table d'enchantement pour débloquer ce pallier !");
-					e.setCancelled(true);
-					return;
-				}
-				
-				if(rp.getBank() >= this.getCost(level)){
-					EconomyHandler.withdraw(this.getHolder(), this.getCost(level));
-					if(elvl > enchant.getMaxLevel())elvl = enchant.getMaxLevel();
-					ItemMeta meta = this.item.getItemMeta();
-					meta.addEnchant(enchant, elvl, true);
-					RItem rItem = new RItem(this.item);
-					if(rItem.isWeapon())rItem.getWeapon().updateState(rp, this.item);
-					else{
-						for(Enchantment ench : meta.getEnchants().keySet()){
-							if(ench.equals(REnchantment.SOUL_BIND)){
-								int lvl = meta.getEnchants().get(ench);
-								String name = "§7Liaison spirituelle " + (lvl == 1 ? "I" : lvl == 2 ? "II" : lvl == 3 ? "III" : lvl == 4 ? "IV" : lvl == 5 ? "V" : "???");
-								if(meta.hasLore()){
-									boolean found = false;
-									List<String> lore = Utils.getModifiableCopy(meta.getLore());
-									for(int i = 0;i < lore.size();i++){
-										if(lore.get(i).contains("Liaison spirituelle")){
-											lore.set(i, name);
-											found = true;
-											break;
-										}
-									}
-									if(!found){
-										for(int i = lore.size()-1;i >= 0;i--){
-											if(lore.size() > i+1)lore.set(i+1, lore.get(i));
-											else lore.add(lore.get(i));
-										}
-										lore.set(0, name);
-									}
-									meta.setLore(lore);
-								}else meta.setLore(Arrays.asList(name));
-								break;
-							}
-						}
-					}
-					this.item.setItemMeta(meta);
-					this.close(false);
-					rp.sendMessage("§aD'étranges puissances ont pris le contrôle de votre item !");
-				}else rp.sendMessage("§cVous n'avez pas assez d'émeraudes dans votre banque !");
-				this.close(false);
-			}
+		Enchantment enchant = available.get(RandomUtils.random.nextInt(available.size()));
+	    int level = this.getLevel(e.getRawSlot());
+	    int elvl = this.getEnchantmentIntervalLevel(level);
+		int bLevel = this.getMaxBookshelfLevel();
+		if(level > bLevel){
+			rp.sendMessage("§cVous devez positionner " + level*9 + " bibliothèques autour de la table d'enchantement pour débloquer ce pallier !");
+			e.setCancelled(true);
+			return;
 		}
+		
+		if(rp.getBank() >= this.getCost(level)){
+			EconomyHandler.withdraw(this.getHolder(), this.getCost(level));
+			if(elvl > enchant.getMaxLevel())elvl = enchant.getMaxLevel();
+			ItemMeta meta = this.item.getItemMeta();
+			meta.addEnchant(enchant, elvl, true);
+			RItem rItem = new RItem(this.item);
+			if(rItem.isWeapon())rItem.getWeapon().updateState(rp, this.item);
+			else{
+				for(Enchantment ench : meta.getEnchants().keySet()){
+					if(ench.equals(REnchantment.SOUL_BIND)){
+						int lvl = meta.getEnchants().get(ench);
+						String name = "§7Liaison spirituelle " + (lvl == 1 ? "I" : lvl == 2 ? "II" : lvl == 3 ? "III" : lvl == 4 ? "IV" : lvl == 5 ? "V" : "???");
+						if(meta.hasLore()){
+							boolean found = false;
+							List<String> lore = Utils.getModifiableCopy(meta.getLore());
+							for(int i = 0;i < lore.size();i++){
+								if(lore.get(i).contains("Liaison spirituelle")){
+									lore.set(i, name);
+									found = true;
+									break;
+								}
+							}
+							if(!found){
+								for(int i = lore.size()-1;i >= 0;i--){
+									if(lore.size() > i+1)lore.set(i+1, lore.get(i));
+									else lore.add(lore.get(i));
+								}
+								lore.set(0, name);
+							}
+							meta.setLore(lore);
+						}else meta.setLore(Arrays.asList(name));
+						break;
+					}
+				}
+			}
+			this.item.setItemMeta(meta);
+			this.close(false);
+			rp.sendMessage("§aD'étranges puissances ont pris le contrôle de votre item !");
+		}else rp.sendMessage("§cVous n'avez pas assez d'émeraudes dans votre banque !");
+		this.close(false);
 	}
 
 	@Override

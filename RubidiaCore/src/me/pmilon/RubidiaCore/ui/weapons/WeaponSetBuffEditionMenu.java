@@ -55,26 +55,24 @@ public class WeaponSetBuffEditionMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new WeaponSetBuffsMenu(this.getHolder(), this.getWeapon(), this.getSet()));
-			else if(slot == this.SLOT_TYPE){
-				if(this.getBuff().getType().equals(BuffType.ABILITY_DAMAGE))this.getBuff().setType(BuffType.LIFT_COST);
-				else if(this.getBuff().getType().equals(BuffType.LIFT_COST))this.getBuff().setType(BuffType.MELEE_DAMAGE);
-				else if(this.getBuff().getType().equals(BuffType.MELEE_DAMAGE))this.getBuff().setType(BuffType.RANGED_DAMAGE);
-				else if(this.getBuff().getType().equals(BuffType.RANGED_DAMAGE))this.getBuff().setType(BuffType.MAGIC_DAMAGE);
-				else if(this.getBuff().getType().equals(BuffType.MAGIC_DAMAGE))this.getBuff().setType(BuffType.DEFENSE);
-				else if(this.getBuff().getType().equals(BuffType.DEFENSE))this.getBuff().setType(BuffType.ATTACK_SPEED);
-				else if(this.getBuff().getType().equals(BuffType.ATTACK_SPEED))this.getBuff().setType(BuffType.WALK_SPEED);
-				else if(this.getBuff().getType().equals(BuffType.WALK_SPEED))this.getBuff().setType(BuffType.MAX_HEALTH);
-				else if(this.getBuff().getType().equals(BuffType.MAX_HEALTH))this.getBuff().setType(BuffType.MAX_ENERGY);
-				else if(this.getBuff().getType().equals(BuffType.MAX_ENERGY))this.getBuff().setType(BuffType.ENERGY_REGEN);
-				else if(this.getBuff().getType().equals(BuffType.ENERGY_REGEN))this.getBuff().setType(BuffType.XP);
-				else if(this.getBuff().getType().equals(BuffType.XP))this.getBuff().setType(BuffType.ABILITY_DAMAGE);
-				this.menu.setItem(this.SLOT_TYPE, this.getBType());
-			}else if(slot == this.SLOT_LEVEL)this.close(true, this.LIST_ID_LEVEL);
-		}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new WeaponSetBuffsMenu(this.getHolder(), this.getWeapon(), this.getSet()));
+		else if(slot == this.SLOT_TYPE){
+			if(this.getBuff().getType().equals(BuffType.ABILITY_DAMAGE))this.getBuff().setType(BuffType.LIFT_COST);
+			else if(this.getBuff().getType().equals(BuffType.LIFT_COST))this.getBuff().setType(BuffType.MELEE_DAMAGE);
+			else if(this.getBuff().getType().equals(BuffType.MELEE_DAMAGE))this.getBuff().setType(BuffType.RANGED_DAMAGE);
+			else if(this.getBuff().getType().equals(BuffType.RANGED_DAMAGE))this.getBuff().setType(BuffType.MAGIC_DAMAGE);
+			else if(this.getBuff().getType().equals(BuffType.MAGIC_DAMAGE))this.getBuff().setType(BuffType.DEFENSE);
+			else if(this.getBuff().getType().equals(BuffType.DEFENSE))this.getBuff().setType(BuffType.ATTACK_SPEED);
+			else if(this.getBuff().getType().equals(BuffType.ATTACK_SPEED))this.getBuff().setType(BuffType.WALK_SPEED);
+			else if(this.getBuff().getType().equals(BuffType.WALK_SPEED))this.getBuff().setType(BuffType.MAX_HEALTH);
+			else if(this.getBuff().getType().equals(BuffType.MAX_HEALTH))this.getBuff().setType(BuffType.MAX_ENERGY);
+			else if(this.getBuff().getType().equals(BuffType.MAX_ENERGY))this.getBuff().setType(BuffType.ENERGY_REGEN);
+			else if(this.getBuff().getType().equals(BuffType.ENERGY_REGEN))this.getBuff().setType(BuffType.XP);
+			else if(this.getBuff().getType().equals(BuffType.XP))this.getBuff().setType(BuffType.ABILITY_DAMAGE);
+			this.menu.setItem(this.SLOT_TYPE, this.getBType());
+		}else if(slot == this.SLOT_LEVEL)this.close(true, this.LIST_ID_LEVEL);
 	}
 
 	@Override

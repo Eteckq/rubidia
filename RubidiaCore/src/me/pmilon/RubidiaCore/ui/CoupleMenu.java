@@ -73,12 +73,10 @@ public class CoupleMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_DIVORCE) {
-				Core.uiManager.requestUI(new DivorceConfirmationUI(rp));
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_DIVORCE) {
+			Core.uiManager.requestUI(new DivorceConfirmationUI(rp));
 		}
 	}
 

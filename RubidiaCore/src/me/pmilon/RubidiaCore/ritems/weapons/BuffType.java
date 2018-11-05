@@ -13,7 +13,7 @@ public enum BuffType {
 	RANGED_DAMAGE("ranged damages", "dégâts à distance", Material.BOW),//DamageManager.getDamages
 	MAGIC_DAMAGE("magic damages", "dégâts magiques", Material.GOLDEN_HOE),//DamageManager.getDamages
 	DEFENSE("physical defense", "défense physique", Material.DIAMOND_CHESTPLATE),//RPlayer
-	MAX_HEALTH("max health", "vie maximale", Material.EGG),//RPlayer.getMaxHealth
+	MAX_HEALTH("max health", "vie maximale", Material.EGG),//RPlayer.getMaxHealth+Core.task3
 	MAX_ENERGY("max energy", "vigueur maximale", Material.CAULDRON),//RPlayer.getMaxVigor
 	ENERGY_REGEN("energy regen speed", "vitesse de régénération de la vigueur", Material.CAKE),//Core.task1
 	CRITIC_DAMAGE("critical strike damages", "dégâts des coups critiques", Material.ANVIL),//RPlayer

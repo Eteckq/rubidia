@@ -6,7 +6,6 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -122,8 +121,8 @@ public class RDuel {
 			this.challengedMana = this.getChallenged().getVigor();
 			this.challengerFood = p1.getFoodLevel();
 			this.challengedFood = p2.getFoodLevel();
-			p1.setHealth(p1.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
-			p2.setHealth(p2.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
+			this.getChallenger().heal();
+			this.getChallenged().heal();
 			this.getChallenger().setVigor(this.getChallenger().getMaxVigor());
 			this.getChallenged().setVigor(this.getChallenged().getMaxVigor());
 			p1.setFoodLevel(20);

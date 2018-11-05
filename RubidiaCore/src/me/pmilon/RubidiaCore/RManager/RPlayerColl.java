@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.Smiley;
+import me.pmilon.RubidiaCore.abilities.RAbility;
 import me.pmilon.RubidiaCore.chat.RChatUtils;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.Database;
@@ -58,6 +59,12 @@ public class RPlayerColl extends Database<String,RPlayer>{
 									enderchest.put(Integer.valueOf(s), Configs.getPlayerConfig().getItemStack(path2 + ".enderChest." + s));
 								}
 							}
+							HashMap<RAbility, Integer> abilityLevels = new HashMap<RAbility, Integer>();
+							if(Configs.getPlayerConfig().contains(path2 + ".ability")){
+								for(String s : Configs.getPlayerConfig().getConfigurationSection(path2 + ".ability").getKeys(false)){
+									abilityLevels.put(RAbility.valueOf(s), Configs.getPlayerConfig().getInt(path2 + ".ability." + s));
+								}
+							}
 							List<Pet> pets = new ArrayList<Pet>();
 							for(String uuid : Configs.getPlayerConfig().getStringList(path2 + ".pets")){
 								Pet pet = Pets.get(uuid);
@@ -88,14 +95,7 @@ public class RPlayerColl extends Database<String,RPlayer>{
 									Mastery.valueOf(Configs.getPlayerConfig().getString(path2 + ".mastery")),
 									Configs.getPlayerConfig().getInt(path2 + ".skillpoints"),
 									Configs.getPlayerConfig().getInt(path2 + ".distinctionpoints"),
-									Configs.getPlayerConfig().getInt(path2 + ".ability.1"),
-									Configs.getPlayerConfig().getInt(path2 + ".ability.2"),
-									Configs.getPlayerConfig().getInt(path2 + ".ability.3"),
-									Configs.getPlayerConfig().getInt(path2 + ".ability.4"),
-									Configs.getPlayerConfig().getInt(path2 + ".ability.5"),
-									Configs.getPlayerConfig().getInt(path2 + ".ability.6"),
-									Configs.getPlayerConfig().getInt(path2 + ".ability.7"),
-									Configs.getPlayerConfig().getInt(path2 + ".ability.8"),
+									abilityLevels,
 									Configs.getPlayerConfig().getInt(path2 + ".strength"),
 									Configs.getPlayerConfig().getInt(path2 + ".endurance"),
 									Configs.getPlayerConfig().getInt(path2 + ".agility"),
@@ -211,7 +211,7 @@ public class RPlayerColl extends Database<String,RPlayer>{
 	}
 	
 	public SPlayer newDefaultSPlayer(int id){
-		return new SPlayer(id, 0, 0.0, RClass.VAGRANT, RJob.JOBLESS, Mastery.VAGRANT, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 1000, new ArrayList<Pet>(), new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 0, new ArrayList<Quest>(), new ArrayList<Quest>(), null, null, new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 20, 20);
+		return new SPlayer(id, 0, 0.0, RClass.VAGRANT, RJob.JOBLESS, Mastery.VAGRANT, 0, 0, new HashMap<RAbility, Integer>(), 0, 0, 0, 0, 0, 100, 0, 1000, new ArrayList<Pet>(), new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 0, new ArrayList<Quest>(), new ArrayList<Quest>(), null, null, new HashMap<Integer, ItemStack>(), new HashMap<Integer, ItemStack>(), 20, 20);
 	}
 	
 	public boolean contains(Player p){
@@ -281,7 +281,7 @@ public class RPlayerColl extends Database<String,RPlayer>{
 	protected RPlayer getDefault(String uuid) {
 		SPlayer[] saves = new SPlayer[4];
 		saves[0] = this.newDefaultSPlayer(0);
-		RPlayer rp = new RPlayer(uuid, Bukkit.getPlayer(UUID.fromString(uuid)).getName(), Gender.UNKNOWN, 0L, false, true, true, true, true, 1, true, true, true, false, 0L, true, saves, 0, System.currentTimeMillis(), 0L, 0, null, 0L, 11, RChatUtils.MAX_CHAT_WIDTH, RChatUtils.MAX_CHAT_HEIGHT, true);
+		RPlayer rp = new RPlayer(uuid, Bukkit.getPlayer(UUID.fromString(uuid)).getName(), Gender.UNKNOWN, 0L, false, true, true, true, true, 3, true, true, true, false, 0L, true, saves, 0, System.currentTimeMillis(), 0L, 0, null, 0L, 11, RChatUtils.MAX_CHAT_WIDTH, RChatUtils.MAX_CHAT_HEIGHT, true);
 		rp.setLoadedSPlayer(rp.getSaves()[rp.getLastLoadedSPlayerId()]);
 		return rp;
 	}

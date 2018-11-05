@@ -63,24 +63,22 @@ public class ProfileUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_GENDER){
-				if(rp.getSex().equals(Gender.UNKNOWN))rp.setSex(Gender.MALE);
-				else if(rp.getSex().equals(Gender.MALE))rp.setSex(Gender.FEMALE);
-				else if(rp.getSex().equals(Gender.FEMALE))rp.setSex(Gender.UNKNOWN);
-				this.getMenu().setItem(this.SLOT_GENDER, this.getGender());
-			}else if(slot == this.SLOT_BIRTH){
-				this.close(true, this.LIST_ID_BIRTH);
-				rp.sendMessage("§aEntrez votre date de naissance dans le format suivant : §ljj/mm/aaaa§a.");
-			}else if(slot == this.SLOT_DATA){
-				rp.setPublicData(!rp.isPublicData());
-				this.getMenu().setItem(this.SLOT_DATA, this.getData());
-			}else if(slot == this.SLOT_UPDATE){
-				rp.setProfileUpdated(!rp.isProfileUpdated());
-				this.getMenu().setItem(this.SLOT_UPDATE, this.getUpdate());
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_GENDER){
+			if(rp.getSex().equals(Gender.UNKNOWN))rp.setSex(Gender.MALE);
+			else if(rp.getSex().equals(Gender.MALE))rp.setSex(Gender.FEMALE);
+			else if(rp.getSex().equals(Gender.FEMALE))rp.setSex(Gender.UNKNOWN);
+			this.getMenu().setItem(this.SLOT_GENDER, this.getGender());
+		}else if(slot == this.SLOT_BIRTH){
+			this.close(true, this.LIST_ID_BIRTH);
+			rp.sendMessage("§aEntrez votre date de naissance dans le format suivant : §ljj/mm/aaaa§a.");
+		}else if(slot == this.SLOT_DATA){
+			rp.setPublicData(!rp.isPublicData());
+			this.getMenu().setItem(this.SLOT_DATA, this.getData());
+		}else if(slot == this.SLOT_UPDATE){
+			rp.setProfileUpdated(!rp.isProfileUpdated());
+			this.getMenu().setItem(this.SLOT_UPDATE, this.getUpdate());
 		}
 	}
 

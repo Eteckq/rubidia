@@ -62,7 +62,8 @@ public class TradingUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
+		ItemStack item = e.getCurrentItem();
+		if(item != null){
 			Collections.sort(slots1);
 			Collections.sort(slots2);
 			if(noslots.contains(e.getRawSlot())){
@@ -96,7 +97,7 @@ public class TradingUI extends UIHandler {
 					}
 				}.runTaskLater(1);
 			}else if(e.getRawSlot() == 39){
-				if(e.getCurrentItem().getType().equals(Material.GRAY_DYE)){
+				if(item.getType().equals(Material.GRAY_DYE)) {
 					//ACCEPT TRADE
 					e.setCurrentItem(this.getReady());
 					e.setCancelled(true);
@@ -113,7 +114,7 @@ public class TradingUI extends UIHandler {
 						this.getTraderUI().close(false, true);
 						this.close(false, true);
 					}
-				}else if(e.getCurrentItem().getType().equals(Material.LIME_DYE)){
+				} else if(item.getType().equals(Material.LIME_DYE)) {
 					//DENY TRADE
 					e.setCurrentItem(this.getNotReady());
 					e.setCancelled(true);

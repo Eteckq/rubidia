@@ -9,7 +9,6 @@ import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 
-import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
@@ -62,61 +61,28 @@ public class Set {
 		List<Buff> available = new ArrayList<Buff>();
 		if(!this.getBuffs().isEmpty() && !this.getWeapons().isEmpty()){
 			EntityEquipment equipment = entity.getEquipment();
+			List<Weapon> weapons = new ArrayList<Weapon>();
+			for(ItemStack stack : new ItemStack[] {
+					equipment.getHelmet(),
+					equipment.getChestplate(),
+					equipment.getLeggings(),
+					equipment.getBoots(),
+					equipment.getItemInMainHand(),
+					equipment.getItemInOffHand() }) {
+				if(stack != null){
+					RItem rItem = new RItem(stack);
+					if(rItem.isWeapon()){
+						Weapon weapon = rItem.getWeapon();
+						weapons.add(weapon);
+					}
+				}
+			}
 			double count = 0;
 			for(Weapon weapon : this.getWeapons()){
-				if(weapon.getType().toString().contains("_HELMET")){
-					ItemStack stack = equipment.getHelmet();
-					if(stack != null){
-						RItem rItem = new RItem(stack);
-						if(rItem.isWeapon()){
-							Weapon helmet = rItem.getWeapon();
-							if(helmet.isSimilar(weapon))count++;
-						}
-					}
-				}else if(weapon.getType().toString().contains("_CHESTPLATE")){
-					ItemStack stack = equipment.getChestplate();
-					if(stack != null){
-						RItem rItem = new RItem(stack);
-						if(rItem.isWeapon()){
-							Weapon chestplate = rItem.getWeapon();
-							if(chestplate.isSimilar(weapon))count++;
-						}
-					}
-				}else if(weapon.getType().toString().contains("_LEGGINGS")){
-					ItemStack stack = equipment.getLeggings();
-					if(stack != null){
-						RItem rItem = new RItem(stack);
-						if(rItem.isWeapon()){
-							Weapon leggings = rItem.getWeapon();
-							if(leggings.isSimilar(weapon))count++;
-						}
-					}
-				}else if(weapon.getType().toString().contains("_BOOTS")){
-					ItemStack stack = equipment.getBoots();
-					if(stack != null){
-						RItem rItem = new RItem(stack);
-						if(rItem.isWeapon()){
-							Weapon boots = rItem.getWeapon();
-							if(boots.isSimilar(weapon))count++;
-						}
-					}
-				}else if(weapon.getType().equals(Material.SHIELD)){
-					ItemStack stack = equipment.getItemInOffHand();
-					if(stack != null){
-						RItem rItem = new RItem(stack);
-						if(rItem.isWeapon()){
-							Weapon shield = rItem.getWeapon();
-							if(shield.isSimilar(weapon))count++;
-						}
-					}
-				}else if(weapon.isAttack()){
-					ItemStack stack = equipment.getItemInMainHand();
-					if(stack != null){
-						RItem rItem = new RItem(stack);
-						if(rItem.isWeapon()){
-							Weapon arme = rItem.getWeapon();
-							if(arme.isSimilar(weapon))count++;
-						}
+				for(Weapon weapon2 : weapons) {
+					if(weapon2.isSimilar(weapon)) {
+						count++;
+						break;
 					}
 				}
 			}
@@ -136,45 +102,30 @@ public class Set {
 		if(!this.getWeapons().isEmpty()){
 			EntityEquipment equipment = null;
 			if(player != null)equipment = player.getEquipment();
+			List<Weapon> weapons = new ArrayList<Weapon>();
+			if(equipment != null) {
+				for(ItemStack stack : new ItemStack[] {
+							equipment.getHelmet(),
+							equipment.getChestplate(),
+							equipment.getLeggings(),
+							equipment.getBoots(),
+							equipment.getItemInMainHand(),
+							equipment.getItemInOffHand() }) {
+					if(stack != null){
+						RItem rItem = new RItem(stack);
+						if(rItem.isWeapon()){
+							Weapon weapon = rItem.getWeapon();
+							weapons.add(weapon);
+						}
+					}
+				}
+			}
 			for(Weapon weapon : this.getWeapons()){
 				boolean equipped = false;
-				if(player != null){
-					if(weapon.getType().toString().contains("_HELMET")){
-						ItemStack stack = equipment.getHelmet();
-						if(stack != null){
-							RItem rItem = new RItem(stack);
-							if(rItem.isWeapon()){
-								Weapon helmet = rItem.getWeapon();
-								if(helmet.isSimilar(weapon))equipped = true;
-							}
-						}
-					}else if(weapon.getType().toString().contains("_CHESTPLATE")){
-						ItemStack stack = equipment.getChestplate();
-						if(stack != null){
-							RItem rItem = new RItem(stack);
-							if(rItem.isWeapon()){
-								Weapon chestplate = rItem.getWeapon();
-								if(chestplate.isSimilar(weapon))equipped = true;
-							}
-						}
-					}else if(weapon.getType().toString().contains("_LEGGINGS")){
-						ItemStack stack = equipment.getLeggings();
-						if(stack != null){
-							RItem rItem = new RItem(stack);
-							if(rItem.isWeapon()){
-								Weapon leggings = rItem.getWeapon();
-								if(leggings.isSimilar(weapon))equipped = true;
-							}
-						}
-					}else if(weapon.getType().toString().contains("_BOOTS")){
-						ItemStack stack = equipment.getBoots();
-						if(stack != null){
-							RItem rItem = new RItem(stack);
-							if(rItem.isWeapon()){
-								Weapon boots = rItem.getWeapon();
-								if(boots.isSimilar(weapon))equipped = true;
-							}
-						}
+				for(Weapon weapon2 : weapons) {
+					if(weapon2.isSimilar(weapon)) {
+						equipped = true;
+						break;
 					}
 				}
 				state.add("    " + (equipped ? "§a" : "§8") + weapon.getName());
@@ -229,7 +180,13 @@ public class Set {
 		double factor = 0;
 		if(entity != null){
 			List<Set> sets = new ArrayList<Set>();
-			for(ItemStack armor : entity.getEquipment().getArmorContents()){
+			for(ItemStack armor : new ItemStack[] {
+					entity.getEquipment().getHelmet(),
+					entity.getEquipment().getChestplate(),
+					entity.getEquipment().getLeggings(),
+					entity.getEquipment().getBoots(),
+					entity.getEquipment().getItemInMainHand(),
+					entity.getEquipment().getItemInOffHand() }){
 				if(armor != null){
 					RItem rItem = new RItem(armor);
 					if(rItem.isWeapon()){
@@ -247,51 +204,6 @@ public class Set {
 									}
 									sets.add(set);
 								}
-							}
-						}
-					}
-				}
-			}
-			
-			ItemStack mainHand = entity.getEquipment().getItemInMainHand();
-			if(mainHand != null){
-				RItem rItem = new RItem(mainHand);
-				if(rItem.isWeapon()){
-					Weapon weapon = rItem.getWeapon();
-					if(weapon != null){
-						if(weapon.isSetItem()){
-							Set set = weapon.getSet();
-							if(!sets.contains(set)){
-								for(Buff buff : weapon.getSet().getActiveBuffs(entity)){
-									for(BuffType type : types){
-										if(buff.getType().equals(type)){
-											factor += buff.getFactor();
-										}
-									}
-								}
-								sets.add(set);
-							}
-						}
-					}
-				}
-			}
-			ItemStack offHand = entity.getEquipment().getItemInMainHand();
-			if(offHand != null){
-				RItem rItem = new RItem(offHand);
-				if(rItem.isWeapon()){
-					Weapon weapon = rItem.getWeapon();
-					if(weapon != null){
-						if(weapon.isSetItem()){
-							Set set = weapon.getSet();
-							if(!sets.contains(set)){
-								for(Buff buff : weapon.getSet().getActiveBuffs(entity)){
-									for(BuffType type : types){
-										if(buff.getType().equals(type)){
-											factor += buff.getFactor();
-										}
-									}
-								}
-								sets.add(set);
 							}
 						}
 					}

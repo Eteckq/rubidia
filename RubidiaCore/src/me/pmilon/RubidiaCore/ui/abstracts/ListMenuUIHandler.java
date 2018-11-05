@@ -38,25 +38,23 @@ public abstract class ListMenuUIHandler<E> extends UIHandler {
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player player){
 		e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				int slot = e.getRawSlot();
-				if(slot == SLOT_PREV){
-					if(this.page_index != 0){
-						this.setPage(this.page_index-1);
-						this.onPageTurn();
-					}
-				}else if(slot == SLOT_NEXT){
-					if(this.page_index != this.list.size()-1){
-						this.setPage(this.page_index+1);
-						this.onPageTurn();
-					}
-				}else if(slot == SLOT_INFOS){
-					this.onInfosClick(e);
-				}else if(slot < this.lines*9){
-					ItemStack is = e.getCurrentItem();
-					this.onClick(e, player, is);
-				}
+		int slot = e.getRawSlot();
+		if(slot == SLOT_PREV){
+			if(this.page_index != 0){
+				this.setPage(this.page_index-1);
+				this.onPageTurn();
+			}
+		}else if(slot == SLOT_NEXT){
+			if(this.page_index != this.list.size()-1){
+				this.setPage(this.page_index+1);
+				this.onPageTurn();
+			}
+		}else if(slot == SLOT_INFOS){
+			this.onInfosClick(e);
+		}else if(slot < this.lines*9){
+			ItemStack item = e.getCurrentItem();
+			if(item != null){
+				this.onClick(e, player, item);
 			}
 		}
 	}

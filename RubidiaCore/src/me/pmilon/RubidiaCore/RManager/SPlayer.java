@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import me.pmilon.RubidiaCore.abilities.RAbility;
 import me.pmilon.RubidiaCore.events.RXPSource;
 import me.pmilon.RubidiaCore.jobs.RJob;
 import me.pmilon.RubidiaCore.levels.Levels;
@@ -24,7 +25,7 @@ public class SPlayer {
 	private Mastery mastery;
 	private int skp;
 	private int skd;
-	private int[] abilityLevels;
+	private HashMap<RAbility, Integer> abilityLevels;
 	private int strength;
 	private int endurance;
 	private int agility;
@@ -49,8 +50,7 @@ public class SPlayer {
 	private boolean loaded = false;
 	private boolean modified = false;
 	public SPlayer(int id, int rlevel, double rexp, RClass rClass, RJob rJob,
-			Mastery mastery, int skp, int skd, int firstability, int secondability, int thirdability, int fourthability,
-			int fifthability, int sixthability, int seventhability, int eighthability, int strength, int endurance, int agility,
+			Mastery mastery, int skp, int skd, HashMap<RAbility, Integer> abilityLevels, int strength, int endurance, int agility,
 			int intelligence, int perception, double currentnrj, int kills, int renom, List<Pet> pets,
 			HashMap<Integer, ItemStack> creative, HashMap<Integer, ItemStack> survival,
 			int bank, List<Quest> activeQuests, List<Quest> doneQuests, Quest followedQuest, Location lastLocation,
@@ -64,7 +64,7 @@ public class SPlayer {
 		this.mastery = mastery;
 		this.skp = skp;
 		this.skd = skd;
-		this.abilityLevels = new int[] {firstability,secondability,thirdability,fourthability,fifthability,sixthability,seventhability,eighthability};
+		this.abilityLevels = abilityLevels;
 		this.strength = strength;
 		this.endurance = endurance;
 		this.agility = agility;
@@ -253,8 +253,8 @@ public class SPlayer {
 		Configs.getPlayerConfig().set(path + ".mastery", this.getMastery().toString());
 		Configs.getPlayerConfig().set(path + ".skillpoints", this.getSkp());
 		Configs.getPlayerConfig().set(path + ".distinctionpoints", this.getSkd());
-		for(int i = 0;i < 8;i++) {
-			Configs.getPlayerConfig().set(path + ".ability." + (i+1), this.getAbilityLevel(i+1));
+		for(RAbility ability : this.getAbilityLevels().keySet()) {
+			Configs.getPlayerConfig().set(path + ".ability." + ability.toString(), this.getAbilityLevels().get(ability));
 		}
 		Configs.getPlayerConfig().set(path + ".strength", this.getStrength());
 		Configs.getPlayerConfig().set(path + ".endurance", this.getEndurance());
@@ -352,18 +352,21 @@ public class SPlayer {
 	public void setLoaded(boolean loaded) {
 		this.loaded = loaded;
 	}
-	public int[] getAbilityLevels() {
+	public HashMap<RAbility, Integer> getAbilityLevels() {
 		return abilityLevels;
 	}
-	public void setAbilityLevels(int[] abilityLevels) {
+	public void setAbilityLevels(HashMap<RAbility, Integer> abilityLevels) {
 		this.abilityLevels = abilityLevels;
 		this.setModified(true);
 	}
-	public int getAbilityLevel(int i) {
-		return abilityLevels[i-1];
+	public int getAbilityLevel(RAbility ability) {
+		if(this.abilityLevels.containsKey(ability)) {
+			return this.abilityLevels.get(ability);
+		}
+		return 0;
 	}
-	public void setAbilityLevel(int i, int level) {
-		this.abilityLevels[i] = level;
+	public void setAbilityLevel(RAbility ability, int level) {
+		this.abilityLevels.put(ability, level);
 		this.setModified(true);
 	}
 }

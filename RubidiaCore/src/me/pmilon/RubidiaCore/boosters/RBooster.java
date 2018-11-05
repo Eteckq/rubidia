@@ -2,7 +2,6 @@ package me.pmilon.RubidiaCore.boosters;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.attribute.Attribute;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
@@ -79,9 +78,9 @@ public class RBooster extends Buff {
 	
 	public void start(){
 		getRP().getActiveRBoosters().add(this);
-		if(this.getBoosterType().equals(RBoosterType.HP)) {
+		/*if(this.getBoosterType().equals(RBoosterType.HP)) {
 			getRP().getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getRP().getMaxHealth());
-		}
+		}*///handled in Core.task3
 		this.setTask(new BukkitTask(Core.instance){
 			int step = 0;
 			int timer = (int) (60*20/2.);
@@ -114,9 +113,9 @@ public class RBooster extends Buff {
 	public void stop(){
 		play();
 		getRP().getActiveRBoosters().remove(this);
-		if(getRP().isOnline() && this.getBoosterType().equals(RBoosterType.HP)) {
+		/*if(getRP().isOnline() && this.getBoosterType().equals(RBoosterType.HP)) {
 			getRP().getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getRP().getMaxHealth());
-		}
+		}*///handled in Core.task3
 		if(this.getTask() != null){
 			this.getTask().cancel();
 			this.setTask(null);

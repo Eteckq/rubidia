@@ -43,26 +43,22 @@ public class SPlayerManager extends UIHandler{
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				e.setCancelled(true);
-				int slot = e.getRawSlot();
-				if(slot == SLOT_SKT)Core.uiManager.requestUI(new SkillTree(this.getHolder()));
-				else if(slot == SLOT_CRC)Core.uiManager.requestUI(new DistinctionsMenu(this.getHolder()));
-				else if(slot == SLOT_GLD){
-					if(gm.hasGuild())Core.uiManager.requestUI(new GMenuUI(this.getHolder(), gm.getGuild()));
-					else Core.uiManager.requestUI(new GCreateMenuUI(this.getHolder()));
-				}else if(slot == SLOT_QST)Core.uiManager.requestUI(new PlayerQuestList(this.getHolder()));
-				else if(slot == SLOT_BOOSTERS)Core.uiManager.requestUI(new RBoostersUI(this.getHolder()));
-				else if(slot == SLOT_PLAY)Core.uiManager.requestUI(new SPlayerSelectionMenu(this.getHolder()));
-				else if(slot == SLOT_PROFILE){
-					rp.getChat().addInfo("");
-					rp.getChat().addInfo(("    §6§l/!\\  §eLisez attentivement les informations en slot §l#1  §6§l/!\\"));
-					rp.getChat().addInfo("");
-					rp.getChat().update();
-					Core.uiManager.requestUI(new ProfileUI(this.getHolder()));
-				}
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == SLOT_SKT)Core.uiManager.requestUI(new SkillTree(this.getHolder()));
+		else if(slot == SLOT_CRC)Core.uiManager.requestUI(new DistinctionsMenu(this.getHolder()));
+		else if(slot == SLOT_GLD){
+			if(gm.hasGuild())Core.uiManager.requestUI(new GMenuUI(this.getHolder(), gm.getGuild()));
+			else Core.uiManager.requestUI(new GCreateMenuUI(this.getHolder()));
+		}else if(slot == SLOT_QST)Core.uiManager.requestUI(new PlayerQuestList(this.getHolder()));
+		else if(slot == SLOT_BOOSTERS)Core.uiManager.requestUI(new RBoostersUI(this.getHolder()));
+		else if(slot == SLOT_PLAY)Core.uiManager.requestUI(new SPlayerSelectionMenu(this.getHolder()));
+		else if(slot == SLOT_PROFILE){
+			rp.getChat().addInfo("");
+			rp.getChat().addInfo(("    §6§l/!\\  §eLisez attentivement les informations en slot §l#1  §6§l/!\\"));
+			rp.getChat().addInfo("");
+			rp.getChat().update();
+			Core.uiManager.requestUI(new ProfileUI(this.getHolder()));
 		}
 	}
 

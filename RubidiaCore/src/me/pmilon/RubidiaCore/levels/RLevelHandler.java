@@ -20,7 +20,6 @@ import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
 
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -75,8 +74,12 @@ public class RLevelHandler implements Listener{
 	public void onRLevelChange(RPlayerLevelChangeEvent e){
 		RPlayer rp = e.getRPlayer();
 		
-		int skp = Levels.getSkillpoints(e.getNewRLevel());
-		int skd = Levels.getDistinctionpoints(e.getNewRLevel());
+		int skp = 0;
+		int skd = 0;
+		for(int level = e.getOldRLevel()+1;level <= e.getNewRLevel();level++) {
+			skp += Levels.getSkillpoints(level);
+			skd += Levels.getDistinctionpoints(level);
+		}
 		rp.setSkillPoints(rp.getSkillPoints()+skp);
 		rp.setSkillDistinctionPoints(rp.getSkillDistinctionPoints()+skd);
 		
@@ -104,7 +107,7 @@ public class RLevelHandler implements Listener{
 					}
 				}
 				
-				p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() - .01);
+				rp.heal();
 				
 				if(e.getOldRLevel() <= 5 && e.getNewRLevel() > 5){
 					rp.sendMessage("§6Désormais, vous perdrez 33% de votre inventaire à votre mort !");

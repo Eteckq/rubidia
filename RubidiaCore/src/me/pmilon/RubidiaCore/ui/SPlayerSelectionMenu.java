@@ -50,7 +50,7 @@ public class SPlayerSelectionMenu extends UIHandler{
 				SPlayer sp = rp.getSaves()[i];
 				item1 = new ItemStack(Material.SHEARS, 1);
 				meta1 = item1.getItemMeta();
-				((Damageable) meta1).setDamage((int) Math.ceil(Material.SHEARS.getMaxDurability()*(sp.getRClass().equals(RClass.VAGRANT) ? .99 : (.25*(RClass.indexOf(sp.getRClass()) - 1) + .01))));
+				((Damageable) meta1).setDamage((int) Math.ceil(Material.SHEARS.getMaxDurability()*(sp.getRClass().equals(RClass.VAGRANT) ? .71 : (.14*(RClass.indexOf(sp.getRClass()) - 1) + .01))));
 				meta1.setUnbreakable(true);
 				meta1.setDisplayName("§f§l" + (sp.getRClass().getName()));
 				double ratio = sp.getRExp()/Levels.getRLevelTotalExp(sp.getRLevel());
@@ -72,37 +72,34 @@ public class SPlayerSelectionMenu extends UIHandler{
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			ItemStack item = e.getCurrentItem();
-			if(!item.getType().equals(Material.AIR)){
-				int slot = e.getRawSlot();
-				if(slot < 18 && slot > 8){
-					int id = (int) Math.abs((slot-10)*.5);
-					if(rp.getSaves()[id] == null){
-						if(id <= 2 || rp.isVip()){
-							SPlayer sp = Core.rcoll.newDefaultSPlayer(id);
-							rp.getSaves()[id] = sp;
-						}else rp.sendMessage("§cVous devez être VIP pour utiliser ce personnage !");
-					}
-					if(rp.getSaves()[id] != null){
-						if(id != rp.getLastLoadedSPlayerId()){
-							if(id <= 2 || rp.isVip()){
-								force = false;
-								this.closeUI();
-								rp.load(id);
-							}else rp.sendMessage("§cVous devez être VIP pour utiliser ce personnage !");
-						}else rp.sendMessage("§eVous utilisez déjà ce personnage !");
-					}
-				}else if(slot < 27 && slot > 17){
-					int id = (int) Math.abs((slot-19)*.5);
-					SPlayer sp = rp.getSaves()[id];
-					if(sp != null){
-						if(rp.getLastLoadedSPlayerId() != id){
-							Core.uiManager.requestUI(new SPlayerDeletionConfirmationUI(rp, sp, id));
-						}else rp.sendMessage("§cVous devez d'abord sélectionner un autre personnage !");
-					}
-				}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot < 18 && slot > 8){
+			int id = (int) Math.abs((slot-10)*.5);
+			
+			if(rp.getSaves()[id] == null){
+				if(id <= 2 || rp.isVip()){
+					SPlayer sp = Core.rcoll.newDefaultSPlayer(id);
+					rp.getSaves()[id] = sp;
+				}else rp.sendMessage("§cVous devez être VIP pour utiliser ce personnage !");
+			}
+			
+			if(rp.getSaves()[id] != null){
+				if(id != rp.getLastLoadedSPlayerId()){
+					if(id <= 2 || rp.isVip()){
+						force = false;
+						this.closeUI();
+						rp.load(id);
+					}else rp.sendMessage("§cVous devez être VIP pour utiliser ce personnage !");
+				}else rp.sendMessage("§eVous utilisez déjà ce personnage !");
+			}
+		}else if(slot < 27 && slot > 17){
+			int id = (int) Math.abs((slot-19)*.5);
+			SPlayer sp = rp.getSaves()[id];
+			if(sp != null){
+				if(rp.getLastLoadedSPlayerId() != id){
+					Core.uiManager.requestUI(new SPlayerDeletionConfirmationUI(rp, sp, id));
+				}else rp.sendMessage("§cVous devez d'abord sélectionner un autre personnage !");
 			}
 		}
 	}

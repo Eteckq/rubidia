@@ -49,6 +49,7 @@ import me.pmilon.RubidiaCore.ritems.weapons.Weapons;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
+import me.pmilon.RubidiaCore.utils.Settings;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaCore.utils.VectorUtils;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
@@ -66,7 +67,7 @@ public enum RAbility {
 	
 
 	PALADIN_1(new Ability("Étourdissement", Arrays.asList("La paladin frappe si fort", "qu'il étourdit souvent sa cible"),
-			RClass.PALADIN, Mastery.ADVENTURER, 1, true, "", "Temps", "sec", 0) {
+			RClass.PALADIN, Mastery.ADVENTURER, 1, true, "", "Probabilité", "%", 0) {
 
 		@Override
 		public void run(final RPlayer rp) {
@@ -82,13 +83,48 @@ public enum RAbility {
 
 		@Override
 		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
+			if(RandomUtils.random.nextDouble() < this.getDamages(rp)*.01) {
+				if(target instanceof Player) {
+					final Player player = (Player) target;
+					final WrapperPlayServerWorldBorder packet = new WrapperPlayServerWorldBorder();
+					packet.setAction(com.comphenix.protocol.wrappers.EnumWrappers.WorldBorderAction.SET_WARNING_BLOCKS);
+					packet.setCenterX(player.getLocation().getX());
+					packet.setCenterZ(player.getLocation().getZ());
+					packet.setRadius(0);
+					packet.setWarningDistance(Integer.MAX_VALUE);
+					packet.sendPacket(player);
+					player.setWalkSpeed(0);
+					new BukkitTask(Core.instance) {
+
+						@Override
+						public void run() {
+							if(player.getWorld().getWorldBorder() != null) {
+								packet.setCenterX(player.getWorld().getWorldBorder().getCenter().getX());
+								packet.setCenterZ(player.getWorld().getWorldBorder().getCenter().getZ());
+								packet.setRadius(player.getWorld().getWorldBorder().getSize());
+								packet.setWarningDistance(player.getWorld().getWorldBorder().getWarningDistance());
+							} else {
+								packet.setRadius(Integer.MAX_VALUE);
+								packet.setWarningDistance(0);
+							}
+							packet.sendPacket(player);
+							player.setWalkSpeed(Settings.DEFAULT_WALK_SPEED);
+						}
+
+						@Override
+						public void onCancel() {
+						}
+						
+					}.runTaskLater(30);
+				}
+				target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 40, 0, false, false, true));
+				target.getWorld().spawnParticle(Particle.TOTEM, target.getLocation().add(0,target.getHeight(),0), 12, target.getWidth(), target.getHeight()/10., target.getWidth(), 0);
+			}
 		}
-				
+		
 	}),
-	PALADIN_2(new Ability("Peau de fer", Arrays.asList("Le paladin possède une défense", "naturellement surdéveloppée"),
-			RClass.PALADIN, Mastery.ADVENTURER, 2, true, "", "Défense", "%", 0) {
+	PALADIN_2(new Ability("Peau de fer", Arrays.asList("Le paladin possède une défense", "naturellement surdéveloppée"),//handled in RPlayer
+			RClass.PALADIN, Mastery.ADVENTURER, 2, true, "", "Défense supplémentaire", "%", 0) {
 
 		@Override
 		public void run(final RPlayer rp) {
@@ -104,13 +140,11 @@ public enum RAbility {
 
 		@Override
 		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
 		}
-				
+		
 	}),
-	PALADIN_3(new Ability("Bête de foire", Arrays.asList("Le paladin possède une santé", "naturellement surdéveloppée"),
-			RClass.PALADIN, Mastery.ADVENTURER, 3, true, "", "HP max", "%", 0) {
+	PALADIN_3(new Ability("Bête de foire", Arrays.asList("Le paladin possède une santé", "naturellement surdéveloppée"),//handled in RPlayer
+			RClass.PALADIN, Mastery.ADVENTURER, 3, true, "", "PV supplémentaires", " PV", 0) {
 
 		@Override
 		public void run(final RPlayer rp) {
@@ -126,12 +160,10 @@ public enum RAbility {
 
 		@Override
 		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
 		}
 				
 	}),
-	PALADIN_4(new Ability("Poids lourd", Arrays.asList("La corpulence du paladin l'oblige", "à réduire sa vitesse d'attaque"),
+	PALADIN_4(new Ability("Poids lourd", Arrays.asList("La corpulence du paladin l'oblige", "à réduire sa vitesse d'attaque"),//handled in RPlayer
 			RClass.PALADIN, Mastery.ADVENTURER, 4, true, "", "Vitesse d'atq", "%", 0) {
 
 		@Override
@@ -148,18 +180,14 @@ public enum RAbility {
 
 		@Override
 		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
 		}
 				
 	}),
-	PALADIN_5(new Ability("Rage", Arrays.asList("Le paladin entre en frénésie,", "augmentant sa force, se vitesse", "et sa défense"),
+	PALADIN_5(new Ability("Rage", Arrays.asList("Le paladin entre en frénésie,", "augmentant sa force et sa vitesse", "mais également les dégâts qu'il subit"),//handled in DamageManager
 			RClass.PALADIN, Mastery.ASPIRANT, 5, false, "DDD,!SN", "", "", 50) {
 		
-		List<PotionEffect> effects = Arrays.asList(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 2, true, false),
-				new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 1, true, false),
+		List<PotionEffect> effects = Arrays.asList(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1, true, false),
 				new PotionEffect(PotionEffectType.SPEED, 100, 1, true, false),
-				new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 100, 2, true, false),
 				new PotionEffect(PotionEffectType.ABSORPTION, 100, 1, true, false),
 				new PotionEffect(PotionEffectType.NIGHT_VISION, 100, 0, true, false));
 		
@@ -187,7 +215,7 @@ public enum RAbility {
 			for(PotionEffect effect : effects){
 				player.addPotionEffect(effect, false);
 			}
-			Core.playAnimEffect(Particle.VILLAGER_ANGRY, player.getEyeLocation(), .25F, .25F, .25F, .5F, 5);
+			player.getWorld().spawnParticle(Particle.VILLAGER_ANGRY, player.getEyeLocation(), 5, .25, .25, .25, 0);
 		}
 
 		@Override
@@ -195,10 +223,17 @@ public enum RAbility {
 			Player player = rp.getPlayer();
 			WrapperPlayServerWorldBorder packet = new WrapperPlayServerWorldBorder();
 			packet.setAction(com.comphenix.protocol.wrappers.EnumWrappers.WorldBorderAction.SET_WARNING_BLOCKS);
-			packet.setCenterX(player.getLocation().getX());
-			packet.setCenterZ(player.getLocation().getZ());
-			packet.setRadius(Integer.MAX_VALUE);
-			packet.setWarningDistance(0);
+			if(player.getWorld().getWorldBorder() != null) {
+				packet.setCenterX(player.getWorld().getWorldBorder().getCenter().getX());
+				packet.setCenterZ(player.getWorld().getWorldBorder().getCenter().getZ());
+				packet.setRadius(player.getWorld().getWorldBorder().getSize());
+				packet.setWarningDistance(player.getWorld().getWorldBorder().getWarningDistance());
+			} else {
+				packet.setCenterX(player.getLocation().getX());
+				packet.setCenterZ(player.getLocation().getZ());
+				packet.setRadius(Integer.MAX_VALUE);
+				packet.setWarningDistance(0);
+			}
 			packet.sendPacket(player);
 			for(PotionEffect effect : player.getActivePotionEffects()){
 				player.removePotionEffect(effect.getType());
@@ -207,8 +242,6 @@ public enum RAbility {
 
 		@Override
 		public void animate(RPlayer rp, LivingEntity target) {
-			
-			
 		}
 				
 	}),
@@ -229,11 +262,10 @@ public enum RAbility {
 						if(step < 50){
 							player.setSprinting(false);
 							Vector v = player.getEyeLocation().getDirection();
-							Vector vm = new Vector(0, -0.35, 0);
-							player.setVelocity(v.multiply(0.5).add(vm));
+							player.setVelocity(player.getVelocity().add(v.normalize()));
 							player.getWorld().playSound(player.getLocation(), Sound.ENTITY_HORSE_GALLOP, 1, .25F);
 							List<LivingEntity> near = Core.toLivingEntityList(player.getNearbyEntities(1, 1, 1));
-							Core.playAnimEffect(Particle.SMOKE_NORMAL, player.getLocation(), .25F, .25F, .25F, .001F, 25);
+							player.getWorld().spawnParticle(Particle.SMOKE_NORMAL, player.getLocation(), 25, .25, .25, .25, 0);
 							if(!near.isEmpty()){
 								getInstance().damage(rp, near);
 								this.cancel();
@@ -247,7 +279,7 @@ public enum RAbility {
 				
 				@Override
 				public void onCancel() {
-					rp.setActiveAbility(1, false);
+					rp.setActiveAbility(RAbility.PALADIN_6, false);
 				}
 				
 			}.runTaskTimer(0, 1);
@@ -329,6 +361,46 @@ public enum RAbility {
 					3,
 					0.5/(target.getLocation().getZ()-player.getLocation().getZ()));
 			target.setVelocity(vdir.multiply(-0.25));
+		}
+		
+	}),
+	PALADIN_8(new Ability("Peau de fer", Arrays.asList("Le paladin possède une défense", "naturellement surdéveloppée"),//handled in RPlayer
+			RClass.PALADIN, Mastery.SPECIALIST, 8, true, "", "Défense supplémentaire", "%", 0) {
+
+		@Override
+		public void run(final RPlayer rp) {
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
+		}
+		
+	}),
+	PALADIN_9(new Ability("Peau de fer", Arrays.asList("Le paladin possède une défense", "naturellement surdéveloppée"),//handled in RPlayer
+			RClass.PALADIN, Mastery.EXPERT, 9, true, "", "Défense supplémentaire", "%", 0) {
+
+		@Override
+		public void run(final RPlayer rp) {
+		}
+
+		@Override
+		public void onEffect(RPlayer rp) {
+		}
+
+		@Override
+		public void onCancel(RPlayer rp) {
+		}
+
+		@Override
+		public void animate(RPlayer rp, LivingEntity target) {
 		}
 		
 	}),
@@ -1645,7 +1717,7 @@ public enum RAbility {
 
 							getInstance().damage(rp, Core.toDamageableLivingEntityList(player, player.getNearbyEntities(3, 3, 3), RDamageCause.ABILITY));
 
-							player.setWalkSpeed(.2F);
+							player.setWalkSpeed(Settings.DEFAULT_WALK_SPEED);
 							rp.setActiveAbility(8, false);
 						}
 
@@ -1896,7 +1968,7 @@ public enum RAbility {
 						@Override
 						public void onCancel() {
 							if(target instanceof Player){
-								((Player) target).setWalkSpeed(.2F);
+								((Player) target).setWalkSpeed(Settings.DEFAULT_WALK_SPEED);
 							}else{
 								target.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).removeModifier(modifier);
 							}
@@ -2229,12 +2301,9 @@ public enum RAbility {
 
 	public static List<RAbility> getAvailable(RPlayer rp) {
 		List<RAbility> abilities = new ArrayList<RAbility>();
-		if(!rp.getRClass().equals(RClass.VAGRANT)) {
-			for(int i = 1;i < 9;i++){
-				RAbility ability = RAbility.valueOf(rp.getRClass().toString() + "_" + i);
-				if(rp.getAbilityLevel(i) > 0 && (!rp.isActiveAbility(i) || ability.isToggleable())){
-					abilities.add(ability);
-				}
+		for(RAbility ability : RAbility.values()){
+			if(rp.getAbilityLevel(ability) > 0){
+				abilities.add(ability);
 			}
 		}
 		return abilities;
@@ -2242,10 +2311,10 @@ public enum RAbility {
 	
 	
 	public static List<RAbility> getAvailable(RClass rClass){
-		List<RAbility> abilities = new ArrayList<RAbility>();
-		if(!rClass.equals(RClass.VAGRANT)) {
-			for(int i = 1;i < 9;i++){
-				abilities.add(RAbility.valueOf(rClass.toString() + "_" + i));
+		List<RAbility> abilities = new ArrayList<RAbility>(/*RAbility.VAGRANT_1*/);
+		for(RAbility ability : RAbility.values()) {
+			if(ability.getRClass().equals(rClass) || ability.getRClass().equals(RClass.VAGRANT)) {
+				abilities.add(ability);
 			}
 		}
 		return abilities;

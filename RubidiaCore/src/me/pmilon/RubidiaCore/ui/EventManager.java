@@ -91,29 +91,27 @@ public class EventManager extends UIHandler {
 	
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_TYPE){
-				if(this.getEvent().getType().equals(EventType.XP))this.getEvent().setType(EventType.RUBIS);
-				else if(this.getEvent().getType().equals(EventType.RUBIS))this.getEvent().setType(EventType.XP);
-				this.getMenu().setItem(this.SLOT_TYPE, this.getEType());
-			}else if(slot == this.SLOT_DELETE){
-				if(this.getEvent().isActive())this.getEvent().finish();
-				Events.currentEvents.remove(this.getEvent());
-				Core.uiManager.requestUI(new EventListUI(this.getHolder()));
-			}else if(slot == this.SLOT_START){
-				this.getEvent().start();
-			}else if(slot == this.SLOT_FACTOR)this.close(true, this.LIST_ID_FACTOR);
-			else if(slot == this.SLOT_SUBTITLE)this.close(true, this.LIST_ID_SUBTITLE);
-			else if(slot == this.SLOT_STARTDATE){
-				this.close(true, this.LIST_ID_STARTDATE);
-				this.getHolder().sendMessage("§aFormat: dd/MM/yyyy HH:mm");
-			}else if(slot == this.SLOT_DURATION){
-				this.close(true, this.LIST_ID_DURATION);
-				this.getHolder().sendMessage("§aFormat: HH:mm");
-			}else if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new EventListUI(this.getHolder()));
-		}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_TYPE){
+			if(this.getEvent().getType().equals(EventType.XP))this.getEvent().setType(EventType.RUBIS);
+			else if(this.getEvent().getType().equals(EventType.RUBIS))this.getEvent().setType(EventType.XP);
+			this.getMenu().setItem(this.SLOT_TYPE, this.getEType());
+		}else if(slot == this.SLOT_DELETE){
+			if(this.getEvent().isActive())this.getEvent().finish();
+			Events.currentEvents.remove(this.getEvent());
+			Core.uiManager.requestUI(new EventListUI(this.getHolder()));
+		}else if(slot == this.SLOT_START){
+			this.getEvent().start();
+		}else if(slot == this.SLOT_FACTOR)this.close(true, this.LIST_ID_FACTOR);
+		else if(slot == this.SLOT_SUBTITLE)this.close(true, this.LIST_ID_SUBTITLE);
+		else if(slot == this.SLOT_STARTDATE){
+			this.close(true, this.LIST_ID_STARTDATE);
+			this.getHolder().sendMessage("§aFormat: dd/MM/yyyy HH:mm");
+		}else if(slot == this.SLOT_DURATION){
+			this.close(true, this.LIST_ID_DURATION);
+			this.getHolder().sendMessage("§aFormat: HH:mm");
+		}else if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new EventListUI(this.getHolder()));
 	}
 	
 	@Override

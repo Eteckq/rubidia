@@ -42,10 +42,8 @@ public class EventListUI extends ListMenuUIHandler<Event> {
 
 	@Override
 	protected void onClick(InventoryClickEvent e, Player player, ItemStack is) {
-		if(e.getCurrentItem() != null){
-			int slot = e.getRawSlot();
-			Core.uiManager.requestUI(new EventManager(this.getHolder(), Events.currentEvents.get(slot)));
-		}
+		int slot = e.getRawSlot();
+		Core.uiManager.requestUI(new EventManager(this.getHolder(), Events.currentEvents.get(slot)));
 	}
 
 	@Override

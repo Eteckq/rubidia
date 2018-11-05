@@ -49,21 +49,19 @@ public class WeaponSetBuffsMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			List<Buff> buffs = this.getSet().getBuffs();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new WeaponSetEditionMenu(this.getHolder(), this.getWeapon(), this.getSet()));
-			else if(buffs.size() > slot){
-				if(e.isRightClick()){
-					this.getSet().delete(buffs.get(slot));
-					Core.uiManager.requestUI(this);
-				}else Core.uiManager.requestUI(new WeaponSetBuffEditionMenu(this.getHolder(), this.getWeapon(), this.getSet(), buffs.get(slot)));
-			}else{
-				Buff buff = new Buff(buffs.size(), BuffType.MELEE_DAMAGE, 0);
-				this.getSet().getBuffs().add(buff);
-				Core.uiManager.requestUI(new WeaponSetBuffEditionMenu(this.getHolder(), this.getWeapon(), this.getSet(), buff));
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		List<Buff> buffs = this.getSet().getBuffs();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new WeaponSetEditionMenu(this.getHolder(), this.getWeapon(), this.getSet()));
+		else if(buffs.size() > slot){
+			if(e.isRightClick()){
+				this.getSet().delete(buffs.get(slot));
+				Core.uiManager.requestUI(this);
+			}else Core.uiManager.requestUI(new WeaponSetBuffEditionMenu(this.getHolder(), this.getWeapon(), this.getSet(), buffs.get(slot)));
+		}else{
+			Buff buff = new Buff(buffs.size(), BuffType.MELEE_DAMAGE, 0);
+			this.getSet().getBuffs().add(buff);
+			Core.uiManager.requestUI(new WeaponSetBuffEditionMenu(this.getHolder(), this.getWeapon(), this.getSet(), buff));
 		}
 	}
 

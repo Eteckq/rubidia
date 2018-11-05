@@ -112,18 +112,16 @@ import me.pmilon.RubidiaWG.WGUtils;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -236,9 +234,9 @@ public class Core extends JavaPlugin implements Listener {
 		final String s = p.getName();
 		final boolean gamemode;
 		
-		if(Configs.getDatabase().getBoolean("maintenancemode")){
+		if(Core.isInMaintenance()){
 			if(!p.isOp()){
-				p.kickPlayer("§4MODE MAINTENANCE: §cRevenez plus tard !");
+				p.kickPlayer("§4§lR§4ubidia §cest en §4maintenance");
 				return;
 			}
 		}
@@ -248,7 +246,9 @@ public class Core extends JavaPlugin implements Listener {
 		final RPlayer rp;
 		if(!rcoll.contains(p)){
 			rp = rcoll.addDefault(p.getUniqueId().toString());
-			if(Bukkit.getWorld("Tutorial") != null)rp.connectionLocation = Bukkit.getWorld("Tutorial").getSpawnLocation();
+			if(Bukkit.getWorld("Tutorial") != null) {
+				rp.connectionLocation = Bukkit.getWorld("Tutorial").getSpawnLocation();
+			}
 			new BukkitTask(this){
 				public void run(){
 					Bukkit.broadcastMessage("§2§lBIENVENUE §a§l" + s + " §2§lSUR RUBIDIA");
@@ -257,7 +257,7 @@ public class Core extends JavaPlugin implements Listener {
 				@Override
 				public void onCancel() {
 				}
-			}.runTaskLater(1);
+			}.runTaskLater(0);
 			p.getInventory().addItem(new ItemStack(Material.WOODEN_SWORD, 1));
 			p.getInventory().addItem(new ItemStack(Material.EMERALD, 20));
 			p.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 4));
@@ -267,7 +267,7 @@ public class Core extends JavaPlugin implements Listener {
 					rpp.lastWelcome = rp;
 				}
 			}
-		}else rp = RPlayer.get(p);
+		} else rp = RPlayer.get(p);
 		RPlayer.getOnlines().add(rp);
 		rp.setPlayer(p);
 		rp.setName(p.getName());
@@ -276,7 +276,6 @@ public class Core extends JavaPlugin implements Listener {
 		new BukkitTask(this){
 			public void run(){
 				p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 10F);
-				p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(rp.getMaxHealth());
 				rp.refreshRLevelDisplay();
 			}
 
@@ -286,8 +285,8 @@ public class Core extends JavaPlugin implements Listener {
 		}.runTaskLater(2);
 
     	WrapperPlayServerPlayerListHeaderFooter packet = new WrapperPlayServerPlayerListHeaderFooter();
-    	packet.setHeader(WrappedChatComponent.fromText("§a§l§m-------------------------------§r\n§oBienvenue sur Rubidia !§r\n§a§l§m-------------------------------§r"));
-    	packet.setFooter(WrappedChatComponent.fromText("§c§l§m-------------------------------§r\n§lhttp://www.rubidia.pw§r\n§c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r"));
+    	packet.setHeader(WrappedChatComponent.fromText("§a§l§m                                     §r\n§oBienvenue sur Rubidia !§r\n§a§l§m                                     §r"));
+    	packet.setFooter(WrappedChatComponent.fromText("§c§l§m                                     §r\n§lhttp://www.rubidia.pw§r\n§c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r §c§l-§r"));
         packet.sendPacket(p);
 		
 		new BukkitTask(this){
@@ -327,10 +326,9 @@ public class Core extends JavaPlugin implements Listener {
 				
 				new BukkitTask(this.getPlugin()){
 					public void run(){
-						if(rp.connectionLocation == null)rp.connectionLocation = p.getLocation();
-						p.teleport(p.getWorld().getSpawnLocation());
-						p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 999999, 1, true, false), true);
-						//rp.sendMessage("§eJouer nécessite l'installation de notre resource pack.");
+						if(rp.connectionLocation == null) {
+							rp.connectionLocation = p.getLocation();
+						}
 						rp.sendMessage("§eInstallation de §6§lRubidiaPack§e (v" + ResourcePackHandler.RESOURCE_PACK_VERSION + ")...");
 						rp.getPlayer().setResourcePack("http://r.milon.pro/downloads/RubidiaPack" + ResourcePackHandler.RESOURCE_PACK_VERSION + ".zip");
 						if(!rp.isProfileUpdated())rp.sendMessage("§dMettez à jour votre profil de joueur : §l/profile");
@@ -343,7 +341,7 @@ public class Core extends JavaPlugin implements Listener {
 					@Override
 					public void onCancel() {
 					}
-				}.runTaskLater(20);
+				}.runTaskLater(10);
 			}
 
 			@Override
@@ -537,23 +535,8 @@ public class Core extends JavaPlugin implements Listener {
 	public void onMove(PlayerMoveEvent e){
 		final Player p = e.getPlayer();
 		RPlayer rp = RPlayer.get(p);
-		
-		if(p.getInventory().contains(Material.CHEST_MINECART)){
-			int amount = 0;
-			for(int slot = 0;slot < 36;slot++){
-				if(p.getInventory().getItem(slot) != null){
-					if(p.getInventory().getItem(slot).getType().equals(Material.CHEST_MINECART)){
-						if(p.getInventory().getItem(slot).hasItemMeta()){
-							if(p.getInventory().getItem(slot).getItemMeta().getDisplayName().contains("§6BackPack") || p.getInventory().getItem(slot).getItemMeta().getDisplayName().contains("§6Sac à dos"))amount += 1;
-							if(amount > 1){
-								p.getWorld().dropItem(p.getLocation(), p.getInventory().getItem(slot));
-								p.getInventory().remove(p.getInventory().getItem(slot));
-								rp.sendMessage("§cVous ne pouvez transporter plus d'un Sac à dos !");
-							}
-						}
-					}
-				}
-			}
+		if(rp.isLoading()) {
+			e.setCancelled(true);
 		}
 		
 		if(drunk.contains(p)){
@@ -781,40 +764,35 @@ public class Core extends JavaPlugin implements Listener {
 			}else sender.sendMessage("§cYou really thought you could do that without being Operator?");
 		}else if(cmd.getName().equalsIgnoreCase("maintenance")){
 			if(sender.isOp()){
-				if(Configs.getDatabase().getBoolean("maintenancemode")){
-					Configs.getDatabase().set("maintenancemode", false);
-					Configs.getDatabase().set("maintenancemodemessage", null);
-					sender.sendMessage("§4MAINTENACE MODE §cDISABLED");
-				}else{
-					Configs.getDatabase().set("maintenancemode", true);
-					if(args.length > 0){
-						String s = "";
-						for(int i = 0;i < args.length;i++){
-							if(i == (args.length-1))s += args[i];
-							else s += args[i] + " ";
-						}
-						Configs.getDatabase().set("maintenancemodemessage", s);
+				if(Core.isInMaintenance()){
+					Configs.getDatabase().set("maintenance.active", false);
+					Configs.getDatabase().set("maintenance.message", null);
+					sender.sendMessage("§eMaintenance terminée");
+					for(RPlayer rp : RPlayer.getOnlines()){
+						rp.sendTitle("§6Maintenance terminée", "§eLe jeu reprend son cours", 0, 150, 5);
 					}
-					sender.sendMessage("§4MAINTENACE MODE §aENABLED");
-					for(Player p : Bukkit.getOnlinePlayers()){
-						if(!p.isOp()){
-							RPlayer rp = RPlayer.get(p);
-							rp.sendTitle(("§4MODE MAINTENANCE"), ("§cVous serez expulsé dans 30 secondes"), 0, 150, 5);
-						}
+				}else{
+					Configs.getDatabase().set("maintenance.active", true);
+					if(args.length > 0){
+						Configs.getDatabase().set("maintenance.message", StringUtils.join(args, " "));
+					}
+					sender.sendMessage("§eMaintenance débutée");
+					for(RPlayer rp : RPlayer.getOnlines()){
+						rp.sendTitle((rp.isOp() ? "§6" : "§4") + "Maintenance", (rp.isOp() ? "§eDébutée par " + sender.getName() : "§eVous serez expulsé dans 30 secondes"), 0, 150, 5);
 					}
 					Bukkit.getScheduler().runTaskLater(this, new Runnable(){
 						public void run(){
-							if(Configs.getDatabase().getBoolean("maintenancemode")){
-								for(Player p : Bukkit.getOnlinePlayers()){
-									if(!p.isOp()){
-										p.kickPlayer("§4MODE MAINTENANCE: §cRevenez plus tard !");
+							if(Core.isInMaintenance()){
+								for(RPlayer rp : RPlayer.getOnlines()){
+									if(!rp.isOp()) {
+										rp.getPlayer().kickPlayer("§4§lR§4ubidia §cest en §4maintenance");
 									}
 								}
 							}
 						}
-					}, 30*20);
+					}, 30*20L);
 				}
-				Bukkit.getServer().setWhitelist(Configs.getDatabase().getBoolean("maintenancemode"));
+				Bukkit.getServer().setWhitelist(Core.isInMaintenance());
 			}else sender.sendMessage("§cYou really thought you could do that without being Operator!");
 		}else if(cmd.getName().equalsIgnoreCase("tp")){
 			if(sender instanceof Player){
@@ -1444,42 +1422,6 @@ public class Core extends JavaPlugin implements Listener {
 		return list;
 	}
 	
-	public static void playAnimEffect(Particle particle, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount, BlockData data){
-		for(Player player : Bukkit.getOnlinePlayers()){
-			Core.playAnimEffect(particle, player, location, offSetX, offSetY, offSetZ, speed, amount, data);
-		}
-	}
-	
-	public static void playAnimEffect(Particle particle, Player player, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount, BlockData data){
-		if(player.getWorld().equals(location.getWorld()) && player.getLocation().distanceSquared(location) <= 2304/*range 48*/){
-			if(RPlayer.get(player).getEffects()){
-				if(particle == Particle.BLOCK_CRACK
-						|| particle == Particle.BLOCK_DUST
-						|| particle == Particle.FALLING_DUST){
-					player.spawnParticle(particle, location, amount, offSetX, offSetY, offSetZ, speed, data);
-				}else player.spawnParticle(particle, location, amount, offSetX, offSetY, offSetZ, speed);
-			}
-		}
-	}
-	
-	public static void playAnimEffect(Particle particle, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount){
-		for(Player player : Bukkit.getOnlinePlayers()){
-			Core.playAnimEffect(particle, player, location, offSetX, offSetY, offSetZ, speed, amount);
-		}
-	}
-	
-	public static void playAnimEffect(Particle particle, Player player, Location location, float offSetX, float offSetY, float offSetZ, float speed, int amount){
-		if(player.getWorld().equals(location.getWorld()) && player.getLocation().distanceSquared(location) <= 2304/*range 48*/){
-			if(RPlayer.get(player).getEffects()){
-				if(!(particle == Particle.BLOCK_CRACK
-						|| particle == Particle.BLOCK_DUST
-						|| particle == Particle.FALLING_DUST)){
-					player.spawnParticle(particle, location, amount, offSetX, offSetY, offSetZ, speed);
-				}
-			}
-		}
-	}
-	
 	public static File getSavesFolder(){
 		File file = new File(instance.getDataFolder().getAbsolutePath().replace("RubidiaCore", "Rubidia.saves"));
 		if(!file.exists())file.mkdirs();
@@ -1575,6 +1517,10 @@ public class Core extends JavaPlugin implements Listener {
 	////////////////////////////////////////
 
 
+	public static boolean isInMaintenance() {
+		return Configs.getDatabase().getBoolean("maintenance.active");
+	}
+	
 	public static void restart(){
 		for(Player player : Bukkit.getOnlinePlayers()){
 			RPlayer rp = RPlayer.get(player);
@@ -1615,7 +1561,6 @@ public class Core extends JavaPlugin implements Listener {
 		restarting = true;
 	}
 	
-	
 	@SuppressWarnings("deprecation")
 	public void onEnable(){
 		console = Bukkit.getConsoleSender();
@@ -1640,7 +1585,7 @@ public class Core extends JavaPlugin implements Listener {
 		Configs.saveDefaultPathConfig();
 		Configs.saveDefaultWeaponsConfig();
 		Configs.saveDefaultCouplesConfig();
-		Bukkit.getServer().setWhitelist(Configs.getDatabase().getBoolean("maintenancemode"));
+		Bukkit.getServer().setWhitelist(Core.isInMaintenance());
 		playersMax = Configs.getDatabase().getInt("playersMax");
 		console.sendMessage("§2------------------------------------------------------");
 		GuildsPlugin.onStart();
@@ -1805,11 +1750,6 @@ public class Core extends JavaPlugin implements Listener {
 								if(player.getOpenInventory().getTopInventory().getType().equals(InventoryType.CRAFTING)){
 									if(!Core.uiManager.hasActiveSession(player)){
 										boolean recipe_empty = true;
-										ItemStack skt = new ItemStack(Material.BOOKSHELF, 1);
-										ItemMeta meta = skt.getItemMeta();
-										meta.setDisplayName(("§6§lMenu du personnage"));
-										meta.setLore(Arrays.asList(("§7Ouvrir le menu du personnage")));
-										skt.setItemMeta(meta);
 										for(int i = 0;i < 5;i++){
 											if(player.getOpenInventory().getTopInventory().getItem(i) != null){
 												recipe_empty = false;
@@ -1817,6 +1757,11 @@ public class Core extends JavaPlugin implements Listener {
 											}
 										}
 										if(recipe_empty){
+											ItemStack skt = new ItemStack(Material.BOOKSHELF, 1);
+											ItemMeta meta = skt.getItemMeta();
+											meta.setDisplayName(("§6§lMenu du personnage"));
+											meta.setLore(Arrays.asList(("§7Ouvrir le menu du personnage")));
+											skt.setItemMeta(meta);
 											player.getOpenInventory().getTopInventory().setItem(0, skt);
 											player.updateInventory();
 										}
@@ -1847,23 +1792,6 @@ public class Core extends JavaPlugin implements Listener {
 								&& !DialogManager.isInDialog(player)) {
 							player.setAllowFlight(false);
 						}
-						
-						for(int i = 0;i < player.getInventory().getSize();i++){//updates every slot but the 8th
-							if(i != 8){
-								ItemStack item = player.getInventory().getItem(i);
-								if(item != null){
-									Weapon weapon;
-									RItem rItem = new RItem(item);
-									if(rItem.isWeapon()){
-										weapon = rItem.getWeapon();
-										if(!item.equals(player.getEquipment().getItemInMainHand()))weapon.updateState(rp, item);
-									} /*else if(Weapons.COMMON_WEAPON_TYPES.contains(item.getType())) {
-										/*weapon = Weapons.craft(item.getType(), rp.getRClass(), rp.getRLevel(), Rarity.COMMON);
-										if(weapon != null)player.getInventory().setItem(i, weapon.getNewItemStack(rp));
-									}*/
-								}
-							}
-						}
 
 						Couple couple = rp.getCouple();
 						if(couple != null){
@@ -1883,6 +1811,8 @@ public class Core extends JavaPlugin implements Listener {
 								}*/
 							}
 						}
+						
+						rp.updateMaxHealth();
 					}
 				}
 			}
@@ -1973,20 +1903,13 @@ public class Core extends JavaPlugin implements Listener {
 	        @Override
 	        public void onPacketSending(PacketEvent e) {
 	        	try{
-	                if(Configs.getDatabase().getBoolean("maintenancemode")){
+	                if(Core.isInMaintenance()){
 		                WrappedServerPing ping = e.getPacket().getServerPings().read(0);
 		                ping.setVersionProtocol(999);
 	                	ping.setPlayersMaximum(0);
 	                	ping.setVersionName("§cMAINTENANCE");
-		        		String motd1 = ChatColor.translateAlternateColorCodes('&', Configs.getDatabase().getString("motd.1"));
-		        		String motd2 = Configs.getDatabase().contains("maintenancemodemessage") ? "§d§l" + Configs.getDatabase().getString("maintenancemodemessage").toUpperCase().replaceAll("&", "§") : "§d§lREVENEZ UN PEU PLUS TARD";
-		        		String motd2wc = ChatColor.stripColor(motd2);
-		        		String[] parts = motd2wc.split("");
-		        		int x = (35 - parts.length)/2;
-		        		String space = "";
-		        		for(int i = 0;i < (x*2)-1;i++)space += " ";
-		        		ping.setMotD(motd1 + "\n" + "§d§l" + space + motd2wc);
-		        		Iterable<WrappedGameProfile> players = Arrays.asList(new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), "§8_§7§m--§c§l§m[=======-§r§l        §2§l§oR§a§l§oUBIDIA        §c§l§m-=======]§7§m--§8_"), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), ""), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), "               §dNous travaillons dans le seul but"), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), "            §dd'améliorer votre expérience de jeu !"), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), ""), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), ""), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), "             §e- §6Open-World Adventure RPG §e-             "), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), ""), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), "§8§m-§7§m--§c§l§m[==================================]§7§m--§8§m-"));
+		        		ping.setMotD("§r                       §8mc.§9§lRubidia§8.pw\n            §e<§e§l  §6§l" + (Configs.getDatabase().contains("maintenance.message") ? Configs.getDatabase().getString("maintenance.message").toUpperCase() : "MAINTENANCE EN COURS") + "  §e>");
+		        		Iterable<WrappedGameProfile> players = Arrays.asList(new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), "§8§m §7§m  §c§l§m[         §r§l        §6§lR§e§lUBIDIA        §c§l§m         ]§7§m  §8§m "), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), ""), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), "         §7Nous travaillons dans le seul but"), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), "      §7d'améliorer votre expérience de jeu !"), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), ""), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), ""), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), "        §e<§e§l  §6§lO§e§lpen-§6§lW§e§lorld §6§lA§e§ldventure §6§lRPG  §e>"), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), ""), new WrappedGameProfile(UUID.fromString("0-0-0-0-0"), "§8§m §7§m  §c§l§m[                                           ]§7§m  §8§m "));
 		        		ping.setPlayers(players);
 	                }
 	        	}catch(Exception ex){

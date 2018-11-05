@@ -69,12 +69,10 @@ public class RPlayersUI extends ListMenuUIHandler<RPlayer> {
 
 	@Override
 	protected void onClick(InventoryClickEvent e, Player player, ItemStack is) {
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				if(rp.isOp()){
-					int slot = e.getRawSlot();
-					Core.uiManager.requestUI(new RPlayerManagerMenu(this.getHolder(), this.get(slot)));
-				}
+		if(rp.isOp()){
+			RPlayer rpp = this.get(e.getRawSlot());
+			if(rpp != null) {
+				Core.uiManager.requestUI(new RPlayerManagerMenu(this.getHolder(), rpp));
 			}
 		}
 	}

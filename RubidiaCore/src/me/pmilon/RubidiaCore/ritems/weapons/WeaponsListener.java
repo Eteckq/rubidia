@@ -18,6 +18,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -45,11 +46,9 @@ import me.pmilon.RubidiaCore.ritems.general.RItem;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaCore.utils.Settings;
-import me.pmilon.RubidiaCore.utils.Utils;
 
 public class WeaponsListener implements Listener {
 	
-	private static HashMap<RPlayer, Integer> wrongDamages = new HashMap<RPlayer, Integer>();
 	private static HashMap<Projectile, ItemStack> projectiles = new HashMap<Projectile, ItemStack>();
 	private static HashMap<Projectile, Boolean> critical = new HashMap<Projectile, Boolean>();
 
@@ -59,37 +58,42 @@ public class WeaponsListener implements Listener {
 		final RPlayer rp = RPlayer.get(player);
 		final Inventory inv = event.getInventory();
 		if(inv != null){
-			if(inv.getType().equals(InventoryType.CRAFTING)){
-				if(event.getSlotType().equals(SlotType.ARMOR)){
-					ItemStack is = event.getCursor();
-					if(is != null){
-						if(!is.getType().equals(Material.AIR)){
-							RItem rItem = new RItem(is);
-							if(rItem.isWeapon()){
-								Weapon weapon = rItem.getWeapon();
-								if(weapon != null){
-									String usage = weapon.canUse(rp);
-									if(!weapon.isAttack()){
-										if(!usage.isEmpty()) {
-											event.setCancelled(true);
-											String name = is.getType().toString();
-											if(name.contains("_HELMET")) {
-												rp.sendMessage("§cVous ne pouvez porter ce casque car " + usage);
-											} else if(name.contains("_CHESTPLATE")) {
-												rp.sendMessage("§cVous ne pouvez porter ce plastron car " + usage);
-											} else if(name.contains("_LEGGINGS")) {
-												rp.sendMessage("§cVous ne pouvez porter cette paire de gants car " + usage);
-											} else if(name.contains("_BOOTS")) {
-												rp.sendMessage("§cVous ne pouvez porter cette paire de bottes car " + usage);
-											}
-											player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+			ItemStack item = event.getCursor();
+			if(item != null){
+				if(!item.getType().equals(Material.AIR)){
+					RItem rItem = new RItem(item);
+					if(rItem.isWeapon()){
+						Weapon weapon = rItem.getWeapon();
+						String usage = weapon.canUse(rp);
+						if(inv.getType().equals(InventoryType.CRAFTING)){
+							if(event.getSlotType().equals(SlotType.ARMOR) || event.getRawSlot() == 40){
+								if(!weapon.isAttack()){
+									if(!usage.isEmpty()) {
+										event.setCancelled(true);
+										String name = item.getType().toString();
+										if(name.contains("_HELMET")) {
+											rp.sendMessage("§cVous ne pouvez porter ce casque car " + usage);
+										} else if(name.contains("_CHESTPLATE")) {
+											rp.sendMessage("§cVous ne pouvez porter ce plastron car " + usage);
+										} else if(name.contains("_LEGGINGS")) {
+											rp.sendMessage("§cVous ne pouvez porter cette paire de gants car " + usage);
+										} else if(name.contains("_BOOTS")) {
+											rp.sendMessage("§cVous ne pouvez porter cette paire de bottes car " + usage);
+										} else if(item.getType().equals(Material.SHIELD)) {
+											rp.sendMessage("§cVous ne pouvez utiliser ce bouclier car " + usage);
 										}
+										player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+										return;//we don't update the weapon's state then
 									}
 								}
 							}
 						}
 					}
 				}
+			}
+			
+			if(!event.getSlotType().equals(SlotType.OUTSIDE)) {
+				Weapons.update(rp);
 			}
 		}
 	}
@@ -203,34 +207,33 @@ public class WeaponsListener implements Listener {
 										}
 									}
 								}
-							}/* else {
-								WeaponsListener.wrongDamages(rp);
-								event.setCancelled(true);
-							}*///useless now that we reset mainHand item if weapon is not usable (see Weapons.checkEquipment)
+							}
 						} else {
-							if(!usage.isEmpty()) {
-								event.setCancelled(true);
+							if(event.getAction().toString().contains("RIGHT_CLICK")) {
 								String name = is.getType().toString();
-								if(name.contains("_HELMET")) {
-									rp.sendMessage("§cVous ne pouvez porter ce casque car " + usage);
-								} else if(name.contains("_CHESTPLATE")) {
-									rp.sendMessage("§cVous ne pouvez porter ce plastron car " + usage);
-								} else if(name.contains("_LEGGINGS")) {
-									rp.sendMessage("§cVous ne pouvez porter cette paire de gants car " + usage);
-								} else if(name.contains("_BOOTS")) {
-									rp.sendMessage("§cVous ne pouvez porter cette paire de bottes car " + usage);
-								} else if(is.getType().equals(Material.SHIELD)) {
-									rp.sendMessage("§cVous ne pouvez utiliser ce bouclier car " + usage);
-								}
-								player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-							} else {
-								if(is.getType().equals(Material.SHIELD)) {
+								if(!usage.isEmpty()) {
 									event.setCancelled(true);
-									ItemStack offHand = player.getEquipment().getItemInOffHand();
-									player.getEquipment().setItemInOffHand(player.getEquipment().getItemInMainHand());
-									player.getEquipment().setItemInMainHand(offHand);
-									player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_CHAIN, 1, 1);
-									Utils.updateInventory(player);
+									if(name.contains("_HELMET")) {
+										rp.sendMessage("§cVous ne pouvez porter ce casque car " + usage);
+									} else if(name.contains("_CHESTPLATE")) {
+										rp.sendMessage("§cVous ne pouvez porter ce plastron car " + usage);
+									} else if(name.contains("_LEGGINGS")) {
+										rp.sendMessage("§cVous ne pouvez porter cette paire de gants car " + usage);
+									} else if(name.contains("_BOOTS")) {
+										rp.sendMessage("§cVous ne pouvez porter cette paire de bottes car " + usage);
+									} else if(is.getType().equals(Material.SHIELD)) {
+										rp.sendMessage("§cVous ne pouvez utiliser ce bouclier car " + usage);
+									}
+									player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+								} else {
+									if(is.getType().equals(Material.SHIELD)) {
+										event.setCancelled(true);
+										ItemStack offHand = player.getEquipment().getItemInOffHand();
+										player.getEquipment().setItemInOffHand(player.getEquipment().getItemInMainHand());
+										player.getEquipment().setItemInMainHand(offHand);
+										player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_CHAIN, 1, 1);
+									}
+									Weapons.update(rp);
 								}
 							}
 						}
@@ -321,10 +324,7 @@ public class WeaponsListener implements Listener {
 										RPlayer rp = RPlayer.get(player);
 										if(weapon != null){
 											if(weapon.isAttack()){
-												if(/*!*/weapon.canUse(rp).isEmpty())/*{
-													WeaponsListener.wrongDamages(rp);
-													return;//useless now that we reset mainHand if weapon not usable (see Weapons.checkEquipment)
-												}else*/{
+												if(weapon.canUse(rp).isEmpty()) {
 													RPlayerUseWeaponEvent event = new RPlayerUseWeaponEvent(rp, weapon);
 													Bukkit.getPluginManager().callEvent(event);
 													if(event.isCancelled())return;
@@ -350,7 +350,7 @@ public class WeaponsListener implements Listener {
 		if(Weapons.TOOLS.contains(item.getType())) {
 			int realDamage = ((Damageable) item.getItemMeta()).getDamage();
 			double damageStep = Weapons.getSkinFactor(item.getType());
-			double damageShift = damageStep/2.;
+			double damageShift = item.getType().equals(Material.SHEARS) ? .005 : damageStep/2.;
 			if(realDamage > 0) {//probability = 1/N where N is the parameter of the uniform distribution (mean at N/2 so...)
 				if(RandomUtils.random.nextDouble() < 1./(Settings.TOOLS_DAMAGE_CORRECTOR*item.getType().getMaxDurability()*damageStep)) {
 					double damageFactor = realDamage/((double) item.getType().getMaxDurability());
@@ -387,6 +387,8 @@ public class WeaponsListener implements Listener {
 							}
 						}
 					}
+
+					Weapons.update(rp);
 				}
 			}
 
@@ -413,6 +415,8 @@ public class WeaponsListener implements Listener {
 							player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 						}
 					}
+
+					Weapons.update(rp);
 				} else {
 					if(player.getGameMode().equals(GameMode.ADVENTURE)) {
 						player.setGameMode(GameMode.SURVIVAL);
@@ -448,6 +452,8 @@ public class WeaponsListener implements Listener {
 							}
 						}
 					}
+					
+					Weapons.update(rp);
 				} else if(offHand.getType().equals(Material.SHIELD)) {
 					event.setCancelled(true);
 					rp.sendMessage("§cCe bouclier doit être éveillé avant d'être porté");
@@ -478,11 +484,26 @@ public class WeaponsListener implements Listener {
 							player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 						}
 					}
+					
+					Weapons.update(rp);
 				} else {
 					if(player.getGameMode().equals(GameMode.ADVENTURE)) {
 						player.setGameMode(GameMode.SURVIVAL);
 					}
 				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onItemPickup(EntityPickupItemEvent event) {
+		if(event.getEntity() instanceof Player) {
+			Player player = (Player) event.getEntity();
+			ItemStack item = event.getItem().getItemStack();
+			RItem rItem = new RItem(item);
+			if(rItem.isWeapon()) {
+				RPlayer rp = RPlayer.get(player);
+				Weapons.update(rp);
 			}
 		}
 	}
@@ -498,19 +519,6 @@ public class WeaponsListener implements Listener {
 			rp.setLastAttack(System.currentTimeMillis());
 			rp.getPlayer().setCooldown(weapon.getType(), (int)Math.round((1-ratio)*20/(weapon.getAttackSpeed()*attackSpeedFactor)));
 		}
-	}
-	
-	public static void wrongDamages(RPlayer rp){
-		if(!rp.isOp()){
-			if(wrongDamages.containsKey(rp)){
-				int damages = wrongDamages.get(rp)+1;
-				if(damages > 6)damages = 1;
-				wrongDamages.put(rp, damages);
-			}else wrongDamages.put(rp, 1);
-			
-			if(wrongDamages.get(rp) == 1)rp.sendMessage("§cVous ne savez pas manier cette arme !");
-		}
-		
 	}
 	
 }

@@ -55,26 +55,24 @@ public class WeaponSetEditionMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_NAME)this.close(true, this.LIST_ID_NAME);
-			else if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new WeaponSetSelectionMenu(this.getHolder(), this.getWeapon()));
-			else if(slot == this.SLOT_DELETE){
-				Sets.sets.remove(this.getSet());
-				Configs.getWeaponsConfig().set("sets." + this.getSet().getUUID(), null);
-				Configs.saveWeaponsConfig();
-				for(Weapon weapon : this.getSet().getWeapons()){
-					weapon.setSetUUID("0000");
-				}
-				Core.uiManager.requestUI(new WeaponSetSelectionMenu(this.getHolder(), this.getWeapon()));
-			}else if(slot == this.SLOT_BUFFS)Core.uiManager.requestUI(new WeaponSetBuffsMenu(this.getHolder(), this.getWeapon(), this.getSet()));
-			else if(slot == this.SLOT_WEAPONS){
-				for(Weapon weapon : this.getSet().getWeapons()){
-					weapon.setSetUUID("0000");
-				}
-				this.getSet().getWeapons().clear();
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_NAME)this.close(true, this.LIST_ID_NAME);
+		else if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new WeaponSetSelectionMenu(this.getHolder(), this.getWeapon()));
+		else if(slot == this.SLOT_DELETE){
+			Sets.sets.remove(this.getSet());
+			Configs.getWeaponsConfig().set("sets." + this.getSet().getUUID(), null);
+			Configs.saveWeaponsConfig();
+			for(Weapon weapon : this.getSet().getWeapons()){
+				weapon.setSetUUID("0000");
 			}
+			Core.uiManager.requestUI(new WeaponSetSelectionMenu(this.getHolder(), this.getWeapon()));
+		}else if(slot == this.SLOT_BUFFS)Core.uiManager.requestUI(new WeaponSetBuffsMenu(this.getHolder(), this.getWeapon(), this.getSet()));
+		else if(slot == this.SLOT_WEAPONS){
+			for(Weapon weapon : this.getSet().getWeapons()){
+				weapon.setSetUUID("0000");
+			}
+			this.getSet().getWeapons().clear();
 		}
 	}
 

@@ -69,70 +69,66 @@ public class PlayerMenu extends UIHandler {
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				if(e.getRawSlot() == SLOT_DUEL){
-					int deviation = Math.abs(rp.getRLevel()-this.rpfrom.getRLevel());
-					if(deviation <= Settings.COMPETITIVE_DUEL_LEVEL_SHIFT_MAX && System.currentTimeMillis()-rp.getLastCompetitiveDuelDateAgainst(rpfrom) > Settings.COMPETITIVE_DUEL_DELAY_MAX*60*1000L*Math.pow(deviation/Settings.COMPETITIVE_DUEL_LEVEL_SHIFT_MAX,1.8) && rpfrom.getRequestedDuelTo(rp) == null && rp.getRequestedDuelTo(rpfrom) == null)Core.uiManager.requestUI(new DuelCompetitiveUI(this.rp, this.rpfrom));
-					else{
-						rp.requestDuel(this.rpfrom,false);
-						this.getMenu().setItem(this.SLOT_DUEL, this.getDuel());
-						if(rpfrom.getRequestedDuelTo(rp) != null)this.close(false);
-					}
-				}else if(e.getRawSlot() == SLOT_TRADE){
-					TradingHandler.requestTrade(this.getHolder(), this.from);
-					this.close(false);
-				}else if(e.getRawSlot() == SLOT_INSPECT)Core.uiManager.requestUI(new InspectUI(this.getHolder(), this.from));
-				else if(e.getRawSlot() == SLOT_INVITE){
-					if(mfrom.hasGuild()){
-						if(!gm.hasGuild())mfrom.getGuild().ask(gm);
-						else if(!mfrom.getGuild().equals(gm.getGuild()))Core.uiManager.requestUI(new GRelationsUI(this.getHolder(), mfrom.getGuild()));
-					}else if(gm.hasGuild()){
-						if(gm.getPermission(Permission.INVITE) || gm.isLeader()){
-							gm.getGuild().invite(mfrom);
-							if(mfrom.isInvited(gm.getGuild()))rp.sendMessage("§eVous avez invité §6" + mfrom.getName() + " §eà rejoindre votre guilde.");
-							else rp.sendMessage("§eVous avez annulé l'invitation à rejoindre la guilde de §6" + mfrom.getName() + "§e.");
-						}else rp.sendMessage("§cVous n'avez pas la permission d'inviter des joueurs à rejoindre votre guilde !");
-					}else rp.sendMessage("§cVous n'appartenez à aucune guilde !");
-					this.getMenu().setItem(this.SLOT_INVITE, this.getInvite());
-				}else if(e.getRawSlot() == SLOT_MARRY){
-					if(rp.getCouple() != null && this.showFiancer){
-						Core.uiManager.requestUI(new DivorceConfirmationUI(rp));
-					}else{
-						if(rpfrom.equals(rp.fiance)){
-							rp.fiance(null);
-							rpfrom.fiance(null);
-							rp.sendMessage("§cVous avez annulé votre demande en mariage...");
-							rpfrom.sendMessage("§4" + rp.getName() + " §ca annulé la demande en mariage...");
+		if(e.getRawSlot() == SLOT_DUEL){
+			int deviation = Math.abs(rp.getRLevel()-this.rpfrom.getRLevel());
+			if(deviation <= Settings.COMPETITIVE_DUEL_LEVEL_SHIFT_MAX && System.currentTimeMillis()-rp.getLastCompetitiveDuelDateAgainst(rpfrom) > Settings.COMPETITIVE_DUEL_DELAY_MAX*60*1000L*Math.pow(deviation/Settings.COMPETITIVE_DUEL_LEVEL_SHIFT_MAX,1.8) && rpfrom.getRequestedDuelTo(rp) == null && rp.getRequestedDuelTo(rpfrom) == null)Core.uiManager.requestUI(new DuelCompetitiveUI(this.rp, this.rpfrom));
+			else{
+				rp.requestDuel(this.rpfrom,false);
+				this.getMenu().setItem(this.SLOT_DUEL, this.getDuel());
+				if(rpfrom.getRequestedDuelTo(rp) != null)this.close(false);
+			}
+		}else if(e.getRawSlot() == SLOT_TRADE){
+			TradingHandler.requestTrade(this.getHolder(), this.from);
+			this.close(false);
+		}else if(e.getRawSlot() == SLOT_INSPECT)Core.uiManager.requestUI(new InspectUI(this.getHolder(), this.from));
+		else if(e.getRawSlot() == SLOT_INVITE){
+			if(mfrom.hasGuild()){
+				if(!gm.hasGuild())mfrom.getGuild().ask(gm);
+				else if(!mfrom.getGuild().equals(gm.getGuild()))Core.uiManager.requestUI(new GRelationsUI(this.getHolder(), mfrom.getGuild()));
+			}else if(gm.hasGuild()){
+				if(gm.getPermission(Permission.INVITE) || gm.isLeader()){
+					gm.getGuild().invite(mfrom);
+					if(mfrom.isInvited(gm.getGuild()))rp.sendMessage("§eVous avez invité §6" + mfrom.getName() + " §eà rejoindre votre guilde.");
+					else rp.sendMessage("§eVous avez annulé l'invitation à rejoindre la guilde de §6" + mfrom.getName() + "§e.");
+				}else rp.sendMessage("§cVous n'avez pas la permission d'inviter des joueurs à rejoindre votre guilde !");
+			}else rp.sendMessage("§cVous n'appartenez à aucune guilde !");
+			this.getMenu().setItem(this.SLOT_INVITE, this.getInvite());
+		}else if(e.getRawSlot() == SLOT_MARRY){
+			if(rp.getCouple() != null && this.showFiancer){
+				Core.uiManager.requestUI(new DivorceConfirmationUI(rp));
+			}else{
+				if(rpfrom.equals(rp.fiance)){
+					rp.fiance(null);
+					rpfrom.fiance(null);
+					rp.sendMessage("§cVous avez annulé votre demande en mariage...");
+					rpfrom.sendMessage("§4" + rp.getName() + " §ca annulé la demande en mariage...");
+				}else{
+					if(rp.isOp() || rp.getLastDivorce()+Settings.TIME_BEFORE_WEDDING_PROPOSAL <= System.currentTimeMillis()){
+						rp.fiance(rpfrom);
+						if(rp.equals(rpfrom.fiance)){
+							rp.sendMessage("§aVous êtes désormais fiancé(e) à §2" + rpfrom.getName() + " §a!");
+							rpfrom.sendMessage("§aVous êtes désormais fiancé(e) à §2" + rp.getName() + " §a!");
+							
+							rp.sendMessage("§eVous avez maintenant besoin de l'aide d'un pasteur pour organiser votre mariage !");
+							rpfrom.sendMessage("§eVous avez désormais besoin de demander à un pasteur d'organiser votre mariage !");
 						}else{
-							if(rp.isOp() || rp.getLastDivorce()+Settings.TIME_BEFORE_WEDDING_PROPOSAL <= System.currentTimeMillis()){
-								rp.fiance(rpfrom);
-								if(rp.equals(rpfrom.fiance)){
-									rp.sendMessage("§aVous êtes désormais fiancé(e) à §2" + rpfrom.getName() + " §a!");
-									rpfrom.sendMessage("§aVous êtes désormais fiancé(e) à §2" + rp.getName() + " §a!");
-									
-									rp.sendMessage("§eVous avez maintenant besoin de l'aide d'un pasteur pour organiser votre mariage !");
-									rpfrom.sendMessage("§eVous avez désormais besoin de demander à un pasteur d'organiser votre mariage !");
-								}else{
-									rp.sendMessage("§eVous avez demandé §6" + rpfrom.getName() + " §een mariage...");
-									rpfrom.sendMessage("§6" + rp.getName() + " §evous a demandé en mariage !");
-								}
-							}else{
-								long time1 = rp.getLastDivorce()+Settings.TIME_BEFORE_WEDDING_PROPOSAL-System.currentTimeMillis();
-								long hours1 = TimeUnit.MILLISECONDS.toHours(time1);
-								time1 -= TimeUnit.HOURS.toMillis(hours1);
-								long minutes1 = TimeUnit.MILLISECONDS.toMinutes(time1);
-								time1 -= TimeUnit.MINUTES.toMillis(minutes1);
-								long seconds1 = TimeUnit.MILLISECONDS.toSeconds(time1);
-								time1 -= TimeUnit.SECONDS.toMillis(seconds1);
-								String time = String.format("§4%02d §ch. §4%02d §cmin. §4%02d §cs.", hours1, minutes1, seconds1);
-								rp.sendMessage("§cVous venez de divorcer ! Attendez encore " + time);
-							}
+							rp.sendMessage("§eVous avez demandé §6" + rpfrom.getName() + " §een mariage...");
+							rpfrom.sendMessage("§6" + rp.getName() + " §evous a demandé en mariage !");
 						}
+					}else{
+						long time1 = rp.getLastDivorce()+Settings.TIME_BEFORE_WEDDING_PROPOSAL-System.currentTimeMillis();
+						long hours1 = TimeUnit.MILLISECONDS.toHours(time1);
+						time1 -= TimeUnit.HOURS.toMillis(hours1);
+						long minutes1 = TimeUnit.MILLISECONDS.toMinutes(time1);
+						time1 -= TimeUnit.MINUTES.toMillis(minutes1);
+						long seconds1 = TimeUnit.MILLISECONDS.toSeconds(time1);
+						time1 -= TimeUnit.SECONDS.toMillis(seconds1);
+						String time = String.format("§4%02d §ch. §4%02d §cmin. §4%02d §cs.", hours1, minutes1, seconds1);
+						rp.sendMessage("§cVous venez de divorcer ! Attendez encore " + time);
 					}
-					this.getMenu().setItem(this.SLOT_MARRY, this.getMarry());
 				}
 			}
+			this.getMenu().setItem(this.SLOT_MARRY, this.getMarry());
 		}
 	}
 

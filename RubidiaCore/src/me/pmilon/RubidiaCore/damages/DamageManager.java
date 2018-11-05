@@ -2,7 +2,6 @@ package me.pmilon.RubidiaCore.damages;
 
 import java.util.Map;
 
-import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.abilities.RAbility;
@@ -74,9 +73,6 @@ public class DamageManager {
 		if(player != null){
 			RPlayer rp = RPlayer.get(player);
 			factor += rp.getDefenseFactor();
-			if(rp.getRClass().equals(RClass.PALADIN)){
-				factor += RAbility.PALADIN_4.getAbility().getDamages(rp)*.01;//to convert to factor
-			}
 			defensePoints += rp.getBonus(PiercingType.DEFENSE);
 		}
 		
@@ -205,7 +201,7 @@ public class DamageManager {
 		if(critical || monster != null){
 			if(RandomUtils.random.nextInt(100) < 20+(rp != null ? rp.getCriticalStrikeChanceFactor()*100 : -10)){
 				damages *= rp != null ? rp.getCriticalStrikeDamagesFactor() : 2.0;
-				Core.playAnimEffect(Particle.CRIT, damaged.getLocation().add(0,1,0), .2F, .2F, .2F, .5F, 44);
+				damaged.getWorld().spawnParticle(Particle.CRIT, damaged.getLocation().add(0,damaged.getHeight(),0), 44, damaged.getWidth(), .4, damaged.getWidth(), 0);
 			}
 		}
 		
@@ -283,7 +279,7 @@ public class DamageManager {
 					else rpDamaged.sendActionBar("§aYou blocked " + rpDamager.getName() + "'s attack!", "§aVous avez bloqué l'attaque de " + rpDamager.getName() + " !");
 				}
 				damaged.setNoDamageTicks(12);
-				Core.playAnimEffect(Particle.SLIME, damaged.getLocation().add(0,1,0), .3F, .3F, .3F, .5F, 50);
+				damaged.getWorld().spawnParticle(Particle.SLIME, damaged.getLocation().add(0,damaged.getHeight()/2.,0), 50, damaged.getWidth(), .3, damaged.getWidth(), 0);
 				damaged.getWorld().playSound(damaged.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 2);
 				return false;
 			}
@@ -297,7 +293,7 @@ public class DamageManager {
 		Player player = damager instanceof Player ? (Player)damager : null;
 		RPlayer rp = player != null ? RPlayer.get(player) : null;
 		Monster monster = Monsters.entities.get(damager);
-		boolean escape = false;
+		boolean handAttack = false;
 		if(monster == null || monster.getDamagesFactor() == 0){
 			if(!Pet.isPet(damager)){
 				if(item != null){
@@ -359,10 +355,10 @@ public class DamageManager {
 										}
 									}
 								}
-							}else escape = true;
-						}else escape = true;
-			    	}else escape = true;
-				}else escape = true;
+							}else handAttack = true;
+						}else handAttack = true;
+			    	}else handAttack = true;
+				}else handAttack = true;
 			}else{
 				Pet pet = Pets.get(damager);
 				if(pet != null)damages = pet.getDamages();
@@ -370,15 +366,19 @@ public class DamageManager {
 		}else damages = monster.getDamages();
 		
 		if(rp != null){
-			if(escape){
-				if(cause.equals(RDamageCause.MELEE)){
-					damages = rp.getStrength()*Settings.STRENGTH_FACTOR_HAND_DAMAGES_ON_MELEE;
-				}
+			if(handAttack && cause.equals(RDamageCause.MELEE)){
+				damages = rp.getStrength()*Settings.STRENGTH_FACTOR_HAND_DAMAGES_ON_MELEE;
 			}
 			damages += rp.getBonus(PiercingType.ATTACK);
 			damages *= rp.getNextAttackFactor();//needs to be after all sums
-			if(rp.getRClass().equals(RClass.PALADIN)){
-				factor += RAbility.PALADIN_3.getAbility().getDamages(rp)*.01;//to convert to factor
+		}
+		
+		if(damaged instanceof Player) {
+			RPlayer rpp = RPlayer.get((Player) damaged);
+			if(rpp.getRClass().equals(RClass.PALADIN)) {
+				if(rpp.isActiveAbility(RAbility.PALADIN_5)) {
+					factor += RAbility.PALADIN_5.getDamages(rpp);
+				}
 			}
 		}
 		

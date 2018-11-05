@@ -3,7 +3,6 @@ package me.pmilon.RubidiaCore.abilities;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -69,13 +68,13 @@ public abstract class Ability {
 			RPlayerAbilityEvent event = new RPlayerAbilityEvent(rp, this);
 			Bukkit.getPluginManager().callEvent(event);
 			if(!event.isCancelled()){
-				ItemMessage.sendMessage(player, "§2§l> Compétence   §a" + this.getName() + " §8§m §r " + (this.isToggleable() ? (!rp.isActiveAbility(this.getIndex()) ? "§cdésactivée" : "§eactivée") : "§e-" + Utils.round(vigorCost, 1) + " §6§lEP"), 2);
-				if(rp.isActiveAbility(this.getIndex())){
+				ItemMessage.sendMessage(player, "§2§l> Compétence   §a" + this.getName() + " §8§m §r " + (this.isToggleable() ? (!rp.isActiveAbility(getInstance().getRAbility()) ? "§cdésactivée" : "§eactivée") : "§e-" + Utils.round(vigorCost, 1) + " §6§lEP"), 2);
+				if(rp.isActiveAbility(getInstance().getRAbility())){
 					if(this.isToggleable()) {
 						BukkitTask.tasks.get(player.getMetadata("abilityTask" + this.getIndex()).get(0).asInt()).cancel();
 					}
 				}else{
-					rp.setActiveAbility(this.getIndex(), true);
+					rp.setActiveAbility(getInstance().getRAbility(), true);
 					this.run(rp);
 
 					if(this.isToggleable()) {
@@ -97,14 +96,13 @@ public abstract class Ability {
 									step2 = 0;
 								}
 								
-								Core.playAnimEffect(Particle.VILLAGER_ANGRY, player.getEyeLocation(), .25F, .25F, .25F, .5F, 5);
 								step2++;
 							}
 
 							@Override
 							public void onCancel() {
 								getInstance().onCancel(rp);
-								rp.setActiveAbility(getInstance().getIndex(), false);
+								rp.setActiveAbility(getInstance().getRAbility(), false);
 							}
 							
 						}.runTaskTimer(0, 5).getTaskId()));
@@ -112,7 +110,7 @@ public abstract class Ability {
 				}
 			}
 		}else this.vigorless(player);
-		if(!rp.isActiveAbility(this.getIndex()) || this.isToggleable()){
+		if(!rp.isActiveAbility(getInstance().getRAbility()) || this.isToggleable()){
 		}
 	}
 	
@@ -161,11 +159,11 @@ public abstract class Ability {
 	}
 
 	public double getDamages(RPlayer rp) {
-		return rp.getAbilityLevel(this.getIndex())*this.getSettings().getDamagesPerLevel()+this.getSettings().getDamagesMin();
+		return rp.getAbilityLevel(this.getRAbility())*this.getSettings().getDamagesPerLevel()+this.getSettings().getDamagesMin();
 	}
 	
 	public double getVigorCost(RPlayer rp) {
-		return rp.getAbilityLevel(this.getIndex())*this.getSettings().getVigorPerLevel()+this.getSettings().getVigorMin();
+		return rp.getAbilityLevel(this.getRAbility())*this.getSettings().getVigorPerLevel()+this.getSettings().getVigorMin();
 	}
 
 	public RAbilitySettings getSettings() {
@@ -182,6 +180,10 @@ public abstract class Ability {
 	
 	public Ability getInstance() {
 		return this;
+	}
+	
+	public RAbility getRAbility() {
+		return RAbility.valueOf(this.getRClass().toString() + "_" + this.getIndex());
 	}
 	
 }

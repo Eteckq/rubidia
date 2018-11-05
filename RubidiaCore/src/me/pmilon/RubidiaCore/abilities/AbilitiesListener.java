@@ -13,7 +13,6 @@ import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -52,7 +51,7 @@ public class AbilitiesListener implements Listener{
 					
 					if(!keystroke.isEmpty()){
 						for(RAbility ability : RAbility.getAvailable(rp)){
-							if(!ability.isPassive()){
+							if(!ability.isPassive() && (!rp.isActiveAbility(ability) || ability.isToggleable())){
 								String seq = ability.getSequence();
 								String[] part = seq.split(",");
 								boolean active = keystroke.contains(part[0]);
@@ -98,7 +97,7 @@ public class AbilitiesListener implements Listener{
 		RPlayer rp = RPlayer.get(p);
 		if(rp.getLoadedSPlayer() != null){
 			if(rp.getRClass().equals(RClass.MAGE)){
-				if(rp.isActiveAbility(7)){
+				/*if(rp.isActiveAbility(7)){
 					for(Entity entity : p.getWorld().getEntities()){
 						if(entity.hasMetadata("Minion")){
 							if(entity.getMetadata("Minion").get(0).asString().equals(p.getName())){
@@ -110,9 +109,9 @@ public class AbilitiesListener implements Listener{
 							}
 						}
 					}
-				}
+				}*/
 			}else if(rp.getRClass().equals(RClass.ASSASSIN)){
-				if(rp.isActiveAbility(7)){
+				if(rp.isActiveAbility(RAbility.ASSASSIN_7)){
 					if(p.getGameMode().equals(GameMode.SPECTATOR)){
 						p.setGameMode(GameMode.valueOf(p.getMetadata("assassinGamemode").get(0).asString()));
 					}
@@ -130,7 +129,7 @@ public class AbilitiesListener implements Listener{
 			if(human instanceof Player){
 				Player player = (Player)human;
 				RPlayer rp = RPlayer.get(player);
-				if(rp.getRClass().equals(RClass.ASSASSIN) && rp.isActiveAbility(2)){
+				if(rp.getRClass().equals(RClass.ASSASSIN) && rp.isActiveAbility(RAbility.ASSASSIN_2)){
 					if(e.getSlotType().equals(SlotType.ARMOR)){
 						if(e.getCurrentItem().getType().equals(Material.PUMPKIN)){
 							e.setCancelled(true);
@@ -171,30 +170,37 @@ public class AbilitiesListener implements Listener{
 									task.cancel();
 								}
 							}
-							if(rp.getAbilityLevel(3) > 0){
+							if(rp.getAbilityLevel(RAbility.RANGER_3) > 0){
 								RAbility.RANGER_3.getAbility().animate(rp, target);
 							}
-							if(rp.getAbilityLevel(4) > 0){
+							if(rp.getAbilityLevel(RAbility.RANGER_4) > 0){
 								RAbility.RANGER_4.getAbility().animate(rp, target);
 							}
 						}
 					}else if(projectile instanceof Snowball){
 						if(rp.getRClass().equals(RClass.MAGE)){
-							if(rp.isActiveAbility(5)){
+							if(rp.isActiveAbility(RAbility.MAGE_5)){
 								event.setCancelled(true);
 								RAbility.MAGE_5.getAbility().damage(rp, Arrays.asList(target));
 							}
 						}
 					}
 				}
-			}else{
+			} else {
 				LivingEntity damaged = (LivingEntity) event.getEntity();
 				if(damager instanceof Player){
+					Player player = (Player) damager;
+					RPlayer rp = RPlayer.get(player);
+					if(rp.getRClass().equals(RClass.PALADIN)) {
+						RAbility.PALADIN_1.getAbility().animate(rp, damaged);
+					}
+					
 					if(damaged instanceof Player){
-						if(!(((Player) damaged).canSee((Player) damager))){
+						if(!((Player) damaged).canSee(player)){
 							event.setDamages(event.getDamages()*.25);
 						}
 					}
+					
 					if(damaged.hasMetadata("Minion")){
 						if(damaged.getMetadata("Minion").get(0).asString().equals(damager.getName()))event.setCancelled(true);
 					}

@@ -12,7 +12,6 @@ import me.pmilon.RubidiaCore.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -48,54 +47,49 @@ public class DistinctionsMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				e.setCancelled(true);
-				int slot = e.getRawSlot();
-				if(slot > 1 && slot < 7){
-					if(canClick){
-						canClick = false;
-						new BukkitTask(Core.instance){
-							public void run(){
-								canClick = true;
-							}
-
-							@Override
-							public void onCancel() {
-							}
-						}.runTaskLater(6);
-						int amount = 1;
-						if(e.isShiftClick())amount = 5;
-						if(rp.getSkillDistinctionPoints() >= amount){
-							rp.setSkillDistinctionPoints(rp.getSkillDistinctionPoints()-amount);
-							if(slot == this.SLOT_STR){
-								rp.addStrength(amount);
-								this.menu.setItem(slot, this.getStrength());
-							}else if(slot == this.SLOT_END){
-								rp.addEndurance(amount);
-								this.menu.setItem(slot, this.getEndurance());
-								this.getHolder().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(rp.getMaxHealth());
-								this.getHolder().setHealth(this.getHolder().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
-							}else if(slot == this.SLOT_AGT){
-								rp.addAgility(amount);
-								this.menu.setItem(slot, this.getAgility());
-							}else if(slot == this.SLOT_INT){
-								rp.addIntelligence(amount);
-								this.menu.setItem(slot, this.getIntelligence());
-							}else if(slot == this.SLOT_PER){
-								rp.addPerception(amount);
-								this.menu.setItem(slot, this.getPerception());
-							}
-							this.menu.setItem(this.SLOT_SKD, this.getDistinctionPoints());
-						}else{
-							this.getHolder().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-							rp.sendMessage("§cVous n'avez pas assez de points de distinction !");
-						}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot > 1 && slot < 7){
+			if(canClick){
+				canClick = false;
+				new BukkitTask(Core.instance){
+					public void run(){
+						canClick = true;
 					}
-				}else if(slot == this.SLOT_CRC){
-					BookUtils.openCharacteristicsBook(Core.instance, p, p.getEquipment().getItemInMainHand());
+
+					@Override
+					public void onCancel() {
+					}
+				}.runTaskLater(6);
+				int amount = 1;
+				if(e.isShiftClick())amount = 5;
+				if(rp.getSkillDistinctionPoints() >= amount){
+					rp.setSkillDistinctionPoints(rp.getSkillDistinctionPoints()-amount);
+					if(slot == this.SLOT_STR){
+						rp.addStrength(amount);
+						this.menu.setItem(slot, this.getStrength());
+					}else if(slot == this.SLOT_END){
+						rp.addEndurance(amount);
+						this.menu.setItem(slot, this.getEndurance());
+						rp.heal();
+					}else if(slot == this.SLOT_AGT){
+						rp.addAgility(amount);
+						this.menu.setItem(slot, this.getAgility());
+					}else if(slot == this.SLOT_INT){
+						rp.addIntelligence(amount);
+						this.menu.setItem(slot, this.getIntelligence());
+					}else if(slot == this.SLOT_PER){
+						rp.addPerception(amount);
+						this.menu.setItem(slot, this.getPerception());
+					}
+					this.menu.setItem(this.SLOT_SKD, this.getDistinctionPoints());
+				}else{
+					this.getHolder().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+					rp.sendMessage("§cVous n'avez pas assez de points de distinction !");
 				}
 			}
+		}else if(slot == this.SLOT_CRC){
+			BookUtils.openCharacteristicsBook(Core.instance, p, p.getEquipment().getItemInMainHand());
 		}
 	}
 
@@ -170,7 +164,7 @@ public class DistinctionsMenu extends UIHandler {
 		ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1);
 		SkullMeta meta = (SkullMeta) item.getItemMeta();
 		meta.setOwningPlayer(Bukkit.getOfflinePlayer(this.getHolder().getUniqueId()));
-		meta.setDisplayName("§f§l" + rp.getRClass().toString());
+		meta.setDisplayName("§f§l" + rp.getRClass().getName().toUpperCase());
 		meta.setLore(Arrays.asList("§7" + ("Cliquez pour obtenir vos caractéristiques détaillées."), "§7" + ("Les valeurs d'attaque et de défense"), "§7" + ("dépendent de votre arme et armure actuelles.")));
 		item.setItemMeta(meta);
 		return item;

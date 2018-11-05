@@ -128,9 +128,10 @@ public class RPlayer {
 	private int chatboxHeight;
 	private int chatboxWidth;
 	private boolean publicData;
+	private boolean usingChat;
 	
 	private boolean modified;
-	private boolean[] activeAbilities = new boolean[]{false,false,false,false,false,false,false,false};
+	private List<RAbility> activeAbilities = new ArrayList<RAbility>();
 	public Location connectionLocation = null;
 	public RPlayer lastWelcome = null;
 	private SPlayer loadedSPlayer;
@@ -153,7 +154,7 @@ public class RPlayer {
 	public int badword = 0;
 	public final List<PNJHandler> glowingPNJs = new ArrayList<PNJHandler>();
 	private RChat chat;
-	private boolean usingChat;
+	private boolean isLoading = false;
 	private boolean vanished = false;
 	public int shoutIndex = 0;
 	private PlayerShop shop;
@@ -259,8 +260,8 @@ public class RPlayer {
 	public int getSkillPoints(){
 		return this.getLoadedSPlayer().getSkp();
 	}
-	public int getAbilityLevel(int i){
-		return this.getLoadedSPlayer().getAbilityLevel(i);
+	public int getAbilityLevel(RAbility ability){
+		return this.getLoadedSPlayer().getAbilityLevel(ability);
 	}
 	public double getVigor(){
 		if(this.isOnline())if(this.isOp())return this.getMaxVigor();
@@ -361,8 +362,8 @@ public class RPlayer {
 	public void setSkillPoints(int skp){
 		this.getLoadedSPlayer().setSkp(skp);
 	}
-	public void setAbilityLevel(int i, int level){
-		this.getLoadedSPlayer().setAbilityLevel(i, level);
+	public void setAbilityLevel(RAbility ability, int level){
+		this.getLoadedSPlayer().setAbilityLevel(ability, level);
 	}
 	public void setVigor(double currentnrj){
 		if(currentnrj < 0)currentnrj = 0;
@@ -462,18 +463,14 @@ public class RPlayer {
 		this.setIntelligence(0);
 		this.setPerception(0);
 		this.setVigor(this.getMaxVigor());
-		if(this.isOnline()){
-			this.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20.0);
-			this.getPlayer().setHealth(this.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
-			this.sendMessage("§aVos statistiques ont été réinitialisées.");
-		}
+		this.sendMessage("§aVos statistiques ont été réinitialisées.");
 		return skd;
 	}
 	public int resetAbilities(){
 		int skp = this.getLoadedSPlayer().getSkp();
-		for(int i = 1;i < 9;i++) {
-			skp += this.getLoadedSPlayer().getAbilityLevel(i);
-			this.getLoadedSPlayer().setAbilityLevel(i, 0);
+		for(RAbility ability : this.getLoadedSPlayer().getAbilityLevels().keySet()) {
+			skp += this.getAbilityLevel(ability);
+			this.setAbilityLevel(ability, 0);
 		}
 		this.setSkillPoints(skp);
 		if(this.isOnline())this.sendMessage("§aVos compétences ont été réinitialisées.");
@@ -873,7 +870,7 @@ public class RPlayer {
 	}
 	
 	public double getAttackSpeedFactor(){
-		return 1+this.getAgility()*Settings.AGILITY_FACTOR_ATTACK_SPEED+this.getAdditionalFactor(BuffType.ATTACK_SPEED)+(this.getRClass().equals(RClass.PALADIN) ? RAbility.PALADIN_4.getDamages(this)*.01 - 1 : 0);
+		return 1+this.getAgility()*Settings.AGILITY_FACTOR_ATTACK_SPEED+this.getAdditionalFactor(BuffType.ATTACK_SPEED)+(this.getRClass().equals(RClass.PALADIN) ? RAbility.PALADIN_4.getDamages(this)*.01 : 0);
 	}
 	
 	public double getXPFactor(){
@@ -914,40 +911,47 @@ public class RPlayer {
 	}
 
 	public void load(final int id){
+		this.setLoading(true);
 		final SPlayer sp = this.getSaves()[id];
-		this.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 140, 444, true, false), true);
-		this.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 140, 444, true, false), true);
+		this.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 0, true, false), true);
 		this.getPlayer().setWalkSpeed(0);
+		this.getPlayer().setFlySpeed(0);
+		this.getPlayer().setGravity(false);
+		this.getPlayer().setInvulnerable(true);
+		this.getPlayer().setNoDamageTicks(80);
+		
+		this.getLoadedSPlayer().setLastLocation(this.getPlayer().getLocation());
+		this.getPlayer().teleport(this.getPlayer().getLocation().add(0,.3,0));
+		
+		if(Smiley.isSmileying(getPlayer())){
+			smileyTask.run();
+		}
+		for(Pet pet : getLoadedSPlayer().getPets()){
+			if(pet.isActive()){
+				pet.despawn();
+			}
+		}
+		this.getLoadedSPlayer().setLastHealth(getPlayer().getHealth());
+		this.getLoadedSPlayer().setLastFoodLevel(getPlayer().getFoodLevel());
+		final PlayerInventory inventory = getPlayer().getInventory();
+		for(int i = 0;i < inventory.getSize();i++){
+			this.getLoadedSPlayer().getLastInventory().put(i, inventory.getItem(i));
+		}
+		this.getLoadedSPlayer().getLastInventory().put(101, inventory.getHelmet());
+		this.getLoadedSPlayer().getLastInventory().put(102, inventory.getChestplate());
+		this.getLoadedSPlayer().getLastInventory().put(103, inventory.getLeggings());
+		this.getLoadedSPlayer().getLastInventory().put(104, inventory.getBoots());
 		new BukkitTask(Core.instance){
 
 			@Override
 			public void run() {
-				sendTitle("§fChargement du personnage...", "§7" + sp.getRClass().getName().toUpperCase() + "  |  NIVEAU " + sp.getRLevel(), 20, 0, 20);
+				sendTitle("§fChargement du personnage...", "§7" + sp.getRClass().getName().toUpperCase() + "  |  NIVEAU " + sp.getRLevel(), 15, 0, 15);
 			}
 
 			@Override
 			public void onCancel() {
-				if(Smiley.isSmileying(getPlayer())){
-					smileyTask.run();
-				}
-				for(Pet pet : getLoadedSPlayer().getPets()){
-					if(pet.isActive()){
-						pet.despawn();
-					}
-				}
-				getLoadedSPlayer().setLastLocation(getPlayer().getLocation());
-				getLoadedSPlayer().setLastHealth(getPlayer().getHealth());
-				getLoadedSPlayer().setLastFoodLevel(getPlayer().getFoodLevel());
-				PlayerInventory inventory = getPlayer().getInventory();
-				for(int i = 0;i < inventory.getSize();i++){
-					getLoadedSPlayer().getLastInventory().put(i, inventory.getItem(i));
-				}
-				getLoadedSPlayer().getLastInventory().put(101, inventory.getHelmet());
-				getLoadedSPlayer().getLastInventory().put(102, inventory.getChestplate());
-				getLoadedSPlayer().getLastInventory().put(103, inventory.getLeggings());
-				getLoadedSPlayer().getLastInventory().put(104, inventory.getBoots());
-				getLoadedSPlayer().setLoaded(false);
-				if(getPlayer().isOnline() && !getPlayer().isDead()){
+				if(isOnline() && getPlayer().isOnline() && !getPlayer().isDead()){
+					getLoadedSPlayer().setLoaded(false);
 					sendTitle("","",0,0,0);
 					inventory.clear();
 					inventory.setHelmet(new ItemStack(Material.AIR));
@@ -955,7 +959,9 @@ public class RPlayer {
 					inventory.setLeggings(new ItemStack(Material.AIR));
 					inventory.setBoots(new ItemStack(Material.AIR));
 					for(int i : sp.getLastInventory().keySet()){
-						if(i < inventory.getSize())inventory.setItem(i, sp.getLastInventory().get(i));
+						if(i < inventory.getSize()) {
+							inventory.setItem(i, sp.getLastInventory().get(i));
+						}
 					}
 					if(sp.getLastInventory().containsKey(101))inventory.setHelmet(sp.getLastInventory().get(101));
 					if(sp.getLastInventory().containsKey(102))inventory.setChestplate(sp.getLastInventory().get(102));
@@ -969,6 +975,9 @@ public class RPlayer {
 						}
 					}
 					getPlayer().setWalkSpeed(Settings.DEFAULT_WALK_SPEED);
+					getPlayer().setFlySpeed(Settings.DEFAULT_FLY_SPEED);
+					getPlayer().setGravity(true);
+					getPlayer().setInvulnerable(false);
 					setLastLoadedSPlayerId(id);
 					setLoadedSPlayer(sp);
 					getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getMaxHealth());
@@ -984,17 +993,35 @@ public class RPlayer {
 							NameTags.update();
 							getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
 							sendTitle("§fPersonnage chargé !", "§7Bon jeu sur Rubidia !", 0, 60, 20);
+							setLoading(false);
 						}
 
 						@Override
 						public void onCancel() {
 						}
 						
-					}.runTaskLater(1);
+					}.runTaskLater(0);
 				}
 			}
 			
-		}.runTaskTimerCancelling(0, 40, 120);
+		}.runTaskTimerCancelling(0, 30, 80);
+	}
+	
+	public boolean updateMaxHealth() {
+		if(this.isOnline()) {
+			if(this.getMaxHealth() != this.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()) {
+				this.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(this.getMaxHealth());
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void heal() {
+		if(this.isOnline()) {
+			this.updateMaxHealth();
+			this.getPlayer().setHealth(this.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.005);
+		}
 	}
 
 	public int getCombatLevel() {
@@ -1675,12 +1702,16 @@ public class RPlayer {
 		return this.getReloadingWeapons().containsKey(weapon.getUUID());
 	}
 	
-	public boolean isActiveAbility(int index){
-		return this.activeAbilities[index-1];
+	public boolean isActiveAbility(RAbility ability){
+		return this.activeAbilities.contains(ability);
 	}
 	
-	public void setActiveAbility(int index, boolean flag){
-		this.activeAbilities[index-1] = flag;
+	public void setActiveAbility(RAbility ability, boolean flag){
+		if(flag) {
+			this.activeAbilities.add(ability);
+		} else {
+			this.activeAbilities.remove(ability);
+		}
 	}
 
 	public boolean isPublicData() {
@@ -1807,6 +1838,14 @@ public class RPlayer {
 	
 	public RPlayer getInstance() {
 		return this;
+	}
+
+	public boolean isLoading() {
+		return isLoading;
+	}
+
+	public void setLoading(boolean isLoading) {
+		this.isLoading = isLoading;
 	}
 	
 }

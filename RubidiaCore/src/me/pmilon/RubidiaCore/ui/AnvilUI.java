@@ -97,33 +97,31 @@ public class AnvilUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == FINAL_ITEM_SLOT || slot == FINAL_ITEM_SLOT-1 || slot == FINAL_ITEM_SLOT+1){
-				RPlayer rp = RPlayer.get(p);
-				if(this.block.getType().toString().contains("ANVIL")) {
-					if(rp.getBank() >= this.cost){
-						EconomyHandler.withdraw(this.getHolder(), this.cost);
-						p.getInventory().addItem(this.item);
-						p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 3, 3);
-						Random r = new Random();
-						if(r.nextInt(4) == 0){
-							if(this.block.getType().equals(Material.ANVIL)){
-								this.block.setType(Material.CHIPPED_ANVIL);
-							}else if(this.block.getType().equals(Material.CHIPPED_ANVIL)){
-								this.block.setType(Material.DAMAGED_ANVIL);
-							}else{
-								this.block.setType(Material.AIR);
-								p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_BREAK, 3, 3);
-							}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == FINAL_ITEM_SLOT || slot == FINAL_ITEM_SLOT-1 || slot == FINAL_ITEM_SLOT+1){
+			RPlayer rp = RPlayer.get(p);
+			if(this.block.getType().toString().contains("ANVIL")) {
+				if(rp.getBank() >= this.cost){
+					EconomyHandler.withdraw(this.getHolder(), this.cost);
+					p.getInventory().addItem(this.item);
+					p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 3, 3);
+					Random r = new Random();
+					if(r.nextInt(4) == 0){
+						if(this.block.getType().equals(Material.ANVIL)){
+							this.block.setType(Material.CHIPPED_ANVIL);
+						}else if(this.block.getType().equals(Material.CHIPPED_ANVIL)){
+							this.block.setType(Material.DAMAGED_ANVIL);
+						}else{
+							this.block.setType(Material.AIR);
+							p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_BREAK, 3, 3);
 						}
-						DONE = true;
-					}else rp.sendMessage("§cVous n'avez pas assez d'émeraudes dans votre banque !");
-				}else rp.sendMessage("§cLa forge a disparue !");
-				this.close(false);
-			}else if(slot != 0 && slot != 8)this.closeUI();
-		}
+					}
+					DONE = true;
+				}else rp.sendMessage("§cVous n'avez pas assez d'émeraudes dans votre banque !");
+			}else rp.sendMessage("§cLa forge a disparue !");
+			this.close(false);
+		}else if(slot != 0 && slot != 8)this.closeUI();
 	}
 
 	@Override

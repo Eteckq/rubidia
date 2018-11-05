@@ -62,12 +62,10 @@ public abstract class ConfirmationUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot < 4)yes();
-			else if(slot != 4)no();
-		}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot < 4)yes();
+		else if(slot != 4)no();
 	}
 
 	@Override

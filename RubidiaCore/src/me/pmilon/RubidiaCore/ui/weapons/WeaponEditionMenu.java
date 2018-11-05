@@ -108,69 +108,67 @@ public class WeaponEditionMenu extends UIHandler{
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_NAME)this.close(true, this.LIST_ID_NAME);
-			else if(slot == this.SLOT_RARITY){
-				if(this.getWeapon().getRarity().equals(Rarity.COMMON))this.getWeapon().setRarity(Rarity.UNCOMMON);
-				else if(this.getWeapon().getRarity().equals(Rarity.UNCOMMON))this.getWeapon().setRarity(Rarity.SET);
-				else if(this.getWeapon().getRarity().equals(Rarity.SET))this.getWeapon().setRarity(Rarity.RARE);
-				else if(this.getWeapon().getRarity().equals(Rarity.RARE))this.getWeapon().setRarity(Rarity.EPIC);
-				else if(this.getWeapon().getRarity().equals(Rarity.EPIC))this.getWeapon().setRarity(Rarity.LEGENDARY);
-				else if(this.getWeapon().getRarity().equals(Rarity.LEGENDARY))this.getWeapon().setRarity(Rarity.COMMON);
-				this.menu.setItem(this.SLOT_RARITY, this.getRarity());
-			}else if(slot == this.SLOT_RCLASS){
-				if(this.getWeapon().getRClass().equals(RClass.VAGRANT))this.getWeapon().setRClass(RClass.PALADIN);
-				else if(this.getWeapon().getRClass().equals(RClass.PALADIN))this.getWeapon().setRClass(RClass.RANGER);
-				else if(this.getWeapon().getRClass().equals(RClass.RANGER))this.getWeapon().setRClass(RClass.MAGE);
-				else if(this.getWeapon().getRClass().equals(RClass.MAGE))this.getWeapon().setRClass(RClass.ASSASSIN);
-				else if(this.getWeapon().getRClass().equals(RClass.ASSASSIN))this.getWeapon().setRClass(RClass.VAGRANT);
-				this.menu.setItem(this.SLOT_RCLASS, this.getRClass());
-			}else if(slot == this.SLOT_USE && this.getWeapon().isAttack()){
-				if(this.getWeapon().getWeaponUse().equals(WeaponUse.MELEE))this.getWeapon().setWeaponUse(WeaponUse.RANGE);
-				else if(this.getWeapon().getWeaponUse().equals(WeaponUse.RANGE))this.getWeapon().setWeaponUse(WeaponUse.MELEE_RANGE);
-				else if(this.getWeapon().getWeaponUse().equals(WeaponUse.MELEE_RANGE))this.getWeapon().setWeaponUse(WeaponUse.MAGIC);
-				else if(this.getWeapon().getWeaponUse().equals(WeaponUse.MAGIC))this.getWeapon().setWeaponUse(WeaponUse.MELEE);
-				this.menu.setItem(this.SLOT_USE, this.getUse());
-			}else if(slot == this.SLOT_MIN_DMG)this.close(true, this.LIST_ID_MINDMG);
-			else if(slot == this.SLOT_MAX_DMG)this.close(true, this.LIST_ID_MAXDMG);
-			else if(slot == this.SLOT_DROP_CHANCE)this.close(true, this.LIST_ID_DROP);
-			else if(slot == this.SLOT_LEVEL)this.close(true, this.LIST_ID_LVL);
-			else if(slot == this.SLOT_ATQSPD && this.getWeapon().isAttack())this.close(true, this.LIST_ID_ATQSPD);
-			else if(slot == this.SLOT_UPDATE){
-				this.getWeapon().setMinDamages(Weapons.getAverageMinStat(this.getWeapon()));
-				this.getWeapon().setMaxDamages(Weapons.getAverageMaxStat(this.getWeapon()));
-				this.getWeapon().setDropChance(Weapons.getAverageDropChance(this.getWeapon()));
-				this.getWeapon().setAttackSpeed(Weapons.getAverageAttackSpeed(this.getWeapon()));
-				this.getMenu().setItem(this.SLOT_MIN_DMG, this.getMinDmg());
-				this.getMenu().setItem(this.SLOT_MAX_DMG, this.getMaxDmg());
-				this.getMenu().setItem(this.SLOT_DROP_CHANCE, this.getDropChance());
-				this.getMenu().setItem(this.SLOT_ATQSPD, this.getAtqSpd());
-			}else if(slot == this.SLOT_SKIN && this.isSkinnable)Core.uiManager.requestUI(new WeaponSkinSelectionMenu(this.getHolder(), this.getWeapon()));
-			else if(slot == this.SLOT_SET){
-				if(e.isRightClick()){
-					if(this.getWeapon().isSetItem()){
-						this.getWeapon().getSet().getWeapons().remove(this.getWeapon());
-					}
-					this.getWeapon().setSetUUID("0000");
-					this.menu.setItem(this.SLOT_SET, this.getSet());
-				}else{
-					Core.uiManager.requestUI(new WeaponSetSelectionMenu(this.getHolder(), this.getWeapon()));
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_NAME)this.close(true, this.LIST_ID_NAME);
+		else if(slot == this.SLOT_RARITY){
+			if(this.getWeapon().getRarity().equals(Rarity.COMMON))this.getWeapon().setRarity(Rarity.UNCOMMON);
+			else if(this.getWeapon().getRarity().equals(Rarity.UNCOMMON))this.getWeapon().setRarity(Rarity.SET);
+			else if(this.getWeapon().getRarity().equals(Rarity.SET))this.getWeapon().setRarity(Rarity.RARE);
+			else if(this.getWeapon().getRarity().equals(Rarity.RARE))this.getWeapon().setRarity(Rarity.EPIC);
+			else if(this.getWeapon().getRarity().equals(Rarity.EPIC))this.getWeapon().setRarity(Rarity.LEGENDARY);
+			else if(this.getWeapon().getRarity().equals(Rarity.LEGENDARY))this.getWeapon().setRarity(Rarity.COMMON);
+			this.menu.setItem(this.SLOT_RARITY, this.getRarity());
+		}else if(slot == this.SLOT_RCLASS){
+			if(this.getWeapon().getRClass().equals(RClass.VAGRANT))this.getWeapon().setRClass(RClass.PALADIN);
+			else if(this.getWeapon().getRClass().equals(RClass.PALADIN))this.getWeapon().setRClass(RClass.RANGER);
+			else if(this.getWeapon().getRClass().equals(RClass.RANGER))this.getWeapon().setRClass(RClass.MAGE);
+			else if(this.getWeapon().getRClass().equals(RClass.MAGE))this.getWeapon().setRClass(RClass.ASSASSIN);
+			else if(this.getWeapon().getRClass().equals(RClass.ASSASSIN))this.getWeapon().setRClass(RClass.VAGRANT);
+			this.menu.setItem(this.SLOT_RCLASS, this.getRClass());
+		}else if(slot == this.SLOT_USE && this.getWeapon().isAttack()){
+			if(this.getWeapon().getWeaponUse().equals(WeaponUse.MELEE))this.getWeapon().setWeaponUse(WeaponUse.RANGE);
+			else if(this.getWeapon().getWeaponUse().equals(WeaponUse.RANGE))this.getWeapon().setWeaponUse(WeaponUse.MELEE_RANGE);
+			else if(this.getWeapon().getWeaponUse().equals(WeaponUse.MELEE_RANGE))this.getWeapon().setWeaponUse(WeaponUse.MAGIC);
+			else if(this.getWeapon().getWeaponUse().equals(WeaponUse.MAGIC))this.getWeapon().setWeaponUse(WeaponUse.MELEE);
+			this.menu.setItem(this.SLOT_USE, this.getUse());
+		}else if(slot == this.SLOT_MIN_DMG)this.close(true, this.LIST_ID_MINDMG);
+		else if(slot == this.SLOT_MAX_DMG)this.close(true, this.LIST_ID_MAXDMG);
+		else if(slot == this.SLOT_DROP_CHANCE)this.close(true, this.LIST_ID_DROP);
+		else if(slot == this.SLOT_LEVEL)this.close(true, this.LIST_ID_LVL);
+		else if(slot == this.SLOT_ATQSPD && this.getWeapon().isAttack())this.close(true, this.LIST_ID_ATQSPD);
+		else if(slot == this.SLOT_UPDATE){
+			this.getWeapon().setMinDamages(Weapons.getAverageMinStat(this.getWeapon()));
+			this.getWeapon().setMaxDamages(Weapons.getAverageMaxStat(this.getWeapon()));
+			this.getWeapon().setDropChance(Weapons.getAverageDropChance(this.getWeapon()));
+			this.getWeapon().setAttackSpeed(Weapons.getAverageAttackSpeed(this.getWeapon()));
+			this.getMenu().setItem(this.SLOT_MIN_DMG, this.getMinDmg());
+			this.getMenu().setItem(this.SLOT_MAX_DMG, this.getMaxDmg());
+			this.getMenu().setItem(this.SLOT_DROP_CHANCE, this.getDropChance());
+			this.getMenu().setItem(this.SLOT_ATQSPD, this.getAtqSpd());
+		}else if(slot == this.SLOT_SKIN && this.isSkinnable)Core.uiManager.requestUI(new WeaponSkinSelectionMenu(this.getHolder(), this.getWeapon()));
+		else if(slot == this.SLOT_SET){
+			if(e.isRightClick()){
+				if(this.getWeapon().isSetItem()){
+					this.getWeapon().getSet().getWeapons().remove(this.getWeapon());
 				}
+				this.getWeapon().setSetUUID("0000");
+				this.menu.setItem(this.SLOT_SET, this.getSet());
+			}else{
+				Core.uiManager.requestUI(new WeaponSetSelectionMenu(this.getHolder(), this.getWeapon()));
 			}
-			else if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new WeaponsUI(this.getHolder()));
-			else if(slot == this.SLOT_TAKE)this.getHolder().getInventory().addItem(this.getWeapon().getNewItemStack(rp));
-			else if(slot == this.SLOT_DELETE){
-				Weapons.weapons.remove(this.getWeapon());
-				if(this.getWeapon().getSet() != null)this.getWeapon().getSet().getWeapons().remove(this.getWeapon());
-				Configs.getWeaponsConfig().set("weapons." + this.getWeapon().getUUID(), null);
-				Configs.saveWeaponsConfig();
-				Core.uiManager.requestUI(new WeaponsUI(this.getHolder()));
-				rp.sendMessage("§cArme supprimée !");
-			}
-			this.menu.setItem(this.SLOT_TAKE, this.getTake());
 		}
+		else if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new WeaponsUI(this.getHolder()));
+		else if(slot == this.SLOT_TAKE)this.getHolder().getInventory().addItem(this.getWeapon().getNewItemStack(rp));
+		else if(slot == this.SLOT_DELETE){
+			Weapons.weapons.remove(this.getWeapon());
+			if(this.getWeapon().getSet() != null)this.getWeapon().getSet().getWeapons().remove(this.getWeapon());
+			Configs.getWeaponsConfig().set("weapons." + this.getWeapon().getUUID(), null);
+			Configs.saveWeaponsConfig();
+			Core.uiManager.requestUI(new WeaponsUI(this.getHolder()));
+			rp.sendMessage("§cArme supprimée !");
+		}
+		this.menu.setItem(this.SLOT_TAKE, this.getTake());
 	}
 
 	@Override

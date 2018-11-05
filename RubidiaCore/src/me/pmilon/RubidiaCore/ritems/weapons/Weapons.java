@@ -7,12 +7,14 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RClass;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.ritems.general.RItem;
+import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.utils.BukkitConverter;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.Settings;
@@ -33,7 +35,7 @@ public class Weapons {
 	
 	public static double getSkinFactor(Material type){
 		return type.equals(Material.ELYTRA) ? .008 :
-			(type.equals(Material.SHEARS) ? .01 :
+			(type.equals(Material.SHEARS) ? .07 :
 				(type.equals(Material.BOW) ? .024 :
 					(type.toString().contains("DIAMOND_") ? .005 : 
 						(type.toString().contains("GOLDEN_") ? .1 : .05))));
@@ -597,4 +599,31 @@ public class Weapons {
 		return elytra;
 	}
 	
+	public static void update(final RPlayer rp) {
+		new BukkitTask(Core.instance) {//to update player's inventory after event (method is called before the event happens)
+
+			@Override
+			public void run() {
+				if(rp.isOnline()) {
+					Inventory inventory = rp.getPlayer().getInventory();
+					for(int slot = 0;slot < inventory.getSize();slot++) {
+						ItemStack stack = inventory.getItem(slot);
+						if(stack != null) {
+							RItem rItem = new RItem(stack);
+							if(rItem.isWeapon()) {
+								Weapon weapon = rItem.getWeapon();
+								inventory.setItem(slot, weapon.updateState(rp, stack));
+							}
+						}
+					}
+				}
+			}
+
+			@Override
+			public void onCancel() {
+			}
+			
+		}.runTaskLater(0);
+	}
+
 }
