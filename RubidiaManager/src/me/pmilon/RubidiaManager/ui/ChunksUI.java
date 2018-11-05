@@ -60,69 +60,65 @@ public class ChunksUI extends UIHandler {
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
 		e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				int slot = e.getRawSlot();
-				int i = slot / 9;
-				int j = slot % 9;
-				Location location = new Location(this.location.getWorld(), this.location.getX() + (p == 1 ? j-4 : (p == 2 ? 2-i : (p == 3 ? 4-j : i-2 )))*16, this.location.getY(), this.location.getZ() + (p == 1 ? i-2 : (p == 2 ? j-4 : (p == 3 ? 2-i : 4-j )))*16);
-				Chunk chunk = RubidiaManagerPlugin.getChunkColl().get(location.getChunk());
-				if(e.isLeftClick()){
-					if(WGUtils.testState(null, this.getHolder().getWorld(), new Vector(chunk.getOrigin().getX(),chunk.getOrigin().getY(),chunk.getOrigin().getZ()), new Vector(chunk.getDestination().getX(),chunk.getDestination().getY(),chunk.getDestination().getZ()), Flags.REGEN)){
-						if(!e.isShiftClick()){
-							if(chunk instanceof RChunk){
-								RubidiaManagerPlugin.getChunkColl().delete(chunk);
-								NChunk nchunk = new NChunk(chunk.getWorld(), chunk.getX(), chunk.getZ(), true);
-								ChunkColl.chunks.add(nchunk);
-								
-								ChunkManager manager = ChunkManager.getManager(nchunk);
-								manager.save();
-								
-								rp.sendMessage("§2Chunk §6" + chunk.getX() + "§e,§6" + chunk.getZ() + "§e,§6" + chunk.getWorld().getName() + " §e-> §4NoChunk §e| §2Sauvegardé §e| §4Pas de régénération");
-							}else if(chunk instanceof NChunk){
-								RubidiaManagerPlugin.getChunkColl().delete(chunk);
-								RChunk rchunk = new RChunk(chunk.getWorld(), chunk.getX(), chunk.getZ(), true);
-								ChunkColl.chunks.add(rchunk);
-								
-								ChunkManager manager = ChunkManager.getManager(rchunk);
-								manager.save();
-								
-								rp.sendMessage("§4NoChunk §6" + chunk.getX() + "§e,§6" + chunk.getZ() + "§e,§6" + chunk.getWorld().getName() + " §e-> §2Chunk §e| §2Sauvegardé §e| §2Régénération");
-							}
-						}else{
-							String regen = chunk.isRegenable();
-							if(regen.equals("true")){
-								rp.sendMessage("§eRégénération du chunk...");
-								ChunkManager.getManager(chunk).load();
-								if(chunk instanceof RChunk){
-									((RChunk)chunk).setRegenerated(true);
-								}
-								rp.sendMessage("§eChunk régénéré");
-							}else rp.sendMessage("§cRégénération impossible : " + regen);
-						}
-					}else rp.sendMessage("§cCe chunk est protégé par une région !");
+		int slot = e.getRawSlot();
+		int i = slot / 9;
+		int j = slot % 9;
+		Location location = new Location(this.location.getWorld(), this.location.getX() + (p == 1 ? j-4 : (p == 2 ? 2-i : (p == 3 ? 4-j : i-2 )))*16, this.location.getY(), this.location.getZ() + (p == 1 ? i-2 : (p == 2 ? j-4 : (p == 3 ? 2-i : 4-j )))*16);
+		Chunk chunk = RubidiaManagerPlugin.getChunkColl().get(location.getChunk());
+		if(e.isLeftClick()){
+			if(WGUtils.testState(null, this.getHolder().getWorld(), new Vector(chunk.getOrigin().getX(),chunk.getOrigin().getY(),chunk.getOrigin().getZ()), new Vector(chunk.getDestination().getX(),chunk.getDestination().getY(),chunk.getDestination().getZ()), Flags.REGEN)){
+				if(!e.isShiftClick()){
+					if(chunk instanceof RChunk){
+						RubidiaManagerPlugin.getChunkColl().delete(chunk);
+						NChunk nchunk = new NChunk(chunk.getWorld(), chunk.getX(), chunk.getZ(), true);
+						ChunkColl.chunks.add(nchunk);
+						
+						ChunkManager manager = ChunkManager.getManager(nchunk);
+						manager.save();
+						
+						rp.sendMessage("§2Chunk §6" + chunk.getX() + "§e,§6" + chunk.getZ() + "§e,§6" + chunk.getWorld().getName() + " §e-> §4NoChunk §e| §2Sauvegardé §e| §4Pas de régénération");
+					}else if(chunk instanceof NChunk){
+						RubidiaManagerPlugin.getChunkColl().delete(chunk);
+						RChunk rchunk = new RChunk(chunk.getWorld(), chunk.getX(), chunk.getZ(), true);
+						ChunkColl.chunks.add(rchunk);
+						
+						ChunkManager manager = ChunkManager.getManager(rchunk);
+						manager.save();
+						
+						rp.sendMessage("§4NoChunk §6" + chunk.getX() + "§e,§6" + chunk.getZ() + "§e,§6" + chunk.getWorld().getName() + " §e-> §2Chunk §e| §2Sauvegardé §e| §2Régénération");
+					}
 				}else{
-					if(!e.isShiftClick()){
-						if(chunk instanceof RChunk){
-							RChunk rch = (RChunk) chunk;
-							if(rch.isRegenerated()){
-								ChunkManager.getManager(rch).paste();
-								rch.setRegenerated(false);
-								rp.sendMessage("§eDernier état du chunk enregistré chargé");
-							}
-						}
-					}else{
-						rp.sendMessage("§eRégénération forcée du chunk...");
+					String regen = chunk.isRegenable();
+					if(regen.equals("true")){
+						rp.sendMessage("§eRégénération du chunk...");
 						ChunkManager.getManager(chunk).load();
 						if(chunk instanceof RChunk){
 							((RChunk)chunk).setRegenerated(true);
 						}
-						rp.sendMessage("§eChunk régénéré de force");
+						rp.sendMessage("§eChunk régénéré");
+					}else rp.sendMessage("§cRégénération impossible : " + regen);
+				}
+			}else rp.sendMessage("§cCe chunk est protégé par une région !");
+		}else{
+			if(!e.isShiftClick()){
+				if(chunk instanceof RChunk){
+					RChunk rch = (RChunk) chunk;
+					if(rch.isRegenerated()){
+						ChunkManager.getManager(rch).paste();
+						rch.setRegenerated(false);
+						rp.sendMessage("§eDernier état du chunk enregistré chargé");
 					}
 				}
-				this.getMenu().setItem(slot, this.get(i, j));
+			}else{
+				rp.sendMessage("§eRégénération forcée du chunk...");
+				ChunkManager.getManager(chunk).load();
+				if(chunk instanceof RChunk){
+					((RChunk)chunk).setRegenerated(true);
+				}
+				rp.sendMessage("§eChunk régénéré de force");
 			}
 		}
+		this.getMenu().setItem(slot, this.get(i, j));
 	}
 
 	@Override
