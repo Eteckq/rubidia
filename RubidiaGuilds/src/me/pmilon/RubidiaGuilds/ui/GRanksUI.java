@@ -66,65 +66,61 @@ public class GRanksUI extends UIHandler {
 	public void onInventoryClick(InventoryClickEvent e, Player player) {
 		e.setCancelled(true);
 		int slot = e.getRawSlot();
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
-					this.getUIManager().requestUI(new GMenuUI(this.getHolder(), this.getGuild()));
-				}else if(slot == this.SLOT_DEFAULTRANK || slot == this.SLOT_DEFAULTRANK+9){
-					if(gm.getPermission(Permission.DEFAULT_RANK)){
+		if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
+			this.getUIManager().requestUI(new GMenuUI(this.getHolder(), this.getGuild()));
+		}else if(slot == this.SLOT_DEFAULTRANK || slot == this.SLOT_DEFAULTRANK+9){
+			if(gm.getPermission(Permission.DEFAULT_RANK)){
+				Rank rank = null;
+				for(int i = this.getGuild().getDefaultRankId()+1;i < this.getGuild().getRanks().length;i++){
+					Rank rk = this.getGuild().getRanks()[i];
+					if(rk != null){
+						rank = rk;
+						break;
+					}
+				}
+				if(rank == null){
+					for(int i = 1;i < this.getGuild().getDefaultRankId();i++){
+						Rank rk = this.getGuild().getRanks()[i];
+						if(rk != null){
+							rank = rk;
+							break;
+						}
+					}
+				}
+				if(rank != null)this.getGuild().setDefaultRankId(rank.getId());
+				this.getMenu().setItem(this.SLOT_DEFAULTRANK, this.getDefaultRank());
+			}
+		}else{
+			if(slot > 8){
+				Rank rank = this.getGuild().getRanks()[slot-9-this.SLOT_RANK];
+				if(rank == null){
+					rp.sendMessage("§cDéfinissez d'abord un nom et un item pour ce rang.");
+					return;
+				}
+				Core.uiManager.requestUI(new GRankPrefsUI(this.getHolder(), this.getGuild(), rank, 1));
+			}else{
+				if(e.isLeftClick()){
+					this.close(true, slot-this.SLOT_RANK);
+					rp.sendMessage("§aPrenez un item entre vos mains et entrez dans le chat le nom de ce rang.");
+				}else{
+					if(slot > this.SLOT_RANK && slot < this.SLOT_RANK+6){
 						Rank rank = null;
-						for(int i = this.getGuild().getDefaultRankId()+1;i < this.getGuild().getRanks().length;i++){
+						for(int i = slot-this.SLOT_RANK+1;i < this.getGuild().getRanks().length;i++){
 							Rank rk = this.getGuild().getRanks()[i];
 							if(rk != null){
 								rank = rk;
 								break;
 							}
 						}
-						if(rank == null){
-							for(int i = 1;i < this.getGuild().getDefaultRankId();i++){
-								Rank rk = this.getGuild().getRanks()[i];
-								if(rk != null){
-									rank = rk;
-									break;
-								}
+						for(GMember member : this.getGuild().getMembers()){
+							if(member.getRankId() == slot-this.SLOT_RANK){
+								member.setRank(rank);
 							}
 						}
-						if(rank != null)this.getGuild().setDefaultRankId(rank.getId());
-						this.getMenu().setItem(this.SLOT_DEFAULTRANK, this.getDefaultRank());
-					}
-				}else{
-					if(slot > 8){
-						Rank rank = this.getGuild().getRanks()[slot-9-this.SLOT_RANK];
-						if(rank == null){
-							rp.sendMessage("§cDéfinissez d'abord un nom et un item pour ce rang.");
-							return;
-						}
-						Core.uiManager.requestUI(new GRankPrefsUI(this.getHolder(), this.getGuild(), rank, 1));
-					}else{
-						if(e.isLeftClick()){
-							this.close(true, slot-this.SLOT_RANK);
-							rp.sendMessage("§aPrenez un item entre vos mains et entrez dans le chat le nom de ce rang.");
-						}else{
-							if(slot > this.SLOT_RANK && slot < this.SLOT_RANK+6){
-								Rank rank = null;
-								for(int i = slot-this.SLOT_RANK+1;i < this.getGuild().getRanks().length;i++){
-									Rank rk = this.getGuild().getRanks()[i];
-									if(rk != null){
-										rank = rk;
-										break;
-									}
-								}
-								for(GMember member : this.getGuild().getMembers()){
-									if(member.getRankId() == slot-this.SLOT_RANK){
-										member.setRank(rank);
-									}
-								}
-								this.getGuild().getRanks()[slot-this.SLOT_RANK] = null;
-								this.getMenu().setItem(slot, this.getDefault());
-								rp.sendMessage("§cLe rang a été supprimé. Tous les membres sont désormais des " + rank.getName().toLowerCase() + "s.");
-							}else rp.sendMessage("§cVous ne pouvez modifier ce rang !");
-						}
-					}
+						this.getGuild().getRanks()[slot-this.SLOT_RANK] = null;
+						this.getMenu().setItem(slot, this.getDefault());
+						rp.sendMessage("§cLe rang a été supprimé. Tous les membres sont désormais des " + rank.getName().toLowerCase() + "s.");
+					}else rp.sendMessage("§cVous ne pouvez modifier ce rang !");
 				}
 			}
 		}

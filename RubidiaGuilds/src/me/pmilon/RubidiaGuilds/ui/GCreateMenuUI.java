@@ -59,28 +59,24 @@ public class GCreateMenuUI extends UIHandler {
 	public void onInventoryClick(InventoryClickEvent e, Player player) {
 		e.setCancelled(true);
 		int slot = e.getRawSlot();
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				if(slot == this.SLOT_NAME){
-					rp.sendMessage("§aEntrez le nom désiré dans le chat ! (MAX: " + Guild.NAME_LENGTH + " caractères)");
-					this.close(true, this.LISTENINGID_NAME);
-				}else if(slot == this.SLOT_DESC){
-					rp.sendMessage("§aEntrez la description désirée dans le chat !");
-					this.close(true, this.LISTENINGID_DESC);
-				}else if(slot == this.SLOT_PEACE){
-					//this.setPeaceful(!this.isPeaceful());
-					//this.menu.setItem(this.SLOT_PEACE, this.getPeace());
-					rp.sendMessage("§cCette option est désativée.");
-				}else if(slot == this.SLOT_CREATE){
-					Guild guild = GuildsPlugin.gcoll.addDefault(GuildsPlugin.guildCreationName.get(gm), GuildsPlugin.guildCreationDescription.get(gm), gm, this.isPeaceful());
-					ASyncGMemberCreateGuildEvent event = new ASyncGMemberCreateGuildEvent(guild, gm);
-					Bukkit.getPluginManager().callEvent(event);
-					if(event.isCancelled())event.getGuild().disband();
-					rp.sendMessage("§aVous venez de fonder la guilde §2§l" + gm.getGuild().getName() + " §a!");
-					Core.broadcast("§2" + this.getHolder().getName() + " §ahas just founded §2§l" + gm.getGuild().getName() + "§a!", "§2" + this.getHolder().getName() + " §avient de fonder la guilde §2§l" + gm.getGuild().getName() + "§a !", this.getHolder());
-					this.close(false);
-				}
-			}
+		if(slot == this.SLOT_NAME){
+			rp.sendMessage("§aEntrez le nom désiré dans le chat ! (MAX: " + Guild.NAME_LENGTH + " caractères)");
+			this.close(true, this.LISTENINGID_NAME);
+		}else if(slot == this.SLOT_DESC){
+			rp.sendMessage("§aEntrez la description désirée dans le chat !");
+			this.close(true, this.LISTENINGID_DESC);
+		}else if(slot == this.SLOT_PEACE){
+			//this.setPeaceful(!this.isPeaceful());
+			//this.menu.setItem(this.SLOT_PEACE, this.getPeace());
+			rp.sendMessage("§cCette option est désativée.");
+		}else if(slot == this.SLOT_CREATE){
+			Guild guild = GuildsPlugin.gcoll.addDefault(GuildsPlugin.guildCreationName.get(gm), GuildsPlugin.guildCreationDescription.get(gm), gm, this.isPeaceful());
+			ASyncGMemberCreateGuildEvent event = new ASyncGMemberCreateGuildEvent(guild, gm);
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled())event.getGuild().disband();
+			rp.sendMessage("§aVous venez de fonder la guilde §2§l" + gm.getGuild().getName() + " §a!");
+			Core.broadcast("§2" + this.getHolder().getName() + " §ahas just founded §2§l" + gm.getGuild().getName() + "§a!", "§2" + this.getHolder().getName() + " §avient de fonder la guilde §2§l" + gm.getGuild().getName() + "§a !", this.getHolder());
+			this.close(false);
 		}
 	}
 

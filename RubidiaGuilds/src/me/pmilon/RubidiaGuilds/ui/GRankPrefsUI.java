@@ -106,101 +106,97 @@ public class GRankPrefsUI extends UIHandler {
 	public void onInventoryClick(InventoryClickEvent e, Player player) {
 		e.setCancelled(true);
 		int slot = e.getRawSlot();
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				if(this.page_id == 1){
-					if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
-						this.getUIManager().requestUI(new GRanksUI(this.getHolder(), this.getGuild()));
-					}else if(slot == this.SLOT_NEXT || slot == this.SLOT_NEXT+9){
-						this.setPage(2);
-					}else if((gm.getPermission(Permission.RANK_PREFS) && gm.getRank().getId() < this.rank.getId()) || gm.isLeader() || rp.isOp()){
-						if(slot == this.SLOT_CLAIMS || slot == this.SLOT_CLAIMS+9){
-							this.rank.setPermission(Permission.CLAIM, !this.rank.getPermission(Permission.CLAIM));
-							this.getMenu().setItem(this.SLOT_CLAIMS, this.getCanClaim());
-							this.getMenu().setItem(this.SLOT_CLAIMS+9, this.rank.getPermission(Permission.CLAIM) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_INVITE || slot == this.SLOT_INVITE+9){
-							this.rank.setPermission(Permission.INVITE, !this.rank.getPermission(Permission.INVITE));
-							this.getMenu().setItem(this.SLOT_INVITE, this.getCanInvite());
-							this.getMenu().setItem(this.SLOT_INVITE+9, this.rank.getPermission(Permission.INVITE) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_BUILD || slot == this.SLOT_BUILD+9){
-							this.rank.setPermission(Permission.BUILD, !this.rank.getPermission(Permission.BUILD));
-							this.getMenu().setItem(this.SLOT_BUILD, this.getCanBuild());
-							this.getMenu().setItem(this.SLOT_BUILD+9, this.rank.getPermission(Permission.BUILD) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_USEDOORS || slot == this.SLOT_USEDOORS+9){
-							this.rank.setPermission(Permission.USE_DOORS, !this.rank.getPermission(Permission.USE_DOORS));
-							this.getMenu().setItem(this.SLOT_USEDOORS, this.getCanUseDoors());
-							this.getMenu().setItem(this.SLOT_USEDOORS+9, this.rank.getPermission(Permission.USE_DOORS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_USECHESTS || slot == this.SLOT_USECHESTS+9){
-							this.rank.setPermission(Permission.USE_CHESTS, !this.rank.getPermission(Permission.USE_CHESTS));
-							this.getMenu().setItem(this.SLOT_USECHESTS, this.getCanUseChests());
-							this.getMenu().setItem(this.SLOT_USECHESTS+9, this.rank.getPermission(Permission.USE_CHESTS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_HOMES || slot == this.SLOT_HOMES+9){
-							Core.uiManager.requestUI(new HomePermissionsUI(this.getHolder(),this.getGuild(), this.rank, this.page_id));
-						}
-						this.rank.resetPermissions(this.getGuild());
-					}else rp.sendMessage("§cVous ne pouvez modifier les permissions de ce rang !");
-				}else if(this.page_id == 2){
-					if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
-						this.setPage(1);
-					}else if(slot == this.SLOT_NEXT || slot == this.SLOT_NEXT+9){
-						this.setPage(3);
-					}else if((gm.getPermission(Permission.RANK_PREFS) && gm.getRank().getId() < this.rank.getId()) || gm.isLeader()){
-						if(slot == this.SLOT_NAME || slot == this.SLOT_NAME+9){
-							this.rank.setPermission(Permission.RENAME, !this.rank.getPermission(Permission.RENAME));
-							this.getMenu().setItem(this.SLOT_NAME, this.getCanRename());
-							this.getMenu().setItem(this.SLOT_NAME+9, this.rank.getPermission(Permission.RENAME) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_DESC || slot == this.SLOT_DESC+9){
-							this.rank.setPermission(Permission.DESCRIPTION, !this.rank.getPermission(Permission.DESCRIPTION));
-							this.getMenu().setItem(this.SLOT_DESC, this.getCanChangeDescription());
-							this.getMenu().setItem(this.SLOT_DESC+9, this.rank.getPermission(Permission.DESCRIPTION) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_DISPLAY || slot == this.SLOT_DISPLAY+9){
-							this.rank.setPermission(Permission.CAPE, !this.rank.getPermission(Permission.CAPE));
-							this.getMenu().setItem(this.SLOT_DISPLAY, this.getCanModifyDisplay());
-							this.getMenu().setItem(this.SLOT_DISPLAY+9, this.rank.getPermission(Permission.CAPE) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_CLAIMSPREFS || slot == this.SLOT_CLAIMSPREFS+9){
-							this.rank.setPermission(Permission.CLAIM_PREFS, !this.rank.getPermission(Permission.CLAIM_PREFS));
-							this.getMenu().setItem(this.SLOT_CLAIMSPREFS, this.getCanModifyClaimsPrefs());
-							this.getMenu().setItem(this.SLOT_CLAIMSPREFS+9, this.rank.getPermission(Permission.CLAIM_PREFS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_RANKSPREFS || slot == this.SLOT_RANKSPREFS+9){
-							this.rank.setPermission(Permission.RANK_PREFS, !this.rank.getPermission(Permission.RANK_PREFS));
-							this.getMenu().setItem(this.SLOT_RANKSPREFS, this.getCanModifyRanksUnderPrefs());
-							this.getMenu().setItem(this.SLOT_RANKSPREFS+9, this.rank.getPermission(Permission.RANK_PREFS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_MEMBERSPREFS || slot == this.SLOT_MEMBERSPREFS+9){
-							this.rank.setPermission(Permission.MEMBER_PREFS, !this.rank.getPermission(Permission.MEMBER_PREFS));
-							this.getMenu().setItem(this.SLOT_MEMBERSPREFS, this.getCanModifyPerMemberPrefs());
-							this.getMenu().setItem(this.SLOT_MEMBERSPREFS+9, this.rank.getPermission(Permission.MEMBER_PREFS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_DEFAULTRANK || slot == this.SLOT_DEFAULTRANK+9){
-							this.rank.setPermission(Permission.DEFAULT_RANK, !this.rank.getPermission(Permission.DEFAULT_RANK));
-							this.getMenu().setItem(this.SLOT_DEFAULTRANK, this.getCanSetDefaultRank());
-							this.getMenu().setItem(this.SLOT_DEFAULTRANK+9, this.rank.getPermission(Permission.DEFAULT_RANK) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}
-						this.rank.resetPermissions(this.getGuild());
-					}else rp.sendMessage("§cVous ne pouvez modifier les permissions de ce rang !");
-				}else if(this.page_id == 3){
-					if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
-						this.setPage(2);
-					}else if((gm.getPermission(Permission.RANK_PREFS) && gm.getRank().getId() < this.rank.getId()) || gm.isLeader()){
-						if(slot == this.SLOT_GVBANK || slot == this.SLOT_GVBANK+9){
-							this.rank.setPermission(Permission.BANK_DEPOSIT, !this.rank.getPermission(Permission.BANK_DEPOSIT));
-							this.getMenu().setItem(this.SLOT_GVBANK, this.getCanGiveBank());
-							this.getMenu().setItem(this.SLOT_GVBANK+9, this.rank.getPermission(Permission.BANK_DEPOSIT) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_OFFER || slot == this.SLOT_OFFER+9){
-							this.rank.setPermission(Permission.OFFER, !this.rank.getPermission(Permission.OFFER));
-							this.getMenu().setItem(this.SLOT_OFFER, this.getCanOffer());
-							this.getMenu().setItem(this.SLOT_OFFER+9, this.rank.getPermission(Permission.OFFER) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_RELATIONS || slot == this.SLOT_RELATIONS+9){
-							this.rank.setPermission(Permission.RELATIONS, !this.rank.getPermission(Permission.RELATIONS));
-							this.getMenu().setItem(this.SLOT_RELATIONS, this.getCanManageRelations());
-							this.getMenu().setItem(this.SLOT_RELATIONS+9, this.rank.getPermission(Permission.RELATIONS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}else if(slot == this.SLOT_MOBSDAMAGE || slot == this.SLOT_MOBSDAMAGE+9){
-							this.rank.setPermission(Permission.DAMAGE_MOBS, !this.rank.getPermission(Permission.DAMAGE_MOBS));
-							this.getMenu().setItem(this.SLOT_MOBSDAMAGE, this.getCanDamageMobs());
-							this.getMenu().setItem(this.SLOT_MOBSDAMAGE+9, this.rank.getPermission(Permission.DAMAGE_MOBS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-						}
-						this.rank.resetPermissions(this.getGuild());
-					}else rp.sendMessage("§cVous ne pouvez modifier les permissions de ce rang !");
+		if(this.page_id == 1){
+			if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
+				this.getUIManager().requestUI(new GRanksUI(this.getHolder(), this.getGuild()));
+			}else if(slot == this.SLOT_NEXT || slot == this.SLOT_NEXT+9){
+				this.setPage(2);
+			}else if((gm.getPermission(Permission.RANK_PREFS) && gm.getRank().getId() < this.rank.getId()) || gm.isLeader() || rp.isOp()){
+				if(slot == this.SLOT_CLAIMS || slot == this.SLOT_CLAIMS+9){
+					this.rank.setPermission(Permission.CLAIM, !this.rank.getPermission(Permission.CLAIM));
+					this.getMenu().setItem(this.SLOT_CLAIMS, this.getCanClaim());
+					this.getMenu().setItem(this.SLOT_CLAIMS+9, this.rank.getPermission(Permission.CLAIM) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_INVITE || slot == this.SLOT_INVITE+9){
+					this.rank.setPermission(Permission.INVITE, !this.rank.getPermission(Permission.INVITE));
+					this.getMenu().setItem(this.SLOT_INVITE, this.getCanInvite());
+					this.getMenu().setItem(this.SLOT_INVITE+9, this.rank.getPermission(Permission.INVITE) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_BUILD || slot == this.SLOT_BUILD+9){
+					this.rank.setPermission(Permission.BUILD, !this.rank.getPermission(Permission.BUILD));
+					this.getMenu().setItem(this.SLOT_BUILD, this.getCanBuild());
+					this.getMenu().setItem(this.SLOT_BUILD+9, this.rank.getPermission(Permission.BUILD) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_USEDOORS || slot == this.SLOT_USEDOORS+9){
+					this.rank.setPermission(Permission.USE_DOORS, !this.rank.getPermission(Permission.USE_DOORS));
+					this.getMenu().setItem(this.SLOT_USEDOORS, this.getCanUseDoors());
+					this.getMenu().setItem(this.SLOT_USEDOORS+9, this.rank.getPermission(Permission.USE_DOORS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_USECHESTS || slot == this.SLOT_USECHESTS+9){
+					this.rank.setPermission(Permission.USE_CHESTS, !this.rank.getPermission(Permission.USE_CHESTS));
+					this.getMenu().setItem(this.SLOT_USECHESTS, this.getCanUseChests());
+					this.getMenu().setItem(this.SLOT_USECHESTS+9, this.rank.getPermission(Permission.USE_CHESTS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_HOMES || slot == this.SLOT_HOMES+9){
+					Core.uiManager.requestUI(new HomePermissionsUI(this.getHolder(),this.getGuild(), this.rank, this.page_id));
 				}
-			}
+				this.rank.resetPermissions(this.getGuild());
+			}else rp.sendMessage("§cVous ne pouvez modifier les permissions de ce rang !");
+		}else if(this.page_id == 2){
+			if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
+				this.setPage(1);
+			}else if(slot == this.SLOT_NEXT || slot == this.SLOT_NEXT+9){
+				this.setPage(3);
+			}else if((gm.getPermission(Permission.RANK_PREFS) && gm.getRank().getId() < this.rank.getId()) || gm.isLeader()){
+				if(slot == this.SLOT_NAME || slot == this.SLOT_NAME+9){
+					this.rank.setPermission(Permission.RENAME, !this.rank.getPermission(Permission.RENAME));
+					this.getMenu().setItem(this.SLOT_NAME, this.getCanRename());
+					this.getMenu().setItem(this.SLOT_NAME+9, this.rank.getPermission(Permission.RENAME) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_DESC || slot == this.SLOT_DESC+9){
+					this.rank.setPermission(Permission.DESCRIPTION, !this.rank.getPermission(Permission.DESCRIPTION));
+					this.getMenu().setItem(this.SLOT_DESC, this.getCanChangeDescription());
+					this.getMenu().setItem(this.SLOT_DESC+9, this.rank.getPermission(Permission.DESCRIPTION) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_DISPLAY || slot == this.SLOT_DISPLAY+9){
+					this.rank.setPermission(Permission.CAPE, !this.rank.getPermission(Permission.CAPE));
+					this.getMenu().setItem(this.SLOT_DISPLAY, this.getCanModifyDisplay());
+					this.getMenu().setItem(this.SLOT_DISPLAY+9, this.rank.getPermission(Permission.CAPE) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_CLAIMSPREFS || slot == this.SLOT_CLAIMSPREFS+9){
+					this.rank.setPermission(Permission.CLAIM_PREFS, !this.rank.getPermission(Permission.CLAIM_PREFS));
+					this.getMenu().setItem(this.SLOT_CLAIMSPREFS, this.getCanModifyClaimsPrefs());
+					this.getMenu().setItem(this.SLOT_CLAIMSPREFS+9, this.rank.getPermission(Permission.CLAIM_PREFS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_RANKSPREFS || slot == this.SLOT_RANKSPREFS+9){
+					this.rank.setPermission(Permission.RANK_PREFS, !this.rank.getPermission(Permission.RANK_PREFS));
+					this.getMenu().setItem(this.SLOT_RANKSPREFS, this.getCanModifyRanksUnderPrefs());
+					this.getMenu().setItem(this.SLOT_RANKSPREFS+9, this.rank.getPermission(Permission.RANK_PREFS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_MEMBERSPREFS || slot == this.SLOT_MEMBERSPREFS+9){
+					this.rank.setPermission(Permission.MEMBER_PREFS, !this.rank.getPermission(Permission.MEMBER_PREFS));
+					this.getMenu().setItem(this.SLOT_MEMBERSPREFS, this.getCanModifyPerMemberPrefs());
+					this.getMenu().setItem(this.SLOT_MEMBERSPREFS+9, this.rank.getPermission(Permission.MEMBER_PREFS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_DEFAULTRANK || slot == this.SLOT_DEFAULTRANK+9){
+					this.rank.setPermission(Permission.DEFAULT_RANK, !this.rank.getPermission(Permission.DEFAULT_RANK));
+					this.getMenu().setItem(this.SLOT_DEFAULTRANK, this.getCanSetDefaultRank());
+					this.getMenu().setItem(this.SLOT_DEFAULTRANK+9, this.rank.getPermission(Permission.DEFAULT_RANK) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}
+				this.rank.resetPermissions(this.getGuild());
+			}else rp.sendMessage("§cVous ne pouvez modifier les permissions de ce rang !");
+		}else if(this.page_id == 3){
+			if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
+				this.setPage(2);
+			}else if((gm.getPermission(Permission.RANK_PREFS) && gm.getRank().getId() < this.rank.getId()) || gm.isLeader()){
+				if(slot == this.SLOT_GVBANK || slot == this.SLOT_GVBANK+9){
+					this.rank.setPermission(Permission.BANK_DEPOSIT, !this.rank.getPermission(Permission.BANK_DEPOSIT));
+					this.getMenu().setItem(this.SLOT_GVBANK, this.getCanGiveBank());
+					this.getMenu().setItem(this.SLOT_GVBANK+9, this.rank.getPermission(Permission.BANK_DEPOSIT) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_OFFER || slot == this.SLOT_OFFER+9){
+					this.rank.setPermission(Permission.OFFER, !this.rank.getPermission(Permission.OFFER));
+					this.getMenu().setItem(this.SLOT_OFFER, this.getCanOffer());
+					this.getMenu().setItem(this.SLOT_OFFER+9, this.rank.getPermission(Permission.OFFER) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_RELATIONS || slot == this.SLOT_RELATIONS+9){
+					this.rank.setPermission(Permission.RELATIONS, !this.rank.getPermission(Permission.RELATIONS));
+					this.getMenu().setItem(this.SLOT_RELATIONS, this.getCanManageRelations());
+					this.getMenu().setItem(this.SLOT_RELATIONS+9, this.rank.getPermission(Permission.RELATIONS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}else if(slot == this.SLOT_MOBSDAMAGE || slot == this.SLOT_MOBSDAMAGE+9){
+					this.rank.setPermission(Permission.DAMAGE_MOBS, !this.rank.getPermission(Permission.DAMAGE_MOBS));
+					this.getMenu().setItem(this.SLOT_MOBSDAMAGE, this.getCanDamageMobs());
+					this.getMenu().setItem(this.SLOT_MOBSDAMAGE+9, this.rank.getPermission(Permission.DAMAGE_MOBS) ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+				}
+				this.rank.resetPermissions(this.getGuild());
+			}else rp.sendMessage("§cVous ne pouvez modifier les permissions de ce rang !");
 		}
 	}
 

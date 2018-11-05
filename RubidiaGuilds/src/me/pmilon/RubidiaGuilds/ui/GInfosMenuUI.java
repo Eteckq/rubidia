@@ -66,44 +66,42 @@ public class GInfosMenuUI extends UIHandler {
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				int slot = e.getRawSlot();
-				if(slot == this.SLOT_BACK){
-					Core.uiManager.requestUI(new GMenuUI(this.getHolder(), this.getGuild()));
-				}else if(slot == this.SLOT_NAME){
-					if(gm.getPermission(Permission.RENAME)){
-						rp.sendMessage("§aRenommez votre guilde en entrant le nom désiré dans le chat ! (MAX : " + Guild.NAME_LENGTH + "caractères)");
-						this.close(true, this.LISTENINGID_NAME);
-					}else rp.sendMessage("§cVous n'avez pas la permission de renommer votre guilde.");
-				}else if(slot == this.SLOT_DESC){
-					if(gm.getPermission(Permission.RENAME)){
-						rp.sendMessage("§aModifiez votre description de guilde en entrant celle désirée dans le chat !");
-						this.close(true, this.LISTENINGID_DESC);
-					}else rp.sendMessage("§cVous n'avez pas la permission de modifier la description de votre guilde.");
-				}else if(slot == this.SLOT_DISPLAY){
-					if(e.isLeftClick()){
-						if(gm.getPermission(Permission.CAPE) || gm.isLeader()){
-							this.close(true, this.LISTID_CAPE);
-							rp.sendMessage("§aPrenez une bannière entre vos mains et entrez son coût (les membres paieront ce montant pour chaque cape commandée).");
-						}else rp.sendMessage("§cVous n'avez pas la permission de modifier l'item de votre guilde !");
-					}else{
-						if(this.getGuild().getBank() >= Settings.CAPE_COST || rp.isOp()){
-							this.getGuild().broadcastMessage(Relation.MEMBER, "§&d" + gm.getName() + " §&ca acheté une cape de guilde !");
-							this.getHolder().getInventory().addItem(this.getGuild().getCape());
-							if(!rp.isOp()){
-								this.getGuild().withdraw(Settings.CAPE_COST);
-							}
-						}else rp.sendMessage("§cVotre guilde n'a pas suffisamment d'émeraudes !");
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK){
+			Core.uiManager.requestUI(new GMenuUI(this.getHolder(), this.getGuild()));
+		}else if(slot == this.SLOT_NAME){
+			if(gm.getPermission(Permission.RENAME)){
+				rp.sendMessage("§aRenommez votre guilde en entrant le nom désiré dans le chat ! (MAX : " + Guild.NAME_LENGTH + "caractères)");
+				this.close(true, this.LISTENINGID_NAME);
+			}else rp.sendMessage("§cVous n'avez pas la permission de renommer votre guilde.");
+		}else if(slot == this.SLOT_DESC){
+			if(gm.getPermission(Permission.RENAME)){
+				rp.sendMessage("§aModifiez votre description de guilde en entrant celle désirée dans le chat !");
+				this.close(true, this.LISTENINGID_DESC);
+			}else rp.sendMessage("§cVous n'avez pas la permission de modifier la description de votre guilde.");
+		}else if(slot == this.SLOT_DISPLAY){
+			if(e.isLeftClick()){
+				if(gm.getPermission(Permission.CAPE) || gm.isLeader()){
+					this.close(true, this.LISTID_CAPE);
+					rp.sendMessage("§aPrenez une bannière entre vos mains et entrez son coût (les membres paieront ce montant pour chaque cape commandée).");
+				}else rp.sendMessage("§cVous n'avez pas la permission de modifier l'item de votre guilde !");
+			}else{
+				if(this.getGuild().getBank() >= Settings.CAPE_COST || rp.isOp()){
+					this.getGuild().broadcastMessage(Relation.MEMBER, "§&d" + gm.getName() + " §&ca acheté une cape de guilde !");
+					this.getHolder().getInventory().addItem(this.getGuild().getCape());
+					if(!rp.isOp()){
+						this.getGuild().withdraw(Settings.CAPE_COST);
 					}
-				}else if(slot == this.SLOT_GLOWING){
-					if(gm.getPermission(Permission.CAPE) || gm.isLeader()) {
-						this.getGuild().setGlowing(!this.getGuild().isGlowing());
-					}
-					this.menu.setItem(this.SLOT_DISPLAY, this.getInfos());
-					this.menu.setItem(this.SLOT_GLOWING, this.getGlowing());
-				}else if(slot == this.SLOT_OFFER)Core.uiManager.requestUI(new GExpMenuUI(this.getHolder(), this.getGuild()));
+				}else rp.sendMessage("§cVotre guilde n'a pas suffisamment d'émeraudes !");
 			}
+		}else if(slot == this.SLOT_GLOWING){
+			if(gm.getPermission(Permission.CAPE) || gm.isLeader()) {
+				this.getGuild().setGlowing(!this.getGuild().isGlowing());
+			}
+			this.menu.setItem(this.SLOT_DISPLAY, this.getInfos());
+			this.menu.setItem(this.SLOT_GLOWING, this.getGlowing());
+		}else if(slot == this.SLOT_OFFER) {
+			Core.uiManager.requestUI(new GExpMenuUI(this.getHolder(), this.getGuild()));
 		}
 	}
 

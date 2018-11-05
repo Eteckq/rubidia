@@ -102,50 +102,46 @@ public class GClaimsMenuUI extends UIHandler {
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				int slot = e.getRawSlot();
-				if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9)Core.uiManager.requestUI(new GMenuUI(this.getHolder(), this.getGuild()));
-				else if(slot == this.SLOT_CLAIMER || slot == this.SLOT_CLAIMER+9){
-					Claims.manageClaim("claim_" + this.getGuild().getClaims().size(), this.getGuild(), this.getHolder().getLocation(), gm);
-					this.setClaim(Claim.get(this.getHolder().getLocation()));
-					
-					this.getMenu().setItem(this.SLOT_CLAIMER, this.getClaimer());
-					this.getMenu().setItem(this.SLOT_CLAIMER+9, this.getClaim() != null ? (this.getGuild().equals(this.getClaim().getGuild()) ? this.ITEM_CLAIMED : this.ITEM_STARTRAID) : this.ITEM_NOT_CLAIMED);
-					
-					this.getMenu().setItem(this.SLOT_CLAIMNAME, this.getClaimName());
-					this.getMenu().setItem(this.SLOT_CLAIMNAME+9, this.getClaim() != null ? (this.getGuild().equals(this.getClaim().getGuild()) ? (this.getClaim().getName().contains("claim_") ? this.ITEM_NOTSET : this.ITEM_SET) : this.ITEM_UNAVAILABLE) : this.ITEM_UNAVAILABLE);
-				}else if(slot == this.SLOT_CLAIMNAME || slot == this.SLOT_CLAIMNAME+9){
-					if(this.getClaim() != null){
-						if(this.getClaim().getGuild().equals(this.getGuild())){
-							if(gm.getPermission(Permission.CLAIM)){
-								this.close(true, this.LIST_ID_CLAIM);
-							}else rp.sendMessage("§cVous n'avez pas la permission de gérer les territoires de votre guilde !");
-						}else rp.sendMessage("§cCe territoire n'appartient pas à votre guilde !");
-					}else rp.sendMessage("§cCe territoire n'est pas conquis !");
-				}else if(slot == this.SLOT_HOMES || slot == this.SLOT_HOMES+9){
-					Core.uiManager.requestUI(new GHomeListUI(this.getHolder(), this.getGuild()));
-				}else if(gm.getPermission(Permission.CLAIM_PREFS)){
-					if(slot == this.SLOT_BUILDABLE || slot == this.SLOT_BUILDABLE+9){
-						this.getGuild().setClaimBuildable(!this.getGuild().isClaimBuildable());
-						this.getMenu().setItem(this.SLOT_BUILDABLE, this.getBuildable());
-						this.getMenu().setItem(this.SLOT_BUILDABLE+9, !this.getGuild().isClaimBuildable() ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-					}else if(slot == this.SLOT_DOORSUSABLE || slot == this.SLOT_DOORSUSABLE+9){
-						this.getGuild().setClaimDoorsUsable(!this.getGuild().isClaimDoorsUsable());
-						this.getMenu().setItem(this.SLOT_DOORSUSABLE, this.getDoorsUsable());
-						this.getMenu().setItem(this.SLOT_DOORSUSABLE+9, !this.getGuild().isClaimDoorsUsable() ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-					}else if(slot == this.SLOT_CHESTSUSABLE || slot == this.SLOT_CHESTSUSABLE+9){
-						this.getGuild().setClaimChestsUsable(!this.getGuild().isClaimChestsUsable());
-						this.getMenu().setItem(this.SLOT_CHESTSUSABLE, this.getChestsUsable());
-						this.getMenu().setItem(this.SLOT_CHESTSUSABLE+9, !this.getGuild().isClaimChestsUsable() ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-					}else if(slot == this.SLOT_MOBSDAMAGE || slot == this.SLOT_MOBSDAMAGE+9){
-						this.getGuild().setClaimMobsDamageable(!this.getGuild().isClaimMobsDamageable());
-						this.getMenu().setItem(this.SLOT_MOBSDAMAGE, this.getMobsDamageable());
-						this.getMenu().setItem(this.SLOT_MOBSDAMAGE+9, !this.getGuild().isClaimMobsDamageable() ? this.ITEM_ENABLED : this.ITEM_DISABLED);
-					}
-				}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences de territoire de votre guilde !");
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9)Core.uiManager.requestUI(new GMenuUI(this.getHolder(), this.getGuild()));
+		else if(slot == this.SLOT_CLAIMER || slot == this.SLOT_CLAIMER+9){
+			Claims.manageClaim("claim_" + this.getGuild().getClaims().size(), this.getGuild(), this.getHolder().getLocation(), gm);
+			this.setClaim(Claim.get(this.getHolder().getLocation()));
+			
+			this.getMenu().setItem(this.SLOT_CLAIMER, this.getClaimer());
+			this.getMenu().setItem(this.SLOT_CLAIMER+9, this.getClaim() != null ? (this.getGuild().equals(this.getClaim().getGuild()) ? this.ITEM_CLAIMED : this.ITEM_STARTRAID) : this.ITEM_NOT_CLAIMED);
+			
+			this.getMenu().setItem(this.SLOT_CLAIMNAME, this.getClaimName());
+			this.getMenu().setItem(this.SLOT_CLAIMNAME+9, this.getClaim() != null ? (this.getGuild().equals(this.getClaim().getGuild()) ? (this.getClaim().getName().contains("claim_") ? this.ITEM_NOTSET : this.ITEM_SET) : this.ITEM_UNAVAILABLE) : this.ITEM_UNAVAILABLE);
+		}else if(slot == this.SLOT_CLAIMNAME || slot == this.SLOT_CLAIMNAME+9){
+			if(this.getClaim() != null){
+				if(this.getClaim().getGuild().equals(this.getGuild())){
+					if(gm.getPermission(Permission.CLAIM)){
+						this.close(true, this.LIST_ID_CLAIM);
+					}else rp.sendMessage("§cVous n'avez pas la permission de gérer les territoires de votre guilde !");
+				}else rp.sendMessage("§cCe territoire n'appartient pas à votre guilde !");
+			}else rp.sendMessage("§cCe territoire n'est pas conquis !");
+		}else if(slot == this.SLOT_HOMES || slot == this.SLOT_HOMES+9){
+			Core.uiManager.requestUI(new GHomeListUI(this.getHolder(), this.getGuild()));
+		}else if(gm.getPermission(Permission.CLAIM_PREFS)){
+			if(slot == this.SLOT_BUILDABLE || slot == this.SLOT_BUILDABLE+9){
+				this.getGuild().setClaimBuildable(!this.getGuild().isClaimBuildable());
+				this.getMenu().setItem(this.SLOT_BUILDABLE, this.getBuildable());
+				this.getMenu().setItem(this.SLOT_BUILDABLE+9, !this.getGuild().isClaimBuildable() ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+			}else if(slot == this.SLOT_DOORSUSABLE || slot == this.SLOT_DOORSUSABLE+9){
+				this.getGuild().setClaimDoorsUsable(!this.getGuild().isClaimDoorsUsable());
+				this.getMenu().setItem(this.SLOT_DOORSUSABLE, this.getDoorsUsable());
+				this.getMenu().setItem(this.SLOT_DOORSUSABLE+9, !this.getGuild().isClaimDoorsUsable() ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+			}else if(slot == this.SLOT_CHESTSUSABLE || slot == this.SLOT_CHESTSUSABLE+9){
+				this.getGuild().setClaimChestsUsable(!this.getGuild().isClaimChestsUsable());
+				this.getMenu().setItem(this.SLOT_CHESTSUSABLE, this.getChestsUsable());
+				this.getMenu().setItem(this.SLOT_CHESTSUSABLE+9, !this.getGuild().isClaimChestsUsable() ? this.ITEM_ENABLED : this.ITEM_DISABLED);
+			}else if(slot == this.SLOT_MOBSDAMAGE || slot == this.SLOT_MOBSDAMAGE+9){
+				this.getGuild().setClaimMobsDamageable(!this.getGuild().isClaimMobsDamageable());
+				this.getMenu().setItem(this.SLOT_MOBSDAMAGE, this.getMobsDamageable());
+				this.getMenu().setItem(this.SLOT_MOBSDAMAGE+9, !this.getGuild().isClaimMobsDamageable() ? this.ITEM_ENABLED : this.ITEM_DISABLED);
 			}
-		}
+		}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences de territoire de votre guilde !");
 	}
 
 	@Override

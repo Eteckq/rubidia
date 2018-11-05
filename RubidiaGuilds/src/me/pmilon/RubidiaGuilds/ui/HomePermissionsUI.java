@@ -53,23 +53,21 @@ public class HomePermissionsUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK){
-				if(this.isGMember())Core.uiManager.requestUI(new GMemberPrefsUI(this.getHolder(), this.getGuild(), (GMember)this.getSubject(), this.page));
-				else Core.uiManager.requestUI(new GRankPrefsUI(this.getHolder(), this.getGuild(), (Rank)this.getSubject(), this.page));
-			}else if(slot != this.SLOT_HEAD){
-				if(slot < 9){
-					this.getSubject().setCanHome(slot, !this.getSubject().canHome(slot));
-					this.getMenu().setItem(slot, this.getCanHome(slot));
-				}else{
-					this.getSubject().setCanSetHome(slot-9, !this.getSubject().canSetHome(slot-9));
-					this.getMenu().setItem(slot, this.getCanSetHome(slot-9));
-				}
-				if(!this.isGMember())((Rank)this.getSubject()).resetPermissions(this.getGuild());
-				Utils.updateInventory(this.getHolder());
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK){
+			if(this.isGMember())Core.uiManager.requestUI(new GMemberPrefsUI(this.getHolder(), this.getGuild(), (GMember)this.getSubject(), this.page));
+			else Core.uiManager.requestUI(new GRankPrefsUI(this.getHolder(), this.getGuild(), (Rank)this.getSubject(), this.page));
+		}else if(slot != this.SLOT_HEAD){
+			if(slot < 9){
+				this.getSubject().setCanHome(slot, !this.getSubject().canHome(slot));
+				this.getMenu().setItem(slot, this.getCanHome(slot));
+			}else{
+				this.getSubject().setCanSetHome(slot-9, !this.getSubject().canSetHome(slot-9));
+				this.getMenu().setItem(slot, this.getCanSetHome(slot-9));
 			}
+			if(!this.isGMember())((Rank)this.getSubject()).resetPermissions(this.getGuild());
+			Utils.updateInventory(this.getHolder());
 		}
 	}
 

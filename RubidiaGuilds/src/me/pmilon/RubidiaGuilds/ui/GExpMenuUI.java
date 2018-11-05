@@ -12,8 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.pmilon.RubidiaCore.Core;
+import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaCore.ui.abstracts.UIHandler;
-import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaGuilds.GuildsPlugin;
 import me.pmilon.RubidiaGuilds.guilds.Guild;
 import me.pmilon.RubidiaGuilds.guilds.Permission;
@@ -47,18 +47,25 @@ public class GExpMenuUI extends UIHandler {
 
 	@Override
 	public void onGeneralClick(InventoryClickEvent e, final Player p) {
-		if(e.getCurrentItem() != null){
+		ItemStack item = e.getCurrentItem();
+		if(item != null){
 			if(e.isShiftClick()){
-				if(!LevelUtils.loots.contains(e.getCurrentItem().getType()) && !e.getCurrentItem().getType().equals(Material.AIR)){
+				if(!LevelUtils.loots.contains(item.getType()) && !item.getType().equals(Material.AIR)){
 					e.setCancelled(true);
 					rp.sendMessage("§cCe n'est pas une bonne offrande.");
-				}else{
-					Bukkit.getScheduler().runTaskLater(GuildsPlugin.instance, new Runnable(){
+				} else {
+					new BukkitTask(GuildsPlugin.instance){
+
+						@Override
 						public void run(){
 							menu.setItem(SLOT_INFOS, getInfos(getValue()));
-							Utils.updateInventory(p);
 						}
-					}, 0);
+
+						@Override
+						public void onCancel() {
+						}
+						
+					}.runTaskLater(0);
 				}
 			}
 		}
@@ -66,55 +73,62 @@ public class GExpMenuUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, final Player p) {
-		if(e.getCurrentItem() != null){
-			int slot = e.getRawSlot();
-			if(slot < this.SLOT_INFOS){
-				if(!LevelUtils.loots.contains(e.getCursor().getType()) && !e.getCursor().getType().equals(Material.AIR)){
+		int slot = e.getRawSlot();
+		if(slot < this.SLOT_INFOS){
+			ItemStack cursor = e.getCursor();
+			if(cursor != null) {
+				if(!LevelUtils.loots.contains(cursor.getType()) && !cursor.getType().equals(Material.AIR)){
 					e.setCancelled(true);
 					rp.sendMessage("§cCe n'est pas une bonne offrande.");
-				}else{
-					Bukkit.getScheduler().runTaskLater(GuildsPlugin.instance, new Runnable(){
+				} else {
+					new BukkitTask(GuildsPlugin.instance){
+
+						@Override
 						public void run(){
 							menu.setItem(SLOT_INFOS, getInfos(getValue()));
-							Utils.updateInventory(p);
 						}
-					}, 0);
-				}
-			}else{
-				e.setCancelled(true);
-				if(slot == this.SLOT_INFOS){
-					if(gm.getPermission(Permission.OFFER)){
-						int oldLevel = this.getGuild().getLevel();
-						double value = this.getValue();
-						this.getGuild().setExperience(this.getGuild().getExperience()+value);
-						int coloredBars = (int) (30*(this.getGuild().getExperience()/LevelUtils.getLevelExperienceAmount(this.getGuild().getLevel())));
-						String xpBar = "";
-						for(int i = 0;i < 30;i++){
-							if(i == 0){
-								if(i < coloredBars)xpBar += "§4[";
-								else xpBar += "§8[";
-							}else if(i == 29){
-								if(i < coloredBars)xpBar += "§4]";
-								else xpBar += "§8]";
-							}else{
-								if(i < coloredBars)xpBar += "§c|";
-								else xpBar += "§7|";
-							}
+
+						@Override
+						public void onCancel() {
 						}
-						int newLevel = this.getGuild().getLevel();
-						this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> §&cVotre guilde a gagné §&d" + value + " §&cpoint d'XP supplémentaire !");
-						if(oldLevel < newLevel)this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> §&cNiveau supérieur atteint ! §&d" + this.getGuild().getName() + " §&cest désormais niveau §&d" + newLevel + " §&c!");
-						this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> " + xpBar);
 						
-						for(int invSlot = 0;invSlot < 7;invSlot++){
-							this.menu.setItem(invSlot, new ItemStack(Material.AIR));
-						}
-						this.menu.setItem(this.SLOT_INFOS, this.getInfos(this.getValue()));
-					}else rp.sendMessage("§cVous n'avez pas la permission de faire des offrandes pour votre guilde !");
-				}else if(slot == this.SLOT_BACK){
-					this.empty();
-					Core.uiManager.requestUI(new GInfosMenuUI(this.getHolder(), this.getGuild()));
+					}.runTaskLater(0);
 				}
+			}
+		}else{
+			e.setCancelled(true);
+			if(slot == this.SLOT_INFOS){
+				if(gm.getPermission(Permission.OFFER)){
+					int oldLevel = this.getGuild().getLevel();
+					double value = this.getValue();
+					this.getGuild().setExperience(this.getGuild().getExperience()+value);
+					int coloredBars = (int) (30*(this.getGuild().getExperience()/LevelUtils.getLevelExperienceAmount(this.getGuild().getLevel())));
+					String xpBar = "";
+					for(int i = 0;i < 30;i++){
+						if(i == 0){
+							if(i < coloredBars)xpBar += "§4[";
+							else xpBar += "§8[";
+						}else if(i == 29){
+							if(i < coloredBars)xpBar += "§4]";
+							else xpBar += "§8]";
+						}else{
+							if(i < coloredBars)xpBar += "§c|";
+							else xpBar += "§7|";
+						}
+					}
+					int newLevel = this.getGuild().getLevel();
+					this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> §&cVotre guilde a gagné §&d" + value + " §&cpoint d'XP supplémentaire !");
+					if(oldLevel < newLevel)this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> §&cNiveau supérieur atteint ! §&d" + this.getGuild().getName() + " §&cest désormais niveau §&d" + newLevel + " §&c!");
+					this.getGuild().broadcastMessage(Relation.MEMBER, "§&d>>> " + xpBar);
+					
+					for(int invSlot = 0;invSlot < 7;invSlot++){
+						this.menu.setItem(invSlot, new ItemStack(Material.AIR));
+					}
+					this.menu.setItem(this.SLOT_INFOS, this.getInfos(this.getValue()));
+				}else rp.sendMessage("§cVous n'avez pas la permission de faire des offrandes pour votre guilde !");
+			}else if(slot == this.SLOT_BACK){
+				this.empty();
+				Core.uiManager.requestUI(new GInfosMenuUI(this.getHolder(), this.getGuild()));
 			}
 		}
 	}
@@ -134,7 +148,9 @@ public class GExpMenuUI extends UIHandler {
 	public void empty(){
 		for(int slot = 0;slot < this.SLOT_INFOS;slot++){
 			ItemStack stack = this.menu.getItem(slot);
-			if(stack != null)this.getHolder().getInventory().addItem(stack);
+			if(stack != null) {
+				this.getHolder().getInventory().addItem(stack);
+			}
 		}
 	}
 	

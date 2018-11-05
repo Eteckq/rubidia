@@ -113,142 +113,138 @@ public class GMemberPrefsUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player player) {
-		int slot = e.getRawSlot();
 		e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				if(this.getGuild().equals(subject.getGuild())){
-					if(this.page_id == 1){
-						if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9)this.getUIManager().requestUI(new GMembersUI(this.getHolder(), this.getGuild()));
-						else if(slot == this.SLOT_NEXT || slot == this.SLOT_NEXT+9){
-							this.setPage(2);
-						}else if(gm.getPermission(Permission.MEMBER_PREFS) || gm.isLeader()){
-							if(!subject.isLeader() || gm.isLeader() || rp.isOp()){
-								if(slot == this.SLOT_RANK || slot == this.SLOT_RANK+9){
-									if(!subject.isLeader()){
-										Rank rank = null;
-										for(int i = subject.getRankId()+1;i < this.getGuild().getRanks().length;i++){
-											Rank rk = this.getGuild().getRanks()[i];
-											if(rk != null){
-												rank = rk;
-												break;
-											}
+		int slot = e.getRawSlot();
+		if(this.getGuild().equals(subject.getGuild())){
+			if(this.page_id == 1){
+				if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9)this.getUIManager().requestUI(new GMembersUI(this.getHolder(), this.getGuild()));
+				else if(slot == this.SLOT_NEXT || slot == this.SLOT_NEXT+9){
+					this.setPage(2);
+				}else if(gm.getPermission(Permission.MEMBER_PREFS) || gm.isLeader()){
+					if(!subject.isLeader() || gm.isLeader() || rp.isOp()){
+						if(slot == this.SLOT_RANK || slot == this.SLOT_RANK+9){
+							if(!subject.isLeader()){
+								Rank rank = null;
+								for(int i = subject.getRankId()+1;i < this.getGuild().getRanks().length;i++){
+									Rank rk = this.getGuild().getRanks()[i];
+									if(rk != null){
+										rank = rk;
+										break;
+									}
+								}
+								if(rank == null){
+									for(int i = 1;i < subject.getRankId();i++){
+										Rank rk = this.getGuild().getRanks()[i];
+										if(rk != null){
+											rank = rk;
+											break;
 										}
-										if(rank == null){
-											for(int i = 1;i < subject.getRankId();i++){
-												Rank rk = this.getGuild().getRanks()[i];
-												if(rk != null){
-													rank = rk;
-													break;
-												}
-											}
-										}
-										if(rank != null)subject.setRank(rank);
-										this.setPage(1);
-									}else rp.sendMessage("§cVous ne pouvez modifier le rang du chef de cette façon !");
-								}else if(slot == this.SLOT_NAME || slot == this.SLOT_NAME+9){
-									subject.setPermission(Permission.RENAME, !subject.getPermission(Permission.RENAME));
-									getMenu().setItem(SLOT_NAME, this.getCanRename());
-									getMenu().setItem(SLOT_NAME+9, subject.getPermission(Permission.RENAME) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_DESC || slot == this.SLOT_DESC+9){
-									subject.setPermission(Permission.DESCRIPTION, !subject.getPermission(Permission.DESCRIPTION));
-									getMenu().setItem(SLOT_DESC, this.getCanChangeDescription());
-									getMenu().setItem(SLOT_DESC+9, subject.getPermission(Permission.DESCRIPTION) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_DISPLAY || slot == this.SLOT_DISPLAY+9){
-									subject.setPermission(Permission.CAPE, !subject.getPermission(Permission.CAPE));
-									getMenu().setItem(SLOT_DISPLAY, this.getCanModifyDisplay());
-									getMenu().setItem(SLOT_DISPLAY+9, subject.getPermission(Permission.CAPE) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_GVBANK || slot == this.SLOT_GVBANK+9){
-									subject.setPermission(Permission.BANK_DEPOSIT, !subject.getPermission(Permission.BANK_DEPOSIT));
-									getMenu().setItem(SLOT_GVBANK, this.getCanGiveBank());
-									getMenu().setItem(SLOT_GVBANK+9, subject.getPermission(Permission.BANK_DEPOSIT) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_OFFER || slot == this.SLOT_OFFER+9){
-									subject.setPermission(Permission.OFFER, !subject.getPermission(Permission.OFFER));
-									getMenu().setItem(SLOT_OFFER, this.getCanOffer());
-									getMenu().setItem(SLOT_OFFER+9, subject.getPermission(Permission.OFFER) ? ITEM_ENABLED : ITEM_DISABLED);
+									}
 								}
-							}else rp.sendMessage("§cVous ne pouvez modifier les permissions du chef !");
-						}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
-					}else if(this.page_id == 2){
-						if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
-							this.setPage(1);
-						}else if(slot == this.SLOT_NEXT || slot == this.SLOT_NEXT+9){
-							this.setPage(3);
-						}else if(gm.getPermission(Permission.MEMBER_PREFS) || gm.isLeader()){
-							if(!subject.isLeader() || gm.isLeader() || rp.isOp()){
-								if(slot == this.SLOT_CLAIMS || slot == this.SLOT_CLAIMS+9){
-									subject.setPermission(Permission.CLAIM, !subject.getPermission(Permission.CLAIM));
-									getMenu().setItem(SLOT_CLAIMS, this.getCanClaim());
-									getMenu().setItem(SLOT_CLAIMS+9, subject.getPermission(Permission.CLAIM) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_INVITE || slot == this.SLOT_INVITE+9){
-									subject.setPermission(Permission.INVITE, !subject.getPermission(Permission.INVITE));
-									getMenu().setItem(SLOT_INVITE, this.getCanInvite());
-									getMenu().setItem(SLOT_INVITE+9, subject.getPermission(Permission.INVITE) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_HOMES || slot == this.SLOT_HOMES+9){
-									Core.uiManager.requestUI(new HomePermissionsUI(this.getHolder(),this.getGuild(), subject, this.page_id));
-								}else if(slot == this.SLOT_RELATIONS || slot == this.SLOT_RELATIONS+9){
-									subject.setPermission(Permission.RELATIONS, !subject.getPermission(Permission.RELATIONS));
-									getMenu().setItem(SLOT_RELATIONS, this.getCanManageRelations());
-									getMenu().setItem(SLOT_RELATIONS+9, subject.getPermission(Permission.RELATIONS) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_DEFAULTRANK || slot == this.SLOT_DEFAULTRANK+9){
-									subject.setPermission(Permission.DEFAULT_RANK, !subject.getPermission(Permission.DEFAULT_RANK));
-									getMenu().setItem(SLOT_DEFAULTRANK, this.getCanSetDefaultRank());
-									getMenu().setItem(SLOT_DEFAULTRANK+9, subject.getPermission(Permission.DEFAULT_RANK) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_CLAIMSPREFS || slot == this.SLOT_CLAIMSPREFS+9){
-									subject.setPermission(Permission.CLAIM_PREFS, !subject.getPermission(Permission.CLAIM_PREFS));
-									getMenu().setItem(SLOT_CLAIMSPREFS, this.getCanModifyClaimsPrefs());
-									getMenu().setItem(SLOT_CLAIMSPREFS+9, subject.getPermission(Permission.CLAIM_PREFS) ? ITEM_ENABLED : ITEM_DISABLED);
-								}
-							}else rp.sendMessage("§cVous ne pouvez modifier les permissions du chef !");
-						}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
-					}else if(this.page_id == 3){
-						if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
-							this.setPage(2);
-						}else if(gm.getPermission(Permission.MEMBER_PREFS) || gm.isLeader()){
-							if(!subject.isLeader() || gm.isLeader() || rp.isOp()){
-								if(slot == this.SLOT_RANKSPREFS || slot == this.SLOT_RANKSPREFS+9){
-									subject.setPermission(Permission.RANK_PREFS, !subject.getPermission(Permission.RANK_PREFS));
-									getMenu().setItem(SLOT_RANKSPREFS, this.getCanModifyRanksUnderPrefs());
-									getMenu().setItem(SLOT_RANKSPREFS+9, subject.getPermission(Permission.RANK_PREFS) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_MEMBERSPREFS || slot == this.SLOT_MEMBERSPREFS+9){
-									subject.setPermission(Permission.MEMBER_PREFS, !subject.getPermission(Permission.MEMBER_PREFS));
-									getMenu().setItem(SLOT_MEMBERSPREFS, this.getCanModifyPerMemberPrefs());
-									getMenu().setItem(SLOT_MEMBERSPREFS+9, subject.getPermission(Permission.MEMBER_PREFS) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_BUILD || slot == this.SLOT_BUILD+9){
-									subject.setPermission(Permission.BUILD, !subject.getPermission(Permission.BUILD));
-									getMenu().setItem(SLOT_BUILD, this.getCanBuild());
-									getMenu().setItem(SLOT_BUILD+9, subject.getPermission(Permission.BUILD) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_USEDOORS || slot == this.SLOT_USEDOORS+9){
-									subject.setPermission(Permission.USE_DOORS, !subject.getPermission(Permission.USE_DOORS));
-									getMenu().setItem(SLOT_USEDOORS, this.getCanUseDoors());
-									getMenu().setItem(SLOT_USEDOORS+9, subject.getPermission(Permission.USE_DOORS) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_USECHESTS || slot == this.SLOT_USECHESTS+9){
-									subject.setPermission(Permission.USE_CHESTS, !subject.getPermission(Permission.USE_CHESTS));
-									getMenu().setItem(SLOT_USECHESTS, this.getCanUseChests());
-									getMenu().setItem(SLOT_USECHESTS+9, subject.getPermission(Permission.USE_CHESTS) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_MOBSDAMAGE || slot == this.SLOT_MOBSDAMAGE+9){
-									subject.setPermission(Permission.DAMAGE_MOBS, !subject.getPermission(Permission.DAMAGE_MOBS));
-									getMenu().setItem(SLOT_MOBSDAMAGE, this.getCanDamageMobs());
-									getMenu().setItem(SLOT_MOBSDAMAGE+9, subject.getPermission(Permission.DAMAGE_MOBS) ? ITEM_ENABLED : ITEM_DISABLED);
-								}else if(slot == this.SLOT_KICK || slot == this.SLOT_KICK+9){
-									if(!subject.isLeader()){
-										Core.uiManager.requestUI(new KickConfirmationUI(rp, this.getGuild(), subject));
-									}else rp.sendMessage("§cVous ne pouvez éjecter le chef de guilde !");
-								}else if(slot == this.SLOT_LEADERSHIP || slot == this.SLOT_LEADERSHIP+9){
-									if(gm.isLeader() || rp.isOp()){
-										if(!this.getGuild().getLeader().equals(subject)){
-											Core.uiManager.requestUI(new LeadLegacyConfirmationUI(rp, this.getGuild(), subject));
-										}else rp.sendMessage("§4" + subject.getName() + " §cest déjà chef de la guilde !");
-									}else rp.sendMessage("§cSeul le leader peut faire ça !");
-								}
-							}else rp.sendMessage("§cVous ne pouvez modifier les permissions du leader !");
-						}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
-					}
-				}else{
-					this.close(false);
-					rp.sendMessage("§4" + subject.getName() + " §cn'appartient plus à votre guilde !");
-				}
+								if(rank != null)subject.setRank(rank);
+								this.setPage(1);
+							}else rp.sendMessage("§cVous ne pouvez modifier le rang du chef de cette façon !");
+						}else if(slot == this.SLOT_NAME || slot == this.SLOT_NAME+9){
+							subject.setPermission(Permission.RENAME, !subject.getPermission(Permission.RENAME));
+							getMenu().setItem(SLOT_NAME, this.getCanRename());
+							getMenu().setItem(SLOT_NAME+9, subject.getPermission(Permission.RENAME) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_DESC || slot == this.SLOT_DESC+9){
+							subject.setPermission(Permission.DESCRIPTION, !subject.getPermission(Permission.DESCRIPTION));
+							getMenu().setItem(SLOT_DESC, this.getCanChangeDescription());
+							getMenu().setItem(SLOT_DESC+9, subject.getPermission(Permission.DESCRIPTION) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_DISPLAY || slot == this.SLOT_DISPLAY+9){
+							subject.setPermission(Permission.CAPE, !subject.getPermission(Permission.CAPE));
+							getMenu().setItem(SLOT_DISPLAY, this.getCanModifyDisplay());
+							getMenu().setItem(SLOT_DISPLAY+9, subject.getPermission(Permission.CAPE) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_GVBANK || slot == this.SLOT_GVBANK+9){
+							subject.setPermission(Permission.BANK_DEPOSIT, !subject.getPermission(Permission.BANK_DEPOSIT));
+							getMenu().setItem(SLOT_GVBANK, this.getCanGiveBank());
+							getMenu().setItem(SLOT_GVBANK+9, subject.getPermission(Permission.BANK_DEPOSIT) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_OFFER || slot == this.SLOT_OFFER+9){
+							subject.setPermission(Permission.OFFER, !subject.getPermission(Permission.OFFER));
+							getMenu().setItem(SLOT_OFFER, this.getCanOffer());
+							getMenu().setItem(SLOT_OFFER+9, subject.getPermission(Permission.OFFER) ? ITEM_ENABLED : ITEM_DISABLED);
+						}
+					}else rp.sendMessage("§cVous ne pouvez modifier les permissions du chef !");
+				}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
+			}else if(this.page_id == 2){
+				if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
+					this.setPage(1);
+				}else if(slot == this.SLOT_NEXT || slot == this.SLOT_NEXT+9){
+					this.setPage(3);
+				}else if(gm.getPermission(Permission.MEMBER_PREFS) || gm.isLeader()){
+					if(!subject.isLeader() || gm.isLeader() || rp.isOp()){
+						if(slot == this.SLOT_CLAIMS || slot == this.SLOT_CLAIMS+9){
+							subject.setPermission(Permission.CLAIM, !subject.getPermission(Permission.CLAIM));
+							getMenu().setItem(SLOT_CLAIMS, this.getCanClaim());
+							getMenu().setItem(SLOT_CLAIMS+9, subject.getPermission(Permission.CLAIM) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_INVITE || slot == this.SLOT_INVITE+9){
+							subject.setPermission(Permission.INVITE, !subject.getPermission(Permission.INVITE));
+							getMenu().setItem(SLOT_INVITE, this.getCanInvite());
+							getMenu().setItem(SLOT_INVITE+9, subject.getPermission(Permission.INVITE) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_HOMES || slot == this.SLOT_HOMES+9){
+							Core.uiManager.requestUI(new HomePermissionsUI(this.getHolder(),this.getGuild(), subject, this.page_id));
+						}else if(slot == this.SLOT_RELATIONS || slot == this.SLOT_RELATIONS+9){
+							subject.setPermission(Permission.RELATIONS, !subject.getPermission(Permission.RELATIONS));
+							getMenu().setItem(SLOT_RELATIONS, this.getCanManageRelations());
+							getMenu().setItem(SLOT_RELATIONS+9, subject.getPermission(Permission.RELATIONS) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_DEFAULTRANK || slot == this.SLOT_DEFAULTRANK+9){
+							subject.setPermission(Permission.DEFAULT_RANK, !subject.getPermission(Permission.DEFAULT_RANK));
+							getMenu().setItem(SLOT_DEFAULTRANK, this.getCanSetDefaultRank());
+							getMenu().setItem(SLOT_DEFAULTRANK+9, subject.getPermission(Permission.DEFAULT_RANK) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_CLAIMSPREFS || slot == this.SLOT_CLAIMSPREFS+9){
+							subject.setPermission(Permission.CLAIM_PREFS, !subject.getPermission(Permission.CLAIM_PREFS));
+							getMenu().setItem(SLOT_CLAIMSPREFS, this.getCanModifyClaimsPrefs());
+							getMenu().setItem(SLOT_CLAIMSPREFS+9, subject.getPermission(Permission.CLAIM_PREFS) ? ITEM_ENABLED : ITEM_DISABLED);
+						}
+					}else rp.sendMessage("§cVous ne pouvez modifier les permissions du chef !");
+				}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
+			}else if(this.page_id == 3){
+				if(slot == this.SLOT_BACK || slot == this.SLOT_BACK+9){
+					this.setPage(2);
+				}else if(gm.getPermission(Permission.MEMBER_PREFS) || gm.isLeader()){
+					if(!subject.isLeader() || gm.isLeader() || rp.isOp()){
+						if(slot == this.SLOT_RANKSPREFS || slot == this.SLOT_RANKSPREFS+9){
+							subject.setPermission(Permission.RANK_PREFS, !subject.getPermission(Permission.RANK_PREFS));
+							getMenu().setItem(SLOT_RANKSPREFS, this.getCanModifyRanksUnderPrefs());
+							getMenu().setItem(SLOT_RANKSPREFS+9, subject.getPermission(Permission.RANK_PREFS) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_MEMBERSPREFS || slot == this.SLOT_MEMBERSPREFS+9){
+							subject.setPermission(Permission.MEMBER_PREFS, !subject.getPermission(Permission.MEMBER_PREFS));
+							getMenu().setItem(SLOT_MEMBERSPREFS, this.getCanModifyPerMemberPrefs());
+							getMenu().setItem(SLOT_MEMBERSPREFS+9, subject.getPermission(Permission.MEMBER_PREFS) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_BUILD || slot == this.SLOT_BUILD+9){
+							subject.setPermission(Permission.BUILD, !subject.getPermission(Permission.BUILD));
+							getMenu().setItem(SLOT_BUILD, this.getCanBuild());
+							getMenu().setItem(SLOT_BUILD+9, subject.getPermission(Permission.BUILD) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_USEDOORS || slot == this.SLOT_USEDOORS+9){
+							subject.setPermission(Permission.USE_DOORS, !subject.getPermission(Permission.USE_DOORS));
+							getMenu().setItem(SLOT_USEDOORS, this.getCanUseDoors());
+							getMenu().setItem(SLOT_USEDOORS+9, subject.getPermission(Permission.USE_DOORS) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_USECHESTS || slot == this.SLOT_USECHESTS+9){
+							subject.setPermission(Permission.USE_CHESTS, !subject.getPermission(Permission.USE_CHESTS));
+							getMenu().setItem(SLOT_USECHESTS, this.getCanUseChests());
+							getMenu().setItem(SLOT_USECHESTS+9, subject.getPermission(Permission.USE_CHESTS) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_MOBSDAMAGE || slot == this.SLOT_MOBSDAMAGE+9){
+							subject.setPermission(Permission.DAMAGE_MOBS, !subject.getPermission(Permission.DAMAGE_MOBS));
+							getMenu().setItem(SLOT_MOBSDAMAGE, this.getCanDamageMobs());
+							getMenu().setItem(SLOT_MOBSDAMAGE+9, subject.getPermission(Permission.DAMAGE_MOBS) ? ITEM_ENABLED : ITEM_DISABLED);
+						}else if(slot == this.SLOT_KICK || slot == this.SLOT_KICK+9){
+							if(!subject.isLeader()){
+								Core.uiManager.requestUI(new KickConfirmationUI(rp, this.getGuild(), subject));
+							}else rp.sendMessage("§cVous ne pouvez éjecter le chef de guilde !");
+						}else if(slot == this.SLOT_LEADERSHIP || slot == this.SLOT_LEADERSHIP+9){
+							if(gm.isLeader() || rp.isOp()){
+								if(!this.getGuild().getLeader().equals(subject)){
+									Core.uiManager.requestUI(new LeadLegacyConfirmationUI(rp, this.getGuild(), subject));
+								}else rp.sendMessage("§4" + subject.getName() + " §cest déjà chef de la guilde !");
+							}else rp.sendMessage("§cSeul le leader peut faire ça !");
+						}
+					}else rp.sendMessage("§cVous ne pouvez modifier les permissions du leader !");
+				}else rp.sendMessage("§cVous n'avez pas la permission de modifier les préférences par membre de votre guilde !");
 			}
+		}else{
+			this.close(false);
+			rp.sendMessage("§4" + subject.getName() + " §cn'appartient plus à votre guilde !");
 		}
 	}
 

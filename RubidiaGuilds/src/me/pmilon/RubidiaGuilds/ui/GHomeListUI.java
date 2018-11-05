@@ -50,40 +50,38 @@ public class GHomeListUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK){
-				Core.uiManager.requestUI(new GClaimsMenuUI(this.getHolder(), this.getGuild(), Claim.get(this.getHolder().getLocation())));
-			}else{
-				if(e.isLeftClick()){
-					if(gm.canHome(slot)){
-						GHome home = this.getGuild().getHomes()[slot];
-						if(home != null){
-							TeleportHandler.startTeleportation(this.getHolder(), home.getLocation(), new RTeleportCause(RTeleportType.GUILD_HOME, null, null, null));
-							this.close(false);
-							return;
-						}
-					}else{
-						rp.sendMessage("§cVous n'avez pas la permission d'utiliser les PR pour votre guilde !");
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK){
+			Core.uiManager.requestUI(new GClaimsMenuUI(this.getHolder(), this.getGuild(), Claim.get(this.getHolder().getLocation())));
+		}else{
+			if(e.isLeftClick()){
+				if(gm.canHome(slot)){
+					GHome home = this.getGuild().getHomes()[slot];
+					if(home != null){
+						TeleportHandler.startTeleportation(this.getHolder(), home.getLocation(), new RTeleportCause(RTeleportType.GUILD_HOME, null, null, null));
+						this.close(false);
 						return;
 					}
-					
-					if(slot < this.getGuild().getLevel()){
-						if(gm.canSetHome(slot)){
-							this.close(true, slot);
-							rp.sendMessage("§aDéplacez-vous vers le PR souhaité et prenez dans vos mains un item représentatif qui sera affiché dans la liste des PR de votre guilde. Enfin, entrez dans le chat le nom de votre PR.");
-						}else rp.sendMessage("§cVous n'avez pas la permission de définir le PR #" + slot + " pour votre guilde !");
-					}else rp.sendMessage("§cVous devez augmenter le niveau de votre guilde jusqu'au niveau §e" + (slot+1) + " §cpour débloquer ce PR.");
 				}else{
-					if(slot < this.getGuild().getLevel()){
-						if(gm.canSetHome(slot)){
-							if(this.getGuild().getHomes()[slot] != null) {
-								Core.uiManager.requestUI(new HomeRemovalConfirmationUI(rp, this.getGuild(), slot));
-							}
-						}else rp.sendMessage("§cVous n'avez pas la permission de définir le PR #" + slot + " pour votre guilde !");
-					}else rp.sendMessage("§cVous devez augmenter le niveau de votre guilde jusqu'au niveau §e" + (slot+1) + " §cpour débloquer ce PR.");
+					rp.sendMessage("§cVous n'avez pas la permission d'utiliser les PR pour votre guilde !");
+					return;
 				}
+				
+				if(slot < this.getGuild().getLevel()){
+					if(gm.canSetHome(slot)){
+						this.close(true, slot);
+						rp.sendMessage("§aDéplacez-vous vers le PR souhaité et prenez dans vos mains un item représentatif qui sera affiché dans la liste des PR de votre guilde. Enfin, entrez dans le chat le nom de votre PR.");
+					}else rp.sendMessage("§cVous n'avez pas la permission de définir le PR #" + slot + " pour votre guilde !");
+				}else rp.sendMessage("§cVous devez augmenter le niveau de votre guilde jusqu'au niveau §e" + (slot+1) + " §cpour débloquer ce PR.");
+			}else{
+				if(slot < this.getGuild().getLevel()){
+					if(gm.canSetHome(slot)){
+						if(this.getGuild().getHomes()[slot] != null) {
+							Core.uiManager.requestUI(new HomeRemovalConfirmationUI(rp, this.getGuild(), slot));
+						}
+					}else rp.sendMessage("§cVous n'avez pas la permission de définir le PR #" + slot + " pour votre guilde !");
+				}else rp.sendMessage("§cVous devez augmenter le niveau de votre guilde jusqu'au niveau §e" + (slot+1) + " §cpour débloquer ce PR.");
 			}
 		}
 	}

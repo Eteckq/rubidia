@@ -81,18 +81,20 @@ public class GuildsUI extends ListMenuUIHandler<Guild> {
 	@Override
 	protected void onClick(InventoryClickEvent e, Player p, ItemStack is) {
 		Guild guild = this.get(e.getRawSlot());
-		if(e.isLeftClick()){
-			if(rp.isOp()){
-				Core.uiManager.requestUI(new GMenuUI(this.getHolder(), guild));
+		if(guild != null) {
+			if(e.isLeftClick()){
+				if(rp.isOp()){
+					Core.uiManager.requestUI(new GMenuUI(this.getHolder(), guild));
+				}else{
+					if(gm.hasGuild())rp.sendMessage("§cVous êtes déjà dans une guilde !");
+					else guild.ask(gm);
+				}
 			}else{
-				if(gm.hasGuild())rp.sendMessage("§cVous êtes déjà dans une guilde !");
-				else guild.ask(gm);
-			}
-		}else{
-			if(gm.hasGuild()){
-				if(!gm.getGuild().equals(guild)){
-					Core.uiManager.requestUI(new GRelationsUI(this.getHolder(), guild));
-				}else rp.sendMessage("§cVous ne pouvez gérer les relations entre votre guilde et votre guilde !");
+				if(gm.hasGuild()){
+					if(!gm.getGuild().equals(guild)){
+						Core.uiManager.requestUI(new GRelationsUI(this.getHolder(), guild));
+					}else rp.sendMessage("§cVous ne pouvez gérer les relations entre votre guilde et votre guilde !");
+				}
 			}
 		}
 	}

@@ -52,60 +52,58 @@ public class GRelationsUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_ALLY){
-				if(gm.getPermission(Permission.RELATIONS)){
-					if(gm.getGuild().getRelationTo(guild).equals(Relation.ALLY)){//if allies, we break the alliance without request
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_ALLY){
+			if(gm.getPermission(Permission.RELATIONS)){
+				if(gm.getGuild().getRelationTo(guild).equals(Relation.ALLY)){//if allies, we break the alliance without request
+					gm.getGuild().removeAlly(guild);
+					guild.removeAlly(gm.getGuild());
+					gm.getGuild().broadcastMessage(Relation.MEMBER, "§&cLa guilde §&d§l" + guild.getName() + " §&cn'est plus notre alliée !");
+					guild.broadcastMessage(Relation.MEMBER, "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&cn'est plus notre alliée !");
+				}else{
+					gm.getGuild().removeEnemy(guild);//else they are no longer enemies bc we request an alliance
+					if(guild.getAllies().contains(gm.getGuild())){//if target guild has requested an alliance, we form it
+						gm.getGuild().addAlly(guild);
+						gm.getGuild().broadcastMessage(Relation.MEMBER, "§&cNous sommes désormais alliés à la guilde §&d§l" + guild.getName() + " §&c!");
+						guild.broadcastMessage(Relation.MEMBER, "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&ca accepté l'alliance !");
+					}else if(gm.getGuild().getAllies().contains(guild)){//we cancel request if already asked
 						gm.getGuild().removeAlly(guild);
-						guild.removeAlly(gm.getGuild());
-						gm.getGuild().broadcastMessage(Relation.MEMBER, "§&cLa guilde §&d§l" + guild.getName() + " §&cn'est plus notre alliée !");
-						guild.broadcastMessage(Relation.MEMBER, "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&cn'est plus notre alliée !");
-					}else{
-						gm.getGuild().removeEnemy(guild);//else they are no longer enemies bc we request an alliance
-						if(guild.getAllies().contains(gm.getGuild())){//if target guild has requested an alliance, we form it
-							gm.getGuild().addAlly(guild);
-							gm.getGuild().broadcastMessage(Relation.MEMBER, "§&cNous sommes désormais alliés à la guilde §&d§l" + guild.getName() + " §&c!");
-							guild.broadcastMessage(Relation.MEMBER, "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&ca accepté l'alliance !");
-						}else if(gm.getGuild().getAllies().contains(guild)){//we cancel request if already asked
-							gm.getGuild().removeAlly(guild);
-							rp.sendMessage("§eVous avez annulé la requête d'alliance envoyée à §6§l" + guild.getName() + "§e.");
-							guild.broadcastMessage(Relation.MEMBER, "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&ca annulé sa requête d'alliance.");
-						}else{//else we request an alliance
-							gm.getGuild().addAlly(guild);
-							rp.sendMessage("§eVous avez demandé une alliance à la guilde §6§l" + guild.getName() + "§e.");
-							guild.broadcastMessage(Relation.MEMBER, "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&ca demandé une alliance !");
-						}
+						rp.sendMessage("§eVous avez annulé la requête d'alliance envoyée à §6§l" + guild.getName() + "§e.");
+						guild.broadcastMessage(Relation.MEMBER, "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&ca annulé sa requête d'alliance.");
+					}else{//else we request an alliance
+						gm.getGuild().addAlly(guild);
+						rp.sendMessage("§eVous avez demandé une alliance à la guilde §6§l" + guild.getName() + "§e.");
+						guild.broadcastMessage(Relation.MEMBER, "§&cLa guilde §&d§l" + gm.getGuild().getName() + " §&ca demandé une alliance !");
 					}
-				}else rp.sendMessage("§cVous n'avez pas la permission de gérer les relations de guilde !");
-			}else if(slot == this.SLOT_ENEMY){
-				if(gm.getPermission(Permission.RELATIONS)){
-					if(gm.getGuild().getRelationTo(guild).equals(Relation.ENEMY)){//if enemies, we request a neutrality
-						gm.getGuild().removeEnemy(guild);//they are no longer our enemies either way
-						if(guild.getEnemies().contains(gm.getGuild())){//if 
-							rp.sendMessage("§eVous avez demandé à §6§l" + guild.getName() + " §eune relation neutre.");
-							guild.broadcastMessage(Relation.MEMBER, "§&d§l" + gm.getGuild().getName() + " §&ca envoyé une requête de neutralité.");
-						}else{
-							guild.broadcastMessage(Relation.MEMBER, "§&d§l" + gm.getGuild().getName() + " §&cne sont plus nos ennemis !");
-							gm.getGuild().broadcastMessage(Relation.MEMBER, "§&d§l" + guild.getName() + " §&cne sont plus nos ennemis !");
-						}
+				}
+			}else rp.sendMessage("§cVous n'avez pas la permission de gérer les relations de guilde !");
+		}else if(slot == this.SLOT_ENEMY){
+			if(gm.getPermission(Permission.RELATIONS)){
+				if(gm.getGuild().getRelationTo(guild).equals(Relation.ENEMY)){//if enemies, we request a neutrality
+					gm.getGuild().removeEnemy(guild);//they are no longer our enemies either way
+					if(guild.getEnemies().contains(gm.getGuild())){//if 
+						rp.sendMessage("§eVous avez demandé à §6§l" + guild.getName() + " §eune relation neutre.");
+						guild.broadcastMessage(Relation.MEMBER, "§&d§l" + gm.getGuild().getName() + " §&ca envoyé une requête de neutralité.");
 					}else{
-						if(!gm.getGuild().isPeaceful()){
-							if(!guild.isPeaceful()){
-								if(gm.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
-									gm.getGuild().removeAlly(guild);
-									guild.removeAlly(gm.getGuild());
-								}
-								
-								gm.getGuild().addEnemy(guild);
-								gm.getGuild().broadcastMessage(Relation.ENEMY, "§&d§l" + guild.getName() + " §&csont désormais nos ennemis !");
-								guild.broadcastMessage(Relation.ENEMY, "§&d§l" + gm.getGuild().getName() + " §&csont désormais nos ennemis !");
-							}else rp.sendMessage("§4" + guild.getName() + " §cest une guilde en paix ! Elle ne peut entretenir aucune opposition.");
-						}else rp.sendMessage("§cVotre guilde est en paix ! Vous ne pouvez entretenir aucune opposition.");
+						guild.broadcastMessage(Relation.MEMBER, "§&d§l" + gm.getGuild().getName() + " §&cne sont plus nos ennemis !");
+						gm.getGuild().broadcastMessage(Relation.MEMBER, "§&d§l" + guild.getName() + " §&cne sont plus nos ennemis !");
 					}
-				}else rp.sendMessage("§cVous n'avez pas la permission de gérer les relations de guilde !");
-			}
+				}else{
+					if(!gm.getGuild().isPeaceful()){
+						if(!guild.isPeaceful()){
+							if(gm.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
+								gm.getGuild().removeAlly(guild);
+								guild.removeAlly(gm.getGuild());
+							}
+							
+							gm.getGuild().addEnemy(guild);
+							gm.getGuild().broadcastMessage(Relation.ENEMY, "§&d§l" + guild.getName() + " §&csont désormais nos ennemis !");
+							guild.broadcastMessage(Relation.ENEMY, "§&d§l" + gm.getGuild().getName() + " §&csont désormais nos ennemis !");
+						}else rp.sendMessage("§4" + guild.getName() + " §cest une guilde en paix ! Elle ne peut entretenir aucune opposition.");
+					}else rp.sendMessage("§cVotre guilde est en paix ! Vous ne pouvez entretenir aucune opposition.");
+				}
+			}else rp.sendMessage("§cVous n'avez pas la permission de gérer les relations de guilde !");
 		}
 	}
 

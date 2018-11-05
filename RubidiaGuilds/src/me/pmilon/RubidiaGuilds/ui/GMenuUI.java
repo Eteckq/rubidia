@@ -64,37 +64,33 @@ public class GMenuUI extends UIHandler {
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				int slot = e.getRawSlot();
-				if(slot == this.SLOT_INFOS){
-					Core.uiManager.requestUI(new GInfosMenuUI(this.getHolder(), this.getGuild()));
-				}else if(slot == this.SLOT_BANK){
-					if(gm.getPermission(Permission.BANK_DEPOSIT) || rp.isOp()) {
-						Core.uiManager.requestUI(new GBankUI(this.getHolder(), this.getGuild()));
-					}else rp.sendMessage("§cVous n'avez pas la permission de déposer des émeraudes dans la banque de votre guilde.");
-				}else if(slot == this.SLOT_CLAIMS){
-					Core.uiManager.requestUI(new GClaimsMenuUI(this.getHolder(), this.getGuild(), Claim.get(this.getHolder().getLocation())));
-				}else if(slot == this.SLOT_MEMBERS){
-					Core.uiManager.requestUI(new GMembersUI(this.getHolder(), this.getGuild()));
-				}else if(slot == this.SLOT_RANKS){
-					Core.uiManager.requestUI(new GRanksUI(this.getHolder(), this.getGuild()));
-				}else if(slot == this.SLOT_LEAVE){
-					if(!gm.isLeader()){
-						GMemberLeaveGuildEvent event = new GMemberLeaveGuildEvent(this.getGuild(), gm);
-						Bukkit.getPluginManager().callEvent(event);
-						if(!event.isCancelled()){
-							event.getGuild().removeMember(gm);
-							this.close(false);
-							rp.sendMessage("§cVous avez quitté la guilde §4§l" + event.getGuild().getName() + "§c.");
-						}
-					}else rp.sendMessage("§cVous devez d'abord léguer la direction !");
-				}else if(slot == this.SLOT_DISBAND){
-					if(gm.isLeader() || rp.isOp()){
-						Core.uiManager.requestUI(new GuildDisbandConfirmationUI(rp, this.getGuild()));
-					}else rp.sendMessage("§cVous devez être chef pour dissoudre cette guilde !");
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_INFOS){
+			Core.uiManager.requestUI(new GInfosMenuUI(this.getHolder(), this.getGuild()));
+		}else if(slot == this.SLOT_BANK){
+			if(gm.getPermission(Permission.BANK_DEPOSIT) || rp.isOp()) {
+				Core.uiManager.requestUI(new GBankUI(this.getHolder(), this.getGuild()));
+			}else rp.sendMessage("§cVous n'avez pas la permission de déposer des émeraudes dans la banque de votre guilde.");
+		}else if(slot == this.SLOT_CLAIMS){
+			Core.uiManager.requestUI(new GClaimsMenuUI(this.getHolder(), this.getGuild(), Claim.get(this.getHolder().getLocation())));
+		}else if(slot == this.SLOT_MEMBERS){
+			Core.uiManager.requestUI(new GMembersUI(this.getHolder(), this.getGuild()));
+		}else if(slot == this.SLOT_RANKS){
+			Core.uiManager.requestUI(new GRanksUI(this.getHolder(), this.getGuild()));
+		}else if(slot == this.SLOT_LEAVE){
+			if(!gm.isLeader()){
+				GMemberLeaveGuildEvent event = new GMemberLeaveGuildEvent(this.getGuild(), gm);
+				Bukkit.getPluginManager().callEvent(event);
+				if(!event.isCancelled()){
+					event.getGuild().removeMember(gm);
+					this.close(false);
+					rp.sendMessage("§cVous avez quitté la guilde §4§l" + event.getGuild().getName() + "§c.");
 				}
-			}
+			}else rp.sendMessage("§cVous devez d'abord léguer la direction !");
+		}else if(slot == this.SLOT_DISBAND){
+			if(gm.isLeader() || rp.isOp()){
+				Core.uiManager.requestUI(new GuildDisbandConfirmationUI(rp, this.getGuild()));
+			}else rp.sendMessage("§cVous devez être chef pour dissoudre cette guilde !");
 		}
 	}
 

@@ -39,7 +39,10 @@ public class GMembersUI extends ListMenuUIHandler<GMember> {
 
 	@Override
 	protected void onClick(InventoryClickEvent e, Player player, ItemStack is) {
-		this.getUIManager().requestUI(new GMemberPrefsUI(this.getHolder(), this.getGuild(), this.get(e.getRawSlot()), 1));
+		GMember member = this.get(e.getRawSlot());
+		if(member != null) {
+			this.getUIManager().requestUI(new GMemberPrefsUI(this.getHolder(), this.getGuild(), member, 1));
+		}
 	}
 
 	@Override
