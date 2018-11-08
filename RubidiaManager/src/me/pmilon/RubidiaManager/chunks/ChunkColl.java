@@ -13,10 +13,11 @@ public class ChunkColl {
 	public static final List<Chunk> chunks = new ArrayList<Chunk>();
 	
 	public ChunkColl(){
-		if(Configs.getChunksConfig().getConfigurationSection("worlds") != null){
+		if(Configs.getChunksConfig().contains("worlds")){
 			List<String> toDelete = new ArrayList<String>();
+			
 			for(String world : Configs.getChunksConfig().getConfigurationSection("worlds").getKeys(false)){
-				if(Configs.getChunksConfig().getConfigurationSection("worlds." + world + ".chunks") != null){
+				if(Configs.getChunksConfig().contains("worlds." + world + ".chunks")){
 					for(String chunk : Configs.getChunksConfig().getConfigurationSection("worlds." + world + ".chunks").getKeys(false)){
 						if(chunk.split(",").length > 2){
 							World bworld = Bukkit.getWorld(world);
@@ -38,7 +39,7 @@ public class ChunkColl {
 							if(bworld != null){
 								int x = new Integer(chunk.split(",")[1]);
 								int z = new Integer(chunk.split(",")[2]);
-								chunks.add(new NChunk(bworld, x, z, Configs.getChunksConfig().getBoolean("worlds." + world + ".nochunks." + chunk)));
+								chunks.add(new NChunk(bworld, x, z));
 							}else{
 								if(!toDelete.contains(world))toDelete.add(world);
 							}
@@ -73,7 +74,6 @@ public class ChunkColl {
 		if(chunk instanceof RChunk){
 			Configs.getChunksConfig().set("worlds." + chunk.getWorld().getName() + ".chunks." + chunk.getSaveName(), null);
 		}else if(chunk instanceof NChunk){
-			((NChunk) chunk).setActive(false);
 			Configs.getChunksConfig().set("worlds." + chunk.getWorld().getName() + ".nochunks." + chunk.getSaveName(), null);
 		}
 	}
@@ -84,10 +84,7 @@ public class ChunkColl {
 				RChunk rchunk = (RChunk)chunk;
 				Configs.getChunksConfig().set("worlds." + chunk.getWorld().getName() + ".chunks." + chunk.getSaveName() + ".regenerated", rchunk.isRegenerated());
 			}else if(chunk instanceof NChunk){
-				NChunk nchunk = (NChunk)chunk;
-				if(nchunk.isActive()){
-					Configs.getChunksConfig().set("worlds." + chunk.getWorld().getName() + ".nochunks." + chunk.getSaveName(), true);
-				}else Configs.getChunksConfig().set("worlds." + chunk.getWorld().getName() + ".nochunks." + chunk.getSaveName(), null);
+				Configs.getChunksConfig().set("worlds." + chunk.getWorld().getName() + ".nochunks." + chunk.getSaveName(), true);
 			}
 		}
 		Configs.saveChunksConfig();

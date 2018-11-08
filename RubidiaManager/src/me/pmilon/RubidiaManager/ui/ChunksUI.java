@@ -70,7 +70,7 @@ public class ChunksUI extends UIHandler {
 				if(!e.isShiftClick()){
 					if(chunk instanceof RChunk){
 						RubidiaManagerPlugin.getChunkColl().delete(chunk);
-						NChunk nchunk = new NChunk(chunk.getWorld(), chunk.getX(), chunk.getZ(), true);
+						NChunk nchunk = new NChunk(chunk.getWorld(), chunk.getX(), chunk.getZ());
 						ChunkColl.chunks.add(nchunk);
 						
 						ChunkManager manager = ChunkManager.getManager(nchunk);

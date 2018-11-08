@@ -44,7 +44,7 @@ public class ChunkCommandExecutor extends HybridAdminCommandExecutor {
 			Claim claim = Claim.get(chunk.getBukkitChunk());
 			if(claim == null || !claim.getGuild().isActive()){
 				RubidiaManagerPlugin.getChunkColl().delete(chunk);
-				NChunk nchunk = new NChunk(chunk.getWorld(), chunk.getX(), chunk.getZ(), true);
+				NChunk nchunk = new NChunk(chunk.getWorld(), chunk.getX(), chunk.getZ());
 				ChunkColl.chunks.add(nchunk);
 				
 				ChunkManager manager = ChunkManager.getManager(nchunk);

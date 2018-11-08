@@ -36,8 +36,6 @@ public class RubidiaManagerPlugin extends JavaPlugin {
 	
 	public static MultiverseCore multiverseCore;
 	
-	private static File savesFolder;
-	
 	public static RubidiaManagerPlugin instance;
 	public static File chunksConfigFile;
 	public static FileConfiguration chunksConfig;
@@ -51,9 +49,6 @@ public class RubidiaManagerPlugin extends JavaPlugin {
 		Configs.getChunksConfig().options().copyDefaults(true);
 		this.saveDefaultConfig();
 		Configs.saveDefaultChunksConfig();
-		
-		savesFolder = new File(RubidiaManagerPlugin.instance.getDataFolder().getAbsolutePath() + "/saves");
-		if(!savesFolder.exists())savesFolder.mkdirs();
 		
 		regenerator = new WorldRegenHandler(this);
 		chunkColl = new ChunkColl();
@@ -112,8 +107,10 @@ public class RubidiaManagerPlugin extends JavaPlugin {
 		return chunkHandler;
 	}
 	
-	public static File getSavesFolder(){
-		return savesFolder;
+	public static File getSavesFolder(World world){
+		File dir = new File(RubidiaManagerPlugin.instance.getDataFolder().getAbsolutePath() + "/saves/" + world.getName());
+		if(!dir.exists())dir.mkdirs();
+		return dir;
 	}
 	
 	

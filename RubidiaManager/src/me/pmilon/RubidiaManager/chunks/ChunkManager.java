@@ -119,7 +119,7 @@ public class ChunkManager {
 
 			for(Entity entity : location.getChunk().getEntities()){
 				if(entity instanceof Player || entity instanceof EnderCrystal || entity instanceof Minecart || entity instanceof Boat)continue;
-				if(entity instanceof ArmorStand && !entity.hasMetadata("display") && !entity.hasMetadata("monster") && entity.getCustomName() == null)continue;
+				if(entity instanceof ArmorStand && !entity.hasMetadata("display") && entity.getCustomName() == null)continue;
 				entity.remove();
 			}
 			
@@ -185,7 +185,7 @@ public class ChunkManager {
 	}
 
 	public File getFile(){
-		return new File(RubidiaManagerPlugin.getSavesFolder(), this.getChunk().getSaveName() + ".schematic");
+		return new File(RubidiaManagerPlugin.getSavesFolder(this.getChunk().getWorld()), this.getChunk().getSaveName() + ".schematic");
 	}
 	
 	public EditSession getEditSession() {
