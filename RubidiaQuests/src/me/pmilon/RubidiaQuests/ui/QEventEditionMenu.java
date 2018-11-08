@@ -83,61 +83,59 @@ public class QEventEditionMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK){
-				Core.uiManager.requestUI(new QEventsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
-			}else if(slot == this.SLOT_BLK)this.close(true, this.LIST_ID_BLK);
-			else if(slot == this.SLOT_EFF)this.close(true, this.LIST_ID_EFF);
-			else if(slot == this.SLOT_MST)Core.uiManager.requestUI(new QEventMonsterSelectMenu(this.getHolder(), this.getPnj(), this.getQuest(), this.getQEvent()));
-			else if(slot == this.SLOT_LOC)this.close(true, this.LIST_ID_LOC);
-			else if(slot == this.SLOT_RNG)this.close(true, this.LIST_ID_RNG);
-			else if(slot == this.SLOT_ITEM)this.close(true, this.LIST_ID_ITEM);
-			else if(slot == this.SLOT_AMT){
-				int amount = 1;
-				if(e.isShiftClick())amount = 10;
-				if(e.isRightClick()){
-					this.getQEvent().setAmount(this.getQEvent().getAmount()-amount);
-				}else{
-					this.getQEvent().setAmount(this.getQEvent().getAmount()+amount);
-				}
-				this.menu.setItem(this.SLOT_AMT, this.getAmt());
-			}else if(slot == this.SLOT_LVL){
-				int amount = 1;
-				if(e.isShiftClick())amount = 10;
-				if(e.isRightClick()){
-					this.getQEvent().setMonsterLevel(this.getQEvent().getMonsterLevel()-amount);
-				}else{
-					this.getQEvent().setMonsterLevel(this.getQEvent().getMonsterLevel()+amount);
-				}
-				this.menu.setItem(this.SLOT_LVL, this.getLvl());
-			}else if(slot == this.SLOT_TYPE){
-				this.menu.clear();
-				if(this.getQEvent().getType().equals(QEventType.BLOCKS)){
-					this.getQEvent().setType(QEventType.EFFECT);
-					this.menu.setItem(this.SLOT_EFF, this.getEff());
-				}else if(this.getQEvent().getType().equals(QEventType.EFFECT)){
-					this.getQEvent().setType(QEventType.SPAWN);
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-					this.menu.setItem(this.SLOT_MST, this.getMst());
-					this.menu.setItem(this.SLOT_LVL, this.getLvl());
-					this.menu.setItem(this.SLOT_LOC, this.getLoc());
-					this.menu.setItem(this.SLOT_RNG, this.getRng());
-				}else if(this.getQEvent().getType().equals(QEventType.SPAWN)){
-					this.getQEvent().setType(QEventType.TELEPORTATION);
-					this.menu.setItem(this.SLOT_LOC, this.getLoc());
-				}else if(this.getQEvent().getType().equals(QEventType.TELEPORTATION)){
-					this.getQEvent().setType(QEventType.ITEM);
-					this.menu.setItem(this.SLOT_ITEM, this.getQEvent().getItemStack().clone());
-				}else if(this.getQEvent().getType().equals(QEventType.ITEM)){
-					this.getQEvent().setType(QEventType.BLOCKS);
-					this.menu.setItem(this.SLOT_BLK, this.getBlk());
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-				}
-				this.menu.setItem(this.SLOT_TYPE, this.getQType());
-				this.menu.setItem(this.SLOT_BACK, this.getBack());
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK){
+			Core.uiManager.requestUI(new QEventsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
+		}else if(slot == this.SLOT_BLK)this.close(true, this.LIST_ID_BLK);
+		else if(slot == this.SLOT_EFF)this.close(true, this.LIST_ID_EFF);
+		else if(slot == this.SLOT_MST)Core.uiManager.requestUI(new QEventMonsterSelectMenu(this.getHolder(), this.getPnj(), this.getQuest(), this.getQEvent()));
+		else if(slot == this.SLOT_LOC)this.close(true, this.LIST_ID_LOC);
+		else if(slot == this.SLOT_RNG)this.close(true, this.LIST_ID_RNG);
+		else if(slot == this.SLOT_ITEM)this.close(true, this.LIST_ID_ITEM);
+		else if(slot == this.SLOT_AMT){
+			int amount = 1;
+			if(e.isShiftClick())amount = 10;
+			if(e.isRightClick()){
+				this.getQEvent().setAmount(this.getQEvent().getAmount()-amount);
+			}else{
+				this.getQEvent().setAmount(this.getQEvent().getAmount()+amount);
 			}
+			this.menu.setItem(this.SLOT_AMT, this.getAmt());
+		}else if(slot == this.SLOT_LVL){
+			int amount = 1;
+			if(e.isShiftClick())amount = 10;
+			if(e.isRightClick()){
+				this.getQEvent().setMonsterLevel(this.getQEvent().getMonsterLevel()-amount);
+			}else{
+				this.getQEvent().setMonsterLevel(this.getQEvent().getMonsterLevel()+amount);
+			}
+			this.menu.setItem(this.SLOT_LVL, this.getLvl());
+		}else if(slot == this.SLOT_TYPE){
+			this.menu.clear();
+			if(this.getQEvent().getType().equals(QEventType.BLOCKS)){
+				this.getQEvent().setType(QEventType.EFFECT);
+				this.menu.setItem(this.SLOT_EFF, this.getEff());
+			}else if(this.getQEvent().getType().equals(QEventType.EFFECT)){
+				this.getQEvent().setType(QEventType.SPAWN);
+				this.menu.setItem(this.SLOT_AMT, this.getAmt());
+				this.menu.setItem(this.SLOT_MST, this.getMst());
+				this.menu.setItem(this.SLOT_LVL, this.getLvl());
+				this.menu.setItem(this.SLOT_LOC, this.getLoc());
+				this.menu.setItem(this.SLOT_RNG, this.getRng());
+			}else if(this.getQEvent().getType().equals(QEventType.SPAWN)){
+				this.getQEvent().setType(QEventType.TELEPORTATION);
+				this.menu.setItem(this.SLOT_LOC, this.getLoc());
+			}else if(this.getQEvent().getType().equals(QEventType.TELEPORTATION)){
+				this.getQEvent().setType(QEventType.ITEM);
+				this.menu.setItem(this.SLOT_ITEM, this.getQEvent().getItemStack().clone());
+			}else if(this.getQEvent().getType().equals(QEventType.ITEM)){
+				this.getQEvent().setType(QEventType.BLOCKS);
+				this.menu.setItem(this.SLOT_BLK, this.getBlk());
+				this.menu.setItem(this.SLOT_AMT, this.getAmt());
+			}
+			this.menu.setItem(this.SLOT_TYPE, this.getQType());
+			this.menu.setItem(this.SLOT_BACK, this.getBack());
 		}
 	}
 

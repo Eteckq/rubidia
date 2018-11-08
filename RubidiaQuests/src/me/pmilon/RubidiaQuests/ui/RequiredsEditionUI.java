@@ -55,29 +55,27 @@ public class RequiredsEditionUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK){
-				if(this.getPnj().getType().equals(PNJType.QUEST))Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), (Quest)this.getRequiredHolder(), (QuestPNJ) this.getPnj()));
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK){
+			if(this.getPnj().getType().equals(PNJType.QUEST))Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), (Quest)this.getRequiredHolder(), (QuestPNJ) this.getPnj()));
+		}else{
+			Required required = null;
+			for(Required rq : this.getRequiredHolder().getRequireds()){
+				if(slot == rq.getIndex()){
+					required = rq;
+					break;
+				}
+			}
+			if(required != null){
+				if(e.isRightClick()){
+					this.getRequiredHolder().delete(required);
+					Core.uiManager.requestUI(new RequiredsEditionUI(this.getHolder(), this.getRequiredHolder(), this.getPnj()));
+				}else Core.uiManager.requestUI(new RequiredEditionMenu(this.getHolder(), this.getRequiredHolder(), this.getPnj(), required));
 			}else{
-				Required required = null;
-				for(Required rq : this.getRequiredHolder().getRequireds()){
-					if(slot == rq.getIndex()){
-						required = rq;
-						break;
-					}
-				}
-				if(required != null){
-					if(e.isRightClick()){
-						this.getRequiredHolder().delete(required);
-						Core.uiManager.requestUI(new RequiredsEditionUI(this.getHolder(), this.getRequiredHolder(), this.getPnj()));
-					}else Core.uiManager.requestUI(new RequiredEditionMenu(this.getHolder(), this.getRequiredHolder(), this.getPnj(), required));
-				}else{
-					required = new Required(this.getRequiredHolder().getUUID(), slot, RequiredType.LEVEL, new ItemStack(Material.STONE, 1), RClass.VAGRANT, RJob.JOBLESS, ((Quest)this.getRequiredHolder()).getUUID(), 0, Mastery.VAGRANT, this.getHolder().getWorld().getTime(), this.getHolder().getWorld().getTime(), false, "Required not filled", true);
-					this.getRequiredHolder().getRequireds().add(required);
-					Core.uiManager.requestUI(new RequiredEditionMenu(this.getHolder(), this.getRequiredHolder(), this.getPnj(), required));
-				}
+				required = new Required(this.getRequiredHolder().getUUID(), slot, RequiredType.LEVEL, new ItemStack(Material.STONE, 1), RClass.VAGRANT, RJob.JOBLESS, ((Quest)this.getRequiredHolder()).getUUID(), 0, Mastery.VAGRANT, this.getHolder().getWorld().getTime(), this.getHolder().getWorld().getTime(), false, "Required not filled", true);
+				this.getRequiredHolder().getRequireds().add(required);
+				Core.uiManager.requestUI(new RequiredEditionMenu(this.getHolder(), this.getRequiredHolder(), this.getPnj(), required));
 			}
 		}
 	}

@@ -73,75 +73,73 @@ public class RewardEditionMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new RewardsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
-			else if(slot == this.SLOT_CLASS){
-				if(this.getReward().getRClass().equals(RClass.VAGRANT))this.getReward().setRClass(RClass.ASSASSIN);
-				else if(this.getReward().getRClass().equals(RClass.ASSASSIN))this.getReward().setRClass(RClass.MAGE);
-				else if(this.getReward().getRClass().equals(RClass.MAGE))this.getReward().setRClass(RClass.PALADIN);
-				else if(this.getReward().getRClass().equals(RClass.PALADIN))this.getReward().setRClass(RClass.RANGER);
-				else if(this.getReward().getRClass().equals(RClass.RANGER))this.getReward().setRClass(RClass.VAGRANT);
-				this.menu.setItem(this.SLOT_CLASS, this.getRClass());
-			}else if(slot == this.SLOT_JOB){
-				//TODO cycle jobs
-				this.menu.setItem(this.SLOT_JOB, this.getRJob());
-			}else if(slot == this.SLOT_AMT){
-				int amount = 1;
-				if(e.isShiftClick())amount = 10;
-				if(e.isRightClick()){
-					this.getReward().setAmount(this.getReward().getAmount()-amount);
-				}else{
-					this.getReward().setAmount(this.getReward().getAmount()+amount);
-				}
-				this.menu.setItem(this.SLOT_AMT, this.getAmt());
-			}else if(slot == this.SLOT_XP)this.close(true, this.LIST_ID_XP);
-			else if(slot == this.SLOT_CMD)this.close(true, this.LIST_ID_CMD);
-			else if(slot == this.SLOT_ITEM)this.close(true, this.LIST_ID_ITEM);
-			else if(slot == this.SLOT_MASTERY){
-				if(this.getReward().getMastery().equals(Mastery.ADVENTURER))this.getReward().setMastery(Mastery.MASTER);
-				else if(this.getReward().getMastery().equals(Mastery.MASTER))this.getReward().setMastery(Mastery.HERO);
-				else if(this.getReward().getMastery().equals(Mastery.HERO))this.getReward().setMastery(Mastery.ADVENTURER);
-				this.menu.setItem(this.SLOT_MASTERY, this.getMastery());
-			}else if(slot == this.SLOT_QUEST){
-				Core.uiManager.requestUI(new QuestListRewardChoose(this.getHolder(), this.getQuest(), this.getPnj(), this.getReward()));
-			}else if(slot == this.SLOT_TYPE){
-				this.menu.clear();
-				if(this.getReward().getType().equals(RewardType.CLASS)){
-					this.getReward().setType(RewardType.ITEM);
-					this.menu.setItem(this.SLOT_ITEM, this.getItem());
-				}else if(this.getReward().getType().equals(RewardType.ITEM)){
-					this.getReward().setType(RewardType.JOB);
-					this.menu.setItem(this.SLOT_JOB, this.getRJob());
-				}else if(this.getReward().getType().equals(RewardType.JOB)){
-					this.getReward().setType(RewardType.MASTERY);
-					this.menu.setItem(this.SLOT_MASTERY, this.getMastery());
-				}else if(this.getReward().getType().equals(RewardType.MASTERY)){
-					this.getReward().setType(RewardType.MONEY);
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-				}else if(this.getReward().getType().equals(RewardType.MONEY)){
-					this.getReward().setType(RewardType.QUEST);
-					this.menu.setItem(this.SLOT_QUEST, this.getQuestTarget());
-				}else if(this.getReward().getType().equals(RewardType.QUEST)){
-					this.getReward().setType(RewardType.SKP);
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-				}else if(this.getReward().getType().equals(RewardType.SKP)){
-					this.getReward().setType(RewardType.SKD);
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-				}else if(this.getReward().getType().equals(RewardType.SKD)){
-					this.getReward().setType(RewardType.XP);
-					this.menu.setItem(this.SLOT_XP, this.getXP());
-				}else if(this.getReward().getType().equals(RewardType.XP)){
-					this.getReward().setType(RewardType.COMMAND);
-					this.menu.setItem(this.SLOT_CMD, this.getCmd());
-				}else if(this.getReward().getType().equals(RewardType.COMMAND)){
-					this.getReward().setType(RewardType.CLASS);
-					this.menu.setItem(this.SLOT_CLASS, this.getRClass());
-				}
-				this.menu.setItem(this.SLOT_TYPE, this.getRType());
-				this.menu.setItem(this.SLOT_BACK, this.getBack());
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new RewardsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
+		else if(slot == this.SLOT_CLASS){
+			if(this.getReward().getRClass().equals(RClass.VAGRANT))this.getReward().setRClass(RClass.ASSASSIN);
+			else if(this.getReward().getRClass().equals(RClass.ASSASSIN))this.getReward().setRClass(RClass.MAGE);
+			else if(this.getReward().getRClass().equals(RClass.MAGE))this.getReward().setRClass(RClass.PALADIN);
+			else if(this.getReward().getRClass().equals(RClass.PALADIN))this.getReward().setRClass(RClass.RANGER);
+			else if(this.getReward().getRClass().equals(RClass.RANGER))this.getReward().setRClass(RClass.VAGRANT);
+			this.menu.setItem(this.SLOT_CLASS, this.getRClass());
+		}else if(slot == this.SLOT_JOB){
+			//TODO cycle jobs
+			this.menu.setItem(this.SLOT_JOB, this.getRJob());
+		}else if(slot == this.SLOT_AMT){
+			int amount = 1;
+			if(e.isShiftClick())amount = 10;
+			if(e.isRightClick()){
+				this.getReward().setAmount(this.getReward().getAmount()-amount);
+			}else{
+				this.getReward().setAmount(this.getReward().getAmount()+amount);
 			}
+			this.menu.setItem(this.SLOT_AMT, this.getAmt());
+		}else if(slot == this.SLOT_XP)this.close(true, this.LIST_ID_XP);
+		else if(slot == this.SLOT_CMD)this.close(true, this.LIST_ID_CMD);
+		else if(slot == this.SLOT_ITEM)this.close(true, this.LIST_ID_ITEM);
+		else if(slot == this.SLOT_MASTERY){
+			if(this.getReward().getMastery().equals(Mastery.ADVENTURER))this.getReward().setMastery(Mastery.MASTER);
+			else if(this.getReward().getMastery().equals(Mastery.MASTER))this.getReward().setMastery(Mastery.HERO);
+			else if(this.getReward().getMastery().equals(Mastery.HERO))this.getReward().setMastery(Mastery.ADVENTURER);
+			this.menu.setItem(this.SLOT_MASTERY, this.getMastery());
+		}else if(slot == this.SLOT_QUEST){
+			Core.uiManager.requestUI(new QuestListRewardChoose(this.getHolder(), this.getQuest(), this.getPnj(), this.getReward()));
+		}else if(slot == this.SLOT_TYPE){
+			this.menu.clear();
+			if(this.getReward().getType().equals(RewardType.CLASS)){
+				this.getReward().setType(RewardType.ITEM);
+				this.menu.setItem(this.SLOT_ITEM, this.getItem());
+			}else if(this.getReward().getType().equals(RewardType.ITEM)){
+				this.getReward().setType(RewardType.JOB);
+				this.menu.setItem(this.SLOT_JOB, this.getRJob());
+			}else if(this.getReward().getType().equals(RewardType.JOB)){
+				this.getReward().setType(RewardType.MASTERY);
+				this.menu.setItem(this.SLOT_MASTERY, this.getMastery());
+			}else if(this.getReward().getType().equals(RewardType.MASTERY)){
+				this.getReward().setType(RewardType.MONEY);
+				this.menu.setItem(this.SLOT_AMT, this.getAmt());
+			}else if(this.getReward().getType().equals(RewardType.MONEY)){
+				this.getReward().setType(RewardType.QUEST);
+				this.menu.setItem(this.SLOT_QUEST, this.getQuestTarget());
+			}else if(this.getReward().getType().equals(RewardType.QUEST)){
+				this.getReward().setType(RewardType.SKP);
+				this.menu.setItem(this.SLOT_AMT, this.getAmt());
+			}else if(this.getReward().getType().equals(RewardType.SKP)){
+				this.getReward().setType(RewardType.SKD);
+				this.menu.setItem(this.SLOT_AMT, this.getAmt());
+			}else if(this.getReward().getType().equals(RewardType.SKD)){
+				this.getReward().setType(RewardType.XP);
+				this.menu.setItem(this.SLOT_XP, this.getXP());
+			}else if(this.getReward().getType().equals(RewardType.XP)){
+				this.getReward().setType(RewardType.COMMAND);
+				this.menu.setItem(this.SLOT_CMD, this.getCmd());
+			}else if(this.getReward().getType().equals(RewardType.COMMAND)){
+				this.getReward().setType(RewardType.CLASS);
+				this.menu.setItem(this.SLOT_CLASS, this.getRClass());
+			}
+			this.menu.setItem(this.SLOT_TYPE, this.getRType());
+			this.menu.setItem(this.SLOT_BACK, this.getBack());
 		}
 	}
 

@@ -79,30 +79,28 @@ public class PNJSettings extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_TITLE)this.close(true, this.LISTENING_ID_TITLE);
-			else if(slot == this.SLOT_NAME)this.close(true, this.LISTENING_ID_NAME);
-			else if(slot == this.SLOT_NO_QUEST){
-				if(this.getPnj().getType().equals(PNJType.PASSER))this.close(true, this.LISTENING_ID_TARGET);
-				else if(this.getPnj().getType().equals(PNJType.QUEST) || this.getPnj() instanceof ActivePNJ)this.close(true, this.LISTENING_ID_NOQUEST);
-				else if(this.getPnj().getType().equals(PNJType.PASTOR))this.close(true, this.LISTENING_ID_LOC2);
-			}else if(slot == this.SLOT_DIAL_QUST){
-				if(this.getPnj().getType().equals(PNJType.QUEST))Core.uiManager.requestUI(new PNJQuests(this.getHolder(), (QuestPNJ)this.getPnj()));
-				else if(this.getPnj().getType().equals(PNJType.SHOP))Core.uiManager.requestUI(new ShopEditionUI(this.getHolder(), ((ShopPNJ) this.getPnj()).getShop(),0));
-				else if(this.getPnj().getType().equals(PNJType.PASTOR))this.close(true, this.LISTENING_ID_LOC1);
-				else Core.uiManager.requestUI(new PNJDialogs(this.getHolder(), (DialogerPNJ)this.getPnj()));
-			}else if(slot == this.SLOT_MOVE)this.close(true, this.LISTENING_ID_MOVE);
-			else if(slot == this.SLOT_DELETE){
-				this.getPnj().delete();
-				this.close(false);
-			}else if(slot == this.SLOT_AGE){
-				this.getPnj().setBaby(!this.getPnj().isBaby());
-			}else if(slot == this.SLOT_FIX){
-				this.getPnj().setFix(!this.getPnj().isFix());
-				getMenu().setItem(SLOT_FIX, getFix());
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_TITLE)this.close(true, this.LISTENING_ID_TITLE);
+		else if(slot == this.SLOT_NAME)this.close(true, this.LISTENING_ID_NAME);
+		else if(slot == this.SLOT_NO_QUEST){
+			if(this.getPnj().getType().equals(PNJType.PASSER))this.close(true, this.LISTENING_ID_TARGET);
+			else if(this.getPnj().getType().equals(PNJType.QUEST) || this.getPnj() instanceof ActivePNJ)this.close(true, this.LISTENING_ID_NOQUEST);
+			else if(this.getPnj().getType().equals(PNJType.PASTOR))this.close(true, this.LISTENING_ID_LOC2);
+		}else if(slot == this.SLOT_DIAL_QUST){
+			if(this.getPnj().getType().equals(PNJType.QUEST))Core.uiManager.requestUI(new PNJQuests(this.getHolder(), (QuestPNJ)this.getPnj()));
+			else if(this.getPnj().getType().equals(PNJType.SHOP))Core.uiManager.requestUI(new ShopEditionUI(this.getHolder(), ((ShopPNJ) this.getPnj()).getShop(),0));
+			else if(this.getPnj().getType().equals(PNJType.PASTOR))this.close(true, this.LISTENING_ID_LOC1);
+			else Core.uiManager.requestUI(new PNJDialogs(this.getHolder(), (DialogerPNJ)this.getPnj()));
+		}else if(slot == this.SLOT_MOVE)this.close(true, this.LISTENING_ID_MOVE);
+		else if(slot == this.SLOT_DELETE){
+			this.getPnj().delete();
+			this.close(false);
+		}else if(slot == this.SLOT_AGE){
+			this.getPnj().setBaby(!this.getPnj().isBaby());
+		}else if(slot == this.SLOT_FIX){
+			this.getPnj().setFix(!this.getPnj().isFix());
+			getMenu().setItem(SLOT_FIX, getFix());
 		}
 	}
 

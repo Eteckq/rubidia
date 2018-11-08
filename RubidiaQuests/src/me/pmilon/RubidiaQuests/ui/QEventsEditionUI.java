@@ -52,28 +52,26 @@ public class QEventsEditionUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), this.getQuest(), this.getPnj()));
-			else{
-				QEvent qEvent = null;
-				for(QEvent qe : this.getQuest().getQEvents()){
-					if(slot == qe.getIndex()){
-						qEvent = qe;
-						break;
-					}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), this.getQuest(), this.getPnj()));
+		else{
+			QEvent qEvent = null;
+			for(QEvent qe : this.getQuest().getQEvents()){
+				if(slot == qe.getIndex()){
+					qEvent = qe;
+					break;
 				}
-				if(qEvent != null){
-					if(e.isRightClick()){
-						this.getQuest().delete(qEvent);
-						Core.uiManager.requestUI(new QEventsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
-					}else Core.uiManager.requestUI(new QEventEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), qEvent));
-				}else{
-					qEvent = new QEvent(this.getQuest().getUUID(), slot, QEventType.TELEPORTATION, 0, 3.0, this.getHolder().getLocation(), Monsters.monsters.get(0).getUUID(), 1, new PotionEffect(PotionEffectType.BLINDNESS, 30, 0, true, false), new ArrayList<Block>(), new ItemStack(Material.STONE, 1), true);
-					this.getQuest().getQEvents().add(qEvent);
-					Core.uiManager.requestUI(new QEventEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), qEvent));
-				}
+			}
+			if(qEvent != null){
+				if(e.isRightClick()){
+					this.getQuest().delete(qEvent);
+					Core.uiManager.requestUI(new QEventsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
+				}else Core.uiManager.requestUI(new QEventEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), qEvent));
+			}else{
+				qEvent = new QEvent(this.getQuest().getUUID(), slot, QEventType.TELEPORTATION, 0, 3.0, this.getHolder().getLocation(), Monsters.monsters.get(0).getUUID(), 1, new PotionEffect(PotionEffectType.BLINDNESS, 30, 0, true, false), new ArrayList<Block>(), new ItemStack(Material.STONE, 1), true);
+				this.getQuest().getQEvents().add(qEvent);
+				Core.uiManager.requestUI(new QEventEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), qEvent));
 			}
 		}
 	}

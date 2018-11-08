@@ -102,8 +102,10 @@ public class QuestListChooseUI extends ListMenuUIHandler<Quest> {
 	@Override
 	protected void onClick(InventoryClickEvent e, Player p, ItemStack is) {
 		Quest quest = this.get(e.getRawSlot());
-		this.getPnj().getQuests().add(quest);
-		Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), quest, this.getPnj()));
+		if(quest != null) {
+			this.getPnj().getQuests().add(quest);
+			Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), quest, this.getPnj()));
+		}
 	}
 
 	@Override

@@ -63,14 +63,12 @@ public class QEventMonsterSelectMenu extends ListMenuUIHandler<Monster>{
 
 	@Override
 	protected void onClick(InventoryClickEvent e, Player arg1, ItemStack arg2) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			Monster monster = this.get(slot);
-			if(monster != null){
-				this.getQEvent().setMonsterUUID(monster.getUUID());
-				Core.uiManager.requestUI(new QEventEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), this.getQEvent()));
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		Monster monster = this.get(slot);
+		if(monster != null){
+			this.getQEvent().setMonsterUUID(monster.getUUID());
+			Core.uiManager.requestUI(new QEventEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), this.getQEvent()));
 		}
 	}
 

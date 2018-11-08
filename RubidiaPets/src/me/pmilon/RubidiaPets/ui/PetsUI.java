@@ -65,21 +65,19 @@ public class PetsUI extends ListMenuUIHandler<Pet> {
 
 	@Override
 	protected void onClick(InventoryClickEvent e, Player arg1, ItemStack arg2) {
-		if(e.getCurrentItem() != null){
-			int slot = e.getRawSlot();
-			Pet pet = this.get(slot);
-			if(pet != null){
-				if(pet.isActive()){
-					pet.despawn();
-					pet.setActive(false);
-					rp.sendMessage("§cVous avez rangé §4" + pet.getName() + "§c.");
-				}else{
-					pet.spawn(this.getHolder());
-					pet.setActive(true);
-					rp.sendMessage("§aVous avez fait sortir §2" + pet.getName() + "§a.");
-				}
-				this.menu.setItem(slot, this.getItem(pet));
+		int slot = e.getRawSlot();
+		Pet pet = this.get(slot);
+		if(pet != null){
+			if(pet.isActive()){
+				pet.despawn();
+				pet.setActive(false);
+				rp.sendMessage("§cVous avez rangé §4" + pet.getName() + "§c.");
+			}else{
+				pet.spawn(this.getHolder());
+				pet.setActive(true);
+				rp.sendMessage("§aVous avez fait sortir §2" + pet.getName() + "§a.");
 			}
+			this.menu.setItem(slot, this.getItem(pet));
 		}
 	}
 

@@ -42,18 +42,15 @@ public abstract class DialogsEditionMenu extends UIHandler {
 	
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)this.back(p);
-			else if(e.isRightClick()){
-				if(this.dialogs.size() > slot){
-					this.dialogs.remove(slot);
-					Core.uiManager.requestUI(this);
-				}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)this.back(p);
+		else if(e.isRightClick()){
+			if(this.dialogs.size() > slot){
+				this.dialogs.remove(slot);
+				Core.uiManager.requestUI(this);
 			}
-			else this.close(true, slot);
-		}
+		} else this.close(true, slot);
 	}
 	
 	@Override

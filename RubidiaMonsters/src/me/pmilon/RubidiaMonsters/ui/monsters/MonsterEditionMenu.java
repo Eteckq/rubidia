@@ -55,53 +55,51 @@ public class MonsterEditionMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_NAME)this.close(true, this.LIST_ID_NAME);
-			else if(slot == this.SLOT_TYPE)this.close(true, this.LIST_ID_TYPE);
-			else if(slot == this.SLOT_XPF){
-				if(!this.getMonster().isAverage()){
-					this.close(true, this.LIST_ID_XPF);
-				}else rp.sendMessage("§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
-			}else if(slot == this.SLOT_HPF){
-				if(!this.getMonster().isAverage()){
-					this.close(true, this.LIST_ID_HPF);
-				}else rp.sendMessage("§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
-			}else if(slot == this.SLOT_DF){
-				if(!this.getMonster().isAverage()){
-					this.close(true, this.LIST_ID_DF);
-				}else rp.sendMessage("§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
-			}else if(slot == this.SLOT_AVR){
-				this.getMonster().setAverage(!this.getMonster().isAverage());
-				this.getMenu().setItem(this.SLOT_AVR, this.getAverage());
-				if(this.getMonster().isAverage()){
-					double level = (this.getRegion().getMinLevel()+this.getRegion().getMaxLevel())/2.0;
-					this.getMonster().setHealthFactor(me.pmilon.RubidiaMonsters.utils.Utils.getHPFactor(level));
-					this.getMonster().setXPFactor(me.pmilon.RubidiaMonsters.utils.Utils.getXPFactor(level));
-					this.getMonster().setDamagesFactor(me.pmilon.RubidiaMonsters.utils.Utils.getDFactor(level));
-					this.menu.setItem(this.SLOT_XPF, this.getXpf());
-					this.menu.setItem(this.SLOT_HPF, this.getHpf());
-					this.menu.setItem(this.SLOT_DF, this.getDf());
-				}
-			}else if(slot == this.SLOT_DROPS)Core.uiManager.requestUI(new MonsterDropsEditionUI(this.getHolder(), this.getRegion(), this.getMonster()));
-			else if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new MonstersUI(this.getHolder(), this.getRegion()));
-			else if(slot == this.SLOT_DELETE){
-				Monsters.monsters.remove(this.getMonster());
-				for(Region region : Regions.regions){
-					region.getMonsters().remove(this.getMonster());
-				}
-				Configs.getMonstersConfig().set("monsters." + this.getMonster().getUUID(), null);
-				Configs.saveMonstersConfig();
-				Core.uiManager.requestUI(new MonstersUI(this.getHolder(), this.getRegion()));
-			}else if(slot > 8){
-				if(this.getMonster().getAttacks().size() <= slot-9){
-					AbstractAttack attack = new AbstractAttack(AttackType.LEAP_ATTACK);
-					this.getMonster().getAttacks().add(attack);
-					Core.uiManager.requestUI(new MonsterAttackEditionMenu(this.getHolder(), this.getRegion(), this.getMonster(), attack));
-				}else{
-					Core.uiManager.requestUI(new MonsterAttackEditionMenu(this.getHolder(), this.getRegion(), this.getMonster(), this.getMonster().getAttacks().get(slot-9)));
-				}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_NAME)this.close(true, this.LIST_ID_NAME);
+		else if(slot == this.SLOT_TYPE)this.close(true, this.LIST_ID_TYPE);
+		else if(slot == this.SLOT_XPF){
+			if(!this.getMonster().isAverage()){
+				this.close(true, this.LIST_ID_XPF);
+			}else rp.sendMessage("§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
+		}else if(slot == this.SLOT_HPF){
+			if(!this.getMonster().isAverage()){
+				this.close(true, this.LIST_ID_HPF);
+			}else rp.sendMessage("§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
+		}else if(slot == this.SLOT_DF){
+			if(!this.getMonster().isAverage()){
+				this.close(true, this.LIST_ID_DF);
+			}else rp.sendMessage("§cCe monstre est average ! Désactivez cette option pour modifier ses statistiques.");
+		}else if(slot == this.SLOT_AVR){
+			this.getMonster().setAverage(!this.getMonster().isAverage());
+			this.getMenu().setItem(this.SLOT_AVR, this.getAverage());
+			if(this.getMonster().isAverage()){
+				double level = (this.getRegion().getMinLevel()+this.getRegion().getMaxLevel())/2.0;
+				this.getMonster().setHealthFactor(me.pmilon.RubidiaMonsters.utils.Utils.getHPFactor(level));
+				this.getMonster().setXPFactor(me.pmilon.RubidiaMonsters.utils.Utils.getXPFactor(level));
+				this.getMonster().setDamagesFactor(me.pmilon.RubidiaMonsters.utils.Utils.getDFactor(level));
+				this.menu.setItem(this.SLOT_XPF, this.getXpf());
+				this.menu.setItem(this.SLOT_HPF, this.getHpf());
+				this.menu.setItem(this.SLOT_DF, this.getDf());
+			}
+		}else if(slot == this.SLOT_DROPS)Core.uiManager.requestUI(new MonsterDropsEditionUI(this.getHolder(), this.getRegion(), this.getMonster()));
+		else if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new MonstersUI(this.getHolder(), this.getRegion()));
+		else if(slot == this.SLOT_DELETE){
+			Monsters.monsters.remove(this.getMonster());
+			for(Region region : Regions.regions){
+				region.getMonsters().remove(this.getMonster());
+			}
+			Configs.getMonstersConfig().set("monsters." + this.getMonster().getUUID(), null);
+			Configs.saveMonstersConfig();
+			Core.uiManager.requestUI(new MonstersUI(this.getHolder(), this.getRegion()));
+		}else if(slot > 8){
+			if(this.getMonster().getAttacks().size() <= slot-9){
+				AbstractAttack attack = new AbstractAttack(AttackType.LEAP_ATTACK);
+				this.getMonster().getAttacks().add(attack);
+				Core.uiManager.requestUI(new MonsterAttackEditionMenu(this.getHolder(), this.getRegion(), this.getMonster(), attack));
+			}else{
+				Core.uiManager.requestUI(new MonsterAttackEditionMenu(this.getHolder(), this.getRegion(), this.getMonster(), this.getMonster().getAttacks().get(slot-9)));
 			}
 		}
 	}

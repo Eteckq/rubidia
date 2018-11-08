@@ -49,49 +49,45 @@ public class PetDistinctionsMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				e.setCancelled(true);
-				int slot = e.getRawSlot();
-				if(slot > 0 && slot < 4){
-					if(canClick){
-						canClick = false;
-						new BukkitTask(Core.instance){
-							public void run(){
-								canClick = true;
-							}
-
-							@Override
-							public void onCancel() {
-							}
-						}.runTaskLater(6);
-						int amount = 1;
-						if(e.isShiftClick())amount = 5;
-						if(this.getPet().getDistinctionPoints() >= amount){
-							this.getPet().setDistinctionPoints(this.getPet().getDistinctionPoints()-amount);
-							if(slot == this.SLOT_ARD){
-								this.getPet().setArdor(this.getPet().getArdor()+amount);
-								this.menu.setItem(slot, this.getArdor());
-							}else if(slot == this.SLOT_PAT){
-								this.getPet().setPatience(this.getPet().getPatience()+amount);
-								this.menu.setItem(slot, this.getPatience());
-								this.getPet().getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(this.getPet().getMaxHealth());
-								this.getPet().getEntity().setHealth(this.getPet().getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
-								this.getPet().updateHealth();
-							}else if(slot == this.SLOT_ACT){
-								this.getPet().setAcuity(this.getPet().getAcuity()+amount);
-								this.menu.setItem(slot, this.getAcuity());
-							}
-							this.menu.setItem(this.SLOT_SKD, this.getDistinctionPoints());
-						}else{
-							this.getHolder().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
-							rp.sendMessage("§cVotre compagnon n'a pas assez de points de distinction !");
-						}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot > 0 && slot < 4){
+			if(canClick){
+				canClick = false;
+				new BukkitTask(Core.instance){
+					public void run(){
+						canClick = true;
 					}
-				}else if(slot == this.SLOT_BACK){
-					Core.uiManager.requestUI(new PetUI(this.getHolder(), this.getPet()));
+
+					@Override
+					public void onCancel() {
+					}
+				}.runTaskLater(6);
+				int amount = 1;
+				if(e.isShiftClick())amount = 5;
+				if(this.getPet().getDistinctionPoints() >= amount){
+					this.getPet().setDistinctionPoints(this.getPet().getDistinctionPoints()-amount);
+					if(slot == this.SLOT_ARD){
+						this.getPet().setArdor(this.getPet().getArdor()+amount);
+						this.menu.setItem(slot, this.getArdor());
+					}else if(slot == this.SLOT_PAT){
+						this.getPet().setPatience(this.getPet().getPatience()+amount);
+						this.menu.setItem(slot, this.getPatience());
+						this.getPet().getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(this.getPet().getMaxHealth());
+						this.getPet().getEntity().setHealth(this.getPet().getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()-.01);
+						this.getPet().updateHealth();
+					}else if(slot == this.SLOT_ACT){
+						this.getPet().setAcuity(this.getPet().getAcuity()+amount);
+						this.menu.setItem(slot, this.getAcuity());
+					}
+					this.menu.setItem(this.SLOT_SKD, this.getDistinctionPoints());
+				}else{
+					this.getHolder().playSound(this.getHolder().getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+					rp.sendMessage("§cVotre compagnon n'a pas assez de points de distinction !");
 				}
 			}
+		}else if(slot == this.SLOT_BACK){
+			Core.uiManager.requestUI(new PetUI(this.getHolder(), this.getPet()));
 		}
 	}
 

@@ -50,28 +50,26 @@ public class ObjectivesEditionUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), this.getQuest(), this.getPnj()));
-			else{
-				Objective objective = null;
-				for(Objective ob : this.getQuest().getObjectives()){
-					if(slot == ob.getIndex()){
-						objective = ob;
-						break;
-					}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), this.getQuest(), this.getPnj()));
+		else{
+			Objective objective = null;
+			for(Objective ob : this.getQuest().getObjectives()){
+				if(slot == ob.getIndex()){
+					objective = ob;
+					break;
 				}
-				if(objective != null){
-					if(e.isRightClick()){
-						this.getQuest().delete(objective);
-						Core.uiManager.requestUI(new ObjectivesEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
-					}else Core.uiManager.requestUI(new ObjectiveEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), objective));
-				}else{
-					objective = new Objective(QuestsPlugin.questColl, this.getQuest().getUUID(), slot, ObjectiveType.CRAFT, new ItemStack(Material.STONE, 1), Material.STONE, Monsters.monsters.get(0).getUUID(), this.getHolder().getLocation(), "infoName", this.getPnj().getUniqueId(), this.getQuest().getUUID(), this.getPnj().getName(), 1, true, new ArrayList<String>(), new HashMap<String,Long[]>(), true);
-					this.getQuest().getObjectives().add(objective);
-					Core.uiManager.requestUI(new ObjectiveEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), objective));
-				}
+			}
+			if(objective != null){
+				if(e.isRightClick()){
+					this.getQuest().delete(objective);
+					Core.uiManager.requestUI(new ObjectivesEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
+				}else Core.uiManager.requestUI(new ObjectiveEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), objective));
+			}else{
+				objective = new Objective(QuestsPlugin.questColl, this.getQuest().getUUID(), slot, ObjectiveType.CRAFT, new ItemStack(Material.STONE, 1), Material.STONE, Monsters.monsters.get(0).getUUID(), this.getHolder().getLocation(), "infoName", this.getPnj().getUniqueId(), this.getQuest().getUUID(), this.getPnj().getName(), 1, true, new ArrayList<String>(), new HashMap<String,Long[]>(), true);
+				this.getQuest().getObjectives().add(objective);
+				Core.uiManager.requestUI(new ObjectiveEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), objective));
 			}
 		}
 	}

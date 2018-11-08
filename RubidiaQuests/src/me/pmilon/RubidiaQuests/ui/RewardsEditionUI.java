@@ -50,28 +50,26 @@ public class RewardsEditionUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), this.getQuest(), this.getPnj()));
-			else{
-				Reward reward = null;
-				for(Reward rw : this.getQuest().getRewards()){
-					if(slot == rw.getIndex()){
-						reward = rw;
-						break;
-					}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), this.getQuest(), this.getPnj()));
+		else{
+			Reward reward = null;
+			for(Reward rw : this.getQuest().getRewards()){
+				if(slot == rw.getIndex()){
+					reward = rw;
+					break;
 				}
-				if(reward != null){
-					if(e.isRightClick()){
-						this.getQuest().delete(reward);
-						Core.uiManager.requestUI(new RewardsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
-					}else Core.uiManager.requestUI(new RewardEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), reward));
-				}else{
-					reward = new Reward(this.getQuest().getUUID(), slot, RewardType.CLASS, RClass.VAGRANT, RJob.JOBLESS, new ItemStack(Material.STONE, 1), Mastery.ADVENTURER, 0, 0.0, this.getQuest().getUUID(), "", "", true);
-					this.getQuest().getRewards().add(reward);
-					Core.uiManager.requestUI(new RewardEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), reward));
-				}
+			}
+			if(reward != null){
+				if(e.isRightClick()){
+					this.getQuest().delete(reward);
+					Core.uiManager.requestUI(new RewardsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
+				}else Core.uiManager.requestUI(new RewardEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), reward));
+			}else{
+				reward = new Reward(this.getQuest().getUUID(), slot, RewardType.CLASS, RClass.VAGRANT, RJob.JOBLESS, new ItemStack(Material.STONE, 1), Mastery.ADVENTURER, 0, 0.0, this.getQuest().getUUID(), "", "", true);
+				this.getQuest().getRewards().add(reward);
+				Core.uiManager.requestUI(new RewardEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), reward));
 			}
 		}
 	}

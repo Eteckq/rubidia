@@ -82,8 +82,11 @@ public class QuestListObjectiveChooseUI extends ListMenuUIHandler<Quest> {
 
 	@Override
 	protected void onClick(InventoryClickEvent e, Player arg1, ItemStack arg2) {
-		this.getObjective().setSideQuestUUID(this.get(e.getRawSlot()).getUUID());
-		Core.uiManager.requestUI(new ObjectiveEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), this.getObjective()));
+		Quest quest = this.get(e.getRawSlot());
+		if(quest != null) {
+			this.getObjective().setSideQuestUUID(quest.getUUID());
+			Core.uiManager.requestUI(new ObjectiveEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), this.getObjective()));
+		}
 	}
 
 	@Override

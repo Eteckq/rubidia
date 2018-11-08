@@ -56,36 +56,30 @@ public class ShopEditionUI extends UIHandler{
 
 	@Override
 	public void onGeneralClick(InventoryClickEvent e, Player p) {
-		if(e.getClickedInventory() != null){
-			if(e.getClickedInventory().equals(p.getOpenInventory().getBottomInventory())){
-				if(e.getCurrentItem() != null){
-					ItemStack current = e.getCurrentItem();
-					if(!current.getType().equals(Material.AIR)){
-						e.setCancelled(true);
-						if(this.getShop() instanceof PlayerShop){
-							if(((PlayerShop)this.getShop()).isStart()){
-								rp.sendMessage("§cVous ne pouvez ajouter d'items à la vente tant que votre boutique est ouverte !");
-								return;
+		if(this.getShop() instanceof PlayerShop){
+			if(((PlayerShop)this.getShop()).isStart()){
+				return;
+			}
+		}
+
+		e.setCancelled(true);
+		ItemStack current = e.getCurrentItem();
+		if(current != null){
+			if(!rp.getRClass().equals(RClass.RANGER) || e.getRawSlot() != 17){
+				if(e.getClick().toString().contains("LEFT")){
+					ItemStack is = current.clone();
+					if(!this.getShop().getItemStacks().contains(is)){
+						if((int) ((this.getShop().getItemStacks().size()+1)*.124) < this.pageLimit){
+							Integer[] prices = new Integer[]{0,1};
+							this.getShop().getItemStacks().add(is);
+							this.getShop().getPrices().add(prices);
+							this.addSellingIS(is, prices);
+							int size = (int) (this.getShop().getItemStacks().size()*.124);
+							if(size > this.page_index){
+								this.setPage(size);
 							}
-						}
-						if(!rp.getRClass().equals(RClass.RANGER) || e.getRawSlot() != 17){
-							if(e.getClick().toString().contains("LEFT")){
-								ItemStack is = current.clone();
-								if(!this.getShop().getItemStacks().contains(is)){
-									if((int) ((this.getShop().getItemStacks().size()+1)*.124) < this.pageLimit){
-										Integer[] prices = new Integer[]{0,1};
-										this.getShop().getItemStacks().add(is);
-										this.getShop().getPrices().add(prices);
-										this.addSellingIS(is, prices);
-										int size = (int) (this.getShop().getItemStacks().size()*.124);
-										if(size > this.page_index){
-											this.setPage(size);
-										}
-									}else rp.sendMessage("§cDevenez VIP pour obtenir un nombre illimité de ventes !");
-								}else rp.sendMessage("§cCes items sont déjà en vente !");
-							}
-						}
-					}
+						}else rp.sendMessage("§cDevenez VIP pour obtenir un nombre illimité de ventes !");
+					}else rp.sendMessage("§cCes items sont déjà en vente !");
 				}
 			}
 		}
@@ -94,54 +88,50 @@ public class ShopEditionUI extends UIHandler{
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				if(!canClick)return;
-				canClick = false;
-				Bukkit.getScheduler().runTaskLater(QuestsPlugin.instance, new Runnable(){
-					public void run(){
-						canClick = true;
-					}
-				}, 4);
-				
-				int slot = e.getRawSlot();
-				
-				if(slot == SLOT_PREV){
-					this.setPage(this.page_index-1);
-					return;
-				}else if(slot == SLOT_NEXT){
-					this.setPage(this.page_index+1);
-					return;
-				}else if(this.getShop() instanceof PlayerShop && slot != SLOT_SHOP && slot != SLOT_MSG){
-					if(((PlayerShop)this.getShop()).isStart())return;
-				}
-				
-				if(slot == SLOT_INVTITLE){
-					rp.sendMessage("§aRenommez votre menu en tapant son titre dans le chat !");
-					this.close(true, this.LIST_ID_INVTITLE);
-				}else if(slot == SLOT_TITLE){
-					rp.sendMessage("§aRenommez votre boutique en tapant son nom dans le chat !");
-					this.close(true, this.LIST_ID_TITLE);
-				}else if(slot == SLOT_SHOP){
-					PlayerShop shop = (PlayerShop)this.getShop();
-					if(shop.isStart())shop.close();
-					else{
-						shop.setStart(true);
-						new TagStand(this.getHolder(), new String[]{"§2§lMAGASIN",shop.getTitle()}, true).display();
-						shop.setEditionUI(this);
-					}
-					e.setCurrentItem(this.getShopIS());
-				}else if(slot == SLOT_CLEAR){
-					this.getShop().getItemStacks().clear();
-					Core.uiManager.requestUI(new ShopEditionUI(this.getHolder(), this.getShop(),0));
-				}else if(slot == SLOT_MSG)this.close(true, this.LIST_ID_MSG);
-				else{
-					int amount = 1;
-					if(e.isRightClick())amount*=-1;
-					if(e.isShiftClick())amount*=10;
-					this.add(amount, slot);
-				}
+		if(!canClick)return;
+		canClick = false;
+		Bukkit.getScheduler().runTaskLater(QuestsPlugin.instance, new Runnable(){
+			public void run(){
+				canClick = true;
 			}
+		}, 4);
+		
+		int slot = e.getRawSlot();
+		
+		if(slot == SLOT_PREV){
+			this.setPage(this.page_index-1);
+			return;
+		}else if(slot == SLOT_NEXT){
+			this.setPage(this.page_index+1);
+			return;
+		}else if(this.getShop() instanceof PlayerShop && slot != SLOT_SHOP && slot != SLOT_MSG){
+			if(((PlayerShop)this.getShop()).isStart())return;
+		}
+		
+		if(slot == SLOT_INVTITLE){
+			rp.sendMessage("§aRenommez votre menu en tapant son titre dans le chat !");
+			this.close(true, this.LIST_ID_INVTITLE);
+		}else if(slot == SLOT_TITLE){
+			rp.sendMessage("§aRenommez votre boutique en tapant son nom dans le chat !");
+			this.close(true, this.LIST_ID_TITLE);
+		}else if(slot == SLOT_SHOP){
+			PlayerShop shop = (PlayerShop)this.getShop();
+			if(shop.isStart())shop.close();
+			else{
+				shop.setStart(true);
+				new TagStand(this.getHolder(), new String[]{"§2§lMAGASIN",shop.getTitle()}, true).display();
+				shop.setEditionUI(this);
+			}
+			e.setCurrentItem(this.getShopIS());
+		}else if(slot == SLOT_CLEAR){
+			this.getShop().getItemStacks().clear();
+			Core.uiManager.requestUI(new ShopEditionUI(this.getHolder(), this.getShop(),0));
+		}else if(slot == SLOT_MSG)this.close(true, this.LIST_ID_MSG);
+		else{
+			int amount = 1;
+			if(e.isRightClick())amount*=-1;
+			if(e.isShiftClick())amount*=10;
+			this.add(amount, slot);
 		}
 	}
 

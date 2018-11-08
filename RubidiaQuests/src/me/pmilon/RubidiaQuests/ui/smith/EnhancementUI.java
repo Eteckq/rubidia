@@ -74,59 +74,53 @@ public class EnhancementUI extends UIHandler {
 
 	@Override
 	public void onGeneralClick(InventoryClickEvent e, Player p) {
-		if(this.endTask != null){
-			e.setCancelled(true);
-			return;
-		}
-		if(e.getCurrentItem() != null){
-			ItemStack item = e.getCurrentItem();
-			if(!item.getType().equals(Material.AIR)){
-				e.setCancelled(true);
-				RItem rItem = new RItem(item);
-				if(rItem.isWeapon()){
-					Weapon weapon = rItem.getWeapon();
-					if(weapon.getSuppLevel() < 7){
-						if(!this.scroll.isEmpty()){
-							for(Scroll scroll : this.scroll){
-								scroll.give(this.getHolder());
-							}
-							this.scroll.clear();
+		e.setCancelled(true);
+		ItemStack item = e.getCurrentItem();
+		if(item != null){
+			RItem rItem = new RItem(item);
+			if(rItem.isWeapon()){
+				Weapon weapon = rItem.getWeapon();
+				if(weapon.getSuppLevel() < 7){
+					if(!this.scroll.isEmpty()){
+						for(Scroll scroll : this.scroll){
+							scroll.give(this.getHolder());
 						}
-						e.setCurrentItem(new ItemStack(Material.AIR));
-						if(this.weapon != null){
-							this.getHolder().getInventory().addItem(this.weapon.getNewItemStack(rp));
-						}
-						this.weapon = weapon;
-						this.update();
-					}else rp.sendMessage("§cVotre " + (this.weapon.isAttack() ? "arme" : "armure") + " est déjà trop puissante pour un renforcement classique !");
-				}else if(rItem.isScroll()){
-					Scroll scroll = rItem.getScroll();
-					if(scroll.getType().getUsage().equals(ScrollUsage.ENHANCEMENT)){
-						if(this.weapon != null){
-							if(!this.isScrollActive(scroll.getType())){
-								if(scroll.getType().equals(ScrollType.ENHANCEMENT_AMPLIFICATION) && weapon.getSuppLevel() >= 6){
-									rp.sendMessage("§cVous ne pouvez utiliser ce parchemin sur une " + (this.weapon.isAttack() ? "arme" : "armure") + " si puissante !");
-									return;
-								}
-								this.scroll.add(scroll);
-								item.setAmount(item.getAmount()-1);
-								if(item.getAmount() <= 0)item = new ItemStack(Material.AIR);
-								e.setCurrentItem(item);
-								this.update();
-							}
-						}else rp.sendMessage("§cChoisissez d'abord une arme/armure à renforcer.");
-					}else rp.sendMessage("§cCe parchemin ne peut être utilisé durant un renforcement.");
-				}else if(item.isSimilar(RItemStacks.STAR_STONE.getItemStack())){
+						this.scroll.clear();
+					}
+					e.setCurrentItem(new ItemStack(Material.AIR));
 					if(this.weapon != null){
-						if(!this.startStone){
+						this.getHolder().getInventory().addItem(this.weapon.getNewItemStack(rp));
+					}
+					this.weapon = weapon;
+					this.update();
+				}else rp.sendMessage("§cVotre " + (this.weapon.isAttack() ? "arme" : "armure") + " est déjà trop puissante pour un renforcement classique !");
+			}else if(rItem.isScroll()){
+				Scroll scroll = rItem.getScroll();
+				if(scroll.getType().getUsage().equals(ScrollUsage.ENHANCEMENT)){
+					if(this.weapon != null){
+						if(!this.isScrollActive(scroll.getType())){
+							if(scroll.getType().equals(ScrollType.ENHANCEMENT_AMPLIFICATION) && weapon.getSuppLevel() >= 6){
+								rp.sendMessage("§cVous ne pouvez utiliser ce parchemin sur une " + (this.weapon.isAttack() ? "arme" : "armure") + " si puissante !");
+								return;
+							}
+							this.scroll.add(scroll);
 							item.setAmount(item.getAmount()-1);
 							if(item.getAmount() <= 0)item = new ItemStack(Material.AIR);
 							e.setCurrentItem(item);
-							this.startStone = true;
 							this.update();
 						}
 					}else rp.sendMessage("§cChoisissez d'abord une arme/armure à renforcer.");
-				}
+				}else rp.sendMessage("§cCe parchemin ne peut être utilisé durant un renforcement.");
+			}else if(item.isSimilar(RItemStacks.STAR_STONE.getItemStack())){
+				if(this.weapon != null){
+					if(!this.startStone){
+						item.setAmount(item.getAmount()-1);
+						if(item.getAmount() <= 0)item = new ItemStack(Material.AIR);
+						e.setCurrentItem(item);
+						this.startStone = true;
+						this.update();
+					}
+				}else rp.sendMessage("§cChoisissez d'abord une arme/armure à renforcer.");
 			}
 		}
 	}
@@ -134,71 +128,67 @@ public class EnhancementUI extends UIHandler {
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				int slot = e.getRawSlot();
-				if(slot == 4){
-					if(this.endTask == null){
-						if(this.startStone){
-							this.getHolder().getInventory().addItem(RItemStacks.STAR_STONE.getItemStack());
-							this.startStone = false;
-						}
-						if(!this.scroll.isEmpty()){
-							for(Scroll scroll : this.scroll){
-								scroll.give(this.getHolder());
-							}
-							this.scroll.clear();
-						}
-						if(this.weapon != null){
-							this.getHolder().getInventory().addItem(this.weapon.getNewItemStack(rp));
-							this.weapon = null;
-						}
-						this.update();
+		int slot = e.getRawSlot();
+		if(slot == 4){
+			if(this.endTask == null){
+				if(this.startStone){
+					this.getHolder().getInventory().addItem(RItemStacks.STAR_STONE.getItemStack());
+					this.startStone = false;
+				}
+				if(!this.scroll.isEmpty()){
+					for(Scroll scroll : this.scroll){
+						scroll.give(this.getHolder());
 					}
-				}else if(slot == 5){
-					this.endTask = new BukkitTask(QuestsPlugin.instance){
+					this.scroll.clear();
+				}
+				if(this.weapon != null){
+					this.getHolder().getInventory().addItem(this.weapon.getNewItemStack(rp));
+					this.weapon = null;
+				}
+				this.update();
+			}
+		}else if(slot == 5){
+			this.endTask = new BukkitTask(QuestsPlugin.instance){
 
-						@Override
-						public void run() {
-							closeUI();
-						}
+				@Override
+				public void run() {
+					closeUI();
+				}
 
-						@Override
-						public void onCancel() {
-						}
-						
-					};
-					double iterations = random.nextInt(12)+24;
-					long waitTime = 0;
-					for(int j = 0;j <= iterations;j++){
-						final int sloti = orderedSlots[j%8];
-						final int slotf = orderedSlots[(j+1)%8];
-						waitTime += (long) Math.round(Math.pow(j/iterations, 1.74)*9+3);
-						final boolean end = j == iterations;
-						final UIHandler instance = this;
-						new BukkitTask(QuestsPlugin.instance){
-							@Override
-							public void run() {
-								if(Core.uiManager.hasActiveSession(getHolder())){
-									if(Core.uiManager.getSession(getHolder()).getUIHandler().equals(instance)){
-										getMenu().setItem(sloti, failSlots.contains(sloti) ? FAILURE.clone() : new ItemStack(Material.AIR));
-										getMenu().setItem(slotf, RItemStacks.STAR_STONE.getItemStack());
-										getHolder().playNote(getHolder().getLocation(), Instrument.PIANO, Note.flat(0, Tone.D));
-										if(end){
-											endTask.runTaskLater(20);
-										}
-									}
+				@Override
+				public void onCancel() {
+				}
+				
+			};
+			double iterations = random.nextInt(12)+24;
+			long waitTime = 0;
+			for(int j = 0;j <= iterations;j++){
+				final int sloti = orderedSlots[j%8];
+				final int slotf = orderedSlots[(j+1)%8];
+				waitTime += (long) Math.round(Math.pow(j/iterations, 1.74)*9+3);
+				final boolean end = j == iterations;
+				final UIHandler instance = this;
+				new BukkitTask(QuestsPlugin.instance){
+					@Override
+					public void run() {
+						if(Core.uiManager.hasActiveSession(getHolder())){
+							if(Core.uiManager.getSession(getHolder()).getUIHandler().equals(instance)){
+								getMenu().setItem(sloti, failSlots.contains(sloti) ? FAILURE.clone() : new ItemStack(Material.AIR));
+								getMenu().setItem(slotf, RItemStacks.STAR_STONE.getItemStack());
+								getHolder().playNote(getHolder().getLocation(), Instrument.PIANO, Note.flat(0, Tone.D));
+								if(end){
+									endTask.runTaskLater(20);
 								}
 							}
-
-							@Override
-							public void onCancel() {
-							}
-							
-						}.runTaskLater(waitTime);
-						if(j == iterations)this.win = this.getMenu().getItem(slotf) != null ? !this.getMenu().getItem(slotf).isSimilar(FAILURE) : true;
+						}
 					}
-				}
+
+					@Override
+					public void onCancel() {
+					}
+					
+				}.runTaskLater(waitTime);
+				if(j == iterations)this.win = this.getMenu().getItem(slotf) != null ? !this.getMenu().getItem(slotf).isSimilar(FAILURE) : true;
 			}
 		}
 	}

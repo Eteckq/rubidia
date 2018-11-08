@@ -37,8 +37,9 @@ public class BankPNJUI extends UIHandler {
 	@Override
 	public void onGeneralClick(InventoryClickEvent e, Player arg1) {
 		if(e.isShiftClick()) {
-			if(e.getCurrentItem() != null){
-				if(!e.getCurrentItem().getType().equals(Material.EMERALD) && !e.getCurrentItem().getType().equals(Material.EMERALD_BLOCK)){
+			ItemStack item = e.getCurrentItem();
+			if(item != null){
+				if(!item.getType().equals(Material.EMERALD) && !item.getType().equals(Material.EMERALD_BLOCK)){
 					e.setCancelled(true);
 				}else this.menu.setItem(this.SLOT_MELT, this.getMelt());
 			}
@@ -47,27 +48,23 @@ public class BankPNJUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				int slot = e.getRawSlot();
-				if(slot == this.SLOT_MELT){
-					e.setCancelled(true);
-					int count = this.count();
-					if(rp.getBank() + count > rp.getMaxBankAmount()) {
-						rp.sendMessage("§cIl n'y a pas assez de place pour toutes ces émeraudes dans votre banque !");
-					}else {
-						for(int i = 0;i < 8;i++) {
-							if(!this.getMenu().getItem(i).getType().equals(Material.EMERALD) && !this.getMenu().getItem(i).equals(Material.EMERALD_BLOCK)){
-								this.getHolder().getInventory().addItem(this.getMenu().getItem(i));
-							}
-							this.getMenu().setItem(i, new ItemStack(Material.AIR));
-						}
-						EconomyHandler.deposit(this.getHolder(), count);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_MELT){
+			e.setCancelled(true);
+			int count = this.count();
+			if(rp.getBank() + count > rp.getMaxBankAmount()) {
+				rp.sendMessage("§cIl n'y a pas assez de place pour toutes ces émeraudes dans votre banque !");
+			}else {
+				for(int i = 0;i < 8;i++) {
+					if(!this.getMenu().getItem(i).getType().equals(Material.EMERALD) && !this.getMenu().getItem(i).equals(Material.EMERALD_BLOCK)){
+						this.getHolder().getInventory().addItem(this.getMenu().getItem(i));
 					}
+					this.getMenu().setItem(i, new ItemStack(Material.AIR));
 				}
+				EconomyHandler.deposit(this.getHolder(), count);
 			}
-			this.menu.setItem(this.SLOT_MELT, this.getMelt());
 		}
+		this.menu.setItem(this.SLOT_MELT, this.getMelt());
 	}
 
 	@Override

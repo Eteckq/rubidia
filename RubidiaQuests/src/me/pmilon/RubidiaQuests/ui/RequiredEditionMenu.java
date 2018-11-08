@@ -77,80 +77,78 @@ public class RequiredEditionMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new RequiredsEditionUI(this.getHolder(), this.getRequiredHolder(), this.getPnj()));
-			else if(slot == this.SLOT_CLASS){
-				if(this.getRequired().getRclass().equals(RClass.VAGRANT))this.getRequired().setRclass(RClass.ASSASSIN);
-				else if(this.getRequired().getRclass().equals(RClass.ASSASSIN))this.getRequired().setRclass(RClass.MAGE);
-				else if(this.getRequired().getRclass().equals(RClass.MAGE))this.getRequired().setRclass(RClass.PALADIN);
-				else if(this.getRequired().getRclass().equals(RClass.PALADIN))this.getRequired().setRclass(RClass.RANGER);
-				else if(this.getRequired().getRclass().equals(RClass.RANGER))this.getRequired().setRclass(RClass.VAGRANT);
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new RequiredsEditionUI(this.getHolder(), this.getRequiredHolder(), this.getPnj()));
+		else if(slot == this.SLOT_CLASS){
+			if(this.getRequired().getRclass().equals(RClass.VAGRANT))this.getRequired().setRclass(RClass.ASSASSIN);
+			else if(this.getRequired().getRclass().equals(RClass.ASSASSIN))this.getRequired().setRclass(RClass.MAGE);
+			else if(this.getRequired().getRclass().equals(RClass.MAGE))this.getRequired().setRclass(RClass.PALADIN);
+			else if(this.getRequired().getRclass().equals(RClass.PALADIN))this.getRequired().setRclass(RClass.RANGER);
+			else if(this.getRequired().getRclass().equals(RClass.RANGER))this.getRequired().setRclass(RClass.VAGRANT);
+			this.menu.setItem(this.SLOT_CLASS, this.getRClass());
+		}else if(slot == this.SLOT_JOB){
+			//TODO cycle jobs
+			this.menu.setItem(this.SLOT_JOB, this.getRJob());
+		}else if(slot == this.SLOT_TYPE){
+			this.menu.clear();
+			if(this.getRequired().getType().equals(RequiredType.LEVEL)){
+				this.getRequired().setType(RequiredType.CLASS);
 				this.menu.setItem(this.SLOT_CLASS, this.getRClass());
-			}else if(slot == this.SLOT_JOB){
-				//TODO cycle jobs
+			}else if(this.getRequired().getType().equals(RequiredType.CLASS)){
+				this.getRequired().setType(RequiredType.JOB);
 				this.menu.setItem(this.SLOT_JOB, this.getRJob());
-			}else if(slot == this.SLOT_TYPE){
-				this.menu.clear();
-				if(this.getRequired().getType().equals(RequiredType.LEVEL)){
-					this.getRequired().setType(RequiredType.CLASS);
-					this.menu.setItem(this.SLOT_CLASS, this.getRClass());
-				}else if(this.getRequired().getType().equals(RequiredType.CLASS)){
-					this.getRequired().setType(RequiredType.JOB);
-					this.menu.setItem(this.SLOT_JOB, this.getRJob());
-				}else if(this.getRequired().getType().equals(RequiredType.JOB)){
-					this.getRequired().setType(RequiredType.NON_JOB);
-					this.menu.setItem(this.SLOT_JOB, this.getRJob());
-				}else if(this.getRequired().getType().equals(RequiredType.NON_JOB)){
-					this.getRequired().setType(RequiredType.QUEST);
-					this.menu.setItem(this.SLOT_QUEST, this.getQuestTarget());
-				}else if(this.getRequired().getType().equals(RequiredType.QUEST)){
-					this.getRequired().setType(RequiredType.NON_ACTIVE_QUEST);
-					this.menu.setItem(this.SLOT_QUEST, this.getQuestTarget());
-				}else if(this.getRequired().getType().equals(RequiredType.NON_ACTIVE_QUEST)){
-					this.getRequired().setType(RequiredType.NON_DONE_QUEST);
-					this.menu.setItem(this.SLOT_QUEST, this.getQuestTarget());
-				}else if(this.getRequired().getType().equals(RequiredType.NON_DONE_QUEST)){
-					this.getRequired().setType(RequiredType.TIME);
-					this.menu.setItem(this.SLOT_TIME_START, this.getTimeStart());
-					this.menu.setItem(this.SLOT_TIME_END, this.getTimeEnd());
-				}else if(this.getRequired().getType().equals(RequiredType.TIME)){
-					this.getRequired().setType(RequiredType.ITEM);
-					this.menu.setItem(this.SLOT_ITEM, this.getItem());
-				}else if(this.getRequired().getType().equals(RequiredType.ITEM)){
-					this.getRequired().setType(RequiredType.MASTERY);
-					this.menu.setItem(this.SLOT_MASTERY, this.getMastery());
-				}else if(this.getRequired().getType().equals(RequiredType.MASTERY)){
-					this.getRequired().setType(RequiredType.LEVEL);
-					this.menu.setItem(this.SLOT_LEVEL, this.getLevel());
-				}
-				this.menu.setItem(this.SLOT_TYPE, this.getRType());
-				this.menu.setItem(this.SLOT_BACK, this.getBack());
-				this.menu.setItem(this.SLOT_DIALOGING, this.getIsDialog());
-				this.menu.setItem(this.SLOT_DIALOG, this.getDialog());
-			}else if(slot == this.SLOT_MASTERY){
-				Mastery[] masteries = Mastery.values();
-				this.getRequired().setMastery(masteries[(this.getRequired().getMastery().getId()+1) % masteries.length]);
+			}else if(this.getRequired().getType().equals(RequiredType.JOB)){
+				this.getRequired().setType(RequiredType.NON_JOB);
+				this.menu.setItem(this.SLOT_JOB, this.getRJob());
+			}else if(this.getRequired().getType().equals(RequiredType.NON_JOB)){
+				this.getRequired().setType(RequiredType.QUEST);
+				this.menu.setItem(this.SLOT_QUEST, this.getQuestTarget());
+			}else if(this.getRequired().getType().equals(RequiredType.QUEST)){
+				this.getRequired().setType(RequiredType.NON_ACTIVE_QUEST);
+				this.menu.setItem(this.SLOT_QUEST, this.getQuestTarget());
+			}else if(this.getRequired().getType().equals(RequiredType.NON_ACTIVE_QUEST)){
+				this.getRequired().setType(RequiredType.NON_DONE_QUEST);
+				this.menu.setItem(this.SLOT_QUEST, this.getQuestTarget());
+			}else if(this.getRequired().getType().equals(RequiredType.NON_DONE_QUEST)){
+				this.getRequired().setType(RequiredType.TIME);
+				this.menu.setItem(this.SLOT_TIME_START, this.getTimeStart());
+				this.menu.setItem(this.SLOT_TIME_END, this.getTimeEnd());
+			}else if(this.getRequired().getType().equals(RequiredType.TIME)){
+				this.getRequired().setType(RequiredType.ITEM);
+				this.menu.setItem(this.SLOT_ITEM, this.getItem());
+			}else if(this.getRequired().getType().equals(RequiredType.ITEM)){
+				this.getRequired().setType(RequiredType.MASTERY);
 				this.menu.setItem(this.SLOT_MASTERY, this.getMastery());
-			}else if(slot == this.SLOT_ITEM){
-				ItemStack inhand = this.getHolder().getEquipment().getItemInMainHand();
-				if(inhand != null){
-					if(!inhand.getType().equals(Material.AIR)){
-						if(inhand.getAmount() == 1)inhand.setAmount(1);
-						this.getRequired().setItemStack(inhand);
-						this.menu.setItem(this.SLOT_ITEM, this.getItem());
-					}
+			}else if(this.getRequired().getType().equals(RequiredType.MASTERY)){
+				this.getRequired().setType(RequiredType.LEVEL);
+				this.menu.setItem(this.SLOT_LEVEL, this.getLevel());
+			}
+			this.menu.setItem(this.SLOT_TYPE, this.getRType());
+			this.menu.setItem(this.SLOT_BACK, this.getBack());
+			this.menu.setItem(this.SLOT_DIALOGING, this.getIsDialog());
+			this.menu.setItem(this.SLOT_DIALOG, this.getDialog());
+		}else if(slot == this.SLOT_MASTERY){
+			Mastery[] masteries = Mastery.values();
+			this.getRequired().setMastery(masteries[(this.getRequired().getMastery().getId()+1) % masteries.length]);
+			this.menu.setItem(this.SLOT_MASTERY, this.getMastery());
+		}else if(slot == this.SLOT_ITEM){
+			ItemStack inhand = this.getHolder().getEquipment().getItemInMainHand();
+			if(inhand != null){
+				if(!inhand.getType().equals(Material.AIR)){
+					if(inhand.getAmount() == 1)inhand.setAmount(1);
+					this.getRequired().setItemStack(inhand);
+					this.menu.setItem(this.SLOT_ITEM, this.getItem());
 				}
-			}else if(slot == this.SLOT_TIME_START)this.close(true, this.LIST_ID_TIME_START);
-			else if(slot == this.SLOT_TIME_END)this.close(true, this.LIST_ID_TIME_END);
-			else if(slot == this.SLOT_DIALOG)this.close(true, this.LIST_ID_NODIALOG);
-			else if(slot == this.SLOT_LEVEL)this.close(true, this.LIST_ID_LEVEL);
-			else if(slot == this.SLOT_DIALOGING){
-				this.getRequired().setDialog(!this.getRequired().isDialog());
-				this.menu.setItem(this.SLOT_DIALOGING, this.getIsDialog());
-			}else if(slot == this.SLOT_QUEST)Core.uiManager.requestUI(new QuestListRequiredChoose(this.getHolder(), this.getRequiredHolder(), this.getPnj(), this.getRequired()));
-		}
+			}
+		}else if(slot == this.SLOT_TIME_START)this.close(true, this.LIST_ID_TIME_START);
+		else if(slot == this.SLOT_TIME_END)this.close(true, this.LIST_ID_TIME_END);
+		else if(slot == this.SLOT_DIALOG)this.close(true, this.LIST_ID_NODIALOG);
+		else if(slot == this.SLOT_LEVEL)this.close(true, this.LIST_ID_LEVEL);
+		else if(slot == this.SLOT_DIALOGING){
+			this.getRequired().setDialog(!this.getRequired().isDialog());
+			this.menu.setItem(this.SLOT_DIALOGING, this.getIsDialog());
+		}else if(slot == this.SLOT_QUEST)Core.uiManager.requestUI(new QuestListRequiredChoose(this.getHolder(), this.getRequiredHolder(), this.getPnj(), this.getRequired()));
 	}
 
 	@Override

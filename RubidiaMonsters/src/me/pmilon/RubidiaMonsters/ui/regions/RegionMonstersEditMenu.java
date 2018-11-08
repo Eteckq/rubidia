@@ -44,17 +44,15 @@ public class RegionMonstersEditMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new RegionManager(this.getHolder(), this.getRegion()));
-			else if(this.getRegion().getMonsters().size() > slot){
-				if(e.isRightClick()){
-					this.getRegion().getMonsters().remove(slot);
-					Core.uiManager.requestUI(this);
-				}else Core.uiManager.requestUI(new MonsterEditionMenu(this.getHolder(), this.getRegion(), this.getRegion().getMonsters().get(slot)));
-			}else Core.uiManager.requestUI(new MonstersUI(this.getHolder(), this.getRegion()));
-		}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new RegionManager(this.getHolder(), this.getRegion()));
+		else if(this.getRegion().getMonsters().size() > slot){
+			if(e.isRightClick()){
+				this.getRegion().getMonsters().remove(slot);
+				Core.uiManager.requestUI(this);
+			}else Core.uiManager.requestUI(new MonsterEditionMenu(this.getHolder(), this.getRegion(), this.getRegion().getMonsters().get(slot)));
+		}else Core.uiManager.requestUI(new MonstersUI(this.getHolder(), this.getRegion()));
 	}
 
 	@Override

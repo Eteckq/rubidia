@@ -51,41 +51,39 @@ public class RegionManager extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_CENTER)this.close(true, this.LIST_ID_CENTER);
-			else if(slot == this.SLOT_X)this.close(true, this.LIST_ID_X);
-			else if(slot == this.SLOT_Y)this.close(true, this.LIST_ID_Y);
-			else if(slot == this.SLOT_Z)this.close(true, this.LIST_ID_Z);
-			else if(slot == this.SLOT_MONSTERS)Core.uiManager.requestUI(new RegionMonstersEditMenu(this.getHolder(), this.getRegion()));
-			else if(slot == this.SLOT_MINLVL)this.close(true, this.LIST_ID_MINLVL);
-			else if(slot == this.SLOT_MAXLVL)this.close(true, this.LIST_ID_MAXLVL);
-			else if(slot == this.SLOT_YSHIFT)this.close(true, this.LIST_ID_YSHIFT);
-			else if(slot == this.SLOT_MAXMOBS)this.close(true, this.LIST_ID_MAXMOBS);
-			else if(slot == this.SLOT_RAGE)this.close(true, this.LIST_ID_RAGE);
-			else if(slot == this.SLOT_SQUARE){
-				this.getRegion().setSquare(!this.getRegion().isSquare());
-				this.getRegion().setMaxMonstersAmount((int) Math.round(this.getRegion().getSize()/312));
-				this.menu.setItem(this.SLOT_SQUARE, this.getSquare());
-			}else if(slot == this.SLOT_FADINGLVL){
-				this.getRegion().setFadingLevel(!this.getRegion().isFadingLevel());
-				this.menu.setItem(this.SLOT_FADINGLVL, this.getFading());
-			}else if(slot == this.SLOT_DELETE){
-				Regions.regions.remove(this.getRegion());
-				RubidiaMonstersPlugin.getInstance().getConfig().set("regions." + this.getRegion().getUUID(), null);
-				RubidiaMonstersPlugin.getInstance().saveConfig();
-				this.closeUI();
-			}else if(slot == this.SLOT_EMPTY){
-				List<Monster> monsters = new ArrayList<Monster>(this.getRegion().entities);
-				for(Monster monster : monsters){
-					monster.kill(true);
-				}
-				this.getRegion().entities.clear();
-			}else if(slot == this.SLOT_TYPE){
-				this.getRegion().setType(RegionType.values()[(Arrays.asList(RegionType.values()).indexOf(this.getRegion().getType())+1)%RegionType.values().length]);
-				this.getMenu().setItem(this.SLOT_TYPE, this.getRType());
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_CENTER)this.close(true, this.LIST_ID_CENTER);
+		else if(slot == this.SLOT_X)this.close(true, this.LIST_ID_X);
+		else if(slot == this.SLOT_Y)this.close(true, this.LIST_ID_Y);
+		else if(slot == this.SLOT_Z)this.close(true, this.LIST_ID_Z);
+		else if(slot == this.SLOT_MONSTERS)Core.uiManager.requestUI(new RegionMonstersEditMenu(this.getHolder(), this.getRegion()));
+		else if(slot == this.SLOT_MINLVL)this.close(true, this.LIST_ID_MINLVL);
+		else if(slot == this.SLOT_MAXLVL)this.close(true, this.LIST_ID_MAXLVL);
+		else if(slot == this.SLOT_YSHIFT)this.close(true, this.LIST_ID_YSHIFT);
+		else if(slot == this.SLOT_MAXMOBS)this.close(true, this.LIST_ID_MAXMOBS);
+		else if(slot == this.SLOT_RAGE)this.close(true, this.LIST_ID_RAGE);
+		else if(slot == this.SLOT_SQUARE){
+			this.getRegion().setSquare(!this.getRegion().isSquare());
+			this.getRegion().setMaxMonstersAmount((int) Math.round(this.getRegion().getSize()/312));
+			this.menu.setItem(this.SLOT_SQUARE, this.getSquare());
+		}else if(slot == this.SLOT_FADINGLVL){
+			this.getRegion().setFadingLevel(!this.getRegion().isFadingLevel());
+			this.menu.setItem(this.SLOT_FADINGLVL, this.getFading());
+		}else if(slot == this.SLOT_DELETE){
+			Regions.regions.remove(this.getRegion());
+			RubidiaMonstersPlugin.getInstance().getConfig().set("regions." + this.getRegion().getUUID(), null);
+			RubidiaMonstersPlugin.getInstance().saveConfig();
+			this.closeUI();
+		}else if(slot == this.SLOT_EMPTY){
+			List<Monster> monsters = new ArrayList<Monster>(this.getRegion().entities);
+			for(Monster monster : monsters){
+				monster.kill(true);
 			}
+			this.getRegion().entities.clear();
+		}else if(slot == this.SLOT_TYPE){
+			this.getRegion().setType(RegionType.values()[(Arrays.asList(RegionType.values()).indexOf(this.getRegion().getType())+1)%RegionType.values().length]);
+			this.getMenu().setItem(this.SLOT_TYPE, this.getRType());
 		}
 	}
 
@@ -109,10 +107,9 @@ public class RegionManager extends UIHandler {
 				}else if(this.getListeningId() == this.LIST_ID_Y){
 					if(Utils.isDouble(this.getMessage())){
 						double y = Double.valueOf(this.getMessage());
-						if(y > 0){
-							this.getRegion().setYRange(y);
-							this.getRegion().setMaxMonstersAmount((int) Math.round(this.getRegion().getSize()/312));
-						}else this.getHolder().sendMessage("§cRange must be > 0!");
+						this.getRegion().setCenter(this.getRegion().getCenter().add(0,y/2.,0));
+						this.getRegion().setYRange(Math.abs(y));
+						this.getRegion().setMaxMonstersAmount((int) Math.round(this.getRegion().getSize()/312));
 					}
 				}else if(this.getListeningId() == this.LIST_ID_Z){
 					if(Utils.isDouble(this.getMessage())){
@@ -188,7 +185,7 @@ public class RegionManager extends UIHandler {
 	private ItemStack getY() {
 		ItemStack item = new ItemStack(Material.ARROW, 1);
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName("yRange: " + this.getRegion().getYRange());
+		meta.setDisplayName("yRelativeHeight: " + this.getRegion().getYRange()/2.);
 		item.setItemMeta(meta);
 		return item;
 	}

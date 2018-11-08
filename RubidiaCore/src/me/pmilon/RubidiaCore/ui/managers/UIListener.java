@@ -57,7 +57,7 @@ public class UIListener implements Listener {
 					if(uiSession.getUIHandler().getMenu().equals(p.getOpenInventory().getTopInventory())) {
 						if(e.getClickedInventory().equals(p.getOpenInventory().getTopInventory())){
 							uiSession.getUIHandler().onInventoryClick(e, p);
-						} else {
+						} else if(e.getClickedInventory().equals(p.getOpenInventory().getBottomInventory())) {
 							uiSession.getUIHandler().onGeneralClick(e, p);
 						}
 					}

@@ -50,17 +50,15 @@ public class PreQuestEditionUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new PNJQuests(this.getHolder(), this.getPnj()));
-			else if(slot == this.SLOT_CHOOSE)Core.uiManager.requestUI(new QuestListChooseUI(this.getHolder(), this.getPnj(), false));
-			else if(slot == this.SLOT_CREATE){
-				List<Quest> quests = this.getPnj().getQuests();
-				Quest quest = Quest.newDefault();
-				quests.add(quest);
-				Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), quest, this.getPnj()));
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new PNJQuests(this.getHolder(), this.getPnj()));
+		else if(slot == this.SLOT_CHOOSE)Core.uiManager.requestUI(new QuestListChooseUI(this.getHolder(), this.getPnj(), false));
+		else if(slot == this.SLOT_CREATE){
+			List<Quest> quests = this.getPnj().getQuests();
+			Quest quest = Quest.newDefault();
+			quests.add(quest);
+			Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), quest, this.getPnj()));
 		}
 	}
 

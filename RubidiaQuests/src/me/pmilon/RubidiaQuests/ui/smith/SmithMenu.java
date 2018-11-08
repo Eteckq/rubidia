@@ -39,14 +39,11 @@ public class SmithMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
+		e.setCancelled(true);
 		int slot = e.getRawSlot();
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				if(slot == this.SLOT_AROUSAL)Core.uiManager.requestUI(new ArousalUI(this.getHolder()));
-				else if(slot == this.SLOT_ENHANCEMENT)Core.uiManager.requestUI(new EnhancementUI(this.getHolder()));
-				else if(slot == this.SLOT_PIERCING)Core.uiManager.requestUI(new PiercingUI(this.getHolder()));
-			}
-		}
+		if(slot == this.SLOT_AROUSAL)Core.uiManager.requestUI(new ArousalUI(this.getHolder()));
+		else if(slot == this.SLOT_ENHANCEMENT)Core.uiManager.requestUI(new EnhancementUI(this.getHolder()));
+		else if(slot == this.SLOT_PIERCING)Core.uiManager.requestUI(new PiercingUI(this.getHolder()));
 	}
 
 	@Override

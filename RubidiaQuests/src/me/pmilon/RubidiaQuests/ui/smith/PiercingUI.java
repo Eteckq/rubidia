@@ -88,8 +88,8 @@ public class PiercingUI extends UIHandler {
 			e.setCancelled(true);
 			return;
 		}
-		if(e.getCurrentItem() != null){
-			ItemStack item = e.getCurrentItem();
+		ItemStack item = e.getCurrentItem();
+		if(item != null){
 			if(!item.getType().equals(Material.AIR)){
 				RItem rItem = new RItem(item);
 				if(rItem.isWeapon()){
@@ -101,15 +101,15 @@ public class PiercingUI extends UIHandler {
 					this.weapon = rItem.getWeapon();
 					this.update();
 				}else if(rItem.isScroll()){
+					e.setCancelled(true);
 					Scroll scroll = rItem.getScroll();
 					if(scroll.getType().getUsage().equals(ScrollUsage.PIERCING)){
 						if(this.weapon != null){
-							e.setCancelled(true);
 							if(!this.isScrollActive(scroll.getType())){
 								this.scroll.add(scroll);
 								item.setAmount(item.getAmount()-1);
 								if(item.getAmount() <= 0)item = new ItemStack(Material.AIR);
-								e.setCurrentItem(item);
+								e.setCurrentItem(item);//TODO check if it works
 								this.update();
 							}
 						}else rp.sendMessage("§cChoisissez d'abord une arme/armure à percer.");
@@ -144,19 +144,20 @@ public class PiercingUI extends UIHandler {
 							}
 						}
 					}
+					
 					if(piercing != null){
 						rp.sendMessage("§ePlacez ce joyau à l'intérieur d'un pore ouvert !");
 					}else e.setCancelled(true);
 				}
-			}else piercing = null;
+			} else piercing = null;
 		}
 	}
 
 	@Override
 	public void onInventoryClick(final InventoryClickEvent e, Player p) {
 		e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			ItemStack item = e.getCurrentItem();
+		ItemStack item = e.getCurrentItem();
+		if(item != null){
 			if(!item.getType().equals(Material.AIR)){
 				final int slot = e.getRawSlot();
 				if(slot == 0){

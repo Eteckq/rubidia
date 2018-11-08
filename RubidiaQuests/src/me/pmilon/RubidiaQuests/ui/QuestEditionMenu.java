@@ -80,50 +80,48 @@ public class QuestEditionMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new PNJQuests(this.getHolder(), this.getPnj()));
-			else if(slot == this.SLOT_DELETE){
-				Core.uiManager.requestUI(new QuestDeletionConfirmationUI(rp, this.getQuest(), this.getPnj()));
-			}else if(slot == this.SLOT_AUTOFINISH){
-				this.getQuest().setAutoFinish(!this.getQuest().isAutoFinish());
-				this.menu.setItem(this.SLOT_AUTOFINISH, this.getAutoFinish());
-			}else if(slot == this.SLOT_REDONE){
-				this.getQuest().setRedonable(!this.getQuest().isRedonable());
-				this.menu.setItem(this.SLOT_REDONE, this.getRedonable());
-			}else if(slot == this.SLOT_GIVEUP){
-				this.getQuest().setGiveupable(!this.getQuest().isGiveupable());
-				this.menu.setItem(this.SLOT_GIVEUP, this.getGiveupable());
-			}else if(slot == this.SLOT_ORDERED){
-				this.getQuest().setOrderedQuest(!this.getQuest().isOrderedQuest());
-				this.menu.setItem(this.SLOT_ORDERED, this.getOrderedQuest());
-			}else if(slot == this.SLOT_UNIQUE){
-				this.getQuest().setUnique(!this.getQuest().isUnique());
-				this.menu.setItem(this.SLOT_UNIQUE, this.getUnique());
-			}else if(slot == this.SLOT_TITLE)this.close(true, this.LISTENING_ID_TITLE);
-			else if(slot == this.SLOT_SUBTITLE)this.close(true, this.LISTENING_ID_SUBTITLE);
-			else if(slot == this.SLOT_START){
-				if(e.isRightClick()){
-					rp.getActiveQuests().remove(this.getQuest());
-					this.getQuest().accept(rp, this.getPnj().getUniqueId());
-					this.close(false);
-				}else{
-					if(this.getQuest().getType().equals(QuestType.NORMAL))this.getQuest().setType(QuestType.EVENT);
-					else if(this.getQuest().getType().equals(QuestType.EVENT))this.getQuest().setType(QuestType.MISC);
-					else if(this.getQuest().getType().equals(QuestType.MISC))this.getQuest().setType(QuestType.OFFICE);
-					else if(this.getQuest().getType().equals(QuestType.OFFICE))this.getQuest().setType(QuestType.STORY);
-					else if(this.getQuest().getType().equals(QuestType.STORY))this.getQuest().setType(QuestType.NORMAL);
-					this.menu.setItem(this.SLOT_START, this.getStart());
-				}
-			}else if(slot == this.SLOT_NOND)Core.uiManager.requestUI(new QuestNonDialogsMenu(this.getHolder(), this.getPnj(), this.getQuest()));
-			else if(slot == this.SLOT_PRED)Core.uiManager.requestUI(new QuestPreDialogsMenu(this.getHolder(), this.getQuest(), this.getPnj()));
-			else if(slot == this.SLOT_POSTD)Core.uiManager.requestUI(new QuestPostDialogsMenu(this.getHolder(), this.getQuest(), this.getPnj()));
-			else if(slot == this.SLOT_OBJ)Core.uiManager.requestUI(new ObjectivesEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
-			else if(slot == this.SLOT_REW)Core.uiManager.requestUI(new RewardsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
-			else if(slot == this.SLOT_REQ)Core.uiManager.requestUI(new RequiredsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
-			else if(slot == this.SLOT_EVT)Core.uiManager.requestUI(new QEventsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
-		}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new PNJQuests(this.getHolder(), this.getPnj()));
+		else if(slot == this.SLOT_DELETE){
+			Core.uiManager.requestUI(new QuestDeletionConfirmationUI(rp, this.getQuest(), this.getPnj()));
+		}else if(slot == this.SLOT_AUTOFINISH){
+			this.getQuest().setAutoFinish(!this.getQuest().isAutoFinish());
+			this.menu.setItem(this.SLOT_AUTOFINISH, this.getAutoFinish());
+		}else if(slot == this.SLOT_REDONE){
+			this.getQuest().setRedonable(!this.getQuest().isRedonable());
+			this.menu.setItem(this.SLOT_REDONE, this.getRedonable());
+		}else if(slot == this.SLOT_GIVEUP){
+			this.getQuest().setGiveupable(!this.getQuest().isGiveupable());
+			this.menu.setItem(this.SLOT_GIVEUP, this.getGiveupable());
+		}else if(slot == this.SLOT_ORDERED){
+			this.getQuest().setOrderedQuest(!this.getQuest().isOrderedQuest());
+			this.menu.setItem(this.SLOT_ORDERED, this.getOrderedQuest());
+		}else if(slot == this.SLOT_UNIQUE){
+			this.getQuest().setUnique(!this.getQuest().isUnique());
+			this.menu.setItem(this.SLOT_UNIQUE, this.getUnique());
+		}else if(slot == this.SLOT_TITLE)this.close(true, this.LISTENING_ID_TITLE);
+		else if(slot == this.SLOT_SUBTITLE)this.close(true, this.LISTENING_ID_SUBTITLE);
+		else if(slot == this.SLOT_START){
+			if(e.isRightClick()){
+				rp.getActiveQuests().remove(this.getQuest());
+				this.getQuest().accept(rp, this.getPnj().getUniqueId());
+				this.close(false);
+			}else{
+				if(this.getQuest().getType().equals(QuestType.NORMAL))this.getQuest().setType(QuestType.EVENT);
+				else if(this.getQuest().getType().equals(QuestType.EVENT))this.getQuest().setType(QuestType.MISC);
+				else if(this.getQuest().getType().equals(QuestType.MISC))this.getQuest().setType(QuestType.OFFICE);
+				else if(this.getQuest().getType().equals(QuestType.OFFICE))this.getQuest().setType(QuestType.STORY);
+				else if(this.getQuest().getType().equals(QuestType.STORY))this.getQuest().setType(QuestType.NORMAL);
+				this.menu.setItem(this.SLOT_START, this.getStart());
+			}
+		}else if(slot == this.SLOT_NOND)Core.uiManager.requestUI(new QuestNonDialogsMenu(this.getHolder(), this.getPnj(), this.getQuest()));
+		else if(slot == this.SLOT_PRED)Core.uiManager.requestUI(new QuestPreDialogsMenu(this.getHolder(), this.getQuest(), this.getPnj()));
+		else if(slot == this.SLOT_POSTD)Core.uiManager.requestUI(new QuestPostDialogsMenu(this.getHolder(), this.getQuest(), this.getPnj()));
+		else if(slot == this.SLOT_OBJ)Core.uiManager.requestUI(new ObjectivesEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
+		else if(slot == this.SLOT_REW)Core.uiManager.requestUI(new RewardsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
+		else if(slot == this.SLOT_REQ)Core.uiManager.requestUI(new RequiredsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
+		else if(slot == this.SLOT_EVT)Core.uiManager.requestUI(new QEventsEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
 	}
 
 	@Override

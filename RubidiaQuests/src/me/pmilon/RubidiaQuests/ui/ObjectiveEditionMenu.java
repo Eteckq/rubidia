@@ -74,83 +74,81 @@ public class ObjectiveEditionMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new ObjectivesEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
-			else if(slot == this.SLOT_AMT){
-				int amount = 1;
-				if(e.isShiftClick())amount = 10;
-				if(e.isRightClick()){
-					this.getObjective().setAmount(this.getObjective().getAmount()-amount);
-				}else{
-					this.getObjective().setAmount(this.getObjective().getAmount()+amount);
-				}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new ObjectivesEditionUI(this.getHolder(), this.getQuest(), this.getPnj()));
+		else if(slot == this.SLOT_AMT){
+			int amount = 1;
+			if(e.isShiftClick())amount = 10;
+			if(e.isRightClick()){
+				this.getObjective().setAmount(this.getObjective().getAmount()-amount);
+			}else{
+				this.getObjective().setAmount(this.getObjective().getAmount()+amount);
+			}
+			this.menu.setItem(this.SLOT_AMT, this.getAmt());
+		}else if(slot == this.SLOT_ENT)Core.uiManager.requestUI(new ObjectiveMonsterSelectMenu(this.getHolder(), this.getPnj(), this.getQuest(), this.getObjective()));
+		else if(slot == this.SLOT_MAT)this.close(true, this.LIST_ID_MAT);
+		else if(slot == this.SLOT_ITEM)this.close(true, this.LIST_ID_ITEM);
+		else if(slot == this.SLOT_LOC)this.close(true, this.LIST_ID_LOC);
+		else if(slot == this.SLOT_NAME)this.close(true, this.LIST_ID_NAME);
+		else if(slot == this.SLOT_TYPE){
+			this.menu.clear();
+			if(this.getObjective().getType().equals(ObjectiveType.CRAFT)){
+				this.getObjective().setType(ObjectiveType.DISCOVER);
+				this.menu.setItem(this.SLOT_LOC, this.getLoc());
+			}else if(this.getObjective().getType().equals(ObjectiveType.DISCOVER)){
+				this.getObjective().setType(ObjectiveType.GET);
+				this.menu.setItem(this.SLOT_ITEM, this.getItem());
+				this.menu.setItem(this.SLOT_TAKE, this.getTakeItem());
+				this.menu.setItem(this.SLOT_NAME, this.getName());
+				this.menu.setItem(this.SLOT_DIALOGS, this.getDialogs());
+			}else if(this.getObjective().getType().equals(ObjectiveType.GET)){
+				this.getObjective().setType(ObjectiveType.KILL);
 				this.menu.setItem(this.SLOT_AMT, this.getAmt());
-			}else if(slot == this.SLOT_ENT)Core.uiManager.requestUI(new ObjectiveMonsterSelectMenu(this.getHolder(), this.getPnj(), this.getQuest(), this.getObjective()));
-			else if(slot == this.SLOT_MAT)this.close(true, this.LIST_ID_MAT);
-			else if(slot == this.SLOT_ITEM)this.close(true, this.LIST_ID_ITEM);
-			else if(slot == this.SLOT_LOC)this.close(true, this.LIST_ID_LOC);
-			else if(slot == this.SLOT_NAME)this.close(true, this.LIST_ID_NAME);
-			else if(slot == this.SLOT_TYPE){
-				this.menu.clear();
-				if(this.getObjective().getType().equals(ObjectiveType.CRAFT)){
-					this.getObjective().setType(ObjectiveType.DISCOVER);
-					this.menu.setItem(this.SLOT_LOC, this.getLoc());
-				}else if(this.getObjective().getType().equals(ObjectiveType.DISCOVER)){
-					this.getObjective().setType(ObjectiveType.GET);
-					this.menu.setItem(this.SLOT_ITEM, this.getItem());
-					this.menu.setItem(this.SLOT_TAKE, this.getTakeItem());
-					this.menu.setItem(this.SLOT_NAME, this.getName());
-					this.menu.setItem(this.SLOT_DIALOGS, this.getDialogs());
-				}else if(this.getObjective().getType().equals(ObjectiveType.GET)){
-					this.getObjective().setType(ObjectiveType.KILL);
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-					this.menu.setItem(this.SLOT_ENT, this.getEnt());
-				}else if(this.getObjective().getType().equals(ObjectiveType.KILL)){
-					this.getObjective().setType(ObjectiveType.MINE);
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-					this.menu.setItem(this.SLOT_MAT, this.getMat());
-				}else if(this.getObjective().getType().equals(ObjectiveType.MINE)){
-					this.getObjective().setType(ObjectiveType.TALK);
-					this.menu.setItem(this.SLOT_NAME, this.getName());
-					this.menu.setItem(this.SLOT_DIALOGS, this.getDialogs());
-				}else if(this.getObjective().getType().equals(ObjectiveType.TALK)){
-					this.getObjective().setType(ObjectiveType.FISH);
-					this.menu.setItem(this.SLOT_ITEM, this.getItem());
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-				}else if(this.getObjective().getType().equals(ObjectiveType.FISH)){
-					this.getObjective().setType(ObjectiveType.LEASH);
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-					this.menu.setItem(this.SLOT_ENT, this.getEnt());
-					this.menu.setItem(this.SLOT_NAME, this.getName());
-					this.menu.setItem(this.SLOT_DIALOGS, this.getDialogs());
-				}else if(this.getObjective().getType().equals(ObjectiveType.LEASH)){
-					this.getObjective().setType(ObjectiveType.FOLLOW);
-					this.menu.setItem(this.SLOT_LOC, this.getLoc());
-					this.menu.setItem(this.SLOT_NAME, this.getName());
-					this.menu.setItem(this.SLOT_DIALOGS, this.getDialogs());
-				}else if(this.getObjective().getType().equals(ObjectiveType.FOLLOW)){
-					this.getObjective().setType(ObjectiveType.TIME);
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-				}else if(this.getObjective().getType().equals(ObjectiveType.TIME)){
-					this.getObjective().setType(ObjectiveType.SIDE_QUEST);
-					this.menu.setItem(this.SLOT_NAME, this.getName());
-					this.menu.setItem(this.SLOT_DIALOGS, this.getDialogs());
-					this.menu.setItem(this.SLOT_SIDEQUEST, this.getSideQuest());
-				}else if(this.getObjective().getType().equals(ObjectiveType.SIDE_QUEST)){
-					this.getObjective().setType(ObjectiveType.CRAFT);
-					this.menu.setItem(this.SLOT_ITEM, this.getItem());
-					this.menu.setItem(this.SLOT_AMT, this.getAmt());
-				}
-				this.menu.setItem(slot, this.getOType());
-				this.menu.setItem(this.SLOT_BACK, this.getBack());
-			}else if(slot == this.SLOT_TAKE){
-				this.getObjective().setTakeItem(!this.getObjective().isTakeItem());
-				this.menu.setItem(slot, this.getTakeItem());
-			}else if(slot == this.SLOT_DIALOGS)Core.uiManager.requestUI(new QuestObjectiveDialogsMenu(this.getHolder(), this.getPnj(), this.getQuest(), this.getObjective()));
-			else if(slot == this.SLOT_SIDEQUEST)Core.uiManager.requestUI(new QuestListObjectiveChooseUI(this.getHolder(), this.getQuest(), this.getPnj(), this.getObjective()));
-		}
+				this.menu.setItem(this.SLOT_ENT, this.getEnt());
+			}else if(this.getObjective().getType().equals(ObjectiveType.KILL)){
+				this.getObjective().setType(ObjectiveType.MINE);
+				this.menu.setItem(this.SLOT_AMT, this.getAmt());
+				this.menu.setItem(this.SLOT_MAT, this.getMat());
+			}else if(this.getObjective().getType().equals(ObjectiveType.MINE)){
+				this.getObjective().setType(ObjectiveType.TALK);
+				this.menu.setItem(this.SLOT_NAME, this.getName());
+				this.menu.setItem(this.SLOT_DIALOGS, this.getDialogs());
+			}else if(this.getObjective().getType().equals(ObjectiveType.TALK)){
+				this.getObjective().setType(ObjectiveType.FISH);
+				this.menu.setItem(this.SLOT_ITEM, this.getItem());
+				this.menu.setItem(this.SLOT_AMT, this.getAmt());
+			}else if(this.getObjective().getType().equals(ObjectiveType.FISH)){
+				this.getObjective().setType(ObjectiveType.LEASH);
+				this.menu.setItem(this.SLOT_AMT, this.getAmt());
+				this.menu.setItem(this.SLOT_ENT, this.getEnt());
+				this.menu.setItem(this.SLOT_NAME, this.getName());
+				this.menu.setItem(this.SLOT_DIALOGS, this.getDialogs());
+			}else if(this.getObjective().getType().equals(ObjectiveType.LEASH)){
+				this.getObjective().setType(ObjectiveType.FOLLOW);
+				this.menu.setItem(this.SLOT_LOC, this.getLoc());
+				this.menu.setItem(this.SLOT_NAME, this.getName());
+				this.menu.setItem(this.SLOT_DIALOGS, this.getDialogs());
+			}else if(this.getObjective().getType().equals(ObjectiveType.FOLLOW)){
+				this.getObjective().setType(ObjectiveType.TIME);
+				this.menu.setItem(this.SLOT_AMT, this.getAmt());
+			}else if(this.getObjective().getType().equals(ObjectiveType.TIME)){
+				this.getObjective().setType(ObjectiveType.SIDE_QUEST);
+				this.menu.setItem(this.SLOT_NAME, this.getName());
+				this.menu.setItem(this.SLOT_DIALOGS, this.getDialogs());
+				this.menu.setItem(this.SLOT_SIDEQUEST, this.getSideQuest());
+			}else if(this.getObjective().getType().equals(ObjectiveType.SIDE_QUEST)){
+				this.getObjective().setType(ObjectiveType.CRAFT);
+				this.menu.setItem(this.SLOT_ITEM, this.getItem());
+				this.menu.setItem(this.SLOT_AMT, this.getAmt());
+			}
+			this.menu.setItem(slot, this.getOType());
+			this.menu.setItem(this.SLOT_BACK, this.getBack());
+		}else if(slot == this.SLOT_TAKE){
+			this.getObjective().setTakeItem(!this.getObjective().isTakeItem());
+			this.menu.setItem(slot, this.getTakeItem());
+		}else if(slot == this.SLOT_DIALOGS)Core.uiManager.requestUI(new QuestObjectiveDialogsMenu(this.getHolder(), this.getPnj(), this.getQuest(), this.getObjective()));
+		else if(slot == this.SLOT_SIDEQUEST)Core.uiManager.requestUI(new QuestListObjectiveChooseUI(this.getHolder(), this.getQuest(), this.getPnj(), this.getObjective()));
 	}
 
 	@Override

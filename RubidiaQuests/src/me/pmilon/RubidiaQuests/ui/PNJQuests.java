@@ -43,20 +43,18 @@ public class PNJQuests extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == 8)Core.uiManager.requestUI(new PNJSettings(this.getHolder(), this.getPnj()));
-			else{
-				List<Quest> quests = this.getPnj().getQuests();
-				if(quests.size() > slot){
-					if(e.isRightClick()){
-						quests.remove(quests.get(slot));
-						this.getPnj().setQuests(quests);
-						Core.uiManager.requestUI(new PNJQuests(this.getHolder(), this.getPnj()));
-					}else Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), this.getPnj().getQuests().get(slot), this.getPnj()));
-				}else Core.uiManager.requestUI(new PreQuestEditionUI(this.getHolder(), this.getPnj()));
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == 8)Core.uiManager.requestUI(new PNJSettings(this.getHolder(), this.getPnj()));
+		else{
+			List<Quest> quests = this.getPnj().getQuests();
+			if(quests.size() > slot){
+				if(e.isRightClick()){
+					quests.remove(quests.get(slot));
+					this.getPnj().setQuests(quests);
+					Core.uiManager.requestUI(new PNJQuests(this.getHolder(), this.getPnj()));
+				}else Core.uiManager.requestUI(new QuestEditionMenu(this.getHolder(), this.getPnj().getQuests().get(slot), this.getPnj()));
+			}else Core.uiManager.requestUI(new PreQuestEditionUI(this.getHolder(), this.getPnj()));
 		}
 	}
 

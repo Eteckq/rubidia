@@ -67,102 +67,97 @@ public class PetUI extends UIHandler{
 	
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p){
-	    if(e.getCurrentItem() != null){
-	    	if(!e.getCurrentItem().getType().equals(Material.AIR)){
-	    		int slot = e.getRawSlot();
-	    		e.setCancelled(true);
-	    		if(slot == SLOT_NAME){
-	    			rp.sendMessage("§aEntrez le nom que vous souhaitez attribuer à votre compagnon (prefix codes couleurs : §l&§a) !");
-	    			this.close(true, this.LIST_ID_NAME);
-	    		}else if(slot == SLOT_TOGGLE_STAY){
-	            	if(this.getPet().canMove()){
-		                if ((this.getEntity() instanceof Wolf)) {
-		                    ((Wolf) this.getEntity()).setSitting(true);
-		                }else if ((this.getEntity() instanceof Ocelot)) {
-		                    ((Ocelot) this.getEntity()).setSitting(true);
-		                }
-	            	}else{
-		                if((this.getEntity() instanceof Wolf)) {
-		                    ((Wolf) this.getEntity()).setSitting(false);
-		                }else if ((this.getEntity() instanceof Ocelot)) {
-		                    ((Ocelot) this.getEntity()).setSitting(false);
-		                }
-	            	}
-	                this.getPet().setMove(!this.getPet().canMove());
-	                this.getMenu().setItem(this.SLOT_TOGGLE_STAY, this.getToggleStay());
-	            }else if(slot == SLOT_TOGGLE_TYPE){
-	        		  if(this.getEntity() instanceof Ocelot){
-	        			  Ocelot o = (Ocelot)this.getEntity();
-	        			  if(o.getCatType().equals(Ocelot.Type.BLACK_CAT))o.setCatType(Ocelot.Type.WILD_OCELOT);
-	        			  else if (o.getCatType().equals(Ocelot.Type.SIAMESE_CAT))o.setCatType(Ocelot.Type.BLACK_CAT);
-	        			  else if (o.getCatType().equals(Ocelot.Type.RED_CAT))o.setCatType(Ocelot.Type.SIAMESE_CAT);
-	        			  else if (o.getCatType().equals(Ocelot.Type.WILD_OCELOT))o.setCatType(Ocelot.Type.RED_CAT);
-	        		  }else if(this.getEntity() instanceof Horse){
-	        			  Horse o = (Horse)this.getEntity();
-	        			  List<Style> styles = Arrays.asList(Horse.Style.values());
-	        			  List<Color> colors = Arrays.asList(Horse.Color.values());
-	        			  Random r = new Random();
-	        			  o.setStyle(styles.get(r.nextInt(Horse.Style.values().length)));
-	        			  o.setColor(colors.get(r.nextInt(Horse.Color.values().length)));
-	        		  }else if(this.getEntity() instanceof Rabbit){
-	        			  Rabbit o = (Rabbit)this.getEntity();
-	        			  if(o.getRabbitType().equals(Rabbit.Type.BLACK))o.setRabbitType(Rabbit.Type.BLACK_AND_WHITE);
-	        			  else if(o.getRabbitType().equals(Rabbit.Type.BLACK_AND_WHITE))o.setRabbitType(Rabbit.Type.BROWN);
-	        			  else if(o.getRabbitType().equals(Rabbit.Type.BROWN))o.setRabbitType(Rabbit.Type.GOLD);
-	        			  else if(o.getRabbitType().equals(Rabbit.Type.GOLD))o.setRabbitType(Rabbit.Type.SALT_AND_PEPPER);
-	        			  else if(o.getRabbitType().equals(Rabbit.Type.SALT_AND_PEPPER))o.setRabbitType(Rabbit.Type.THE_KILLER_BUNNY);
-	        			  else if(o.getRabbitType().equals(Rabbit.Type.THE_KILLER_BUNNY))o.setRabbitType(Rabbit.Type.WHITE);
-	        			  else if(o.getRabbitType().equals(Rabbit.Type.WHITE))o.setRabbitType(Rabbit.Type.BLACK);
-	        		  }else if(this.getEntity() instanceof Parrot){
-	        			  Parrot o = (Parrot)this.getEntity();
-	        			  if(o.getVariant().equals(Parrot.Variant.BLUE))o.setVariant(Parrot.Variant.CYAN);
-	        			  else if(o.getVariant().equals(Parrot.Variant.CYAN))o.setVariant(Parrot.Variant.GRAY);
-	        			  else if(o.getVariant().equals(Parrot.Variant.GRAY))o.setVariant(Parrot.Variant.GREEN);
-	        			  else if(o.getVariant().equals(Parrot.Variant.GREEN))o.setVariant(Parrot.Variant.RED);
-	        			  else if(o.getVariant().equals(Parrot.Variant.RED))o.setVariant(Parrot.Variant.BLUE);
-	        		  }else if(this.getEntity() instanceof Wolf || this.getEntity() instanceof Sheep){
-	        			  DyeColor color;
-	        			  if(this.getEntity() instanceof Wolf)color = ((Wolf) this.getEntity()).getCollarColor();
-	        			  else color = ((Sheep) this.getEntity()).getColor();
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == SLOT_NAME){
+			rp.sendMessage("§aEntrez le nom que vous souhaitez attribuer à votre compagnon (prefix codes couleurs : §l&§a) !");
+			this.close(true, this.LIST_ID_NAME);
+		}else if(slot == SLOT_TOGGLE_STAY){
+        	if(this.getPet().canMove()){
+                if ((this.getEntity() instanceof Wolf)) {
+                    ((Wolf) this.getEntity()).setSitting(true);
+                }else if ((this.getEntity() instanceof Ocelot)) {
+                    ((Ocelot) this.getEntity()).setSitting(true);
+                }
+        	}else{
+                if((this.getEntity() instanceof Wolf)) {
+                    ((Wolf) this.getEntity()).setSitting(false);
+                }else if ((this.getEntity() instanceof Ocelot)) {
+                    ((Ocelot) this.getEntity()).setSitting(false);
+                }
+        	}
+            this.getPet().setMove(!this.getPet().canMove());
+            this.getMenu().setItem(this.SLOT_TOGGLE_STAY, this.getToggleStay());
+        }else if(slot == SLOT_TOGGLE_TYPE){
+    		  if(this.getEntity() instanceof Ocelot){
+    			  Ocelot o = (Ocelot)this.getEntity();
+    			  if(o.getCatType().equals(Ocelot.Type.BLACK_CAT))o.setCatType(Ocelot.Type.WILD_OCELOT);
+    			  else if (o.getCatType().equals(Ocelot.Type.SIAMESE_CAT))o.setCatType(Ocelot.Type.BLACK_CAT);
+    			  else if (o.getCatType().equals(Ocelot.Type.RED_CAT))o.setCatType(Ocelot.Type.SIAMESE_CAT);
+    			  else if (o.getCatType().equals(Ocelot.Type.WILD_OCELOT))o.setCatType(Ocelot.Type.RED_CAT);
+    		  }else if(this.getEntity() instanceof Horse){
+    			  Horse o = (Horse)this.getEntity();
+    			  List<Style> styles = Arrays.asList(Horse.Style.values());
+    			  List<Color> colors = Arrays.asList(Horse.Color.values());
+    			  Random r = new Random();
+    			  o.setStyle(styles.get(r.nextInt(Horse.Style.values().length)));
+    			  o.setColor(colors.get(r.nextInt(Horse.Color.values().length)));
+    		  }else if(this.getEntity() instanceof Rabbit){
+    			  Rabbit o = (Rabbit)this.getEntity();
+    			  if(o.getRabbitType().equals(Rabbit.Type.BLACK))o.setRabbitType(Rabbit.Type.BLACK_AND_WHITE);
+    			  else if(o.getRabbitType().equals(Rabbit.Type.BLACK_AND_WHITE))o.setRabbitType(Rabbit.Type.BROWN);
+    			  else if(o.getRabbitType().equals(Rabbit.Type.BROWN))o.setRabbitType(Rabbit.Type.GOLD);
+    			  else if(o.getRabbitType().equals(Rabbit.Type.GOLD))o.setRabbitType(Rabbit.Type.SALT_AND_PEPPER);
+    			  else if(o.getRabbitType().equals(Rabbit.Type.SALT_AND_PEPPER))o.setRabbitType(Rabbit.Type.THE_KILLER_BUNNY);
+    			  else if(o.getRabbitType().equals(Rabbit.Type.THE_KILLER_BUNNY))o.setRabbitType(Rabbit.Type.WHITE);
+    			  else if(o.getRabbitType().equals(Rabbit.Type.WHITE))o.setRabbitType(Rabbit.Type.BLACK);
+    		  }else if(this.getEntity() instanceof Parrot){
+    			  Parrot o = (Parrot)this.getEntity();
+    			  if(o.getVariant().equals(Parrot.Variant.BLUE))o.setVariant(Parrot.Variant.CYAN);
+    			  else if(o.getVariant().equals(Parrot.Variant.CYAN))o.setVariant(Parrot.Variant.GRAY);
+    			  else if(o.getVariant().equals(Parrot.Variant.GRAY))o.setVariant(Parrot.Variant.GREEN);
+    			  else if(o.getVariant().equals(Parrot.Variant.GREEN))o.setVariant(Parrot.Variant.RED);
+    			  else if(o.getVariant().equals(Parrot.Variant.RED))o.setVariant(Parrot.Variant.BLUE);
+    		  }else if(this.getEntity() instanceof Wolf || this.getEntity() instanceof Sheep){
+    			  DyeColor color;
+    			  if(this.getEntity() instanceof Wolf)color = ((Wolf) this.getEntity()).getCollarColor();
+    			  else color = ((Sheep) this.getEntity()).getColor();
 
-	        			  if(color.equals(DyeColor.BLACK))color = DyeColor.BLUE;
-	        			  else if(color.equals(DyeColor.BLUE))color = DyeColor.BROWN;
-	        			  else if(color.equals(DyeColor.BROWN))color = DyeColor.CYAN;
-	        			  else if(color.equals(DyeColor.CYAN))color = DyeColor.GRAY;
-	        			  else if(color.equals(DyeColor.GRAY))color = DyeColor.GREEN;
-	        			  else if(color.equals(DyeColor.GREEN))color = DyeColor.LIGHT_BLUE;
-	        			  else if(color.equals(DyeColor.LIGHT_BLUE))color = DyeColor.LIME;
-	        			  else if(color.equals(DyeColor.LIME))color = DyeColor.MAGENTA;
-	        			  else if(color.equals(DyeColor.MAGENTA))color = DyeColor.ORANGE;
-	        			  else if(color.equals(DyeColor.ORANGE))color = DyeColor.PINK;
-	        			  else if(color.equals(DyeColor.PINK))color = DyeColor.PURPLE;
-	        			  else if(color.equals(DyeColor.PURPLE))color = DyeColor.RED;
-	        			  else if(color.equals(DyeColor.RED))color = DyeColor.LIGHT_GRAY;
-	        			  else if(color.equals(DyeColor.LIGHT_GRAY))color = DyeColor.WHITE;
-	        			  else if(color.equals(DyeColor.WHITE))color = DyeColor.YELLOW;
-	        			  else if(color.equals(DyeColor.YELLOW))color = DyeColor.BLACK;
-	        			  
-	        			  if(this.getEntity() instanceof Wolf)((Wolf) this.getEntity()).setCollarColor(color);
-	        			  else ((Sheep) this.getEntity()).setColor(color);
-	        		  }else if(this.getEntity() instanceof Snowman){
-	        			  ((Snowman)this.getEntity()).setDerp(!((Snowman)this.getEntity()).isDerp());
-	        		  }else if(this.getEntity() instanceof Pig){
-	        			  ((Pig)this.getEntity()).setSaddle(!((Pig)this.getEntity()).hasSaddle());
-	        		  }else rp.sendMessage("§cCette option n'est pas disponible pour ce type de compagnon !");
-	              }else if(slot == SLOT_TOGGLE_AGE){
-	            	  if(this.getEntity() instanceof Ageable){
-	            		  if(((Ageable) this.getEntity()).isAdult())((Ageable) this.getEntity()).setBaby();
-	            		  else ((Ageable) this.getEntity()).setAdult();
-	                	  e.setCurrentItem(this.getToggleAge());
-	            	  }else rp.sendMessage("§cCette option n'est pas disponible pour ce type de compagnon !");
-	              }else if(slot == SLOT_PEARLS){
-	            	  Core.uiManager.requestUI(new PearlsUI(this.getHolder(), this.getPet()));
-	              }else if(slot == SLOT_DISTINCTIONS){
-	            	  Core.uiManager.requestUI(new PetDistinctionsMenu(this.getHolder(), this.getPet()));
-	              }
-	    	}
-	    }
-	    e.setCancelled(true);
+    			  if(color.equals(DyeColor.BLACK))color = DyeColor.BLUE;
+    			  else if(color.equals(DyeColor.BLUE))color = DyeColor.BROWN;
+    			  else if(color.equals(DyeColor.BROWN))color = DyeColor.CYAN;
+    			  else if(color.equals(DyeColor.CYAN))color = DyeColor.GRAY;
+    			  else if(color.equals(DyeColor.GRAY))color = DyeColor.GREEN;
+    			  else if(color.equals(DyeColor.GREEN))color = DyeColor.LIGHT_BLUE;
+    			  else if(color.equals(DyeColor.LIGHT_BLUE))color = DyeColor.LIME;
+    			  else if(color.equals(DyeColor.LIME))color = DyeColor.MAGENTA;
+    			  else if(color.equals(DyeColor.MAGENTA))color = DyeColor.ORANGE;
+    			  else if(color.equals(DyeColor.ORANGE))color = DyeColor.PINK;
+    			  else if(color.equals(DyeColor.PINK))color = DyeColor.PURPLE;
+    			  else if(color.equals(DyeColor.PURPLE))color = DyeColor.RED;
+    			  else if(color.equals(DyeColor.RED))color = DyeColor.LIGHT_GRAY;
+    			  else if(color.equals(DyeColor.LIGHT_GRAY))color = DyeColor.WHITE;
+    			  else if(color.equals(DyeColor.WHITE))color = DyeColor.YELLOW;
+    			  else if(color.equals(DyeColor.YELLOW))color = DyeColor.BLACK;
+    			  
+    			  if(this.getEntity() instanceof Wolf)((Wolf) this.getEntity()).setCollarColor(color);
+    			  else ((Sheep) this.getEntity()).setColor(color);
+    		  }else if(this.getEntity() instanceof Snowman){
+    			  ((Snowman)this.getEntity()).setDerp(!((Snowman)this.getEntity()).isDerp());
+    		  }else if(this.getEntity() instanceof Pig){
+    			  ((Pig)this.getEntity()).setSaddle(!((Pig)this.getEntity()).hasSaddle());
+    		  }else rp.sendMessage("§cCette option n'est pas disponible pour ce type de compagnon !");
+          }else if(slot == SLOT_TOGGLE_AGE){
+        	  if(this.getEntity() instanceof Ageable){
+        		  if(((Ageable) this.getEntity()).isAdult())((Ageable) this.getEntity()).setBaby();
+        		  else ((Ageable) this.getEntity()).setAdult();
+            	  e.setCurrentItem(this.getToggleAge());
+        	  }else rp.sendMessage("§cCette option n'est pas disponible pour ce type de compagnon !");
+          }else if(slot == SLOT_PEARLS){
+        	  Core.uiManager.requestUI(new PearlsUI(this.getHolder(), this.getPet()));
+          }else if(slot == SLOT_DISTINCTIONS){
+        	  Core.uiManager.requestUI(new PetDistinctionsMenu(this.getHolder(), this.getPet()));
+          }
 	}
 	
 	@Override

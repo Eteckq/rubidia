@@ -47,16 +47,16 @@ public class MonsterAttackEditionMenu extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				e.setCancelled(true);
-				int slot = e.getRawSlot();
-				if(slot == this.SLOT_TYPE){
-					
-				}else if(slot == this.SLOT_COOLDOWN)this.close(true, this.LIST_ID_CLD);
-				else if(slot == this.SLOT_LEARNING_FACTOR)this.close(true, this.LIST_ID_LRNG);
-				else if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new MonsterEditionMenu(this.getHolder(), this.getRegion(), this.getMonster()));
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_TYPE){
+			
+		}else if(slot == this.SLOT_COOLDOWN) {
+			this.close(true, this.LIST_ID_CLD);
+		} else if(slot == this.SLOT_LEARNING_FACTOR) {
+			this.close(true, this.LIST_ID_LRNG);
+		} else if(slot == this.SLOT_BACK) {
+			Core.uiManager.requestUI(new MonsterEditionMenu(this.getHolder(), this.getRegion(), this.getMonster()));
 		}
 	}
 

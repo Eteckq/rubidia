@@ -84,8 +84,11 @@ public class QuestListRequiredChoose extends ListMenuUIHandler<Quest> {
 
 	@Override
 	protected void onClick(InventoryClickEvent e, Player arg1, ItemStack arg2) {
-		this.getRequired().setQuestTargetUUID(this.get(e.getRawSlot()).getUUID());
-		Core.uiManager.requestUI(new RequiredEditionMenu(this.getHolder(), this.getRequiredHolder(), this.getPnj(), this.getRequired()));
+		Quest quest = this.get(e.getRawSlot());
+		if(quest != null) {
+			this.getRequired().setQuestTargetUUID(quest.getUUID());
+			Core.uiManager.requestUI(new RequiredEditionMenu(this.getHolder(), this.getRequiredHolder(), this.getPnj(), this.getRequired()));
+		}
 	}
 
 	@Override

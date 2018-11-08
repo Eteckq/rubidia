@@ -54,14 +54,12 @@ public class ObjectiveMonsterSelectMenu extends ListMenuUIHandler<Monster>{
 
 	@Override
 	protected void onClick(InventoryClickEvent e, Player arg1, ItemStack arg2) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			Monster monster = this.get(slot);
-			if(monster != null){
-				this.getObjective().setMonsterUUID(monster.getUUID());
-				Core.uiManager.requestUI(new ObjectiveEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), this.getObjective()));
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		Monster monster = this.get(slot);
+		if(monster != null){
+			this.getObjective().setMonsterUUID(monster.getUUID());
+			Core.uiManager.requestUI(new ObjectiveEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), this.getObjective()));
 		}
 	}
 

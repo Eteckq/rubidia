@@ -45,18 +45,17 @@ public class MonsterDropsEditionUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player arg1) {
-		if(e.getCurrentItem() != null){
-			e.setCancelled(true);
-			int slot = e.getRawSlot();
-			if(slot == this.SLOT_BACK)Core.uiManager.requestUI(new MonsterEditionMenu(this.getHolder(), this.getRegion(), this.getMonster()));
-			else{
-				if(e.isRightClick()){
-					this.getMonster().getDrops().remove(slot);
-					Configs.getMonstersConfig().set("monsters." + this.getMonster().getUUID() + ".drops." + slot, null);
-					Configs.saveMonstersConfig();
-					Core.uiManager.requestUI(this);
-				}else this.close(true, slot+1);
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(slot == this.SLOT_BACK) {
+			Core.uiManager.requestUI(new MonsterEditionMenu(this.getHolder(), this.getRegion(), this.getMonster()));
+		} else {
+			if(e.isRightClick()){
+				this.getMonster().getDrops().remove(slot);
+				Configs.getMonstersConfig().set("monsters." + this.getMonster().getUUID() + ".drops." + slot, null);
+				Configs.saveMonstersConfig();
+				Core.uiManager.requestUI(this);
+			}else this.close(true, slot+1);
 		}
 	}
 

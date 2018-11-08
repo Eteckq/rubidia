@@ -28,6 +28,8 @@ import me.pmilon.RubidiaPets.pets.Pet;
 
 public class PearlsUI extends UIHandler {
 
+	//TODO update this menu
+	
 	private BukkitTask task;
 	
 	private final Pet pet;
@@ -53,9 +55,9 @@ public class PearlsUI extends UIHandler {
 	@Override
 	public void onGeneralClick(InventoryClickEvent e, Player p) {
 		if(e.isShiftClick())e.setCancelled(true);
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				ItemStack is = e.getCurrentItem();
+		ItemStack is = e.getCurrentItem();
+		if(is != null){
+			if(!is.getType().equals(Material.AIR)){
 				if(is.hasItemMeta()){
 					ItemMeta meta = is.getItemMeta();
 					if(meta.hasDisplayName()){
@@ -121,16 +123,12 @@ public class PearlsUI extends UIHandler {
 
 	@Override
 	public void onInventoryClick(InventoryClickEvent e, Player p) {
-		if(e.getCurrentItem() != null){
-			if(!e.getCurrentItem().getType().equals(Material.AIR)){
-				int slot = e.getRawSlot();
-				e.setCancelled(true);
-				if(this.getPet().getActivePearls().size() > slot){
-					rp.sendMessage("§cVous ne pouvez enlever une perle active !");
-				}else if(slot == SLOT_BACK){
-					this.getUIManager().requestUI(new PetUI(this.getHolder(), this.pet));
-				}
-			}
+		e.setCancelled(true);
+		int slot = e.getRawSlot();
+		if(this.getPet().getActivePearls().size() > slot){
+			rp.sendMessage("§cVous ne pouvez enlever une perle active !");
+		}else if(slot == SLOT_BACK){
+			this.getUIManager().requestUI(new PetUI(this.getHolder(), this.pet));
 		}
 	}
 

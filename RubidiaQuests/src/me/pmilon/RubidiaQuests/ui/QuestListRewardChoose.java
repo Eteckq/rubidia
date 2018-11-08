@@ -83,8 +83,11 @@ public class QuestListRewardChoose extends ListMenuUIHandler<Quest> {
 
 	@Override
 	protected void onClick(InventoryClickEvent e, Player arg1, ItemStack arg2) {
-		this.getReward().setQuestTargetUUID(this.get(e.getRawSlot()).getUUID());
-		Core.uiManager.requestUI(new RewardEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), this.getReward()));
+		Quest quest = this.get(e.getRawSlot());
+		if(quest != null) {
+			this.getReward().setQuestTargetUUID(quest.getUUID());
+			Core.uiManager.requestUI(new RewardEditionMenu(this.getHolder(), this.getQuest(), this.getPnj(), this.getReward()));
+		}
 	}
 
 	@Override
