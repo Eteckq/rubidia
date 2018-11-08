@@ -8,7 +8,7 @@ softdepend: [RubidiaCore, RubidiaGuilds, WorldEdit, Multiverse-Core]
 commands:
   chunk:
     description: Chunk management.
-    aliases: c
+    aliases: chk
   chunks:
     description: Chunks management.
-    aliases: chs
+    aliases: chks
