@@ -14,9 +14,9 @@ import me.pmilon.RubidiaManager.chunks.RChunk;
 import me.pmilon.RubidiaManager.commands.ChunkCommandExecutor;
 import me.pmilon.RubidiaManager.commands.ChunksCommandExecutor;
 import me.pmilon.RubidiaManager.tasks.EndRegenTask;
-import me.pmilon.RubidiaManager.tasks.MapRegenTask;
 import me.pmilon.RubidiaManager.tasks.NetherRegenTask;
 import me.pmilon.RubidiaManager.tasks.ServerRestartTask;
+import me.pmilon.RubidiaManager.tasks.WorldsRegenTask;
 import me.pmilon.RubidiaManager.utils.Configs;
 
 import org.bukkit.Bukkit;
@@ -57,11 +57,15 @@ public class RubidiaManagerPlugin extends JavaPlugin {
 		this.getCommand("chunk").setExecutor(new ChunkCommandExecutor());
 		this.getCommand("chunks").setExecutor(new ChunksCommandExecutor());
 		
-		Timer timer = new Timer();
-		this.scheduleRestart(timer);
-		this.scheduleNetherRegen(timer);
-		this.scheduleEndRegen(timer);
-		this.scheduleMapRegen(timer);
+		if(this.getConfig().contains("autoRestart")) {
+			int days = this.getConfig().getInt("autoRestart");
+			if(days > 0) {
+				this.scheduleRestart(days);
+			}
+		}
+		this.scheduleNetherRegen();
+		this.scheduleEndRegen();
+		this.scheduleWorldsRegen();
 	}
 	
 	public void onDisable(){
@@ -113,47 +117,55 @@ public class RubidiaManagerPlugin extends JavaPlugin {
 		return dir;
 	}
 	
-	
-	
-	public void scheduleRestart(Timer timer){
-		Calendar interval = Calendar.getInstance();
-		interval.add(Calendar.DAY_OF_WEEK, 1);
-		interval.set(Calendar.HOUR_OF_DAY, 2);
-		interval.set(Calendar.MINUTE, 0);
-		interval.set(Calendar.SECOND, 0);
-		interval.set(Calendar.MILLISECOND, 0);
-		timer.schedule(new ServerRestartTask(this), interval.getTime(), 24*60*60*1000);
+	public void scheduleRestart(int days){
+		Calendar date = Calendar.getInstance();
+		date.set(Calendar.HOUR_OF_DAY, 2);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		date.set(Calendar.MILLISECOND, 0);
+		if(date.before(Calendar.getInstance())) {
+			date.add(Calendar.DAY_OF_YEAR, days);
+		} else {
+			date.add(Calendar.DAY_OF_YEAR, days - 1);
+		}
+		new Timer("RubidiaRestart").schedule(new ServerRestartTask(this), date.getTime());
 	}
 	
-	private void scheduleNetherRegen(Timer timer){
-		Calendar interval = Calendar.getInstance();
-		interval.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-		interval.set(Calendar.HOUR_OF_DAY, 2);
-		interval.set(Calendar.MINUTE, 30);
-		interval.set(Calendar.SECOND, 0);
-		interval.set(Calendar.MILLISECOND, 0);
-		if(interval.before(Calendar.getInstance()))interval.add(Calendar.WEEK_OF_MONTH, 1);
-		timer.schedule(new NetherRegenTask(this), interval.getTime(), 7*24*60*60*1000);
+	private void scheduleEndRegen(){
+		Calendar date = Calendar.getInstance();
+		date.set(Calendar.HOUR_OF_DAY, 3);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		date.set(Calendar.MILLISECOND, 0);
+		if(date.before(Calendar.getInstance())) {
+			date.add(Calendar.DAY_OF_YEAR, 1);
+		}
+		new Timer("RubidiaEndRegen").scheduleAtFixedRate(new EndRegenTask(this), date.getTime(), 24*60*60*1000L);
 	}
 	
-	private void scheduleEndRegen(Timer timer){
-		Calendar interval = Calendar.getInstance();
-		interval.set(Calendar.HOUR_OF_DAY, 3);
-		interval.set(Calendar.MINUTE, 0);
-		interval.set(Calendar.SECOND, 0);
-		interval.set(Calendar.MILLISECOND, 0);
-		if(interval.before(Calendar.getInstance()))interval.add(Calendar.DAY_OF_WEEK, 1);
-		timer.schedule(new EndRegenTask(this), interval.getTime(), 24*60*60*1000);
+	private void scheduleNetherRegen(){
+		Calendar date = Calendar.getInstance();
+		date.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		date.set(Calendar.HOUR_OF_DAY, 5);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		date.set(Calendar.MILLISECOND, 0);
+		if(date.before(Calendar.getInstance())) {
+			date.add(Calendar.WEEK_OF_YEAR, 1);
+		}
+		new Timer("RubidiaNetherRegen").scheduleAtFixedRate(new NetherRegenTask(this), date.getTime(), 7*24*60*60*1000L);
 	}
 	
-	private void scheduleMapRegen(Timer timer){
-		Calendar interval = Calendar.getInstance();
-		interval.set(Calendar.DAY_OF_MONTH, 1);
-		interval.set(Calendar.HOUR_OF_DAY, 4);
-		interval.set(Calendar.MINUTE, 0);
-		interval.set(Calendar.SECOND, 0);
-		interval.set(Calendar.MILLISECOND, 0);
-		if(interval.before(Calendar.getInstance()))interval.add(Calendar.MONTH, 1);
-		timer.schedule(new MapRegenTask(this), interval.getTime(), 31*7*24*60*60*1000);
+	private void scheduleWorldsRegen(){
+		Calendar date = Calendar.getInstance();
+		date.set(Calendar.DAY_OF_MONTH, 1);
+		date.set(Calendar.HOUR_OF_DAY, 4);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		date.set(Calendar.MILLISECOND, 0);
+		if(date.before(Calendar.getInstance())) {
+			date.add(Calendar.MONTH, 1);
+		}
+		new Timer("RubidiaWorldsRegen").scheduleAtFixedRate(new WorldsRegenTask(this), date.getTime(), 31*24*60*60*1000L);
 	}
 }

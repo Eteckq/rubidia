@@ -12,7 +12,6 @@ public class ServerRestartTask extends AbstractTask {
 
 	@Override
 	public void runTaskSynchronously() {
-		this.getPlugin().getConfig().set("autoRestarted", true);
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stop");
 	}
 

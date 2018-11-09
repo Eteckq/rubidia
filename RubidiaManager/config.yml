@@ -1,2 +1,4 @@
-regenWorld: Rubidia
-autoRestarted: true
+regenWorlds:
+  - 'Rubidia'
+  - 'Rubidia_nether'
+autoRestart: true

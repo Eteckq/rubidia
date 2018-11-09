@@ -19,23 +19,19 @@ public class EndRegenTask extends AbstractTask {
 
 	@Override
 	public void runTaskSynchronously() {
-		if(this.getPlugin().getConfig().contains("regenEnd")){
-			if(this.getPlugin().getConfig().getBoolean("regenEnd")){
-				this.getPlugin().getConfig().set("regenEnd", false);
-				WorldManager worldManager = new WorldManager(RubidiaManagerPlugin.multiverseCore);
-				if(worldManager.regenWorld("Rubidia_the_end", true, true, null)){
-					World world = Bukkit.getWorld("Rubidia_the_end");
-					if(world != null){
-						for(Entity entity : world.getEntities()){
-							if(entity.getType().equals(EntityType.ENDER_DRAGON)){
-								((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(4444.0);
-							}
-						}
+		RubidiaManagerPlugin.console.sendMessage("§eRegenerating The End...");
+		WorldManager worldManager = new WorldManager(RubidiaManagerPlugin.multiverseCore);
+		if(worldManager.regenWorld("Rubidia_the_end", true, true, null)) {
+			World world = Bukkit.getWorld("Rubidia_the_end");
+			if(world != null){
+				for(Entity entity : world.getEntities()){
+					if(entity.getType().equals(EntityType.ENDER_DRAGON)){
+						((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(4444.0);
 					}
-					RubidiaManagerPlugin.console.sendMessage("§6END WORLD REGENERATED");
 				}
 			}
-		}else this.getPlugin().getConfig().set("regenEnd", false);
+			RubidiaManagerPlugin.console.sendMessage("§eThe End regenerated!");
+		} else RubidiaManagerPlugin.console.sendMessage("§cUnable to regen The End.");
 	}
 
 }

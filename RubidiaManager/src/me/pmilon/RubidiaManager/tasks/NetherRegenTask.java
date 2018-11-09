@@ -12,10 +12,11 @@ public class NetherRegenTask extends AbstractTask {
 	
 	@Override
 	public void runTaskSynchronously() {
-		RubidiaManagerPlugin.console.sendMessage("§eREGENERATING §6NETHER...");
+		RubidiaManagerPlugin.console.sendMessage("§eRegenerating nether...");
 		WorldManager worldManager = new WorldManager(RubidiaManagerPlugin.multiverseCore);
-		if(worldManager.regenWorld("Rubidia_nether", true, true, null))RubidiaManagerPlugin.console.sendMessage("§6NETHER §eREGENERATED");
-		else RubidiaManagerPlugin.console.sendMessage("§cCOULDNT REGENERATE §4NETHER");
+		if(worldManager.regenWorld("Rubidia_nether", true, true, null)) {
+			RubidiaManagerPlugin.console.sendMessage("§eNether regenerated!");
+		} else RubidiaManagerPlugin.console.sendMessage("§cUnable to regen nether.");
 	}
 
 }
