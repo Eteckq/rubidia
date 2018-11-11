@@ -1,6 +1,8 @@
 package me.pmilon.RubidiaPaths.commands;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -17,7 +19,7 @@ import me.pmilon.RubidiaPaths.SecretPath;
 import me.pmilon.RubidiaPaths.SecretPathColl;
 import me.pmilon.RubidiaPaths.SecretPathsManager;
 
-public class PortalCommandExecutor extends PlayerAdminCommandExecutor {
+public class PortalsCommandExecutor extends PlayerAdminCommandExecutor {
 
 	@Override
 	public void onAdminCommand(Player player, RPlayer rp, String[] args) {
@@ -62,11 +64,20 @@ public class PortalCommandExecutor extends PlayerAdminCommandExecutor {
 				}else{
 					rp.sendMessage("§cUtilisez /portal remove [Nom]");
 				}
+			}else if(args[0].equalsIgnoreCase("list")){
+				List<String> paths = new ArrayList<String>();
+				for(SecretPath path : SecretPathColl.paths) {
+					if(!paths.contains(path.getName()) && !paths.contains(path.getTargetName())) {
+						rp.sendMessage("§7" + path.getName() + " §f> §7" + path.getTargetName());
+						paths.add(path.getName());
+						paths.add(path.getTargetName());
+					}
+				}
 			}else{
-				rp.sendMessage("§cUtilisez /portal create [Nom] [NomCible/null] [title.../null + | + subtitle.../null]§l/§cremove [Nom]");
+				rp.sendMessage("§cUtilisez /portals [create/remove/list] [Nom] [NomCible/null] [title.../null + | + subtitle.../null]§l/§cremove [Nom]");
 			}
 		}else{
-			rp.sendMessage("§cUtilisez /portal create [Nom] [NomCible/null] [title.../null + | + subtitle.../null]§l/§cremove [Nom]");
+			rp.sendMessage("§cUtilisez /portals [create/remove/list] [Nom] [NomCible/null] [title.../null + | + subtitle.../null]§l/§cremove [Nom]");
 		}
 	}
 

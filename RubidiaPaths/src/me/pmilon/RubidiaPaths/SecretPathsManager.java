@@ -5,7 +5,7 @@ import java.util.Set;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.events.RPlayerMoveEvent;
-import me.pmilon.RubidiaPaths.commands.PortalCommandExecutor;
+import me.pmilon.RubidiaPaths.commands.PortalsCommandExecutor;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -31,7 +31,7 @@ public class SecretPathsManager extends JavaPlugin implements Listener{
 		coll = new SecretPathColl(this);
 		we = (WorldEditPlugin) getServer().getPluginManager() .getPlugin("WorldEdit");
 		Bukkit.getPluginManager().registerEvents(this, this);
-	    this.getCommand("portal").setExecutor(new PortalCommandExecutor());
+	    this.getCommand("portal").setExecutor(new PortalsCommandExecutor());
 	}
 	
 	public void onDisable(){
