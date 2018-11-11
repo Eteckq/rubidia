@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.sqlite.util.StringUtils;
@@ -23,7 +24,7 @@ public class PortalsCommandExecutor extends PlayerAdminCommandExecutor {
 
 	@Override
 	public void onAdminCommand(Player player, RPlayer rp, String[] args) {
-		if(args.length > 1){
+		if(args.length > 0){
 			if(args[0].equalsIgnoreCase("create")){
 				if(args.length > 3){
 					LocalSession session = SecretPathsManager.we.getSession(player);
@@ -35,12 +36,16 @@ public class PortalsCommandExecutor extends PlayerAdminCommandExecutor {
 									Vector t = session.getSelection(session.getSelectionWorld()).getMaximumPoint();
 									Location bottom = new Location(player.getWorld(), b.getBlockX(), b.getBlockY(), b.getBlockZ());
 									Location top = new Location(player.getWorld(), t.getBlockX(), t.getBlockY(), t.getBlockZ());
-									String argtitles = StringUtils.join(Arrays.asList(Arrays.copyOfRange(args, 3, args.length)), " ");
-									String[] titles = argtitles.split(" | ");
+									String argtitles = StringUtils.join(Arrays.asList(args).subList(3, args.length), " ");
+									String[] titles = argtitles.split("&&");
 									if(titles.length > 1) {
-										SecretPathColl.paths.add(new SecretPath(args[1], titles[0], titles[1], args[2], player.getLocation(), bottom, top));
+										SecretPath path = SecretPathColl.get(args[1]);
+										if(path != null) {
+											SecretPathColl.paths.remove(path);
+										}
+										SecretPathColl.paths.add(new SecretPath(args[1], titles[0].trim(), titles[1].trim(), args[2], player.getLocation(), bottom, top));
 										rp.sendMessage("§aLe portail §2" + args[1] + " §aa été créé !");
-									} else rp.sendMessage("§cSpécifiez un titre et un sous-titre : [title.../null + | + subtitle.../null]");
+									} else rp.sendMessage("§cSpécifiez un titre et un sous-titre : [title.../null&&subtitle.../null]");
 								} catch (IncompleteRegionException e) {
 									rp.sendMessage("§cSélectionnez une région complète");
 								}
@@ -48,10 +53,10 @@ public class PortalsCommandExecutor extends PlayerAdminCommandExecutor {
 						}else rp.sendMessage("§cVous n'avez pas sélectionné de région");
 					}else rp.sendMessage("§cVous n'avez pas sélectionné de région");
 				}else{
-					rp.sendMessage("§cUtilisez /portal create [Nom] [NomCible/null] [title.../null + | + subtitle.../null]");
+					rp.sendMessage("§cUtilisez /portal create [Nom] [Cible] [title.../null&&subtitle.../null]");
 				}
 			}else if(args[0].equalsIgnoreCase("remove")){
-				if(args.length == 2){
+				if(args.length > 1){
 					SecretPath path = SecretPath.get(args[1]);
 					if(path != null){
 						SecretPathColl.paths.remove(path);
@@ -68,16 +73,21 @@ public class PortalsCommandExecutor extends PlayerAdminCommandExecutor {
 				List<String> paths = new ArrayList<String>();
 				for(SecretPath path : SecretPathColl.paths) {
 					if(!paths.contains(path.getName()) && !paths.contains(path.getTargetName())) {
-						rp.sendMessage("§7" + path.getName() + " §f> §7" + path.getTargetName());
+						SecretPath target = SecretPathColl.get(path.getTargetName());
+						if(target == null) {
+							rp.sendMessage("§7" + path.getName() + " §f> §7" + path.getTargetName() + " §f: " + ChatColor.translateAlternateColorCodes('&', path.getTitle()) + "§r " + ChatColor.translateAlternateColorCodes('&', path.getSubtitle()));
+						} else {
+							rp.sendMessage("§7" + path.getName() + " §f> §7" + path.getTargetName() + " §f: " + ChatColor.translateAlternateColorCodes('&', path.getTitle()) + "§r " + ChatColor.translateAlternateColorCodes('&', path.getSubtitle()) + " §7> " + ChatColor.translateAlternateColorCodes('&', target.getTitle()) + "§r " + ChatColor.translateAlternateColorCodes('&', target.getSubtitle()));
+						}
 						paths.add(path.getName());
 						paths.add(path.getTargetName());
 					}
 				}
 			}else{
-				rp.sendMessage("§cUtilisez /portals [create/remove/list] [Nom] [NomCible/null] [title.../null + | + subtitle.../null]§l/§cremove [Nom]");
+				rp.sendMessage("§cUtilisez /portals [create/remove/list]");
 			}
 		}else{
-			rp.sendMessage("§cUtilisez /portals [create/remove/list] [Nom] [NomCible/null] [title.../null + | + subtitle.../null]§l/§cremove [Nom]");
+			rp.sendMessage("§cUtilisez /portals [create/remove/list]");
 		}
 	}
 

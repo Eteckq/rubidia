@@ -32,7 +32,7 @@ public class SecretPathColl {
 		return plugin;
 	}
 	
-	public SecretPath get(String name){
+	public static SecretPath get(String name){
 		for(SecretPath path : paths){
 			if(path.getName().equals(name)){
 				return path;

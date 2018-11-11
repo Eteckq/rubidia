@@ -31,7 +31,7 @@ public class SecretPath {
 	}
 	
 	public static SecretPath get(String name){
-		return SecretPathsManager.instance.coll.get(name);
+		return SecretPathColl.get(name);
 	}
 	
 	public String getName() {
