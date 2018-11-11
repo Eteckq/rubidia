@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaSecretPaths;
+package me.pmilon.RubidiaPaths;
 
 import java.util.HashSet;
 import java.util.Set;

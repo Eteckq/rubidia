@@ -1,4 +1,4 @@
-package me.pmilon.RubidiaSecretPaths;
+package me.pmilon.RubidiaPaths;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.handlers.TeleportHandler;

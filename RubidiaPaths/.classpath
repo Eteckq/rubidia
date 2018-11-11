@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/spigot.jar"/>
+	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/RubidiaCore-1.13.jar"/>
+	<classpathentry kind="lib" path="D:/rubilmax/Desktop/Rubidia/Serveur de test/plugins/WorldEdit.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
