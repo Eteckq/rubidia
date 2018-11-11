@@ -31,7 +31,7 @@ public class SecretPathsManager extends JavaPlugin implements Listener{
 		coll = new SecretPathColl(this);
 		we = (WorldEditPlugin) getServer().getPluginManager() .getPlugin("WorldEdit");
 		Bukkit.getPluginManager().registerEvents(this, this);
-	    this.getCommand("portal").setExecutor(new PortalsCommandExecutor());
+	    this.getCommand("portals").setExecutor(new PortalsCommandExecutor());
 	}
 	
 	public void onDisable(){
