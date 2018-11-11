@@ -54,7 +54,7 @@ public class FriendCallUI extends ListMenuUIHandler<Player> {
 	protected void onClick(InventoryClickEvent e, Player p, ItemStack is) {
 		Player player = this.get(e.getRawSlot());
 		if(player != null){
-			TeleportHandler.requestInvocation(player, this.getHolder(), this.getScroll());
+			TeleportHandler.requestInvocation(RPlayer.get(player), rp, this.getScroll());
 			cancel = false;
 			this.close(false);
 		}

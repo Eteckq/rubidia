@@ -1,11 +1,10 @@
-package me.pmilon.RubidiaCore.events;
+package me.pmilon.RubidiaCore.events.abstracts;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.events.abstracts.RPlayerEvent;
 
 import org.bukkit.event.Cancellable;
 
-public class RPlayerCancellableEvent extends RPlayerEvent implements Cancellable{
+public class RPlayerCancellableEvent extends RPlayerEvent implements Cancellable {
 
 	private boolean cancelled = false;
 	

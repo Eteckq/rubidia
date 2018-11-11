@@ -47,7 +47,7 @@ public class FriendTPUI extends ListMenuUIHandler<Player> {
 	protected void onClick(InventoryClickEvent e, Player p, ItemStack is) {
 		Player player = this.get(e.getRawSlot());
 		if(player != null){
-			TeleportHandler.requestTeleportation(this.getHolder(), player, this.getScroll());
+			TeleportHandler.requestTeleportation(rp, RPlayer.get(player), this.getScroll());
 			cancel = false;
 			this.close(false);
 		}

@@ -149,7 +149,7 @@ public class ChunkHandler implements Listener {
 	private void onMove(PlayerMoveEvent e){
 		Player player = e.getPlayer();
 		if(player != null){
-			if(!e.getFrom().getChunk().equals(e.getTo().getChunk())){
+			if(!e.getFrom().getWorld().equals(e.getTo().getWorld()) || !e.getFrom().getChunk().equals(e.getTo().getChunk())){
 				PlayerChunkEnterEvent event = new PlayerChunkEnterEvent(player, e.getFrom().getChunk(), e.getTo().getChunk());
 				Bukkit.getPluginManager().callEvent(event);
 				if(event.isCancelled())e.setCancelled(true);

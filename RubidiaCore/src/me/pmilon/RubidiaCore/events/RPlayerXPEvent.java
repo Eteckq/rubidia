@@ -1,6 +1,7 @@
 package me.pmilon.RubidiaCore.events;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.events.abstracts.RPlayerCancellableEvent;
 
 import org.bukkit.event.HandlerList;
 

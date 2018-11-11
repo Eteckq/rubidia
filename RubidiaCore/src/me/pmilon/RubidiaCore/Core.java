@@ -52,6 +52,7 @@ import me.pmilon.RubidiaCore.damages.DamageManager;
 import me.pmilon.RubidiaCore.damages.RDamageCause;
 import me.pmilon.RubidiaCore.duels.RDuelListener;
 import me.pmilon.RubidiaCore.events.RPlayerDeathEvent;
+import me.pmilon.RubidiaCore.events.RPlayerMoveEvent;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause.RTeleportType;
 import me.pmilon.RubidiaCore.handlers.EntityHandler;
@@ -95,6 +96,7 @@ import me.pmilon.RubidiaCore.ui.managers.UIManager;
 import me.pmilon.RubidiaCore.ui.weapons.WeaponsUI;
 import me.pmilon.RubidiaCore.utils.Configs;
 import me.pmilon.RubidiaCore.utils.JSONUtils;
+import me.pmilon.RubidiaCore.utils.LocationUtils;
 import me.pmilon.RubidiaCore.utils.Utils;
 import me.pmilon.RubidiaCore.utils.RandomUtils;
 import me.pmilon.RubidiaCore.utils.Settings;
@@ -261,7 +263,7 @@ public class Core extends JavaPlugin implements Listener {
 			p.getInventory().addItem(new ItemStack(Material.WOODEN_SWORD, 1));
 			p.getInventory().addItem(new ItemStack(Material.EMERALD, 20));
 			p.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 4));
-			Scrolls.newScroll(p, ScrollType.WILDTP, "");
+			//Scrolls.newScroll(p, ScrollType.WILDTP, ""); TODO reimplement this feature
 			for(RPlayer rpp : rcoll.data()){
 				if(!rpp.equals(rp)){
 					rpp.lastWelcome = rp;
@@ -535,6 +537,15 @@ public class Core extends JavaPlugin implements Listener {
 	public void onMove(PlayerMoveEvent e){
 		final Player p = e.getPlayer();
 		RPlayer rp = RPlayer.get(p);
+		
+		if(e.getFrom().distanceSquared(e.getTo()) > LocationUtils.MOVE_DISTANCE_MIN_SQUARED) {
+			RPlayerMoveEvent event = new RPlayerMoveEvent(rp, e);
+			Bukkit.getPluginManager().callEvent(event);
+			if(event.isCancelled()) {
+				e.setCancelled(true);
+			}
+		}
+		
 		if(rp.isLoading()) {
 			e.setCancelled(true);
 		}
@@ -797,13 +808,14 @@ public class Core extends JavaPlugin implements Listener {
 		}else if(cmd.getName().equalsIgnoreCase("tp")){
 			if(sender instanceof Player){
 				Player player = (Player) sender;
+				RPlayer rp = RPlayer.get(player);
 				if(args.length < 1){
-					if(TeleportHandler.invoke_tasks.containsKey(player)){
-						BukkitTask.tasks.get(TeleportHandler.invoke_tasks.get(player)).cancel();
+					if(TeleportHandler.invoke_tasks.containsKey(rp)){
+						BukkitTask.tasks.get(TeleportHandler.invoke_tasks.get(rp)).cancel();
 						return true;
 					}
-					if(TeleportHandler.tp_tasks.containsKey(player)){
-						BukkitTask.tasks.get(TeleportHandler.tp_tasks.get(player)).cancel();
+					if(TeleportHandler.tp_tasks.containsKey(rp)){
+						BukkitTask.tasks.get(TeleportHandler.tp_tasks.get(rp)).cancel();
 						return true;
 					}
 				}
@@ -894,7 +906,7 @@ public class Core extends JavaPlugin implements Listener {
 			if(cmd.getName().equalsIgnoreCase("skilltree")){
 				uiManager.requestUI(new SkillTree(p));
 			}else if(cmd.getName().equalsIgnoreCase("spawn")){
-				TeleportHandler.startTeleportation(p, Bukkit.getWorlds().get(0).getSpawnLocation(), new RTeleportCause(RTeleportType.DELAYED_TELEPORTATION, null, null,null));
+				TeleportHandler.startTeleportation(rp, Bukkit.getWorlds().get(0).getSpawnLocation(), new RTeleportCause(RTeleportType.DELAYED_TELEPORTATION, null, null,null));
 			}else if(cmd.getName().equalsIgnoreCase("nremove")){
 				p.setMetadata("removingEntity", new FixedMetadataValue(this, true));
 				rp.sendMessage("§cVous supprimerez la prochaine entité touchée.");
@@ -975,7 +987,7 @@ public class Core extends JavaPlugin implements Listener {
 			}else if(cmd.getName().equalsIgnoreCase("prefs")){
 				Core.uiManager.requestUI(new PrefsUI(p));
 			}else if(cmd.getName().equalsIgnoreCase("tutorial")){
-				TeleportHandler.startTeleportation(p, Bukkit.getWorld("Tutorial").getSpawnLocation(), new RTeleportCause(RTeleportType.DELAYED_TELEPORTATION, null, null,null));
+				TeleportHandler.startTeleportation(rp, Bukkit.getWorld("Tutorial").getSpawnLocation(), new RTeleportCause(RTeleportType.DELAYED_TELEPORTATION, null, null,null));
 			}else if(cmd.getName().equalsIgnoreCase("weapons")){
 				//if(p.isOp()){
 					Core.uiManager.requestUI(new WeaponsUI(p));

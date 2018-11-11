@@ -3,6 +3,7 @@ package me.pmilon.RubidiaCore.duels;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.duels.RDuel.RDuelOutcome;
 import me.pmilon.RubidiaCore.events.RPlayerDeathEvent;
+import me.pmilon.RubidiaCore.events.RPlayerMoveEvent;
 import me.pmilon.RubidiaGuilds.events.GMemberPvpGMemberCancelledEvent;
 import me.pmilon.RubidiaGuilds.guilds.GMember;
 
@@ -104,18 +105,16 @@ public class RDuelListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onMove(PlayerMoveEvent event){
+	public void onMove(RPlayerMoveEvent e){
+		PlayerMoveEvent event = e.getEvent();
 		Location to = event.getTo();
-		if(to.distanceSquared(event.getFrom()) > .004){
-			Player player = event.getPlayer();
-			RPlayer rp = RPlayer.get(player);
-			if(rp.isInDuel()){
-				if(rp.getCurrentDuel().isStarted()){
-					Vector link = rp.getCurrentDuel().getCenter().toVector().subtract(to.toVector());
-					if(Math.pow(link.getX(),2)+Math.pow(link.getZ(),2) > Math.pow(rp.getCurrentDuel().getRadius(),2) || Math.abs(link.getY()) > rp.getCurrentDuel().getHeight()){
-						player.setVelocity(link.setY(.6).normalize().multiply(.5));
-						rp.sendActionBar("§4§lHey! §cStay in the duel area, you coward!","§4§lHey ! §cReste dans la zone de duel, lâche !");
-					}
+		RPlayer rp = e.getRPlayer();
+		if(rp.isInDuel()){
+			if(rp.getCurrentDuel().isStarted()){
+				Vector link = rp.getCurrentDuel().getCenter().toVector().subtract(to.toVector());
+				if(Math.pow(link.getX(),2)+Math.pow(link.getZ(),2) > Math.pow(rp.getCurrentDuel().getRadius(),2) || Math.abs(link.getY()) > rp.getCurrentDuel().getHeight()){
+					rp.getPlayer().setVelocity(link.setY(.6).normalize().multiply(.5));
+					rp.sendActionBar("§4§lHey! §cStay in the duel area, you coward!","§4§lHey ! §cReste dans la zone de duel, lâche !");
 				}
 			}
 		}

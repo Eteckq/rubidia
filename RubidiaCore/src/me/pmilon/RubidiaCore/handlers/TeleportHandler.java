@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import me.pmilon.RubidiaCore.Core;
 import me.pmilon.RubidiaCore.RManager.RPlayer;
-import me.pmilon.RubidiaCore.events.RTeleportCancelEvent;
+import me.pmilon.RubidiaCore.events.RPlayerMoveEvent;
 import me.pmilon.RubidiaCore.events.RTeleportEvent;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause;
 import me.pmilon.RubidiaCore.events.RTeleportEvent.RTeleportCause.RTeleportType;
@@ -23,16 +23,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class TeleportHandler implements Listener{
 
-	public static HashMap<Player, Integer> invoke_tasks = new HashMap<Player, Integer>();
-	public static HashMap<Player, Integer> tp_tasks = new HashMap<Player, Integer>();
-	public static HashMap<Player, Integer> teleportationtask = new HashMap<Player, Integer>();
+	public static HashMap<RPlayer, Integer> invoke_tasks = new HashMap<RPlayer, Integer>();
+	public static HashMap<RPlayer, Integer> tp_tasks = new HashMap<RPlayer, Integer>();
+	public static HashMap<RPlayer, Integer> teleportationtask = new HashMap<RPlayer, Integer>();
 	
 	static Core plugin;
 	public TeleportHandler(Core core){
@@ -83,57 +82,49 @@ public class TeleportHandler implements Listener{
 			}
 		}
 	}
-		
-	@EventHandler
-	public void onRTeleportCancel(RTeleportCancelEvent event){
-		RTeleportCause cause = event.getCause();
-		Scroll scroll = cause.getScroll();
-		if(scroll != null){
-			Player player = event.getPlayer();
-			Player teleporter = cause.getTeleporter();
-			Player teleported = cause.getTeleported();
-			if(teleporter != null){
-				if(scroll.getType().equals(ScrollType.FRDCALL)){
-					scroll.cancel(teleporter);
-					RPlayer.get(teleporter).sendMessage("§4" + player.getName() + "§c a bougé durant l'établissement de l'invocation !");
-				}else if(scroll.getType().equals(ScrollType.FRDTP)){
-					scroll.cancel(teleported);
-					RPlayer.get(teleported).sendMessage("§4" + player.getName() + "§c a bougé durant l'établissement de la téléportation !");
-				}
-			}else scroll.cancel(event.getPlayer());
-		}
-	}
 	
 	@EventHandler
-	public void onMove(PlayerMoveEvent e){
-		Player p = e.getPlayer();
-		RPlayer rp = RPlayer.get(p);
-		if(teleportationtask.containsKey(p) && e.getFrom().distanceSquared(e.getTo()) > .04){
-			BukkitTask.tasks.get(teleportationtask.get(p)).cancel();
+	public void onMove(RPlayerMoveEvent e){
+		RPlayer rp = e.getRPlayer();
+		if(teleportationtask.containsKey(rp)){
+			BukkitTask.tasks.get(teleportationtask.get(rp)).cancel();
 			rp.sendMessage("§cVous avez bougé ! Téléportation annulée !");
 		}
 	}
 	
-	public static void startTeleportation(final Player player, final Location location, final RTeleportCause cause){
-		RPlayer rp = RPlayer.get(player);
-		rp.sendMessage("§eNe bougez pas, ou la téléportation sera annulée !");
-		teleportationtask.put(player, new BukkitTask(Core.instance){
+	public static void startTeleportation(final RPlayer rp, final Location location, final RTeleportCause cause){
+		rp.sendMessage("§eNe bougez pas, ou la téléportation sera annulée.");
+		teleportationtask.put(rp, new BukkitTask(Core.instance){
 
 			@Override
 			public void run() {
-				teleportationtask.remove(player);
-				RTeleportEvent event = new RTeleportEvent(player, player.getLocation(), location, cause);
-				Bukkit.getPluginManager().callEvent(event);
-				if(!event.isCancelled()){
-					TeleportHandler.teleport(event.getPlayer(), event.getTo());
-				}else this.cancel();
+				if(rp.isOnline()) {
+					teleportationtask.remove(rp);
+					RTeleportEvent event = new RTeleportEvent(rp, rp.getPlayer().getLocation(), location, cause);
+					Bukkit.getPluginManager().callEvent(event);
+					if(!event.isCancelled()){
+						TeleportHandler.teleport(rp.getPlayer(), event.getTo());
+					}else this.cancel();
+				}
 			}
 
 			@Override
 			public void onCancel() {
-				RTeleportCancelEvent ev = new RTeleportCancelEvent(player, location, cause);
-				Bukkit.getPluginManager().callEvent(ev);
-				teleportationtask.remove(player);
+				Scroll scroll = cause.getScroll();
+				if(scroll != null){
+					RPlayer teleporter = cause.getTeleporter();
+					RPlayer teleported = cause.getTeleported();
+					if(teleporter != null){
+						if(scroll.getType().equals(ScrollType.FRDCALL)){
+							scroll.cancel(teleporter.getPlayer());
+							teleporter.sendMessage("§4" + teleported.getName() + "§c a bougé avant la fin de l'invocation !");
+						}else if(scroll.getType().equals(ScrollType.FRDTP)){
+							scroll.cancel(teleported.getPlayer());
+							teleported.sendMessage("§4" + teleporter.getName() + "§c a bougé avant la fin de la téléportation !");
+						}
+					}else scroll.cancel(rp.getPlayer());
+				}
+				teleportationtask.remove(rp);
 			}
 			
 		}.runTaskLater(rp.isOp() ? 0 : 65).getTaskId());
@@ -175,39 +166,39 @@ public class TeleportHandler implements Listener{
 		}
 	}
 	
-	public static void requestInvocation(final Player invoked, final Player invocator, final Scroll scroll) {
+	public static void requestInvocation(final RPlayer invoked, final RPlayer invocator, final Scroll scroll) {
 		TeleportHandler.invoke_tasks.put(invoked, new BukkitTask(Core.instance){
 			@Override
 			public void run(){
-				RPlayer.get(invocator).sendMessage("§4" + invoked.getName() + " §cn'a pas répondu à votre invocation.");
+				invocator.sendMessage("§4" + invoked.getName() + " §cn'a pas répondu à votre invocation.");
 				TeleportHandler.invoke_tasks.remove(invoked);
 			}
 
 			@Override
 			public void onCancel() {
-				TeleportHandler.startTeleportation(invoked, invocator.getLocation(), new RTeleportCause(RTeleportType.FRIEND_INVOCATION,scroll,invocator,invoked));
+				TeleportHandler.startTeleportation(invoked, invocator.getPlayer().getLocation(), new RTeleportCause(RTeleportType.FRIEND_INVOCATION,scroll,invocator,invoked));
 				TeleportHandler.invoke_tasks.remove(invoked);
 			}
 		}.runTaskLater(15*20).getTaskId());
 		invocator.sendMessage("§eInvocation...");
-		RPlayer.get(invoked).sendMessage("§6" + invocator.getName() + " §evous a invoqué ! Tapez §6/tp §epour accepter : vous avez §615 §esecondes.");
+		invoked.sendMessage("§6" + invocator.getName() + " §evous a invoqué ! Tapez §6/tp §epour accepter : vous avez §615 §esecondes.");
 	}
 	
-	public static void requestTeleportation(final Player teleported, final Player teleporter, final Scroll scroll) {
+	public static void requestTeleportation(final RPlayer teleported, final RPlayer teleporter, final Scroll scroll) {
 		TeleportHandler.tp_tasks.put(teleporter, new BukkitTask(Core.instance){
 			@Override
 			public void run(){
-				RPlayer.get(teleported).sendMessage("§4" + teleporter.getName() + " §cn'a pas répondu à votre demande de téléportation.");
+				teleported.sendMessage("§4" + teleporter.getName() + " §cn'a pas répondu à votre demande de téléportation.");
 				TeleportHandler.tp_tasks.remove(teleporter);
 			}
 
 			@Override
 			public void onCancel() {
-				TeleportHandler.startTeleportation(teleported, teleporter.getLocation(), new RTeleportCause(RTeleportType.FRIEND_TELEPORTATION, scroll,teleporter,teleported));
+				TeleportHandler.startTeleportation(teleported, teleporter.getPlayer().getLocation(), new RTeleportCause(RTeleportType.FRIEND_TELEPORTATION, scroll,teleporter,teleported));
 				TeleportHandler.tp_tasks.remove(teleporter);
 			}
 		}.runTaskLater(15*20).getTaskId());
 		teleported.sendMessage("§eTéléportation...");
-		RPlayer.get(teleporter).sendMessage("§6" + teleported.getName() + " §ea invoqué les puissances divines pour se téléporter vers vous ! Tapez §6/tp §epour accepter : vous avez §615 §esecondes.");
+		teleporter.sendMessage("§6" + teleported.getName() + " §ea invoqué les puissances divines pour se téléporter vers vous ! Tapez §6/tp §epour accepter : vous avez §615 §esecondes.");
 	}
 }

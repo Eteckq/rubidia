@@ -5,6 +5,7 @@ import java.util.List;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
 import me.pmilon.RubidiaCore.events.RPlayerDeathEvent;
+import me.pmilon.RubidiaCore.events.RPlayerMoveEvent;
 import me.pmilon.RubidiaCore.events.RubidiaEntityDamageEvent;
 import me.pmilon.RubidiaCore.tasks.BukkitTask;
 import me.pmilon.RubidiaMonsters.events.MonsterKillEvent;
@@ -45,7 +46,6 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
@@ -94,17 +94,12 @@ public class QuestListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onMove(PlayerMoveEvent e){
-		Player p = e.getPlayer();
-		if(p != null){
-			if(e.getFrom().distanceSquared(e.getTo()) > .04){
-				RPlayer rp = RPlayer.get(p);
-				List<Quest> quests = rp.getQuestsOfType(ObjectiveType.DISCOVER, ObjectiveType.FOLLOW);
-				if(!quests.isEmpty()){
-					for(Quest quest : quests){
-						quest.check(rp, e.getTo());
-					}
-				}
+	public void onMove(RPlayerMoveEvent e){
+		RPlayer rp = e.getRPlayer();
+		List<Quest> quests = rp.getQuestsOfType(ObjectiveType.DISCOVER, ObjectiveType.FOLLOW);
+		if(!quests.isEmpty()){
+			for(Quest quest : quests){
+				quest.check(rp, e.getEvent().getTo());
 			}
 		}
 	}

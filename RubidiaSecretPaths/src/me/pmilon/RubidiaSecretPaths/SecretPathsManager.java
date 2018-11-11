@@ -1,8 +1,10 @@
 package me.pmilon.RubidiaSecretPaths;
 
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import me.pmilon.RubidiaCore.RManager.RPlayer;
+import me.pmilon.RubidiaCore.events.RPlayerMoveEvent;
 import me.pmilon.RubidiaCore.utils.Configs;
 
 import org.bukkit.Bukkit;
@@ -12,7 +14,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.sk89q.worldedit.IncompleteRegionException;
@@ -26,7 +27,7 @@ public class SecretPathsManager extends JavaPlugin implements Listener{
 	static SecretPathsManager instance;
 	public SecretPathColl coll;
 	
-	public static HashMap<Player, Boolean> beenteleported = new HashMap<Player, Boolean>();
+	public static final Set<RPlayer> teleported = new HashSet<RPlayer>();
 	
 	public class ZoneVector {
 	}
@@ -43,24 +44,24 @@ public class SecretPathsManager extends JavaPlugin implements Listener{
 	}
 	
 	@EventHandler
-	public void onMove(PlayerMoveEvent event){
-		Player player = event.getPlayer();
-		Location location = event.getTo();
-
+	public void onMove(RPlayerMoveEvent event){
+		RPlayer rp = event.getRPlayer();
+		Location location = event.getEvent().getTo();
+		
 		boolean insidePath = false;
-		boolean beenTeleported = beenteleported.containsKey(player) ? beenteleported.get(player) : false;
+		boolean beenTeleported = teleported.contains(rp);
 		for(SecretPath path : SecretPathColl.paths){
 			if(path.check(location)){
 				if(beenTeleported){
 					insidePath = true;
 					break;
-				}else{
-					path.use(player);
+				} else {
+					path.use(rp);
 					return;
 				}
 			}
 		}
-		if(!insidePath)beenteleported.put(player, false);
+		if(!insidePath)teleported.remove(rp);
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){

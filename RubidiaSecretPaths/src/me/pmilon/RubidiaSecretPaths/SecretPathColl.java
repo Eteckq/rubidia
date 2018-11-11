@@ -16,12 +16,13 @@ public class SecretPathColl {
 		this.plugin = plugin;
 		if(Configs.getPathConfig().contains("portals")){
 			for(String name : Configs.getPathConfig().getConfigurationSection("portals").getKeys(false)){
-				String title = Configs.getPathConfig().getString("portals." + name + ".title");
-				String subtitle = Configs.getPathConfig().getString("portals." + name + ".subtitle");
-				Location bottom = (Location) Configs.getPathConfig().get("portals." + name + ".bottom");
-				Location top = (Location) Configs.getPathConfig().get("portals." + name + ".top");
-				Location center = (Location) Configs.getPathConfig().get("portals." + name + ".center");
-				String targetName = Configs.getPathConfig().getString("portals." + name + ".targetName");
+				String path = "portals." + name;
+				String title = Configs.getPathConfig().getString(path + ".title");
+				String subtitle = Configs.getPathConfig().getString(path + ".subtitle");
+				Location bottom = (Location) Configs.getPathConfig().get(path + ".bottom");
+				Location top = (Location) Configs.getPathConfig().get(path + ".top");
+				Location center = (Location) Configs.getPathConfig().get(path + ".center");
+				String targetName = Configs.getPathConfig().getString(path + ".targetName");
 				paths.add(new SecretPath(name, title, subtitle, targetName, center, bottom, top));
 			}
 		}

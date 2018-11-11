@@ -73,7 +73,7 @@ public class MainListener implements Listener {
 		GMember member = GMember.get(player);
 		Location lastLocation = e.getFrom();
 		Location newLocation = e.getTo();
-		if(!lastLocation.getWorld().equals(newLocation.getWorld()) || lastLocation.getChunk().getX() != newLocation.getChunk().getX() || lastLocation.getChunk().getZ() != newLocation.getChunk().getZ()){
+		if(!lastLocation.getWorld().equals(newLocation.getWorld()) || !lastLocation.getChunk().equals(newLocation.getChunk())){
 			Claim lastClaim = Claim.get(lastLocation);
 			Claim newClaim = Claim.get(newLocation);
 			if(member.hasGuild()){

@@ -33,18 +33,18 @@ public enum ScrollType {
 			Player p = this.getPlayer();
 			RPlayer rp = RPlayer.get(p);
 			if(Configs.getCitiesConfig().contains("cities." + this.getScroll().getArg())){
-				TeleportHandler.startTeleportation(p, (Location) Configs.getCitiesConfig().get("cities." + this.getScroll().getArg() + ".location"), new RTeleportCause(RTeleportType.CITY_TELEPORTATION,this.getScroll(),null,null));
+				TeleportHandler.startTeleportation(rp, (Location) Configs.getCitiesConfig().get("cities." + this.getScroll().getArg() + ".location"), new RTeleportCause(RTeleportType.CITY_TELEPORTATION,this.getScroll(),null,null));
 			}
 			else rp.sendMessage("§cContactez un opérateur : cette ville n'existe pas.");
 		}
 		
-	}),
+	}),/* TODO reimplement this feature
 	WILDTP("Wild teleportation scroll","Parchemin de téléportation aléatoire", Arrays.asList("This scroll will teleport you to a random place."), Arrays.asList("Ce parchemin vous téléportera aléatoirement."), ScrollUsage.RIGHT_CLICK, new ScrollTask(){
 
 		@Override
 		public void run() {
 			final Player p = this.getPlayer();
-			RPlayer rp = RPlayer.get(p);
+			final RPlayer rp = RPlayer.get(p);
 			if(!p.getWorld().getName().contains("_nether")){
 				if(!p.getWorld().getName().contains("_end")){
 					rp.sendMessage("§6Patientez pendant le chargement du terrain...");
@@ -73,7 +73,7 @@ public enum ScrollType {
 							c.load(true);
 							p.getWorld().loadChunk(c);
 							
-							TeleportHandler.startTeleportation(p, finalLoc, new RTeleportCause(RTeleportType.WILD_TELEPORTATION,getScroll(),null,null));
+							TeleportHandler.startTeleportation(rp, finalLoc, new RTeleportCause(RTeleportType.WILD_TELEPORTATION,getScroll(),null,null));
 						}
 						
 					}.runTaskTimer(0,0);
@@ -81,7 +81,7 @@ public enum ScrollType {
 			}else rp.sendMessage("§cVous ne pouvez pas utiliser ce parchemin dans le Néant !");
 		}
 		
-	}),
+	}),*/
 	ABRESET("Partial redistribution scroll (Abilities)","Parchemin de redistribution partielle (Compétences)", Arrays.asList("This scroll will instantly reset all of your","abilities, allowing you to redistribute","skillpoints you assigned."), Arrays.asList("Ce parchemin réinitialisera instantanément toutes vos","compétences, vous permettant de redistribuer les","points de compétence que vous aviez attribué."), ScrollUsage.RIGHT_CLICK, new ScrollTask(){
 
 		@Override

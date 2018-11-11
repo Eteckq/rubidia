@@ -13,6 +13,8 @@ import org.bukkit.util.Vector;
 
 public class LocationUtils {
 
+	public static final double MOVE_DISTANCE_MIN_SQUARED = .001;
+	
 	@SuppressWarnings("deprecation")
 	public static Location getSafeLocation(Location location){
 		Block block = location.getBlock();
@@ -119,4 +121,11 @@ public class LocationUtils {
     public static Location getCenter(Location l){
     	return l.getBlock().getLocation().add(.5,0,.5);
     }
+
+	public static boolean isInBox(Location location, Location bottom, Location top){
+		int x = location.getBlockX();
+		int y = location.getBlockY();
+		int z = location.getBlockZ();
+		return ((x >= bottom.getBlockX()) && (x <= top.getBlockX()) && (y >= bottom.getBlockY()) && (y <= top.getBlockY()) && (z >= bottom.getBlockZ()) && (z <= top.getBlockZ()));
+	}
 }
