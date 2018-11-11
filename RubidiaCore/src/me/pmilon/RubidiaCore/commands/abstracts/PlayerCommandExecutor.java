@@ -9,7 +9,7 @@ public abstract class PlayerCommandExecutor extends HybridCommandExecutor {
 
 	@Override
 	public void onPlayerCommand(Player player, RPlayer rp, String[] args) {
-		if(rp.isLoading()) {
+		if(!rp.isLoading()) {
 			this.onCommand(player, rp, args);
 		} else rp.sendMessage("§cVous avez un personnage en chargement.");
 	}
