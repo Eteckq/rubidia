@@ -41,7 +41,7 @@ public class GHomeCommandExecutor extends PlayerCommandExecutor {
 				}
 				if(home != null){
 					if(member.canHome(home.getIndex())){
-						TeleportHandler.startTeleportation(player, home.getLocation(), new RTeleportCause(RTeleportType.GUILD_HOME,null,null,null));
+						TeleportHandler.startTeleportation(rp, home.getLocation(), new RTeleportCause(RTeleportType.GUILD_HOME,null,null,null));
 					}else rp.sendMessage("§cVous n'avez pas la permission d'utiliser le point de rassemblement de votre guilde !");
 				}else{
 					if(id)rp.sendMessage("§cImpossible de trouver un PR avec cet index.");

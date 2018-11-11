@@ -30,7 +30,7 @@ public class RaidCommandExecutor extends PlayerCommandExecutor {
 				Raid raid = guild.getCurrentRaid();
 				Vector vector = new Vector(RandomUtils.random.nextDouble(), 0, RandomUtils.random.nextDouble()).normalize().multiply(RandomUtils.random.nextDouble()*5);
 				Location center = LocationUtils.getSafeLocation(raid.getCenter().toVector().add(vector).toLocation(raid.getCenter().getWorld()));
-				TeleportHandler.startTeleportation(player, center, new RTeleportCause(RTeleportType.RAID_CENTER,null,null,null));
+				TeleportHandler.startTeleportation(rp, center, new RTeleportCause(RTeleportType.RAID_CENTER,null,null,null));
 			}else{
 				if(member.getPermission(Permission.CLAIM)){
 					if(args.length > 0){

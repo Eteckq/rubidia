@@ -59,7 +59,7 @@ public class GHomeListUI extends UIHandler {
 				if(gm.canHome(slot)){
 					GHome home = this.getGuild().getHomes()[slot];
 					if(home != null){
-						TeleportHandler.startTeleportation(this.getHolder(), home.getLocation(), new RTeleportCause(RTeleportType.GUILD_HOME, null, null, null));
+						TeleportHandler.startTeleportation(rp, home.getLocation(), new RTeleportCause(RTeleportType.GUILD_HOME, null, null, null));
 						this.close(false);
 						return;
 					}
