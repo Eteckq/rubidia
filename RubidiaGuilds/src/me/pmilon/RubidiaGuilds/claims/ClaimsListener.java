@@ -73,13 +73,13 @@ public class ClaimsListener implements Listener {
 									if(member.getGuild().equals(guild)){
 										if(!member.getPermission(Permission.BUILD)){//Permissions ONLY applied in guild territory.
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
 										}
 										return;
 									}else if(member.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
 										if(!guild.getDefaultRank().getPermission(Permission.BUILD)){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's allies territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
 										}
 										return;
 									}
@@ -87,7 +87,7 @@ public class ClaimsListener implements Listener {
 
 								if(!guild.isClaimBuildable()){
 									e.setCancelled(true);
-									rp.sendActionBar("§4§lHey! §cYou cannot build on §e" + guild.getName() + "§c's territory§c!", "§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
+									rp.sendActionBar("§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
 								}
 							}
 						}
@@ -115,13 +115,13 @@ public class ClaimsListener implements Listener {
 									if(member.getGuild().equals(guild)){
 										if(!member.getPermission(Permission.BUILD)){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
 										}
 										return;
 									}else if(member.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
 										if(!guild.getDefaultRank().getPermission(Permission.BUILD)){//Permissions ONLY applied in guild territory.
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's allies territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
 										}
 										return;
 									}
@@ -129,7 +129,7 @@ public class ClaimsListener implements Listener {
 								
 								if(!guild.isClaimBuildable()){
 									e.setCancelled(true);
-									rp.sendActionBar("§4§lHey! §cYou cannot build on §e" + guild.getName() + "§c's territory§c!", "§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
+									rp.sendActionBar("§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
 								}
 							}
 						}
@@ -190,19 +190,19 @@ public class ClaimsListener implements Listener {
 									if(member.getGuild().equals(guild)){
 										if((type.contains("DOOR") || type.contains("GATE") || type.contains("PLATE") || type.contains("BUTTON")) && !member.getPermission(Permission.USE_DOORS)){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to interact inside your guild's territory!", "§4§lHey ! §cVous n'avez pas la permission d'intéragir dans le territoire de votre guilde !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission d'intéragir dans le territoire de votre guilde !");
 										}else if(Settings.INTERACT_BLOCKS.contains(block.getType()) && !member.getPermission(Permission.USE_CHESTS)){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to use your guild's material!", "§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de votre guilde !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de votre guilde !");
 										}
 										return;
 									}else if(member.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
 										if((type.contains("DOOR") || type.contains("GATE") || type.contains("PLATE") || type.contains("BUTTON")) && !guild.getDefaultRank().getPermission(Permission.USE_DOORS)){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to interact inside your guild's allies territory!", "§4§lHey ! §cVous n'avez pas la permission d'intéragir dans le territoire de vos alliés !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission d'intéragir dans le territoire de vos alliés !");
 										}else if(Settings.INTERACT_BLOCKS.contains(block.getType()) && !guild.getDefaultRank().getPermission(Permission.USE_CHESTS)){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to use your guild's allies material!", "§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de vos alliés !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de vos alliés !");
 										}
 										return;
 									}
@@ -210,10 +210,10 @@ public class ClaimsListener implements Listener {
 								
 								if((type.contains("DOOR") || type.contains("GATE") || type.contains("PLATE") || type.contains("BUTTON")) && !guild.isClaimDoorsUsable()){
 									e.setCancelled(true);
-									rp.sendActionBar("§4§lHey! §cYou cannot interact inside §e" + guild.getName() + "§c's territory!", "§4§lHey ! §cVous ne pouvez intéragir dans le territoire de la guilde §e" + guild.getName() + " §c!");
+									rp.sendActionBar("§4§lHey ! §cVous ne pouvez intéragir dans le territoire de la guilde §e" + guild.getName() + " §c!");
 								}else if(Settings.INTERACT_BLOCKS.contains(block.getType()) && !guild.isClaimChestsUsable()){
 									e.setCancelled(true);
-									rp.sendActionBar("§4§lHey! §cYou cannot use §e" + guild.getName() + "§c's material!", "§4§lHey ! §cVous ne pouvez utiliser le matériel de la guilde §e" + guild.getName() + " §c!");
+									rp.sendActionBar("§4§lHey ! §cVous ne pouvez utiliser le matériel de la guilde §e" + guild.getName() + " §c!");
 								}
 							}
 						}
@@ -242,15 +242,15 @@ public class ClaimsListener implements Listener {
 									if(member.getGuild().equals(guild)){
 										if((type.contains("DOOR") || type.contains("GATE") || type.contains("PLATE") || type.contains("BUTTON")) && !member.getPermission(Permission.USE_DOORS)){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to interact inside your guild's territory!", "§4§lHey ! §cVous n'avez pas la permission d'intéragir dans le territoire de votre guilde !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission d'intéragir dans le territoire de votre guilde !");
 										}else if(restricted.contains(block.getType()) && !member.getPermission(Permission.USE_CHESTS)){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to use your guild's material!", "§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de votre guilde !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de votre guilde !");
 										}else if(player.getInventory().getItemInMainHand().getType().equals(Material.PAINTING) || player.getInventory().getItemInMainHand().getType().equals(Material.ITEM_FRAME)){
 											if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 												if(!member.getPermission(Permission.BUILD)){
 													e.setCancelled(true);
-													rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
+													rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
 												}
 											}
 										}
@@ -258,15 +258,15 @@ public class ClaimsListener implements Listener {
 									}else if(member.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
 										if((type.contains("_DOOR") || type.contains("_GATE") || type.contains("_PLATE") || type.contains("_BUTTON") || type.contains("LEVER")) && !guild.getDefaultRank().getPermission(Permission.USE_DOORS)){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to interact inside your guild's allies territory!", "§4§lHey ! §cVous n'avez pas la permission d'intéragir dans le territoire de vos alliés !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission d'intéragir dans le territoire de vos alliés !");
 										}else if(restricted.contains(block.getType()) && !guild.getDefaultRank().getPermission(Permission.USE_CHESTS)){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to use your guild's allies material!", "§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de vos alliés !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de vos alliés !");
 										}else if(player.getInventory().getItemInMainHand().getType().equals(Material.PAINTING) || player.getInventory().getItemInMainHand().getType().equals(Material.ITEM_FRAME)){
 											if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 												if(!guild.getDefaultRank().getPermission(Permission.BUILD)){//Permissions ONLY applied in guild territory.
 													e.setCancelled(true);
-													rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's allies territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
+													rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
 												}
 											}
 										}
@@ -276,15 +276,15 @@ public class ClaimsListener implements Listener {
 								
 								if((type.contains("DOOR") || type.contains("GATE") || type.contains("PLATE") || type.contains("BUTTON")) && !guild.isClaimDoorsUsable()){
 									e.setCancelled(true);
-									rp.sendActionBar("§4§lHey! §cYou cannot interact inside §e" + guild.getName() + "§c's territory!", "§4§lHey ! §cVous ne pouvez intéragir dans le territoire de la guilde §e" + guild.getName() + " §c!");
+									rp.sendActionBar("§4§lHey ! §cVous ne pouvez intéragir dans le territoire de la guilde §e" + guild.getName() + " §c!");
 								}else if(restricted.contains(block.getType()) && !guild.isClaimChestsUsable()){
 									e.setCancelled(true);
-									rp.sendActionBar("§4§lHey! §cYou cannot use §e" + guild.getName() + "§c's material!", "§4§lHey ! §cVous ne pouvez utiliser le matériel de la guilde §e" + guild.getName() + " §c!");
+									rp.sendActionBar("§4§lHey ! §cVous ne pouvez utiliser le matériel de la guilde §e" + guild.getName() + " §c!");
 								}else if(player.getInventory().getItemInMainHand().getType().equals(Material.PAINTING) || player.getInventory().getItemInMainHand().getType().equals(Material.ITEM_FRAME)){
 									if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
 										if(!guild.isClaimBuildable()){
 											e.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou cannot build on §e" + guild.getName() + "§c's territory§c!", "§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
+											rp.sendActionBar("§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
 										}
 									}
 								}
@@ -315,13 +315,13 @@ public class ClaimsListener implements Listener {
 										if(member.getGuild().equals(guild)){
 											if(!member.getPermission(Permission.USE_CHESTS)){
 												e.setCancelled(true);
-												rp.sendActionBar("§4§lHey! §cYou don't have permission to use your guild's material!", "§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de votre guilde !");
+												rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de votre guilde !");
 											}
 											return;
 										}else if(member.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
 											if(!guild.getDefaultRank().getPermission(Permission.USE_CHESTS)){
 												e.setCancelled(true);
-												rp.sendActionBar("§4§lHey! §cYou don't have permission to use your guild's allies material!", "§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de vos alliés !");
+												rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission d'utiliser le matériel de vos alliés !");
 											}
 											return;
 										}
@@ -329,7 +329,7 @@ public class ClaimsListener implements Listener {
 									
 									if(!guild.isClaimChestsUsable()){
 										e.setCancelled(true);
-										rp.sendActionBar("§4§lHey! §cYou cannot use §e" + guild.getName() + "§c's material!", "§4§lHey ! §cVous ne pouvez utiliser le matériel de la guilde §e" + guild.getName() + " §c!");
+										rp.sendActionBar("§4§lHey ! §cVous ne pouvez utiliser le matériel de la guilde §e" + guild.getName() + " §c!");
 									}
 								}
 							}
@@ -363,13 +363,13 @@ public class ClaimsListener implements Listener {
 												if(member.getGuild().equals(guild)){
 													if(!member.getPermission(Permission.DAMAGE_MOBS)){
 														event.setCancelled(true);
-														rp.sendActionBar("§4§lHey! §cYou cannot damage tamed creatures inside §e" + guild.getName() + "§c's territory!", "§4§lHey ! §cVous ne pouvez infliger de dommages à une créature apprivoisée à l'intérieur du territoire de la guilde §e" + guild.getName() + "§c !");
+														rp.sendActionBar("§4§lHey ! §cVous ne pouvez infliger de dommages à une créature apprivoisée à l'intérieur du territoire de la guilde §e" + guild.getName() + "§c !");
 													}
 													return;
 												}else if(member.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
 													if(!guild.getDefaultRank().getPermission(Permission.DAMAGE_MOBS)){
 														event.setCancelled(true);
-														rp.sendActionBar("§4§lHey! §cYou cannot damage tamed creatures inside §e" + guild.getName() + "§c's territory!", "§4§lHey ! §cVous ne pouvez infliger de dommages à une créature apprivoisée à l'intérieur du territoire de la guilde §e" + guild.getName() + "§c !");
+														rp.sendActionBar("§4§lHey ! §cVous ne pouvez infliger de dommages à une créature apprivoisée à l'intérieur du territoire de la guilde §e" + guild.getName() + "§c !");
 													}
 													return;
 												}
@@ -377,7 +377,7 @@ public class ClaimsListener implements Listener {
 											
 											if(!guild.isClaimMobsDamageable()){
 												event.setCancelled(true);
-												rp.sendActionBar("§4§lHey! §cYou cannot damage tamed creatures inside §e" + guild.getName() + "§c's territory!", "§4§lHey ! §cVous ne pouvez infliger de dommages à une créature apprivoisée à l'intérieur du territoire de la guilde §e" + guild.getName() + "§c !");
+												rp.sendActionBar("§4§lHey ! §cVous ne pouvez infliger de dommages à une créature apprivoisée à l'intérieur du territoire de la guilde §e" + guild.getName() + "§c !");
 											}
 										}
 									}
@@ -409,14 +409,14 @@ public class ClaimsListener implements Listener {
 										if(!member.getPermission(Permission.BUILD)){
 											event.setCancelled(true);
 											Utils.updateInventory(player);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
 										}
 										return;
 									}else if(member.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
 										if(!guild.getDefaultRank().getPermission(Permission.BUILD)){//Permissions ONLY applied in guild territory.
 											event.setCancelled(true);
 											Utils.updateInventory(player);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's allies territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
 										}
 										return;
 									}
@@ -425,7 +425,7 @@ public class ClaimsListener implements Listener {
 								if(!guild.isClaimBuildable()){
 									event.setCancelled(true);
 									Utils.updateInventory(player);
-									rp.sendActionBar("§4§lHey! §cYou cannot build on §e" + guild.getName() + "§c's territory§c!", "§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
+									rp.sendActionBar("§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
 								}
 							}
 						}
@@ -452,14 +452,14 @@ public class ClaimsListener implements Listener {
 									if(member.getGuild().equals(guild)){
 										if(!member.getPermission(Permission.BUILD)){
 											event.setCancelled(true);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
 										}
 										return;
 									}else if(member.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
 										if(!guild.getDefaultRank().getPermission(Permission.BUILD)){//Permissions ONLY applied in guild territory.
 											event.setCancelled(true);
 											Utils.updateInventory(player);
-											rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's allies territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
+											rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
 										}
 										return;
 									}
@@ -468,7 +468,7 @@ public class ClaimsListener implements Listener {
 								if(!guild.isClaimBuildable()){
 									event.setCancelled(true);
 									Utils.updateInventory(player);
-									rp.sendActionBar("§4§lHey! §cYou cannot build on §e" + guild.getName() + "§c's territory§c!", "§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
+									rp.sendActionBar("§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
 								}
 							}
 						}
@@ -506,13 +506,13 @@ public class ClaimsListener implements Listener {
 									if(member.getGuild().equals(guild)){
 										if(member.getPermission(Permission.BUILD)){
 											return;
-										}else rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
+										}else rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de votre guilde !");
 									}else if(member.getGuild().getRelationTo(guild).equals(Relation.ALLY)){
 										if(!guild.getDefaultRank().getPermission(Permission.BUILD)){
 											return;
-										}else rp.sendActionBar("§4§lHey! §cYou don't have permission to build inside your guild's allies territory§c!", "§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
-									}else rp.sendActionBar("§4§lHey! §cYou cannot build on §e" + guild.getName() + "§c's territory§c!", "§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
-								}else rp.sendActionBar("§4§lHey! §cYou cannot build on §e" + guild.getName() + "§c's territory§c!", "§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
+										}else rp.sendActionBar("§4§lHey ! §cVous n'avez pas la permission de construire à l'intérieur du territoire de vos alliés !");
+									}else rp.sendActionBar("§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
+								}else rp.sendActionBar("§4§lHey ! §cVous ne pouvez construire sur le territoire de §e" + guild.getName() + " §c!");
 							}else return;
 						}else return;
 					}
